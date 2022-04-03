@@ -1,0 +1,22 @@
+<mat-card class="mat-elevation-z8">
+  <mat-card-title class="mt-5 pt-5 text-center">Login</mat-card-title>
+  <mat-card-subtitle class="mt-5 mb-3 text-center">Please enter your username and password to access the portal</mat-card-subtitle>
+  <mat-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginForm()">
+      <mat-form-field class="d-block">
+        <mat-label>userName</mat-label>
+        <input matInput placeholder="userNmae" formControlName="userid">
+      </mat-form-field>
+      <mat-form-field class="d-block">
+        <mat-label>password</mat-label>
+        <input matInput placeholder="password" formControlName="pwd">
+      </mat-form-field>
+      <div class="d-flex flex-column">
+        <button class="d-block my-3 mt-2" mat-raised-button color="accent">Login</button>
+        <button mat-raised-button color="accent">signup</button>
+      </div>
+
+    </form>
+
+  </mat-card-content>
+</mat-card>

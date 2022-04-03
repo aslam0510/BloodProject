@@ -1,0 +1,18 @@
+<div class="py-4 d-flex">
+  <img src="/assets/JioLogo.svg" alt="JioLogo" width="50px" height="50px" class="pl-5" />
+  <h2 class="mt-2 pl-4">Boond</h2>
+</div>
+<div class="row height d-flex justify-content-space-between ">
+  <div class="col-lg-8 col-sm-12">
+    <div class="d-flex justify-content-around align-items-center blood row">
+      <img src="/assets/bloodpic.JPG" alt="bloodpic" width="400px" height="400px" class="bloodpic col-lg-4">
+      <p class="display-4 text-center pl-5 col-lg-4">Be Grateful & <Strong>Donate</Strong> Blood</p>
+    </div>
+    <div class="row">
+      <app-login-cards [card]="card" class="col-xl-4 col-lg-6 col-md-6 col-sm-12" *ngFor="let card of loginCards"></app-login-cards>
+    </div>
+  </div>
+  <div class="col-lg-4 col-sm-12 pt-5">
+    <app-login></app-login>
+  </div>
+</div>
