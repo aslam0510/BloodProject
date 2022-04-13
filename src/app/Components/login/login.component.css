@@ -12,10 +12,19 @@ button {
 }
 
 mat-form-field {
+  margin-top: 1rem;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
 
 mat-card-subtitle {
   padding: 0 1.5rem;
+}
+
+.buttons {
+  margin-top: 3rem;
+}
+
+.forgotPass {
+  cursor: pointer;
 }

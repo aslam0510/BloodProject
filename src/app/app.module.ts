@@ -1,3 +1,4 @@
+import { FooterComponent } from './Components/footer/footer.component';
 import { AppInterceptorService } from './services/app-interceptor.service';
 import { AuthGuard } from './shared/auth.guard';
 import { AuthService } from './services/auth.service';
@@ -16,6 +17,7 @@ import { MaterialComponentsModule } from './MaterialComponents';
 import { LoginComponent } from './Components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ForgotDialogComponent } from './Dialogs/forgot-dialog/forgot-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     HomeComponent,
     DashboardComponent,
     SignupComponent,
+    FooterComponent,
+    ForgotDialogComponent,
   ],
   imports: [
     BrowserModule,

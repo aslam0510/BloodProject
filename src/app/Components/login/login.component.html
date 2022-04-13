@@ -11,11 +11,13 @@
         <mat-label>password</mat-label>
         <input matInput placeholder="password" formControlName="pwd">
       </mat-form-field>
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column buttons">
         <button class="d-block my-3 mt-2" mat-raised-button color="accent">Login</button>
-        <button mat-raised-button color="accent">signup</button>
+        <button mat-raised-button color="accent" (click)="onSignup()">signup</button>
       </div>
-
+      <h5 (click)="onForgotPass()" class="forgotPass text-center mt-5 text-primary">
+        Forgot password
+      </h5>
     </form>
 
   </mat-card-content>

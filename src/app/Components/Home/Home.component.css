@@ -1,0 +1,17 @@
+img {
+  margin-left: 3rem;
+  margin-right: 5rem;
+}
+
+.height {
+  min-height: 80%;
+}
+
+.bloodpic {
+  background-color: #f4f0ec !important;
+}
+
+.blood {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}

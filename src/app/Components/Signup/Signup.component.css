@@ -1,0 +1,76 @@
+img {
+  margin-left: 3rem;
+  margin-right: 5rem;
+}
+
+.expansion {
+  margin: 0.7rem 13rem;
+}
+
+.orgForm {
+  /* padding: 1rem 1rem; */
+}
+
+mat-form-field {
+  margin-top: 0.5rem;
+  width: 500px;
+}
+
+.width {
+  width: 300px !important;
+}
+
+h2 {
+  cursor: pointer;
+}
+
+.signup {
+  border-radius: 20px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+}
+
+.upload {
+  border: 1px dotted grey;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  margin: 0 3rem;
+}
+
+.icon {
+  height: 31px;
+  width: 42px;
+  cursor: pointer;
+}
+
+.files {
+  border: 1px dotted grey;
+  padding: 10px;
+  border-radius: 10px;
+  /* width: 450px; */
+}
+
+.addEntity {
+  cursor: pointer;
+}
+
+.accordion {
+  height: 93.3%;
+  scroll-behavior: smooth;
+  overflow: auto;
+}
+
+.mat-checkbox-layout {
+  margin-left: 20rem;
+}
+
+@media only screen and (max-width: 800px) {
+  .expansion {
+    margin: 1rem 0.5rem;
+  }
+}

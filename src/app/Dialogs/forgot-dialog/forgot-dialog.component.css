@@ -1,0 +1,14 @@
+.dialog {
+  padding: 1rem;
+}
+
+mat-form-field {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0 2rem;
+}
+
+button {
+  border-radius: 25px;
+  margin: 0 5rem;
+}

@@ -1,7 +1,9 @@
+import { ForgotDialogComponent } from './../../Dialogs/forgot-dialog/forgot-dialog.component';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,11 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginDetails: any;
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private dialog: MatDialog,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -30,5 +36,21 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+
+  onForgotPass() {
+    this.dialog.open(ForgotDialogComponent, {
+      width: '450px',
+      height: 'auto',
+      data: {
+        content:
+          'Dont worry we are here help you to reset your password. Enter your registered email address to get link to reset password.',
+        title: 'Forgot Password',
+      },
+    });
+  }
+
+  onSignup() {
+    this.router.navigate(['signup']);
   }
 }

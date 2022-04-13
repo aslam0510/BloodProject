@@ -1,0 +1,14 @@
+<div class="dialog d-flex flex-column">
+  <h1 class="md-dialog-title  text-center">{{data.title}}</h1>
+  <!-- <button mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button> -->
+  <div class=" md-dialog-content text-center">{{data.content}}</div>
+  <form [formGroup]=" forgotPassForm">
+    <mat-form-field class="d-block">
+      <mat-label>Email Address</mat-label>
+      <input matInput placeholder="Email Address" formControlName="emailAddress">
+    </mat-form-field>
+  </form>
+  <button (click)="onSend()" mat-raised-button color="accent" [disabled]="!forgotPassForm.valid">Send</button>
+</div>
