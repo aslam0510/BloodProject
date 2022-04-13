@@ -1,3 +1,4 @@
+import { CounterComponent } from './ngrx/counter/counter.component';
 import { AuthGuard } from './shared/auth.guard';
 import { SignupComponent } from './Components/Signup/Signup.component';
 import { HomeComponent } from './Components/Home/Home.component';
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'signup',
     pathMatch: 'full',
     component: SignupComponent,
+  },
+  {
+    path: 'counter',
+    pathMatch: 'full',
+    component: CounterComponent,
   },
 ];
 

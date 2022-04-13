@@ -18,6 +18,9 @@ import { LoginComponent } from './Components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ForgotDialogComponent } from './Dialogs/forgot-dialog/forgot-dialog.component';
+import { CounterComponent } from './ngrx/counter/counter.component';
+import { CounterOutputComponent } from './ngrx/counter-output/counter-output.component';
+import { CounterButtonsComponent } from './ngrx/counter-buttons/counter-buttons.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { ForgotDialogComponent } from './Dialogs/forgot-dialog/forgot-dialog.com
     SignupComponent,
     FooterComponent,
     ForgotDialogComponent,
+    CounterComponent,
+    CounterOutputComponent,
+    CounterButtonsComponent,
   ],
   imports: [
     BrowserModule,
