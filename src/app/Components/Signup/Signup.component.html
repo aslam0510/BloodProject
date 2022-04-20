@@ -6,7 +6,7 @@
 
   <div class="expansion ">
     <mat-accordion>
-      <mat-expansion-panel>
+      <mat-expansion-panel expanded="open">
         <mat-expansion-panel-header>
           <mat-panel-title class="d-flex justify-content-around align-items-center">
             <strong class="flex-grow-1 text-center ">Organization Info</strong>
@@ -17,7 +17,7 @@
         <form class="orgForm" [formGroup]="organizationForm">
           <div class="d-flex flex-row justify-content-around display">
             <mat-form-field appearance="outline">
-              <mat-label>{{ "Dimension" }} *</mat-label>
+              <mat-label>{{ "Dimension" }}</mat-label>
               <mat-select formControlName="organizationType" placeholder="{{ 'Dimension' }}  *">
                 <mat-option value="hospital" (onSelectionChange)="onSignupForm()">{{ "hospital" }}
                 </mat-option>
@@ -30,7 +30,7 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Organization Name *</mat-label>
+              <mat-label>Organization Name</mat-label>
               <input matInput placeholder="Organization Name" (input)="onSignupForm()" formControlName="organizationName" />
               <mat-error *ngIf="
                   organizationForm.controls['organizationName'].invalid &&
@@ -42,7 +42,7 @@
           </div>
           <div class="d-flex flex-row justify-content-around">
             <mat-form-field>
-              <mat-label>Email Address *</mat-label>
+              <mat-label>Email Address</mat-label>
               <input matInput placeholder="Email Address" (input)="onSignupForm()" formControlName="orgEmailAddress" />
               <mat-error *ngIf="
                   organizationForm.controls['orgEmailAddress'].invalid &&
@@ -52,7 +52,7 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Contact No. *</mat-label>
+              <mat-label>Contact No.</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="Contact No." formControlName="orgContact" />
               <mat-error *ngIf="
                   organizationForm.controls['orgContact'].invalid &&
@@ -64,7 +64,7 @@
           </div>
           <div class="d-flex flex-row justify-content-around">
             <mat-form-field>
-              <mat-label>Address *</mat-label>
+              <mat-label>Address</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="Address" formControlName="orgAddress" />
               <mat-error *ngIf="
                   organizationForm.controls['orgAddress'].invalid &&
@@ -74,7 +74,7 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Registration No *</mat-label>
+              <mat-label>Registration No</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="Registration No" formControlName="orgRegNum" />
               <mat-error *ngIf="
                   organizationForm.controls['orgRegNum'].invalid &&
@@ -86,7 +86,7 @@
           </div>
           <div class="d-flex flex-row justify-content-around">
             <mat-form-field>
-              <mat-label>Registration Council *</mat-label>
+              <mat-label>Registration Council</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="Registration Council" formControlName="orgRegCouncil" />
               <mat-error *ngIf="
                   organizationForm.controls['orgRegCouncil'].invalid &&
@@ -96,7 +96,7 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label>{{ "Registration Year" }} *</mat-label>
+              <mat-label>{{ "Registration Year" }}</mat-label>
               <mat-select formControlName="orgRegYear" placeholder="{{ 'Registration Year' }}  *">
                 <mat-option value="hospital" (onSelectionChange)="onSignupForm()">
                   {{ "hospital" }}</mat-option>
@@ -111,7 +111,7 @@
           </div>
           <div class="d-flex flex-row justify-content-around">
             <mat-form-field class="width">
-              <mat-label>City *</mat-label>
+              <mat-label>City</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="City" formControlName="orgCity" />
               <mat-error *ngIf="
                   organizationForm.controls['orgCity'].invalid &&
@@ -121,7 +121,7 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field class="width">
-              <mat-label>Pincode *</mat-label>
+              <mat-label>Pincode</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="Pincode" formControlName="orgPincode" />
               <mat-error *ngIf="
                   organizationForm.controls['orgPincode'].invalid &&
@@ -131,7 +131,7 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field class="width">
-              <mat-label>Location *</mat-label>
+              <mat-label>Location</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="Location" formControlName="orgLocation" />
               <mat-error *ngIf="
                   organizationForm.controls['orgLocation'].invalid &&

@@ -1,0 +1,41 @@
+.sidenav {
+  width: 14%;
+  height: 100vh;
+  background-color: brown;
+  padding: 10px 10px;
+}
+
+.menus {
+  margin-top: 3rem;
+}
+
+.menuItem {
+  color: white;
+  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+}
+
+.menu {
+  margin-left: 1rem;
+  font-size: 15px;
+}
+
+.header {
+  margin: 0;
+  padding: 0 1rem;
+  width: 86%;
+  height: 80px;
+  background-color: white;
+}
+
+.headerbuton {
+  padding: 5px 25px;
+  border-radius: 20px;
+  background-color: brown;
+  color: white;
+  margin-left: 1rem;
+}
+
+mat-card {
+  border-radius: 10px;
+}

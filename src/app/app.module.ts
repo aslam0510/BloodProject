@@ -21,6 +21,9 @@ import { ForgotDialogComponent } from './Dialogs/forgot-dialog/forgot-dialog.com
 import { CounterComponent } from './ngrx/counter/counter.component';
 import { CounterOutputComponent } from './ngrx/counter-output/counter-output.component';
 import { CounterButtonsComponent } from './ngrx/counter-buttons/counter-buttons.component';
+import { StoreModule } from '@ngrx/store';
+import { counterReducer } from './store/Reducers/couter.reducer';
+import { BloodGroupCardsComponent } from './Components/blood-group-cards/blood-group-cards.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { CounterButtonsComponent } from './ngrx/counter-buttons/counter-buttons.
     CounterComponent,
     CounterOutputComponent,
     CounterButtonsComponent,
+    BloodGroupCardsComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,7 @@ import { CounterButtonsComponent } from './ngrx/counter-buttons/counter-buttons.
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    StoreModule.forRoot({ counter: counterReducer }),
   ],
   providers: [
     {
