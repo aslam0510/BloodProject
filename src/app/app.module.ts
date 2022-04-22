@@ -21,9 +21,10 @@ import { ForgotDialogComponent } from './Dialogs/forgot-dialog/forgot-dialog.com
 import { CounterComponent } from './ngrx/counter/counter.component';
 import { CounterOutputComponent } from './ngrx/counter-output/counter-output.component';
 import { CounterButtonsComponent } from './ngrx/counter-buttons/counter-buttons.component';
-import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './store/Reducers/couter.reducer';
+import { ChartsModule } from 'ng2-charts';
 import { BloodGroupCardsComponent } from './Components/blood-group-cards/blood-group-cards.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -43,12 +44,16 @@ import { BloodGroupCardsComponent } from './Components/blood-group-cards/blood-g
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ChartsModule,
     BrowserAnimationsModule,
     MaterialComponentsModule,
     ReactiveFormsModule,
+
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ counter: counterReducer }),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+    }),
   ],
   providers: [
     {

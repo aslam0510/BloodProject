@@ -34,7 +34,10 @@ export class SignupComponent implements OnInit {
       organizationName: new FormControl('', [Validators.required]),
       orgEmailAddress: new FormControl('', [Validators.required]),
       orgAddress: new FormControl('', [Validators.required]),
-      orgContact: new FormControl('', [Validators.required]),
+      orgContact: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+      ]),
       orgRegNum: new FormControl('', [Validators.required]),
       orgRegCouncil: new FormControl('', [Validators.required]),
       orgRegYear: new FormControl('', [Validators.required]),
@@ -57,7 +60,10 @@ export class SignupComponent implements OnInit {
         entOrganizationName: new FormControl('', [Validators.required]),
         entEmailAddress: new FormControl('', [Validators.required]),
         entAddress: new FormControl('', [Validators.required]),
-        entContact: new FormControl('', [Validators.required]),
+        entContact: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+        ]),
         entRegNum: new FormControl('', [Validators.required]),
         entRegCouncil: new FormControl('', [Validators.required]),
         entRegYear: new FormControl('', [Validators.required]),
@@ -107,7 +113,15 @@ export class SignupComponent implements OnInit {
     );
     console.log(this.organizationFiles);
   }
+  // onParentAddChng() {
+  //   const parentAddress = this.organizationForm.get('orgAddress').value;
+  //   if (parentAddress) {
+  //     console.log(parentAddress);
 
+  //     this.newEntityForm.controls.entAddress.setValue(parentAddress);
+  //     // this.newEntityForm.get('entAddress').setValue('hiii');
+  //   }
+  // }
   onDeleteEntityFile(index) {}
   onSubmit() {
     if (this.organizationForm.valid) {

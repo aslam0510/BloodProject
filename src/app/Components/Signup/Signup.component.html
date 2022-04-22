@@ -4,12 +4,12 @@
     <h2 class="mt-2 pl-4">Boond</h2>
   </div>
 
-  <div class="expansion ">
+  <div class="expansion">
     <mat-accordion>
       <mat-expansion-panel expanded="open">
         <mat-expansion-panel-header>
           <mat-panel-title class="d-flex justify-content-around align-items-center">
-            <strong class="flex-grow-1 text-center ">Organization Info</strong>
+            <strong class="flex-grow-1 text-center">Organization Info</strong>
             <mat-icon color="accent">refresh</mat-icon>
             <button color="accent" mat-button>Reset</button>
           </mat-panel-title>
@@ -17,7 +17,7 @@
         <form class="orgForm" [formGroup]="organizationForm">
           <div class="d-flex flex-row justify-content-around display">
             <mat-form-field appearance="outline">
-              <mat-label>{{ "Dimension" }}</mat-label>
+              <mat-label>{{ "Type of Organization" }}</mat-label>
               <mat-select formControlName="organizationType" placeholder="{{ 'Dimension' }}  *">
                 <mat-option value="hospital" (onSelectionChange)="onSignupForm()">{{ "hospital" }}
                 </mat-option>
@@ -59,6 +59,12 @@
                   organizationForm.controls['orgContact'].errors.required
                 ">
                 {{ "Contact No is required" }}
+              </mat-error>
+              <mat-error *ngIf="
+                  organizationForm.controls['orgContact'].invalid &&
+                  organizationForm.controls['orgContact'].errors.pattern
+                ">
+                {{ "Please, Enter 10 digit Mobile Number" }}
               </mat-error>
             </mat-form-field>
           </div>
@@ -175,16 +181,13 @@
     </mat-accordion>
   </div>
 
-  <div class="expansion" [formGroup]="newEntityForm" *ngIf=" NewEntityControl().controls.length > 0">
-    <div formArrayName="newEntities" *ngFor="
-        let control of NewEntityControl().controls
-        let i = index
-      " class="my-3">
+  <div class="expansion" [formGroup]="newEntityForm" *ngIf="NewEntityControl().controls.length > 0">
+    <div formArrayName="newEntities" *ngFor="let control of NewEntityControl().controls; let i = index" class="my-3">
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title class="d-flex align-items-center justify-content-between ">
-              <button color="accent" (click)="deleteEntity(i)" mat-button class="upload-button  d-flex justify-content-between " type="button">
+            <mat-panel-title class="d-flex align-items-center justify-content-between">
+              <button color="accent" (click)="deleteEntity(i)" mat-button class="upload-button d-flex justify-content-between" type="button">
                 <mat-icon color="accent">delete</mat-icon>
                 <span>Delete</span>
               </button>
@@ -196,133 +199,131 @@
           <form class="orgForm" [formGroupName]="i">
             <div class="d-flex flex-row justify-content-around">
               <mat-form-field appearance="outline">
-                <mat-label>{{ "Dimension" }} *</mat-label>
-                <mat-select formControlName="entOrganizationType" placeholder="{{ 'Dimension' }}  *">
-                  <mat-option value="hospital">{{ "hospital" }}
-                  </mat-option>
+                <mat-label>{{ "Type of Organization" }}</mat-label>
+                <mat-select formControlName="entOrganizationType" placeholder="{{ 'Type of Organization' }}  *">
+                  <mat-option value="hospital">{{ "hospital" }} </mat-option>
                 </mat-select>
-                <mat-error *ngIf="
-                    organizationForm.controls['organizationType'].invalid &&
-                    organizationForm.controls['organizationType'].errors
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entOrganizationType'].invalid &&
+                    newEntityForm.controls['entOrganizationType'].errors
                       .required
                   ">
                   {{ "organizationType is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
               <mat-form-field>
-                <mat-label>Organization Name *</mat-label>
+                <mat-label>Organization Name</mat-label>
                 <input matInput placeholder="Organization Name" formControlName="entOrganizationName" />
-                <mat-error *ngIf="
-                    organizationForm.controls['organizationName'].invalid &&
-                    organizationForm.controls['organizationName'].errors
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entOrganizationName'].invalid &&
+                    newEntityForm.controls['entOrganizationName'].errors
                       .required
                   ">
                   {{ "Organization Name is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
             </div>
             <div class="d-flex flex-row justify-content-around">
               <mat-form-field>
-                <mat-label>Email Address *</mat-label>
+                <mat-label>Email Address</mat-label>
                 <input matInput placeholder="Email Address" formControlName="entEmailAddress" />
-                <mat-error *ngIf="
-                    organizationForm.controls['orgEmailAddress'].invalid &&
-                    organizationForm.controls['orgEmailAddress'].errors.required
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entEmailAddress'].invalid &&
+                    newEntityForm.controls['entEmailAddress'].errors.required
                   ">
                   {{ "Email Address is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
               <mat-form-field>
-                <mat-label>Contact No. *</mat-label>
+                <mat-label>Contact No.</mat-label>
                 <input matInput placeholder="Contact No." formControlName="entContact" />
-                <mat-error *ngIf="
-                    organizationForm.controls['orgContact'].invalid &&
-                    organizationForm.controls['orgContact'].errors.required
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entContact'].invalid &&
+                    newEntityForm.controls['entContact'].errors.required
                   ">
                   {{ "Contact No is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
             </div>
             <div class="d-flex flex-row justify-content-around">
               <mat-form-field>
-                <mat-label>Address *</mat-label>
+                <mat-label>Address</mat-label>
                 <input matInput placeholder="Address" formControlName="entAddress" />
-                <mat-error *ngIf="
-                    organizationForm.controls['orgAddress'].invalid &&
-                    organizationForm.controls['orgAddress'].errors.required
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entAddress'].invalid &&
+                    newEntityForm.controls['entAddress'].errors.required
                   ">
                   {{ "Address is required" }}
-                </mat-error>
+                </mat-error> -->
                 <mat-hint>
                   <mat-checkbox class="mat-checkbox-layout">Same as Parent Organization</mat-checkbox>
                 </mat-hint>
               </mat-form-field>
               <mat-form-field>
-                <mat-label>Registration No *</mat-label>
+                <mat-label>Registration No</mat-label>
                 <input matInput placeholder="Registration No" formControlName="entRegNum" />
-                <mat-error *ngIf="
-                    organizationForm.controls['orgRegNum'].invalid &&
-                    organizationForm.controls['orgRegNum'].errors.required
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entRegNum'].invalid &&
+                    newEntityForm.controls['entRegNum'].errors.required
                   ">
                   {{ "Registration No is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
             </div>
             <div class="d-flex flex-row justify-content-around">
               <mat-form-field>
-                <mat-label>Registration Council *</mat-label>
+                <mat-label>Registration Council</mat-label>
                 <input matInput placeholder="Registration Council" formControlName="entRegCouncil" />
-                <mat-error *ngIf="
-                    organizationForm.controls['orgRegCouncil'].invalid &&
-                    organizationForm.controls['orgRegCouncil'].errors.required
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entRegCouncil'].invalid &&
+                    newEntityForm.controls['entRegCouncil'].errors.required
                   ">
                   {{ "Registration Council is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
               <mat-form-field appearance="outline">
-                <mat-label>{{ "Registration Year" }} *</mat-label>
+                <mat-label>{{ "Registration Year" }}</mat-label>
                 <mat-select formControlName="entRegYear" placeholder="{{ 'Registration Year' }}  *">
-                  <mat-option value="hospital">
-                    {{ "hospital" }}</mat-option>
+                  <mat-option value="hospital"> {{ "hospital" }}</mat-option>
                 </mat-select>
-                <mat-error *ngIf="
-                    organizationForm.controls['orgRegYear'].invalid &&
-                    organizationForm.controls['orgRegYear'].errors.required
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entRegYear'].invalid &&
+                    newEntityForm.controls['entRegYear'].errors.required
                   ">
                   {{ "Registration Year is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
             </div>
             <div class="d-flex flex-row justify-content-around">
               <mat-form-field class="width">
-                <mat-label>City *</mat-label>
+                <mat-label>City</mat-label>
                 <input matInput placeholder="City" formControlName="entCity" />
-                <mat-error *ngIf="
-                    organizationForm.controls['orgCity'].invalid &&
-                    organizationForm.controls['orgCity'].errors.required
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entCity'].invalid &&
+                    newEntityForm.controls['entCity'].errors.required
                   ">
                   {{ "City is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
               <mat-form-field class="width">
-                <mat-label>Pincode *</mat-label>
+                <mat-label>Pincode</mat-label>
                 <input matInput placeholder="Pincode" formControlName="entPincode" />
-                <mat-error *ngIf="
-                    organizationForm.controls['orgPincode'].invalid &&
-                    organizationForm.controls['orgPincode'].errors.required
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entPincode'].invalid &&
+                    newEntityForm.controls['entPincode'].errors.required
                   ">
                   {{ "Pincode is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
               <mat-form-field class="width">
-                <mat-label>Location *</mat-label>
+                <mat-label>Location</mat-label>
                 <input matInput placeholder="Location" formControlName="entLocation" />
-                <mat-error *ngIf="
-                    organizationForm.controls['orgLocation'].invalid &&
-                    organizationForm.controls['orgLocation'].errors.required
+                <!-- <mat-error *ngIf="
+                    newEntityForm.controls['entLocation'].invalid &&
+                    newEntityForm.controls['entLocation'].errors.required
                   ">
                   {{ "Location is required" }}
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
             </div>
             <div class="d-flex justify-content-between mt-2 px-5">

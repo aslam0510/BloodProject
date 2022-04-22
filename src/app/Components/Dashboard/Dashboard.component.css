@@ -10,6 +10,7 @@
 }
 
 .menuItem {
+  cursor: pointer;
   color: white;
   margin-bottom: 1.5rem;
   margin-left: 1rem;
@@ -22,20 +23,54 @@
 
 .header {
   margin: 0;
-  padding: 0 1rem;
-  width: 86%;
+  padding: 0 3rem;
+  width: 100%;
   height: 80px;
   background-color: white;
 }
 
+.headers {
+  width: 86%;
+}
 .headerbuton {
-  padding: 5px 25px;
+  padding: 0 25px;
   border-radius: 20px;
   background-color: brown;
   color: white;
+  font-size: 14px;
   margin-left: 1rem;
 }
 
 mat-card {
   border-radius: 10px;
+}
+
+.card {
+  height: 340px;
+}
+
+.activitybtn {
+  min-width: 45px !important;
+  border-radius: 10px !important;
+  padding: 0 !important;
+}
+
+.borders {
+  border-bottom: 1px solid #0000001f;
+}
+
+.flex {
+  flex-grow: 1;
+  padding-left: 10px;
+}
+
+.userIcon {
+  margin-right: 1.5rem;
+}
+.notiIcon {
+  margin-right: 2.5rem;
+}
+
+.title {
+  padding-left: 1rem;
 }
