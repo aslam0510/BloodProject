@@ -14,3 +14,13 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.spinner_container {
+  border-radius: 10px;
+  left: 45%;
+  top: 45%;
+  position: absolute !important;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  opacity: 0.5;
+}

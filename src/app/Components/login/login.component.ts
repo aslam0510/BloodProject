@@ -1,9 +1,12 @@
+import * as AuthAction from './../../store/Actions/auth.action';
+import { Store } from '@ngrx/store';
 import { ForgotDialogComponent } from './../../Dialogs/forgot-dialog/forgot-dialog.component';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { AppState } from 'src/app/app.state';
 
 @Component({
   selector: 'app-login',
@@ -16,26 +19,28 @@ export class LoginComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      userid: new FormControl('', Validators.required),
-      pwd: new FormControl('', Validators.required),
+      userName: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
     });
   }
 
   onLoginForm() {
-    if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe((data) => {
-        if (data) {
-          this.loginDetails = data;
-          localStorage.setItem('token', this.loginDetails.data.token);
-          this.router.navigate(['dashboard']);
-        }
-      });
+    if (!this.loginForm.valid) {
+      return;
     }
+
+    const payload = {
+      email: this.loginForm.value.userName,
+      password: this.loginForm.value.password,
+    };
+
+    this.store.dispatch(new AuthAction.GetLogin(payload));
   }
 
   onForgotPass() {

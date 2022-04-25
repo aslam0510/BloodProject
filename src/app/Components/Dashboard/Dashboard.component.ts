@@ -16,10 +16,10 @@ export class DashboardComponent implements OnInit {
       route: '/bloodAvailable',
     },
     { menu: 'All Bood Request', icon: 'search', route: '/bloodRequest' },
-    { menu: 'All Messages', icon: 'search', route: '/allMessages' },
-    { menu: 'Donor Database', icon: 'search', route: 'donorDatabase' },
+    { menu: 'All Messages', icon: 'email', route: '/allMessages' },
+    { menu: 'Donor Database', icon: 'folder_open', route: 'donorDatabase' },
     { menu: 'Scan Donar', icon: 'search', route: 'scanDonar' },
-    { menu: 'UserManagement', icon: 'search', route: 'userManagement' },
+    { menu: 'UserManagement', icon: 'people', route: 'userManagement' },
   ];
 
   bloodGroupCards = [

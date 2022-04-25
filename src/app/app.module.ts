@@ -1,5 +1,8 @@
+import { AppEffects } from './store/Effects/app.effects';
+import { appReducers } from './app.state';
+import { environment } from './../environments/environment';
 import { FooterComponent } from './Components/footer/footer.component';
-import { AppInterceptorService } from './services/app-interceptor.service';
+import { AppInterceptor, HttpStatus } from './services/app-interceptor.service';
 import { AuthGuard } from './shared/auth.guard';
 import { AuthService } from './services/auth.service';
 import { SignupComponent } from './Components/Signup/Signup.component';
@@ -25,7 +28,10 @@ import { ChartsModule } from 'ng2-charts';
 import { BloodGroupCardsComponent } from './Components/blood-group-cards/blood-group-cards.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
+const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,17 +54,21 @@ import { reducers, metaReducers } from './reducers';
     BrowserAnimationsModule,
     MaterialComponentsModule,
     ReactiveFormsModule,
-
+    HttpClientModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot(AppEffects),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
     }),
   ],
   providers: [
+    ...httpServices,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AppInterceptorService,
+      useClass: AppInterceptor,
       multi: true,
     },
   ],
