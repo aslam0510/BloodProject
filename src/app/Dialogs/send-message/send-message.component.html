@@ -1,0 +1,48 @@
+<div>
+  <div class="d-flex pt-3 justify-content-between align-items-center header">
+    <h3 class="text-white">Send Message</h3>
+    <button mat-icon-button class="pl-3">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="d-flex justify-content-between align-items-center px-4">
+    <h3>No. of Receipents : 04</h3>
+    <p>
+      <mat-form-field appearance="legacy">
+        <input matInput>
+      </mat-form-field>
+    </p>
+  </div>
+  <div class="top">
+    <p class="px-4 ">
+      <textarea name="textArea" cols="30" rows="10" class="textarea" placeholder="Write your own message or selection from template"></textarea>
+    </p>
+    <div class="px-4 my-2">
+      <div class="content mx-2 p-2" *ngFor="let template of templateContent">
+        <mat-radio-button></mat-radio-button>
+        <p>{{template.content}}</p>
+      </div>
+    </div>
+    <div class="bottom d-flex justify-content-between align-items-center">
+      <div>
+
+        <button color="accent" mat-button class="mt-2">Schedule Delivery
+          <mat-form-field appearance="fill" class="example-form-field">
+            <mat-date-range-input [rangePicker]="rangePicker">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #rangePicker>
+              <mat-date-range-picker-actions>
+
+                <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+              </mat-date-range-picker-actions>
+            </mat-date-range-picker>
+          </mat-form-field>
+        </button>
+      </div>
+      <button mat-raised-button color="accent">Submit</button>
+    </div>
+
+
+  </div>
+</div>

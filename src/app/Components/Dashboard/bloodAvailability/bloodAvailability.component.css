@@ -1,0 +1,18 @@
+mat-card {
+  border-radius: 10px;
+}
+
+.borders {
+  border-bottom: 1px solid #0000001f;
+}
+
+.card {
+  height: 80vh !important;
+  overflow-y: scroll;
+}
+.activitybtn {
+  min-width: 45px !important;
+  border-radius: 10px !important;
+  padding: 0;
+  padding-right: 5px;
+}

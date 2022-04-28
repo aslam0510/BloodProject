@@ -1,0 +1,49 @@
+.header {
+  background-color: brown;
+  height: 60px;
+  padding: 0.5rem 2rem;
+  margin: 0;
+}
+
+.width {
+  width: 130px;
+}
+mat-form-field {
+  margin-top: 0.5rem;
+  width: 350px;
+}
+.upload {
+  border: 1px dotted grey;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  margin: 0rem 5rem;
+}
+
+.files {
+  border: 1px dotted grey;
+  padding: 10px;
+  border-radius: 10px;
+  /* width: 450px; */
+}
+
+.icon {
+  height: 31px;
+  width: 42px;
+  cursor: pointer;
+}
+
+.document {
+  padding: 0 4.5rem;
+}
+
+.bottom {
+  border-top: 2px solid #0000001f;
+  padding: 0.2rem 5rem;
+}
+
+.select {
+  background-color: #fff;
+  width: 120px;
+  border-radius: 25px;
+  padding: 8px 10px;
+}

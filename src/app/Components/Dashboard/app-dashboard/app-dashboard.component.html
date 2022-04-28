@@ -1,0 +1,85 @@
+<div>
+  <h3 class="mb-0 title">Blood Availability Status</h3>
+  <span class="text-primary mt-0 title">Minimum level to maintained : 30 units</span>
+  <div class="row mt-2 ">
+    <app-blood-group-cards class="d-flex col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let bloodCard of bloodGroupCards" [bloodGroupCard]="bloodCard"></app-blood-group-cards>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12">
+    <h3 class="title">No. of donations</h3>
+    <mat-card class="d-flex mat-elevation-z8 card ">
+      <h3 class="flex-end">Total donations : 180</h3>
+      <div style="display: block;">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+        </canvas>
+      </div>
+    </mat-card>
+  </div>
+  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+    <h3 class="title">Activity</h3>
+    <mat-card class="mat-elevation-z8 card">
+      <div class="py-2 d-flex justify-content-between align-items-center borders">
+        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <div class="flex">
+          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
+          <span class="m-0">5 min ago</span>
+        </div>
+      </div>
+      <div class="py-2 d-flex justify-content-between align-items-center borders">
+        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <div class="flex">
+          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
+          <span class="m-0">5 min ago</span>
+        </div>
+      </div>
+      <div class="py-2 d-flex justify-content-between align-items-center borders">
+        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <div class="flex">
+          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
+          <span class="m-0">5 min ago</span>
+        </div>
+      </div>
+      <div class="py-2 d-flex justify-content-between align-items-center borders">
+        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <div class="flex">
+          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
+          <span class="m-0">5 min ago</span>
+        </div>
+      </div>
+
+      <div class="py-2 d-flex justify-content-between align-items-center borders">
+        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <div class="flex">
+          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
+          <span class="m-0">5 min ago</span>
+        </div>
+      </div>
+
+    </mat-card>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+    <h3 class="title">Blood Request Status</h3>
+    <mat-card class="d-flex mat-elevation-z8 ">
+      <mat-icon>search</mat-icon>
+      <div>
+        <h6>100</h6>
+        <p>Total blood request</p>
+      </div>
+    </mat-card>
+    <mat-card class="d-flex mat-elevation-z8 my-4">
+      <mat-icon>search</mat-icon>
+      <div>
+        <h6>100</h6>
+        <p>Total blood request</p>
+      </div>
+    </mat-card>
+    <mat-card class="d-flex mat-elevation-z8">
+      <mat-icon>search</mat-icon>
+      <div>
+        <h6>100</h6>
+        <p>Total blood request</p>
+      </div>
+    </mat-card>
+  </div>
+</div>

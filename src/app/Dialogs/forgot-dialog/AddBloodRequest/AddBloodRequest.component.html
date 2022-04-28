@@ -1,0 +1,119 @@
+<div>
+  <div class="d-flex pt-3 justify-content-between align-items-center header">
+    <p>
+      <mat-form-field appearance=" outline" class="width">
+        <mat-select class="select" placeholder="{{ 'Set Priority' }}">
+          <mat-option value="Hight">{{ "Hight" }} </mat-option>
+          <mat-option value="Low">{{ "Low" }} </mat-option>
+          <mat-option value="Medium">{{ "hospital" }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+    <h3 class="text-white">Add Blood Reqeust</h3>
+    <button mat-icon-button class="pl-3">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div>
+    <form class="pl-4 mt-4">
+      <div class="d-flex justify-content-evenly">
+        <mat-form-field appearance="outline">
+          <mat-label>Name of the patient</mat-label>
+          <input matInput placeholder="Name of the patient" formControlName="userName">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "Request type" }}</mat-label>
+          <mat-select placeholder="{{ 'Request type' }}">
+            <mat-option value="hospital">{{ "hospital" }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="d-flex justify-content-evenly">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "Blood Group Type" }}</mat-label>
+          <mat-select placeholder="{{ 'Blood Group Type' }}  *">
+            <mat-option value="hospital">{{ "hospital" }}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "Gender" }}</mat-label>
+          <mat-select placeholder="{{ 'Gender' }}  *">
+            <mat-option value="hospital">{{ "hospital" }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="d-flex justify-content-evenly">
+        <mat-form-field appearance="outline">
+          <mat-label>Name of the patient</mat-label>
+          <input matInput placeholder="Name of the patient" formControlName="userName">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "Component Request" }}</mat-label>
+          <mat-select placeholder="{{ 'Component Request' }}  *">
+            <mat-option value="hospital">{{ "hospital" }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="d-flex justify-content-evenly">
+        <mat-form-field appearance="outline">
+          <mat-label>Date of Request</mat-label>
+          <input matInput placeholder="Date of Request" formControlName="userName">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date of Requirement</mat-label>
+          <input matInput placeholder="Date of Requirement" formControlName="userName">
+        </mat-form-field>
+      </div>
+      <div class="d-flex justify-content-evenly">
+        <mat-form-field appearance="outline">
+          <mat-label>Remark</mat-label>
+          <input matInput placeholder="Remark" formControlName="userName">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput placeholder="Location" formControlName="userName">
+        </mat-form-field>
+      </div>
+      <div class="d-flex justify-content-between mt-2 document">
+        <h3>Upload document</h3>
+        <p class="mat-body-1">*File size should be less than 1 MB</p>
+      </div>
+      <div class="upload mb-3">
+        <div class="d-flex justify-content-between">
+          <p class="pt-2">
+            Please upload your medical registration and document of state
+            medical council proof.
+          </p>
+          <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept=".csv,.xls,.xlsx" (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
+          <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
+            <mat-icon color="accent">upload</mat-icon>
+            <span>Upload</span>
+          </button>
+        </div>
+
+        <ng-container *ngFor="let file of organizationFiles; let i = index">
+          <div class="files d-flex my-2 align-items-center" *ngIf="showFile">
+            <mat-icon class="icon pl-2 pr-4"> insert_drive_file</mat-icon>
+            <div class="d-flex flex-column flex-grow-1">
+              <span clas="d-block">{{ file.name }}</span>
+              <span>{{ file.size }}</span>
+            </div>
+            <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)">close</mat-icon>
+          </div>
+        </ng-container>
+      </div>
+    </form>
+    <div class="bottom d-flex justify-content-between align-items-center">
+      <div>
+        <mat-icon color="accent" class="mt-4">refresh</mat-icon>
+        <button color="accent" mat-button class="mt-2">Reset</button>
+      </div>
+      <button mat-raised-button color="accent">Submit</button>
+    </div>
+  </div>
+</div>

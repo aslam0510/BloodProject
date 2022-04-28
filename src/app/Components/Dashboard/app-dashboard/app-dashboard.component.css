@@ -74,10 +74,3 @@ mat-card {
 .title {
   padding-left: 1rem;
 }
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 85%;
-  text-align: center;
-}

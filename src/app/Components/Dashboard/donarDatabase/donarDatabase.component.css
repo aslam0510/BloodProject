@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+}
+mat-card {
+  border-radius: 15px;
+}
+
+.sendMessage {
+  border-radius: 25px;
+  width: 150px;
+  color: white;
+  height: 35px;
+  background-color: brown;
+  line-height: 0px;
+}
+
+.toggleButtons {
+  border-radius: 25px;
+  height: 35px !important;
+  line-height: 10px !important;
+}
+mat-button-toggle-appearance-standard mat-button-toggle-label-content {
+  line-height: 0px !important;
+}
+.toggleButton {
+  padding-bottom: 5px;
+  background-color: aqua;
+}
+
+.tool-bar-icon {
+  width: 48px;
+  height: 48px;
+}

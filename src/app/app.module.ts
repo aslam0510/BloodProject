@@ -1,3 +1,8 @@
+import { DonarDatabaseComponent } from './Components/Dashboard/donarDatabase/donarDatabase.component';
+import { AllBloodReqComponent } from './Components/Dashboard/allBloodReq/allBloodReq.component';
+import { BloodAvailabilityComponent } from './Components/Dashboard/bloodAvailability/bloodAvailability.component';
+import { AppDashboardComponent } from './Components/Dashboard/app-dashboard/app-dashboard.component';
+import { AddBloodRequestComponent } from './Dialogs/forgot-dialog/AddBloodRequest/AddBloodRequest.component';
 import { AppEffects } from './store/Effects/app.effects';
 import { appReducers } from './app.state';
 import { environment } from './../environments/environment';
@@ -30,6 +35,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { SendMessageComponent } from './Dialogs/send-message/send-message.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -46,6 +52,12 @@ const httpServices = [AppInterceptor, HttpStatus];
     CounterOutputComponent,
     CounterButtonsComponent,
     BloodGroupCardsComponent,
+    AddBloodRequestComponent,
+    AppDashboardComponent,
+    BloodAvailabilityComponent,
+    AllBloodReqComponent,
+    DonarDatabaseComponent,
+    SendMessageComponent,
   ],
   imports: [
     BrowserModule,

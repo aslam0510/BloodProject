@@ -24,3 +24,12 @@ body {
   z-index: 9999;
   opacity: 0.5;
 }
+
+.custom-dialog-container .mat-dialog-container {
+  padding: 0 !important;
+  border-radius: 20px !important;
+}
+
+.appBgColor {
+  background-color: brown;
+}

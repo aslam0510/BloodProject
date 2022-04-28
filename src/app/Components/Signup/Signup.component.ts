@@ -33,7 +33,10 @@ export class SignupComponent implements OnInit {
       organizationType: new FormControl('', [Validators.required]),
       organizationName: new FormControl('', [Validators.required]),
       orgEmailAddress: new FormControl('', [Validators.required]),
-      orgAddress: new FormControl('', [Validators.required]),
+      orgAddress: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+      ]),
       orgContact: new FormControl('', [
         Validators.required,
         Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
@@ -58,7 +61,10 @@ export class SignupComponent implements OnInit {
       let newEntity = this.fb.group({
         entOrganizationType: new FormControl('', [Validators.required]),
         entOrganizationName: new FormControl('', [Validators.required]),
-        entEmailAddress: new FormControl('', [Validators.required]),
+        entEmailAddress: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ]),
         entAddress: new FormControl('', [Validators.required]),
         entContact: new FormControl('', [
           Validators.required,

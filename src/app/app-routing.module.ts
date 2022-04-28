@@ -1,3 +1,7 @@
+import { DonarDatabaseComponent } from './Components/Dashboard/donarDatabase/donarDatabase.component';
+import { AllBloodReqComponent } from './Components/Dashboard/allBloodReq/allBloodReq.component';
+import { BloodAvailabilityComponent } from './Components/Dashboard/bloodAvailability/bloodAvailability.component';
+import { AppDashboardComponent } from './Components/Dashboard/app-dashboard/app-dashboard.component';
 import { CounterComponent } from './ngrx/counter/counter.component';
 import { AuthGuard } from './shared/auth.guard';
 import { SignupComponent } from './Components/Signup/Signup.component';
@@ -10,9 +14,22 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   {
     path: 'dashboard',
-    pathMatch: 'full',
     component: DashboardComponent,
-    // canActivate: [AuthGuard],
+    children: [
+      { path: '', component: AppDashboardComponent },
+      {
+        path: 'bloodAvailability',
+        component: BloodAvailabilityComponent,
+      },
+      {
+        path: 'bloodRequest',
+        component: AllBloodReqComponent,
+      },
+      {
+        path: 'donorDatabase',
+        component: DonarDatabaseComponent,
+      },
+    ],
   },
   {
     path: 'signup',

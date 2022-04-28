@@ -1,0 +1,27 @@
+.header {
+  background-color: brown;
+  height: 60px;
+  padding: 0.5rem 2rem;
+  margin: 0;
+}
+.top {
+  border-top: 2px solid #0000001f;
+}
+.textarea {
+  width: 100%;
+  border: none;
+}
+.textarea :focus {
+  border: non;
+}
+
+.content {
+  width: 180px;
+  display: inline-block;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+.bottom {
+  border-top: 2px solid #0000001f;
+  padding: 0.2rem 5rem;
+}
