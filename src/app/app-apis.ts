@@ -1,5 +1,5 @@
 const apis = {
-  GET_LOGIN: { url: 'http://restapi.adequateshop.com/api/authaccount/login' },
+  GET_LOGIN: { url: 'http://10.157.195.32:8080/bbportal/login' },
 };
 
 export function getAPI(url_const) {

@@ -1,3 +1,5 @@
+import { FilterComponent } from './Components/filter/filter.component';
+import { UpdateBldStsDialogComponent } from './Dialogs/updateBldStsDialog/updateBldStsDialog.component';
 import { DonarDatabaseComponent } from './Components/Dashboard/donarDatabase/donarDatabase.component';
 import { AllBloodReqComponent } from './Components/Dashboard/allBloodReq/allBloodReq.component';
 import { BloodAvailabilityComponent } from './Components/Dashboard/bloodAvailability/bloodAvailability.component';
@@ -36,6 +38,7 @@ import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SendMessageComponent } from './Dialogs/send-message/send-message.component';
+import { Ng5SliderModule } from 'ng5-slider';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -58,6 +61,8 @@ const httpServices = [AppInterceptor, HttpStatus];
     AllBloodReqComponent,
     DonarDatabaseComponent,
     SendMessageComponent,
+    UpdateBldStsDialogComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +74,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     HttpClientModule,
     FormsModule,
     HttpClientModule,
+    Ng5SliderModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot(AppEffects),
     StoreDevtoolsModule.instrument({

@@ -1,0 +1,10 @@
+.width {
+  width: 130px;
+}
+
+.select {
+  /* background-color: #fff; */
+  width: 120px;
+  border-radius: 25px;
+  /* padding: 8px 10px; */
+}

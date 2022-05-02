@@ -6,6 +6,7 @@ body {
 }
 body {
   margin: 0;
+  padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #f4f0ec;
 }
@@ -32,4 +33,28 @@ body {
 
 .appBgColor {
   background-color: brown;
+}
+
+mat-card {
+  border-radius: 1 5px !important;
+}
+
+.mat-button-toggle-group {
+  height: 30px;
+  align-items: center;
+  border-radius: 15px !important;
+}
+
+.mat-button-toggle {
+  /* background-color: brown; */
+  border: none;
+  color: black;
+}
+
+button {
+  color: white;
+}
+
+::ng-deep mat-button-toggle-group {
+  outline: none;
 }

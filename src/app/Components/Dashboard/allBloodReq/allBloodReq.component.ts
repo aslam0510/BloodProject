@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { FilterComponent } from './../../filter/filter.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -24,6 +26,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./allBloodReq.component.css'],
 })
 export class AllBloodReqComponent implements OnInit {
+  @ViewChild('myButton', { static: false }) public myButtonRef: ElementRef;
+
   columns = [
     {
       columnDef: 'position',
@@ -49,7 +53,40 @@ export class AllBloodReqComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   displayedColumns = this.columns.map((c) => c.columnDef);
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit() {}
+
+  onFilter(e) {
+    console.log(e);
+
+    //  const element = document.getElementById(event.target.id);
+    //     const jqelement = element as HTMLButtonElement
+    //     const position = jqelement.position(); // cache the position
+    //     const bottom = position.top + jqelement.height();
+    //     const dialogConfig = new MatDialogConfig();
+    //     dialogConfig.disableClose = true;
+    //     dialogConfig.autoFocus = true;
+    //     dialogConfig.position = {
+    //       top:  '' + bottom,
+    //       right: '0'
+    //     };
+    //     dialogConfig.width = '50%' ;
+    //     dialogConfig.height = '350px' ;
+    //     console.log(dialogConfig);
+    console.log(e.clientX);
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.position = {
+      top: '0',
+      left: '0',
+    };
+    console.log(dialogConfig);
+    this.dialog.open(FilterComponent, {
+      height: 'auto',
+      width: '350px',
+      panelClass: 'custom-dialog-container',
+    });
+  }
 }

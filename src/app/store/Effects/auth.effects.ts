@@ -9,15 +9,17 @@ import * as api from '../../app-apis';
 export class AuthEffect {
   constructor(private actions$: Actions, private http: HttpClient) {}
 
-  // login$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(auth.GET_LOGIN),
-  //     map((data: any) => data.payload),
-  //     exhaustMap((payload) => {
-  //       return this.http
-  //         .post(api.getAPI('GET_LOGIN'), payload)
-  //         .pipe(mergeMap((data) => [new auth.GetLoginSuccess(data)]));
-  //     })
-  //   );
-  // });
+  login$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.GET_LOGIN),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        console.log(payload);
+
+        return this.http
+          .post(api.getAPI('GET_LOGIN'), payload)
+          .pipe(mergeMap((data) => [new auth.GetLoginSuccess(data)]));
+      })
+    );
+  });
 }

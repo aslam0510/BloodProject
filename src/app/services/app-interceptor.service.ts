@@ -62,10 +62,10 @@ export class AppInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // this.status.setHttpStatus(true, req);
+    this.status.setHttpStatus(true, req);
     const token = localStorage.getItem('token');
 
-    if (!token) {
+    if (token) {
       this.status.setHttpStatus(false, req);
       this.router.navigate(['/']);
     } else {
@@ -79,7 +79,7 @@ export class AppInterceptor implements HttpInterceptor {
       return next.handle(authReq).pipe(
         tap((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
-            // this.status.setHttpStatus(false, event);
+            this.status.setHttpStatus(false, event);
           }
         })
       );

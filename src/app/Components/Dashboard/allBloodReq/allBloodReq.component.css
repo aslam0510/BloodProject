@@ -5,3 +5,8 @@ mat-card {
 .demo-table {
   width: 100%;
 }
+
+.tool-bar-icon {
+  width: 48px;
+  height: 48px;
+}

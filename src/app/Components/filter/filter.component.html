@@ -1,0 +1,44 @@
+<div class="p-4">
+  <h2>Filters</h2>
+  <div>
+    <form>
+      <div class="my-4">
+        <h4>Gender</h4>
+        <mat-radio-group class="d-flex justify-content-around">
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-divider></mat-divider>
+      <p class="my-2">
+        <ng5-slider [(value)]="sliderMinRange" [(highValue)]="sliderMaxRange" [options]="sliderOptions"></ng5-slider>
+      </p>
+      <mat-divider></mat-divider>
+      <p class="d-flex justify-content-around ">
+        <mat-form-field appearance=" outline" class="width">
+          <mat-select class="select" placeholder="{{ 'Weight' }}">
+            <mat-option value="Hight">{{ "Hight" }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance=" outline" class="width">
+          <mat-select class="select" placeholder="{{ 'Location' }}">
+            <mat-option value="Hight">{{ "Hight" }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <mat-divider></mat-divider>
+      <p class="mb-2">
+        <mat-label>Vocation status</mat-label>
+        <mat-radio-group class="d-flex justify-content-around">
+          <mat-radio-button value="male">Yes</mat-radio-button>
+          <mat-radio-button value="female">No</mat-radio-button>
+        </mat-radio-group>
+      </p>
+      <mat-divider></mat-divider>
+      <div class="d-flex justify-content-around mt-2">
+        <button mat-raised-button>Clear All</button>
+        <button mat-raised-button>Apply</button>
+      </div>
+    </form>
+  </div>
+</div>

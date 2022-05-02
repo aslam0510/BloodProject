@@ -6,8 +6,13 @@ mat-card {
   border-bottom: 1px solid #0000001f;
 }
 
-.card {
+.activityCard {
+  padding: 0 10px;
   height: 80vh !important;
+}
+
+.activityContent {
+  height: 75vh !important;
   overflow-y: scroll;
 }
 .activitybtn {
@@ -15,4 +20,66 @@ mat-card {
   border-radius: 10px !important;
   padding: 0;
   padding-right: 5px;
+  margin-right: 10px;
+}
+btn-group {
+  border-radius: 0;
+}
+.editButton {
+  margin-left: 10px;
+  border-radius: 15px;
+  color: white;
+}
+mat-card {
+  padding: 0;
+}
+thead {
+  background-color: #0000001f;
+}
+th,
+td {
+  padding-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+td {
+  padding-bottom: 3px;
+}
+table {
+  width: 100%;
+}
+
+.card1 {
+  height: 100px;
+}
+
+.mattable {
+  height: 55.5vh;
+  overflow-y: scroll;
+}
+
+.mat-raised-button {
+  min-width: 65px;
+  height: 38px;
+  align-items: center;
+}
+
+.showBorder {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 4px 10px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.showBorder:hover {
+  border: 1px solid red;
+}
+
+.mat-text-column {
+  background-color: #0000001f;
+}
+
+.material-icons {
+  font-size: 18px !important;
 }

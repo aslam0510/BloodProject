@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      userName: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      userid: new FormControl('', Validators.required),
+      pwd: new FormControl('', Validators.required),
     });
   }
 
@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
     }
 
     const payload = {
-      email: this.loginForm.value.userName,
-      password: this.loginForm.value.password,
+      email: this.loginForm.value.userid,
+      pwd: this.loginForm.value.pwd,
     };
 
     this.store.dispatch(new AuthAction.GetLogin(payload));
