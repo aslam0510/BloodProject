@@ -1,6 +1,10 @@
+.page {
+  height: 100%;
+}
+
 .sidenav {
   width: 14%;
-  height: 100vh;
+  /* height: 100%; */
   background-color: brown;
   padding: 10px 10px;
 }

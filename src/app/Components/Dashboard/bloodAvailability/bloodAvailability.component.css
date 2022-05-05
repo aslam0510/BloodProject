@@ -8,11 +8,11 @@ mat-card {
 
 .activityCard {
   padding: 0 10px;
-  height: 80vh !important;
+  /* height: 80vh !important; */
 }
 
 .activityContent {
-  height: 75vh !important;
+  height: 70vh !important;
   overflow-y: scroll;
 }
 .activitybtn {
@@ -54,7 +54,7 @@ table {
 }
 
 .mattable {
-  height: 55.5vh;
+  height: 50vh;
   overflow-y: scroll;
 }
 
