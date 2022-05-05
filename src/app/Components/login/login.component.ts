@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     }
 
     const payload = {
-      email: this.loginForm.value.userid,
+      userid: this.loginForm.value.userid,
       pwd: this.loginForm.value.pwd,
     };
 

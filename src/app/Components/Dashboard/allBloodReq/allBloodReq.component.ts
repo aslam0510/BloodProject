@@ -57,36 +57,18 @@ export class AllBloodReqComponent implements OnInit {
 
   ngOnInit() {}
 
-  onFilter(e) {
-    console.log(e);
-
-    //  const element = document.getElementById(event.target.id);
-    //     const jqelement = element as HTMLButtonElement
-    //     const position = jqelement.position(); // cache the position
-    //     const bottom = position.top + jqelement.height();
-    //     const dialogConfig = new MatDialogConfig();
-    //     dialogConfig.disableClose = true;
-    //     dialogConfig.autoFocus = true;
-    //     dialogConfig.position = {
-    //       top:  '' + bottom,
-    //       right: '0'
-    //     };
-    //     dialogConfig.width = '50%' ;
-    //     dialogConfig.height = '350px' ;
-    //     console.log(dialogConfig);
-    console.log(e.clientX);
-
+  onFilter(event) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
+    let targetAttr = event.target.getBoundingClientRect();
+
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '350px';
+    dialogConfig.panelClass = 'custom-dialog-container';
     dialogConfig.position = {
-      top: '0',
-      left: '0',
+      top: targetAttr.y + targetAttr.height - 7 + 'px',
+      left: targetAttr.x + targetAttr.width - 5 + 'px',
     };
     console.log(dialogConfig);
-    this.dialog.open(FilterComponent, {
-      height: 'auto',
-      width: '350px',
-      panelClass: 'custom-dialog-container',
-    });
+    this.dialog.open(FilterComponent, dialogConfig);
   }
 }

@@ -12,7 +12,7 @@
         <input matInput placeholder="password" formControlName="pwd">
       </mat-form-field>
       <div class="d-flex flex-column buttons">
-        <button class="d-block my-3 mt-2" mat-raised-button color="accent">Login</button>
+        <button class="d-block my-3 mt-2" mat-raised-button color="accent" [disabled]="!loginForm.valid">Login</button>
         <button mat-raised-button color="accent" (click)="onSignup()">signup</button>
       </div>
       <h5 (click)="onForgotPass()" class="forgotPass text-center mt-5 text-primary">

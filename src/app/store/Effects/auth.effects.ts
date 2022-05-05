@@ -1,3 +1,4 @@
+import { LoginModel } from './../../models/login.model';
 import * as auth from './../Actions/auth.action';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -14,11 +15,10 @@ export class AuthEffect {
       ofType(auth.GET_LOGIN),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload);
-
-        return this.http
-          .post(api.getAPI('GET_LOGIN'), payload)
-          .pipe(mergeMap((data) => [new auth.GetLoginSuccess(data)]));
+        return this.http.post(api.getAPI('GET_LOGIN'), payload).pipe(
+          map((data: any) => data.data),
+          mergeMap((data: LoginModel) => [new auth.GetLoginSuccess(data)])
+        );
       })
     );
   });
