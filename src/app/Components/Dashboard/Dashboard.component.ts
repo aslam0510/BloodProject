@@ -1,8 +1,9 @@
 import { AddBloodRequestComponent } from './../../Dialogs/forgot-dialog/AddBloodRequest/AddBloodRequest.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { BroadcastMsgDialogComponent } from './../../Dialogs/broadcastMsgDialog/broadcastMsgDialog.component';
 
 @Component({
   selector: 'app-Dashboard',
@@ -11,7 +12,11 @@ import { Label } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   sideMenus = [
-    { menu: 'Dashboard', icon: 'search', route: '/dashboard' },
+    {
+      menu: 'Dashboard',
+      icon: '/assets/Images/dashboard.svg',
+      route: '/dashboard',
+    },
     {
       menu: 'All Blood Availability',
       icon: 'search',
@@ -26,7 +31,7 @@ export class DashboardComponent implements OnInit {
     {
       menu: 'Donor Database',
       icon: 'folder_open',
-      route: '/dashboard/donorDatabase',
+      route: '/assets/Images/donordatabase.svg',
     },
     { menu: 'Scan Donar', icon: 'search', route: 'scanDonar' },
     { menu: 'UserManagement', icon: 'people', route: 'userManagement' },
@@ -74,5 +79,20 @@ export class DashboardComponent implements OnInit {
       height: 'auto',
       panelClass: 'custom-dialog-container',
     });
+  }
+
+  onBroadCaseMsg(event) {
+    const dialogConfig = new MatDialogConfig();
+    let targetAttr = event.target.getBoundingClientRect();
+
+    dialogConfig.height = 'auto';
+    dialogConfig.width = '850px';
+    dialogConfig.panelClass = 'custom-dialog-container';
+    dialogConfig.position = {
+      bottom: '10px',
+      right: '20px',
+    };
+    console.log(dialogConfig);
+    this.dialog.open(BroadcastMsgDialogComponent, dialogConfig);
   }
 }

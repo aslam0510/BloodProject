@@ -9,9 +9,14 @@ import { HomeComponent } from './Components/Home/Home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './Components/Dashboard/Dashboard.component';
+import { ResetPasswordComponent } from './Dialogs/resetPassword/resetPassword.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
+  {
+    path: 'resetPassword',
+    component: ResetPasswordComponent,
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,

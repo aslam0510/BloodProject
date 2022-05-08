@@ -8,28 +8,28 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   loginCards = [
     {
-      icon: '',
+      icon: '/assets/Images/usrMange.svg',
       content: 'User Management & Role based access control and security.',
     },
     {
-      icon: '',
+      icon: '/assets/Images/trackandmaintain.svg',
       content: 'Track and maintain all donor types.',
     },
     {
-      icon: '',
+      icon: '/assets/Images/registeredPatients.svg',
       content:
         'Requisition for manual as well as computer registered patients.',
     },
     {
-      icon: '',
+      icon: '/assets/Images/powerfullfacility.svg',
       content: 'Powerful search facility.',
     },
     {
-      icon: '',
+      icon: '/assets/Images/stockrate.svg',
       content: 'Stock transfer',
     },
     {
-      icon: '',
+      icon: '/assets/Images/edit.svg',
       content: 'Edit your profile from anywhere, effortlessly.',
     },
   ];

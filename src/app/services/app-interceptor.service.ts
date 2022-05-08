@@ -73,6 +73,8 @@ export class AppInterceptor implements HttpInterceptor {
         setHeaders: {
           token: token ? token : '',
           observe: 'response',
+
+          'Access-Control-Allow-Origin': '*',
         },
       });
 
