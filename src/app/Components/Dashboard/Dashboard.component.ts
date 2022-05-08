@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
     {
       menu: 'Donor Database',
       icon: 'folder_open',
-      route: '/assets/Images/donordatabase.svg',
+      route: '/dashboard/donorDatabase',
     },
     { menu: 'Scan Donar', icon: 'search', route: 'scanDonar' },
     { menu: 'UserManagement', icon: 'people', route: 'userManagement' },
