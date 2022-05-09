@@ -39,6 +39,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SendMessageComponent } from './Dialogs/send-message/send-message.component';
 import { Ng5SliderModule } from 'ng5-slider';
+import { BroadcastMsgDialogComponent } from './Dialogs/broadcastMsgDialog/broadcastMsgDialog.component';
+import { ResetPasswordComponent } from './Dialogs/resetPassword/resetPassword.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -63,6 +65,8 @@ const httpServices = [AppInterceptor, HttpStatus];
     SendMessageComponent,
     UpdateBldStsDialogComponent,
     FilterComponent,
+    BroadcastMsgDialogComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

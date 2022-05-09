@@ -32,11 +32,11 @@ export class SignupComponent implements OnInit {
     this.organizationForm = new FormGroup({
       organizationType: new FormControl('', [Validators.required]),
       organizationName: new FormControl('', [Validators.required]),
-      orgEmailAddress: new FormControl('', [Validators.required]),
-      orgAddress: new FormControl('', [
+      orgEmailAddress: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
       ]),
+      orgAddress: new FormControl('', [Validators.required]),
       orgContact: new FormControl('', [
         Validators.required,
         Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
