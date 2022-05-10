@@ -50,6 +50,7 @@ mat-card {
 }
 
 .activitybtn {
+  background-color: brown;
   min-width: 45px !important;
   border-radius: 10px !important;
   padding: 0 !important;

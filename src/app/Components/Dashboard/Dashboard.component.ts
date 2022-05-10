@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   sideMenus = [
     {
       menu: 'Dashboard',
-      icon: '/assets/Images/dashboard.svg',
+      icon: 'search',
       route: '/dashboard',
     },
     {

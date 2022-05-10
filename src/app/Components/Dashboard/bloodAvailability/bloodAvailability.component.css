@@ -16,6 +16,7 @@ mat-card {
   overflow-y: scroll;
 }
 .activitybtn {
+  background-color: brown;
   min-width: 45px !important;
   border-radius: 10px !important;
   padding: 0;
@@ -82,4 +83,54 @@ table {
 
 .material-icons {
   font-size: 18px !important;
+}
+
+.mat-header-row {
+  font-weight: bold;
+}
+.mat-column-Item_Name {
+  width: 200px;
+  border-right: 1px #0000001f;
+}
+
+.mat-column-Aplus {
+  padding-left: 1rem;
+  width: 75px;
+  border-right: 1px #0000001f;
+}
+.mat-column-Aminus {
+  padding-left: 1rem;
+  width: 75px;
+  border-right: 1px #0000001f;
+}
+.mat-column-Bplus {
+  padding-left: 1rem;
+  width: 75px;
+  border-right: 1px #0000001f;
+}
+.mat-column-Bminus {
+  padding-left: 1rem;
+  width: 75px;
+  border-right: 1px #0000001f;
+}
+.mat-column-ABplus {
+  padding-left: 1rem;
+  width: 75px;
+  border-right: 1px #0000001f;
+}
+.mat-column-ABminus {
+  padding-left: 1rem;
+  width: 75px;
+  border-right: 1px #0000001f;
+}
+.mat-column-Oplus {
+  padding-left: 1rem;
+  width: 75px;
+  border-right: 1px #0000001f;
+}
+
+.mat-column-Ominus {
+  padding-left: 1rem;
+  width: 75px;
+  border-right: 1px #0000001f;
 }

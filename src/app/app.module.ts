@@ -41,6 +41,9 @@ import { SendMessageComponent } from './Dialogs/send-message/send-message.compon
 import { Ng5SliderModule } from 'ng5-slider';
 import { BroadcastMsgDialogComponent } from './Dialogs/broadcastMsgDialog/broadcastMsgDialog.component';
 import { ResetPasswordComponent } from './Dialogs/resetPassword/resetPassword.component';
+import { BldCompStDialogComponent } from './Dialogs/bldCompStDialog/bldCompStDialog.component';
+import { NotificationDialogComponent } from './Dialogs/notificationDialog/notificationDialog.component';
+import { BldReqViewComponent } from './Components/bldReqView/bldReqView.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -67,6 +70,9 @@ const httpServices = [AppInterceptor, HttpStatus];
     FilterComponent,
     BroadcastMsgDialogComponent,
     ResetPasswordComponent,
+    BldCompStDialogComponent,
+    NotificationDialogComponent,
+    BldReqViewComponent,
   ],
   imports: [
     BrowserModule,

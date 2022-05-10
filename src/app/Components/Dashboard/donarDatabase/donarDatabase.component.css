@@ -1,6 +1,10 @@
 table {
   width: 100%;
 }
+.mattable {
+  height: 54vh;
+  overflow-y: scroll;
+}
 mat-card {
   border-radius: 15px;
 }

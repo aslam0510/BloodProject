@@ -10,7 +10,17 @@
           <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
             <mat-button-toggle value="Today">Today</mat-button-toggle>
             <mat-button-toggle value="Yesterday">Yesterday</mat-button-toggle>
-            <mat-button-toggle value="Pick Date">Pick Date</mat-button-toggle>
+            <mat-button-toggle value="Pick Date">
+              <mat-form-field appearance="fill" class="example-form-field">
+                <input matInput [matDatepicker]="datepicker">
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                  <mat-datepicker-actions>
+                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                  </mat-datepicker-actions>
+                </mat-datepicker>
+              </mat-form-field>
+            </mat-button-toggle>
           </mat-button-toggle-group>
           <button class="appBgColor btn btn-sm editButton" mat-raised-button *ngIf="showBASEditbtn" (click)="onEditBldStatus('bldAvalStatus')">Edit</button>
           <button class="appBgColor editButton" mat-raised-button *ngIf="!showBASEditbtn" (click)="onCancelBldStatus('bldAvalStatus')">
@@ -42,26 +52,26 @@
               <td (click)="onUpdateBloodStatus(1000)">
                 <p [ngClass]=" !showBASEditbtn ? 'showBorder' : ''">1000</p>
               </td>
-              <td>
+              <td (click)="onUpdateBloodStatus(1000)">
+                <p [ngClass]=" !showBASEditbtn ? 'showBorder' : ''">1000</p>
+              </td>
+              <td (click)="onUpdateBloodStatus(1000)">
                 <p [ngClass]=" !showBASEditbtn ? 'showBorder' : ''">1000</p>
               </td>
               <td>
                 <p [ngClass]=" !showBASEditbtn ? 'showBorder' : ''">1000</p>
               </td>
-              <td>
+              <td (click)="onUpdateBloodStatus(1000)">
                 <p [ngClass]=" !showBASEditbtn ? 'showBorder' : ''">1000</p>
               </td>
-              <td>
-                <p [ngClass]=" !showBASEditbtn ? 'showBorder' : ''">1000</p>
-              </td>
-              <td>
+              <td (click)="onUpdateBloodStatus(1000)">
                 <p [ngClass]=" !showBASEditbtn ? 'showBorder' : ''">1000</p>
               </td>
 
-              <td>
+              <td (click)="onUpdateBloodStatus(1000)">
                 <p [ngClass]=" !showBASEditbtn ? 'showBorder' : ''">1000</p>
               </td>
-              <td>
+              <td (click)="onUpdateBloodStatus(1000)">
                 <p [ngClass]=" !showBASEditbtn ? 'showBorder' : ''">1000</p>
               </td>
               <td *ngIf="!showBASEditbtn">
@@ -82,7 +92,17 @@
           <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
             <mat-button-toggle value="Today">Today</mat-button-toggle>
             <mat-button-toggle value="Yesterday">Yesterday</mat-button-toggle>
-            <mat-button-toggle value="Pick Date">Pick Date</mat-button-toggle>
+            <mat-button-toggle value="Pick Date">
+              <mat-form-field appearance="fill" class="example-form-field">
+                <input matInput [matDatepicker]="datepicker">
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                  <mat-datepicker-actions>
+                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                  </mat-datepicker-actions>
+                </mat-datepicker>
+              </mat-form-field>
+            </mat-button-toggle>
           </mat-button-toggle-group>
           <button class="appBgColor btn btn-sm editButton" mat-raised-button *ngIf="showBCSEditbtn" (click)="onEditBldStatus('bldCompStatus')">Edit</button>
           <button class="appBgColor editButton" mat-raised-button *ngIf="!showBCSEditbtn" (click)="onCancelBldStatus('bldCompStatus')">
@@ -92,14 +112,59 @@
         </div>
       </div>
       <div class="mt-2 mx-0 mattable">
-        <table mat-table [dataSource]="dataSource">
-          <mat-text-column name="position"></mat-text-column>
-          <mat-text-column name="name"></mat-text-column>
-          <mat-text-column name="weight"></mat-text-column>
-          <mat-text-column name="symbol"></mat-text-column>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+          <!-- Position Column -->
+          <ng-container matColumnDef="Item_Name">
+            <th mat-header-cell *matHeaderCellDef> Item_Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.Item_Name}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="Aplus">
+            <th mat-header-cell *matHeaderCellDef> A+ </th>
+            <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Aplus}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="Aminus">
+            <th mat-header-cell *matHeaderCellDef> A- </th>
+            <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Aminus}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="Bplus">
+            <th mat-header-cell *matHeaderCellDef> B+ </th>
+            <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Bplus}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Bminus">
+            <th mat-header-cell *matHeaderCellDef> B- </th>
+            <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Bminus}} </td>
+          </ng-container>
+          <ng-container matColumnDef="ABplus">
+            <th mat-header-cell *matHeaderCellDef> AB+ </th>
+            <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.ABplus}} </td>
+          </ng-container>
+          <ng-container matColumnDef="ABminus">
+            <th mat-header-cell *matHeaderCellDef> AB- </th>
+            <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.ABminus}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Oplus">
+            <th mat-header-cell *matHeaderCellDef> O+ </th>
+            <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Oplus}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Ominus">
+            <th mat-header-cell *matHeaderCellDef> O- </th>
+            <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Ominus}} </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let element" > 
+              <mat-icon>edit</mat-icon>
+               </td>
+          </ng-container> -->
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
     </mat-card>
@@ -109,47 +174,69 @@
     <h3 class="title text-center">Activity</h3>
     <div class="activityContent">
       <div class="py-2 d-flex justify-content-around align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <button mat-flat-button class="activitybtn">A+</button>
         <div class="flex">
           <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
           <span class="m-0">5 min ago</span>
         </div>
       </div>
       <div class="py-2 d-flex justify-content-around align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <button mat-flat-button class="activitybtn">A+</button>
         <div class="flex">
           <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
           <span class="m-0">5 min ago</span>
         </div>
       </div>
       <div class="py-2 d-flex justify-content-between align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <button mat-flat-button class="activitybtn">A+</button>
         <div class="flex">
           <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
           <span class="m-0">5 min ago</span>
         </div>
       </div>
       <div class="py-2 d-flex justify-content-between align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <button mat-flat-button class="activitybtn">A+</button>
         <div class="flex">
           <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
           <span class="m-0">5 min ago</span>
         </div>
       </div>
       <div class="py-2 d-flex justify-content-between align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <button mat-flat-button class="activitybtn">A+</button>
         <div class="flex">
           <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
           <span class="m-0">5 min ago</span>
         </div>
       </div>
       <div class="py-2 d-flex justify-content-between align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <button mat-flat-button class="activitybtn">A+</button>
         <div class="flex">
           <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
           <span class="m-0">5 min ago</span>
         </div>
       </div>
+      <div class="py-2 d-flex justify-content-between align-items-center borders">
+        <button mat-flat-button class="activitybtn">A+</button>
+        <div class="flex">
+          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
+          <span class="m-0">5 min ago</span>
+        </div>
+      </div>
+      <div class="py-2 d-flex justify-content-between align-items-center borders">
+        <button mat-flat-button class="activitybtn">A+</button>
+        <div class="flex">
+          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
+          <span class="m-0">5 min ago</span>
+        </div>
+      </div>
+      <div class="py-2 d-flex justify-content-between align-items-center borders">
+        <button mat-flat-button class="activitybtn">A+</button>
+        <div class="flex">
+          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
+          <span class="m-0">5 min ago</span>
+        </div>
+      </div>
+
       <div class="py-2 d-flex justify-content-between align-items-center borders">
         <button mat-flat-button color="accent" class="activitybtn">A+</button>
         <div class="flex">
@@ -173,29 +260,7 @@
       </div>
 
       <div class="py-2 d-flex justify-content-between align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
-        <div class="flex">
-          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
-          <span class="m-0">5 min ago</span>
-        </div>
-      </div>
-      <div class="py-2 d-flex justify-content-between align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
-        <div class="flex">
-          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
-          <span class="m-0">5 min ago</span>
-        </div>
-      </div>
-      <div class="py-2 d-flex justify-content-between align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
-        <div class="flex">
-          <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
-          <span class="m-0">5 min ago</span>
-        </div>
-      </div>
-
-      <div class="py-2 d-flex justify-content-between align-items-center borders">
-        <button mat-flat-button color="accent" class="activitybtn">A+</button>
+        <button mat-flat-button class="activitybtn">A+</button>
         <div class="flex">
           <p class="m-0">Plasma for A+ is updated form 0 to 10 by suman</p>
           <span class="m-0">5 min ago</span>

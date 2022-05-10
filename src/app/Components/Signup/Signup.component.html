@@ -184,7 +184,7 @@
   <div class="expansion" [formGroup]="newEntityForm" *ngIf="NewEntityControl().controls.length > 0">
     <div formArrayName="newEntities" *ngFor="let control of NewEntityControl().controls; let i = index" class="my-3">
       <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel expanded="open">
           <mat-expansion-panel-header>
             <mat-panel-title class="d-flex align-items-center justify-content-between">
               <button color="accent" (click)="deleteEntity(i)" mat-button class="upload-button d-flex justify-content-between" type="button">

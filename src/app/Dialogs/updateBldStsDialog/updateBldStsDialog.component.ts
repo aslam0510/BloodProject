@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SendMessageComponent } from '../send-message/send-message.component';
 
 @Component({
   selector: 'app-updateBldStsDialog',
@@ -10,7 +9,7 @@ import { SendMessageComponent } from '../send-message/send-message.component';
 export class UpdateBldStsDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public dialogRef: MatDialogRef<SendMessageComponent>
+    public dialogRef: MatDialogRef<UpdateBldStsDialogComponent>
   ) {}
 
   ngOnInit() {}

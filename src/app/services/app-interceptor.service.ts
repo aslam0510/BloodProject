@@ -31,11 +31,11 @@ export class HttpStatus {
       this.requestInFlight$.next(inFlight);
     } else {
       console.log(this.loaderStatus);
-
-      this.loaderStatus.size === 0
-        ? this.requestInFlight$.next(false)
-        : this.requestInFlight$.next(true);
+      httpReq.url ? this.loaderStatus.delete(httpReq.url) : '';
     }
+    this.loaderStatus.size === 0
+      ? this.requestInFlight$.next(false)
+      : this.requestInFlight$.next(true);
   }
 
   //clear the request inFlight

@@ -2,11 +2,21 @@ mat-card {
   border-radius: 15px;
 }
 
+.mattable {
+  height: 53vh;
+  overflow-y: scroll;
+}
 .demo-table {
   width: 100%;
 }
-
 .tool-bar-icon {
   width: 48px;
   height: 48px;
+}
+
+.type {
+  margin-right: 1rem;
+}
+mat-form-field {
+  margin-right: 1rem;
 }
