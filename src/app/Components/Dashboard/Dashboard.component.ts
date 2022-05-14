@@ -34,7 +34,11 @@ export class DashboardComponent implements OnInit {
       route: '/dashboard/donorDatabase',
     },
     { menu: 'Scan Donar', icon: 'search', route: 'scanDonar' },
-    { menu: 'UserManagement', icon: 'people', route: 'userManagement ' },
+    {
+      menu: 'UserManagement',
+      icon: 'people',
+      route: '/dashboard/userManagement',
+    },
   ];
 
   bloodGroupCards = [

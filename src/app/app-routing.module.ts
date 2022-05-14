@@ -1,3 +1,4 @@
+import { UserManagementComponent } from './Components/userManagement/userManagement.component';
 import { DonarDatabaseComponent } from './Components/Dashboard/donarDatabase/donarDatabase.component';
 import { AllBloodReqComponent } from './Components/Dashboard/allBloodReq/allBloodReq.component';
 import { BloodAvailabilityComponent } from './Components/Dashboard/bloodAvailability/bloodAvailability.component';
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: 'donorDatabase',
         component: DonarDatabaseComponent,
+      },
+      {
+        path: 'userManagement',
+        component: UserManagementComponent,
       },
     ],
   },

@@ -1,0 +1,60 @@
+<mat-card>
+  <div class="py-3 d-flex align-items-center justify-content-around appBgColor">
+    <h2 class="flex-1 m-0 text-white">Add User</h2>
+    <mat-icon>close</mat-icon>
+  </div>
+  <form class="p-4">
+    <p>
+      <mat-form-field>
+        <mat-label>User name</mat-label>
+        <input matInput placeholder="userNmae" formControlName="User name">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Contact No.</mat-label>
+        <input matInput placeholder="Contact No.">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "Type of Entity" }}</mat-label>
+        <mat-select placeholder="Type of Entity">
+          <mat-option value="hospital">{{ "hospital" }}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Role</mat-label>
+        <mat-select placeholder="Role">
+          <mat-option value="hospital">{{ "hospital" }}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Stauts</mat-label>
+        <mat-select placeholder="Stauts">
+          <mat-option value="hospital">{{ "hospital" }}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+    </p>
+    <div class="mt-3 d-flex align-items-center justify-content-evenly">
+      <button mat-raised-button>Clear</button>
+      <button mat-raised-button>Save</button>
+    </div>
+  </form>
+</mat-card>

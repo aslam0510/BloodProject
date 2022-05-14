@@ -1,3 +1,5 @@
+import { AddUserDailogComponent } from './Components/userManagement/addUserDailog/addUserDailog.component';
+import { UserManagementComponent } from './Components/userManagement/userManagement.component';
 import { FilterComponent } from './Components/filter/filter.component';
 import { UpdateBldStsDialogComponent } from './Dialogs/updateBldStsDialog/updateBldStsDialog.component';
 import { DonarDatabaseComponent } from './Components/Dashboard/donarDatabase/donarDatabase.component';
@@ -44,6 +46,7 @@ import { ResetPasswordComponent } from './Dialogs/resetPassword/resetPassword.co
 import { BldCompStDialogComponent } from './Dialogs/bldCompStDialog/bldCompStDialog.component';
 import { NotificationDialogComponent } from './Dialogs/notificationDialog/notificationDialog.component';
 import { BldReqViewComponent } from './Components/bldReqView/bldReqView.component';
+import { RolesAndPermissionComponent } from './Components/rolesAndPermission/rolesAndPermission.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -73,6 +76,9 @@ const httpServices = [AppInterceptor, HttpStatus];
     BldCompStDialogComponent,
     NotificationDialogComponent,
     BldReqViewComponent,
+    UserManagementComponent,
+    AddUserDailogComponent,
+    RolesAndPermissionComponent,
   ],
   imports: [
     BrowserModule,
