@@ -30,7 +30,6 @@ export class HttpStatus {
       this.loaderStatus.set(encodeURI(httpReq.url), '');
       this.requestInFlight$.next(inFlight);
     } else {
-      console.log(this.loaderStatus);
       httpReq.url ? this.loaderStatus.delete(httpReq.url) : '';
     }
     this.loaderStatus.size === 0
@@ -65,16 +64,21 @@ export class AppInterceptor implements HttpInterceptor {
     this.status.setHttpStatus(true, req);
     const token = localStorage.getItem('token');
 
-    if (token) {
+    if (
+      !token &&
+      req.url
+        .toString()
+        .trim()
+        .toLocaleLowerCase()
+        .indexOf('bbportal/login'.toLocaleLowerCase()) === -1
+    ) {
       this.status.setHttpStatus(false, req);
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
     } else {
       const authReq = req.clone({
         setHeaders: {
           token: token ? token : '',
           observe: 'response',
-
-          'Access-Control-Allow-Origin': '*',
         },
       });
 

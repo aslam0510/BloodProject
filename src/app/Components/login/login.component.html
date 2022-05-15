@@ -2,6 +2,11 @@
   <mat-card-title class="mt-5 pt-5 text-center">Login</mat-card-title>
   <mat-card-subtitle class="mt-5 mb-3 text-center">Please enter your username and password to access the portal</mat-card-subtitle>
   <mat-card-content>
+    <div class="row">
+      <mat-error *ngIf="loginErrors.length > 0" class="d-flex align-items-center justify-content-around">
+        <mat-icon>warning</mat-icon> <span class="mt-1 ml-1">{{loginErrors[0]}}</span>
+      </mat-error>
+    </div>
     <form [formGroup]="loginForm" (ngSubmit)="onLoginForm()">
       <mat-form-field class="d-block">
         <mat-label>userName</mat-label>

@@ -1,27 +1,19 @@
 import * as authActions from './../Actions/auth.action';
 import { authInitialState } from './../States/auth.state';
 import { createReducer, on } from '@ngrx/store';
-
-// const _authReducer = createReducer(authInitialState,
-//   on(authActions.GET_LOGIN_SUCCESS, (state, action) => {
-//     return {
-//       ...state
-//     }
-//   })
-
-// );
-
-// export function authReducer(state, action) {
-//   return _authReducer(state, action);
-// }
+import { AuthList } from './../../models/authList';
 
 export function AuthReducer(
-  state = authInitialState,
+  state = new AuthList(false),
   action: authActions.Actions
 ) {
   switch (action.type) {
     case authActions.GET_LOGIN_SUCCESS: {
-      return { ...state };
+      // localStorage.setItem('token', action.payload.token);
+
+      return { ...state, auth: action.payload };
     }
+    default:
+      return state;
   }
 }

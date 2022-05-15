@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AppState } from 'src/app/app.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,33 +15,57 @@ import { AppState } from 'src/app/app.state';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  loginSuccess$: Observable<any>;
+  loginSuccess: any;
   loginForm: FormGroup;
-  loginDetails: any;
+  loginErrors$: Observable<any>;
+  loginErrors: any;
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
     private router: Router,
     private store: Store<AppState>
-  ) {}
+  ) {
+    this.loginSuccess$ = this.store.select((state) => state.AuthSlice.auth);
+    this.loginErrors = [];
+  }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
       userid: new FormControl('', Validators.required),
       pwd: new FormControl('', Validators.required),
     });
+
+    this.loginSuccess$.subscribe((data) => {
+      if (data) {
+        this.loginSuccess = data;
+        if (this.loginSuccess && this.loginSuccess.code === 200) {
+          localStorage.setItem('token', this.loginSuccess.data.token);
+          this.loginErrors = [];
+          this.router.navigate(['/dashboard']);
+        } else if (
+          this.loginSuccess &&
+          this.loginSuccess.code === 201 &&
+          this.loginSuccess.msg ===
+            'The Email/Phone or password entered by you is incorrect'
+        ) {
+          this.loginErrors.push(this.loginSuccess.msg);
+        }
+      }
+    });
   }
 
   onLoginForm() {
-    if (!this.loginForm.valid) {
-      return;
+    if (this.loginForm.valid) {
+      this.loginErrors = [];
+      const payload = {
+        userid: this.loginForm.value.userid,
+        pwd: this.loginForm.value.pwd,
+      };
+
+      this.store.dispatch(new AuthAction.GetLogin(payload));
+      localStorage.setItem('userName', payload.userid);
     }
-
-    const payload = {
-      userid: this.loginForm.value.userid,
-      pwd: this.loginForm.value.pwd,
-    };
-
-    this.store.dispatch(new AuthAction.GetLogin(payload));
   }
 
   onForgotPass() {

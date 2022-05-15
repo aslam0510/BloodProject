@@ -15,10 +15,9 @@ export class AuthEffect {
       ofType(auth.GET_LOGIN),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        return this.http.post(api.getAPI('GET_LOGIN'), payload).pipe(
-          map((data: any) => data.data),
-          mergeMap((data: LoginModel) => [new auth.GetLoginSuccess(data)])
-        );
+        return this.http
+          .post(api.getAPI('GET_LOGIN'), payload)
+          .pipe(map((data: any) => new auth.GetLoginSuccess(data)));
       })
     );
   });
