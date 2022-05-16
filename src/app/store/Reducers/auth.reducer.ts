@@ -1,8 +1,8 @@
 import * as authActions from './../Actions/auth.action';
-import { AuthList } from './../../models/authList';
+import { AuthState } from './../States/authState';
 
 export function AuthReducer(
-  state = new AuthList(false),
+  state = new AuthState(false),
   action: authActions.Actions
 ) {
   switch (action.type) {

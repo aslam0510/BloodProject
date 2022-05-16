@@ -26,6 +26,7 @@ h2 {
 
 .signup {
   border-radius: 20px;
+  margin-right: 15rem;
 }
 
 .footer {
@@ -73,4 +74,8 @@ h2 {
   .expansion {
     margin: 1rem 1.5rem;
   }
+}
+
+.fileErr {
+  padding-left: 3rem;
 }

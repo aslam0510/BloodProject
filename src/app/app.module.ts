@@ -47,6 +47,7 @@ import { BldCompStDialogComponent } from './Dialogs/bldCompStDialog/bldCompStDia
 import { NotificationDialogComponent } from './Dialogs/notificationDialog/notificationDialog.component';
 import { BldReqViewComponent } from './Components/bldReqView/bldReqView.component';
 import { RolesAndPermissionComponent } from './Components/rolesAndPermission/rolesAndPermission.component';
+import { AppDialogComponent } from './Dialogs/appDialog/appDialog.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -79,6 +80,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     UserManagementComponent,
     AddUserDailogComponent,
     RolesAndPermissionComponent,
+    AppDialogComponent,
   ],
   imports: [
     BrowserModule,

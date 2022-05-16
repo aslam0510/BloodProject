@@ -1,4 +1,4 @@
-export class AuthList {
+export class AuthState {
   auth: any;
   isEditMode: boolean;
   constructor(isEditMode) {

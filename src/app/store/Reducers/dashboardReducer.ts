@@ -14,6 +14,10 @@ export function dashboardReducer(
       const data = action.payload.data;
       return { ...state, orgForm: data };
     }
+    case dashboardActions.SUBMIT_ENTITYFORM_SUCCESS: {
+      const data = action.payload.data;
+      return { ...state, entityForm: data };
+    }
     default:
       return state;
   }

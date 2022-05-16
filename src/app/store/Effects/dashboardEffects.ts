@@ -31,7 +31,21 @@ export class DashboardEffect {
       exhaustMap((payload) => {
         return this.http
           .post(api.getAPI('SUBMIT_ORGFORM'), payload)
-          .pipe(map((data) => new dashboardActions.submitOrgFormSuccess(data)));
+          .pipe(map((data) => new dashboardActions.SubmitOrgFormSuccess(data)));
+      })
+    );
+  });
+
+  submitEntityForm$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.SUBMIT_ENTITYFORM),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('SUBMIT_ENTITY_FORM'), payload)
+          .pipe(
+            map((data) => new dashboardActions.SubmitEntityFormSuccess(data))
+          );
       })
     );
   });

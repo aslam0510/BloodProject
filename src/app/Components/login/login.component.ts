@@ -7,7 +7,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AppState } from 'src/app/app.state';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import * as bcrypt from 'bcryptjs';
+import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
+import { OrgFormModel } from './../../models/orgFormModel';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +23,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginErrors$: Observable<any>;
   loginErrors: any;
+
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
@@ -27,6 +31,7 @@ export class LoginComponent implements OnInit {
     private store: Store<AppState>
   ) {
     this.loginSuccess$ = this.store.select((state) => state.AuthSlice.auth);
+
     this.loginErrors = [];
   }
 
@@ -58,9 +63,10 @@ export class LoginComponent implements OnInit {
   onLoginForm() {
     if (this.loginForm.valid) {
       this.loginErrors = [];
+      const salt = bcrypt.genSaltSync(10);
       const payload = {
         userid: this.loginForm.value.userid,
-        pwd: this.loginForm.value.pwd,
+        pwd: bcrypt.hashSync(this.loginForm.value.pwd, salt),
       };
 
       this.store.dispatch(new AuthAction.GetLogin(payload));
@@ -82,5 +88,20 @@ export class LoginComponent implements OnInit {
 
   onSignup() {
     this.router.navigate(['signup']);
+  }
+
+  showDialog() {
+    const dialogRef = this.dialog.open(AppDialogComponent, {
+      width: '350px',
+      height: 'auto',
+      data: {
+        title: 'Application Submitted Successfully !',
+        content:
+          'we have received your application. We are currently reviewing your application. After Successful verificatio you will receive Username and Password through email. We will get back to you with the status within 2-3 days',
+        ok: true,
+        cancel: false,
+        button: 'Done',
+      },
+    });
   }
 }
