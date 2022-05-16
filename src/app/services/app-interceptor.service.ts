@@ -70,7 +70,17 @@ export class AppInterceptor implements HttpInterceptor {
         .toString()
         .trim()
         .toLocaleLowerCase()
-        .indexOf('bbportal/login'.toLocaleLowerCase()) === -1
+        .indexOf('bbportal/login'.toLocaleLowerCase()) !== -1 &&
+      req.url
+        .toString()
+        .trim()
+        .toLocaleLowerCase()
+        .indexOf('bbportal/register/organization'.toLocaleLowerCase()) !== -1 &&
+      req.url
+        .toString()
+        .trim()
+        .toLocaleLowerCase()
+        .indexOf('bbportal/register/entity'.toLocaleLowerCase()) !== -1
     ) {
       this.status.setHttpStatus(false, req);
       this.router.navigate(['/login']);

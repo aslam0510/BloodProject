@@ -9,16 +9,16 @@
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="onLoginForm()">
       <mat-form-field class="d-block">
-        <mat-label>userName</mat-label>
-        <input matInput placeholder="userNmae" formControlName="userid">
+        <mat-label>User Name</mat-label>
+        <input matInput placeholder="User Nmae" formControlName="userid">
       </mat-form-field>
       <mat-form-field class="d-block">
-        <mat-label>password</mat-label>
-        <input matInput placeholder="password" formControlName="pwd" type="password">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Password" formControlName="pwd" type="password">
       </mat-form-field>
       <div class="d-flex flex-column buttons">
         <button class="d-block my-3 mt-2" mat-raised-button color="accent" [disabled]="!loginForm.valid">Login</button>
-        <button mat-raised-button color="accent" (click)="onSignup()">signup</button>
+        <button mat-raised-button color="accent" (click)="onSignup()">Sign up</button>
       </div>
       <h5 (click)="onForgotPass()" class="forgotPass text-center mt-5 text-primary">
         Forgot password
