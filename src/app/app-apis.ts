@@ -3,6 +3,8 @@ const appPort = {
 };
 const apis = {
   GET_LOGIN: { url: '/login', port: appPort.port },
+  GET_ORG_TYPES: { url: '/register/getTypes', port: appPort.port },
+  SUBMIT_ORGFORM: { url: '/register/organization', port: appPort.port },
 };
 
 export function getAPI(url_const) {

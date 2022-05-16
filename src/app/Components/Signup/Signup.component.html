@@ -18,8 +18,8 @@
           <div class="d-flex flex-row justify-content-around display">
             <mat-form-field appearance="outline">
               <mat-label>{{ "Type of Organization" }}</mat-label>
-              <mat-select formControlName="organizationType" placeholder="{{ 'Dimension' }}  *">
-                <mat-option value="hospital" (onSelectionChange)="onSignupForm()">{{ "hospital" }}
+              <mat-select formControlName="organizationType" placeholder="Type of Organization">
+                <mat-option [value]="type" *ngFor="let type of orgTypes" (onSelectionChange)="onSignupForm()">{{ type }}
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="
@@ -43,10 +43,10 @@
           <div class="d-flex flex-row justify-content-around">
             <mat-form-field>
               <mat-label>Email Address</mat-label>
-              <input matInput placeholder="Email Address" (input)="onSignupForm()" formControlName="orgEmailAddress" />
+              <input matInput placeholder="Email Address" (input)="onSignupForm()" formControlName="email" />
               <mat-error *ngIf="
-                  organizationForm.controls['orgEmailAddress'].invalid &&
-                  organizationForm.controls['orgEmailAddress'].errors.required
+                  organizationForm.controls['email'].invalid &&
+                  organizationForm.controls['email'].errors.required
                 ">
                 {{ "Email Address is required" }}
               </mat-error>
@@ -157,8 +157,8 @@
                 Please upload your medical registration and document of state
                 medical council proof.
               </p>
-              <input (input)="onSignupForm()" #fileInput [hidden]="true" id="input-file-id" multiple type="file" formControlName="orgFileUpload" accept=".csv,.xls,.xlsx"
-                (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
+              <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" formControlName="orgFileUpload" accept=".pdf" (change)="onOrgFileUpload($event)"
+                (click)="fileInput.value = null" />
               <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
                 <mat-icon color="accent">upload</mat-icon>
                 <span>Upload</span>
@@ -166,7 +166,7 @@
             </div>
 
             <ng-container *ngFor="let file of organizationFiles; let i = index">
-              <div class="files d-flex my-2 align-items-center" *ngIf="showFile">
+              <div class="files d-flex my-2 align-items-center" *ngIf="organizationFiles.length > 0">
                 <mat-icon class="icon pl-2 pr-4"> insert_drive_file</mat-icon>
                 <div class="d-flex flex-column flex-grow-1">
                   <span clas="d-block">{{ file.name }}</span>
@@ -201,7 +201,7 @@
               <mat-form-field appearance="outline">
                 <mat-label>{{ "Type of Organization" }}</mat-label>
                 <mat-select formControlName="entOrganizationType" placeholder="{{ 'Type of Organization' }}  *">
-                  <mat-option value="hospital">{{ "hospital" }} </mat-option>
+                  <mat-option [value]="type" *ngFor="let type of orgTypes"></mat-option>
                 </mat-select>
                 <!-- <mat-error *ngIf="
                     newEntityForm.controls['entOrganizationType'].invalid &&
@@ -368,7 +368,7 @@
   <button color="accent" mat-button class="mt-1 addEntity" [disabled]="!organizationForm.valid" (click)="addNewEntity()">
     <strong>Add New Entity</strong>
   </button>
-  <button mat-raised-button class="btn-danger signup" (click)="onSubmit()" [disabled]="!organizationForm.valid" type="submit">
+  <button mat-raised-button class="btn-danger signup" [disabled]="!organizationForm.valid" (click)="onSubmit()" type="submit">
     Submit
   </button>
 </div>

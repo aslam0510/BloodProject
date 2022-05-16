@@ -1,10 +1,10 @@
-import { LoginModel } from './../../models/login.model';
 import * as auth from './../Actions/auth.action';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, map, mergeMap } from 'rxjs/operators';
 import * as api from '../../app-apis';
+import * as dashboardActions from '../Actions/dashboardActions';
 
 @Injectable()
 export class AuthEffect {

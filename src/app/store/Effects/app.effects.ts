@@ -1,2 +1,4 @@
 import { AuthEffect } from './auth.effects';
-export const AppEffects = [AuthEffect];
+import { DashboardEffect } from './dashboardEffects';
+
+export const AppEffects = [AuthEffect, DashboardEffect];

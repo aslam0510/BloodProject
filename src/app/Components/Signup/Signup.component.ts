@@ -6,15 +6,26 @@ import {
   FormBuilder,
   FormArray,
 } from '@angular/forms';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import * as dashboardActions from '../../store/Actions/dashboardActions';
+import { Observable, Subscription } from 'rxjs';
+import { getOrgTypes } from './../../store/Selectors/dashboardSelector';
 
 @Component({
   selector: 'app-Signup',
   templateUrl: './Signup.component.html',
   styleUrls: ['./Signup.component.css'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   organizationForm: FormGroup;
   newEntityForm: FormGroup;
   fileName = '';
@@ -25,14 +36,29 @@ export class SignupComponent implements OnInit {
   addNewEntities = [];
   addNewEntityLength = 0;
 
+  orgTypes$: Observable<any>;
+  orgTypes: [] = [];
+  orgTypesSub: Subscription;
   // @ViewChild('fileInput') fileInput: ElementRef;
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private store: Store<AppState>
+  ) {
+    this.orgTypes$ = this.store.select(getOrgTypes);
+  }
 
   ngOnInit() {
+    this.store.dispatch(new dashboardActions.GetOrganizationTypes());
+    this.orgTypesSub = this.orgTypes$.subscribe((data) => {
+      if (data) {
+        this.orgTypes = data['types'];
+      }
+    });
     this.organizationForm = new FormGroup({
       organizationType: new FormControl('', [Validators.required]),
       organizationName: new FormControl('', [Validators.required]),
-      orgEmailAddress: new FormControl('', [
+      email: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
       ]),
@@ -96,11 +122,9 @@ export class SignupComponent implements OnInit {
   }
 
   onOrgFileUpload(event) {
-    const [...files] = event.target.files;
-    this.organizationFiles.push(...files);
-
-    this.showFile = true;
-    if (files.length === 0) return;
+    for (var i = 0; i < event.target.files.length; i++) {
+      this.organizationFiles.push(event.target.files[i]);
+    }
   }
   onEntFileUpload(event) {
     const [...files] = event.target.files;
@@ -108,10 +132,7 @@ export class SignupComponent implements OnInit {
 
     this.showFile = true;
   }
-  onSignupForm() {
-    if (this.organizationForm.valid) {
-    }
-  }
+  onSignupForm() {}
 
   onDeleteFile(index) {
     this.organizationFiles = this.organizationFiles.filter(
@@ -131,7 +152,44 @@ export class SignupComponent implements OnInit {
   onDeleteEntityFile(index) {}
   onSubmit() {
     if (this.organizationForm.valid) {
-      this.router.navigate(['dashboard']);
+      const orgForm = this.organizationForm.value;
+      let formData = new FormData();
+      // const payload = {
+      //   name: orgForm.organizationName,
+      //   type: orgForm.organizationType,
+      //   email: orgForm.email,
+      //   contact: orgForm.orgContact,
+      //   addr: orgForm.orgAddress,
+      //   city: orgForm.orgCity,
+      //   state: orgForm.orgState,
+      //   pin: orgForm.orgPincode,
+      //   country: '',
+      //   location: orgForm.orgLocation,
+      //   regno: orgForm.orgRegNum,
+      //   regyear: orgForm.orgRegYear,
+      //   regcouncil: orgForm.orgRegCouncil,
+      // };
+      formData.append('name', orgForm.organizationName);
+      formData.append('type', orgForm.organizationType);
+      formData.append('email', orgForm.email);
+      formData.append('contact', orgForm.orgContact);
+      formData.append('addr', orgForm.orgAddress);
+      formData.append('city', orgForm.orgCity);
+      formData.append('state', orgForm.orgState);
+      formData.append('pin', orgForm.orgPincode);
+      formData.append('country', '');
+      formData.append('location', orgForm.orgLocation);
+      formData.append('regno', orgForm.orgRegNum);
+      formData.append('regyear', orgForm.orgRegYear);
+      formData.append('regcouncil', orgForm.orgRegCouncil);
+      for (var i = 0; i < this.organizationFiles.length; i++) {
+        formData.append('docs', this.organizationFiles[i]);
+      }
+      this.store.dispatch(new dashboardActions.submitOrgForm(formData));
     }
+  }
+
+  ngOnDestroy() {
+    this.orgTypesSub.unsubscribe();
   }
 }
