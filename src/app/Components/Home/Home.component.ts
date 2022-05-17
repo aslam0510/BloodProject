@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AppState } from 'src/app/app.state';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { LoginViaOtpComponent } from './../../Dialogs/loginViaOtp/loginViaOtp.component';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +38,24 @@ export class HomeComponent implements OnInit {
       content: 'Edit your profile from anywhere, effortlessly.',
     },
   ];
-  constructor() {}
+  generateOtp$: Observable<any>;
+  generateOtp: any;
+  generateOtpSub: Subscription;
+  constructor(private dialog: MatDialog, private store: Store<AppState>) {
+    this.generateOtp$ = this.store.select(
+      (state) => state.AuthSlice.generateOtp
+    );
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.generateOtpSub = this.generateOtp$.subscribe((data) => {
+      if (data) {
+        this.generateOtp = data;
+      }
+    });
+  }
+
+  ngOnDestory() {
+    this.generateOtpSub.unsubscribe();
+  }
 }

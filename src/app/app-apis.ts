@@ -3,6 +3,7 @@ const appPort = {
 };
 const apis = {
   GET_LOGIN: { url: '/login', port: appPort.port },
+  GENERATE_OTP: { url: '/sendOTP', port: appPort.port },
   GET_ORG_TYPES: { url: '/register/getTypes', port: appPort.port },
   SUBMIT_ORGFORM: { url: '/register/organization', port: appPort.port },
   SUBMIT_ENTITY_FORM: { url: '/register/entity', port: appPort.port },

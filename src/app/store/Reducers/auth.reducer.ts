@@ -9,6 +9,9 @@ export function AuthReducer(
     case authActions.GET_LOGIN_SUCCESS: {
       return { ...state, auth: action.payload };
     }
+    case authActions.GENERATE_OTP_SUCCESS: {
+      return { ...state, generateOtp: action.payload };
+    }
     default:
       return state;
   }

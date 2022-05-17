@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, map, mergeMap } from 'rxjs/operators';
 import * as api from '../../app-apis';
-import * as dashboardActions from '../Actions/dashboardActions';
 
 @Injectable()
 export class AuthEffect {
@@ -18,6 +17,18 @@ export class AuthEffect {
         return this.http
           .post(api.getAPI('GET_LOGIN'), payload)
           .pipe(map((data: any) => new auth.GetLoginSuccess(data)));
+      })
+    );
+  });
+
+  generate$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.GENERATE_OTP),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('GENERATE_OTP'), payload)
+          .pipe(map((data: any) => new auth.GenerateOtpSuccess(data)));
       })
     );
   });

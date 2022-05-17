@@ -11,6 +11,8 @@ import { Observable, Subscription } from 'rxjs';
 import * as bcrypt from 'bcryptjs';
 import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
 import { OrgFormModel } from './../../models/orgFormModel';
+import { LoginViaOtpComponent } from './../../Dialogs/loginViaOtp/loginViaOtp.component';
+import { helpers } from 'chart.js';
 
 @Component({
   selector: 'app-login',
@@ -102,6 +104,29 @@ export class LoginComponent implements OnInit {
         cancel: false,
         button: 'Done',
       },
+    });
+  }
+
+  onLoginViaOtp() {
+    const dailogRef = this.dialog.open(LoginViaOtpComponent, {
+      width: '300px',
+      height: 'auto',
+
+      data: {
+        page: 'loginViaOtp',
+      },
+    });
+    dailogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.showVerifyOtpPopUp();
+      }
+    });
+  }
+  showVerifyOtpPopUp() {
+    this.dialog.open(LoginViaOtpComponent, {
+      width: '300px',
+      height: 'auto',
+      data: { page: 'verifyOtp' },
     });
   }
 }

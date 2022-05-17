@@ -1,6 +1,9 @@
 export const GET_LOGIN = 'GET_LOGIN';
 export const GET_LOGIN_SUCCESS = 'GET_LOGIN_SUCCESS';
-
+export const GENERATE_OTP = 'GENERATE_OTP';
+export const GENERATE_OTP_SUCCESS = 'GENERATE_OTP_SUCCESS';
+export const VERIFY_OTP = 'VERIFY_OTP';
+export const VERIFY_OTP_SUCCESS = 'VERIFY_OTP_SUCCESS';
 export class GetLogin {
   readonly type = GET_LOGIN;
   constructor(public payload: any) {}
@@ -11,4 +14,29 @@ export class GetLoginSuccess {
   constructor(public payload: any) {}
 }
 
-export type Actions = GetLogin | GetLoginSuccess;
+export class GenerateOtp {
+  readonly type = GENERATE_OTP;
+  constructor(public payload: any) {}
+}
+
+export class GenerateOtpSuccess {
+  readonly type = GENERATE_OTP_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class VerifyOtp {
+  readonly type = GENERATE_OTP;
+  constructor(public payload: any) {}
+}
+
+export class VerifyOtpSuccess {
+  readonly type = GENERATE_OTP_SUCCESS;
+  constructor(public payload: any) {}
+}
+export type Actions =
+  | GetLogin
+  | GetLoginSuccess
+  | GenerateOtp
+  | GenerateOtpSuccess
+  | VerifyOtp
+  | VerifyOtpSuccess;

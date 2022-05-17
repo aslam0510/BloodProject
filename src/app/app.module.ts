@@ -48,6 +48,7 @@ import { NotificationDialogComponent } from './Dialogs/notificationDialog/notifi
 import { BldReqViewComponent } from './Components/bldReqView/bldReqView.component';
 import { RolesAndPermissionComponent } from './Components/rolesAndPermission/rolesAndPermission.component';
 import { AppDialogComponent } from './Dialogs/appDialog/appDialog.component';
+import { LoginViaOtpComponent } from './Dialogs/loginViaOtp/loginViaOtp.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -81,6 +82,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     AddUserDailogComponent,
     RolesAndPermissionComponent,
     AppDialogComponent,
+    LoginViaOtpComponent,
   ],
   imports: [
     BrowserModule,
