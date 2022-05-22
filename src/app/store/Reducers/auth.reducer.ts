@@ -12,6 +12,12 @@ export function AuthReducer(
     case authActions.GENERATE_OTP_SUCCESS: {
       return { ...state, generateOtp: action.payload };
     }
+    case authActions.VERIFY_OTP_SUCCESS: {
+      return { ...state, verifyOTPSuccess: action.payload };
+    }
+    case authActions.SET_PASSWORD_SUCCESS: {
+      return { ...state, setPasswordSuccess: action.payload };
+    }
     default:
       return state;
   }

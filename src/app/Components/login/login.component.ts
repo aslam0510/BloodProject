@@ -13,6 +13,8 @@ import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.componen
 import { OrgFormModel } from './../../models/orgFormModel';
 import { LoginViaOtpComponent } from './../../Dialogs/loginViaOtp/loginViaOtp.component';
 import { helpers } from 'chart.js';
+import { SetPasswordDialogComponent } from './../../Dialogs/setPasswordDialog/setPasswordDialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -25,14 +27,21 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginErrors$: Observable<any>;
   loginErrors: any;
+  verifyOTPSuccess$: Observable<any>;
+  verfiyOTPSuccess: any;
+  verifyOTPSuccessSub: Subscription;
 
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private snackBar: MatSnackBar
   ) {
     this.loginSuccess$ = this.store.select((state) => state.AuthSlice.auth);
+    this.verifyOTPSuccess$ = this.store.select(
+      (state) => state.AuthSlice.verifyOTPSuccess
+    );
 
     this.loginErrors = [];
   }
@@ -46,36 +55,68 @@ export class LoginComponent implements OnInit {
     this.loginSuccess$.subscribe((data) => {
       if (data) {
         this.loginSuccess = data;
-        if (this.loginSuccess && this.loginSuccess.code === 200) {
-          localStorage.setItem('token', this.loginSuccess.data.token);
+        if (
+          this.loginSuccess &&
+          this.loginSuccess.code === 200 &&
+          this.loginSuccess.status === 'Success'
+        ) {
+          this.showVerifyOtpPopUp();
+          this.snackBar.open(this.loginSuccess.data.message, 'ok', {
+            duration: 2500,
+          });
           this.loginErrors = [];
-          this.router.navigate(['/dashboard']);
+          // this.router.navigate(['/dashboard']);
         } else if (
           this.loginSuccess &&
           this.loginSuccess.code === 201 &&
-          this.loginSuccess.msg ===
-            'The Email/Phone or password entered by you is incorrect'
+          this.loginSuccess.msg
         ) {
           this.loginErrors.push(this.loginSuccess.msg);
         }
       }
     });
+
+    //verifying if the user is firstime or not, if first time showing the setpassword popup, if not redirecting to the dashboard page
+    this.verifyOTPSuccessSub = this.verifyOTPSuccess$.subscribe((data) => {
+      if (data) {
+        this.verfiyOTPSuccess = data;
+        if (
+          this.verfiyOTPSuccess.code === 200 &&
+          this.verfiyOTPSuccess.status === 'Success' &&
+          this.verfiyOTPSuccess.data.firstLogin
+        ) {
+          localStorage.setItem('token', this.verfiyOTPSuccess.data.token);
+          this.setPasswordDialog();
+        } else if (
+          this.verfiyOTPSuccess.code === 200 &&
+          this.verfiyOTPSuccess.status === 'Success' &&
+          !this.verfiyOTPSuccess.data.firstLogin
+        ) {
+          this.router.navigate(['/dashboard']);
+        }
+      }
+    });
   }
 
+  //Submitting login form
   onLoginForm() {
     if (this.loginForm.valid) {
       this.loginErrors = [];
       const salt = bcrypt.genSaltSync(10);
       const payload = {
-        userid: this.loginForm.value.userid,
-        pwd: bcrypt.hashSync(this.loginForm.value.pwd, salt),
+        userId: this.loginForm.value.userid,
+        pwd: this.loginForm.value.pwd,
+        // nidhi212790@gmail.com
+        // MvnjbLxF64
+        // pwd: bcrypt.hashSync(this.loginForm.value.pwd, salt),
       };
 
       this.store.dispatch(new AuthAction.GetLogin(payload));
-      localStorage.setItem('userName', payload.userid);
+      localStorage.setItem('userName', payload.userId);
     }
   }
 
+  //click on forgort password link
   onForgotPass() {
     this.dialog.open(ForgotDialogComponent, {
       width: '450px',
@@ -107,6 +148,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  //Click on loginvia otp
   onLoginViaOtp() {
     const dailogRef = this.dialog.open(LoginViaOtpComponent, {
       width: '300px',
@@ -122,11 +164,24 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
+  //showing verify otp popup
   showVerifyOtpPopUp() {
     this.dialog.open(LoginViaOtpComponent, {
       width: '300px',
       height: 'auto',
-      data: { page: 'verifyOtp' },
+      data: { page: 'verifyOtp', ref: this.loginSuccess.data.ref },
+    });
+  }
+
+  //showing setpassword popup
+  setPasswordDialog() {
+    const dailogRef = this.dialog.open(SetPasswordDialogComponent, {
+      width: '350px',
+      height: 'auto',
+      data: {
+        type: 'setPassword',
+      },
     });
   }
 }

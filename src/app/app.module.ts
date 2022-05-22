@@ -49,6 +49,7 @@ import { BldReqViewComponent } from './Components/bldReqView/bldReqView.componen
 import { RolesAndPermissionComponent } from './Components/rolesAndPermission/rolesAndPermission.component';
 import { AppDialogComponent } from './Dialogs/appDialog/appDialog.component';
 import { LoginViaOtpComponent } from './Dialogs/loginViaOtp/loginViaOtp.component';
+import { SetPasswordDialogComponent } from './Dialogs/setPasswordDialog/setPasswordDialog.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -83,6 +84,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     RolesAndPermissionComponent,
     AppDialogComponent,
     LoginViaOtpComponent,
+    SetPasswordDialogComponent,
   ],
   imports: [
     BrowserModule,

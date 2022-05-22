@@ -92,7 +92,7 @@ export class AppInterceptor implements HttpInterceptor {
     } else {
       const authReq = req.clone({
         setHeaders: {
-          token: token ? token : '',
+          Authorization: token ? `Bearer ${token}` : '',
           observe: 'response',
         },
       });

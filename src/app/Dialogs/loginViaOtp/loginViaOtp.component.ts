@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginViaOtpComponent implements OnInit {
   loginViaOtpForm: FormGroup;
   page = '';
+  ref = '';
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
@@ -20,6 +21,7 @@ export class LoginViaOtpComponent implements OnInit {
     public dialogRef: MatDialogRef<LoginViaOtpComponent>
   ) {
     this.page = data.page;
+    this.ref = data.ref;
   }
 
   ngOnInit() {
@@ -42,7 +44,8 @@ export class LoginViaOtpComponent implements OnInit {
       this.router.navigate(['/login']);
     } else if (this.loginViaOtpForm.controls['verifyOtp'].valid) {
       const payload = {
-        mob: this.loginViaOtpForm.value.mobileNumber,
+        ref: this.ref,
+        otp: +this.loginViaOtpForm.value.verifyOtp,
       };
       this.store.dispatch(new AuthAction.VerifyOtp(payload));
       this.dialogRef.close();

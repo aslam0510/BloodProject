@@ -4,6 +4,9 @@ export const GENERATE_OTP = 'GENERATE_OTP';
 export const GENERATE_OTP_SUCCESS = 'GENERATE_OTP_SUCCESS';
 export const VERIFY_OTP = 'VERIFY_OTP';
 export const VERIFY_OTP_SUCCESS = 'VERIFY_OTP_SUCCESS';
+export const SET_PASSWORD = 'SET_PASSWORD';
+export const SET_PASSWORD_SUCCESS = 'SET_PASSWORD_SUCCESS';
+
 export class GetLogin {
   readonly type = GET_LOGIN;
   constructor(public payload: any) {}
@@ -25,12 +28,22 @@ export class GenerateOtpSuccess {
 }
 
 export class VerifyOtp {
-  readonly type = GENERATE_OTP;
+  readonly type = VERIFY_OTP;
   constructor(public payload: any) {}
 }
 
 export class VerifyOtpSuccess {
-  readonly type = GENERATE_OTP_SUCCESS;
+  readonly type = VERIFY_OTP_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class SetPassword {
+  readonly type = SET_PASSWORD;
+  constructor(public payload: any) {}
+}
+
+export class SetPasswordSuccess {
+  readonly type = SET_PASSWORD_SUCCESS;
   constructor(public payload: any) {}
 }
 export type Actions =
@@ -39,4 +52,6 @@ export type Actions =
   | GenerateOtp
   | GenerateOtpSuccess
   | VerifyOtp
-  | VerifyOtpSuccess;
+  | VerifyOtpSuccess
+  | SetPassword
+  | SetPasswordSuccess;

@@ -12,7 +12,7 @@ export const dashboardRoutes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       { path: '', component: AppDashboardComponent },
       {

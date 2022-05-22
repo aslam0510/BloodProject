@@ -21,7 +21,7 @@ export class AuthEffect {
     );
   });
 
-  generate$ = createEffect(() => {
+  generateOTP$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(auth.GENERATE_OTP),
       map((data: any) => data.payload),
@@ -29,6 +29,30 @@ export class AuthEffect {
         return this.http
           .post(api.getAPI('GENERATE_OTP'), payload)
           .pipe(map((data: any) => new auth.GenerateOtpSuccess(data)));
+      })
+    );
+  });
+
+  verifyOTP$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.VERIFY_OTP),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('VERIFY_OTP'), payload)
+          .pipe(map((data: any) => new auth.VerifyOtpSuccess(data)));
+      })
+    );
+  });
+
+  setPassword$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.SET_PASSWORD),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('SET_PASSWORD'), payload)
+          .pipe(map((data: any) => new auth.SetPasswordSuccess(data)));
       })
     );
   });

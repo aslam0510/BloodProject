@@ -96,7 +96,9 @@ export class DashboardComponent implements OnInit {
       bottom: '10px',
       right: '20px',
     };
-    console.log(dialogConfig);
+
     this.dialog.open(BroadcastMsgDialogComponent, dialogConfig);
   }
+
+  onOrgsetting() {}
 }

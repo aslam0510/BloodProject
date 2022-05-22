@@ -4,6 +4,8 @@ import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { LoginViaOtpComponent } from './../../Dialogs/loginViaOtp/loginViaOtp.component';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +43,12 @@ export class HomeComponent implements OnInit {
   generateOtp$: Observable<any>;
   generateOtp: any;
   generateOtpSub: Subscription;
-  constructor(private dialog: MatDialog, private store: Store<AppState>) {
+  constructor(
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private store: Store<AppState>
+  ) {
     this.generateOtp$ = this.store.select(
       (state) => state.AuthSlice.generateOtp
     );
