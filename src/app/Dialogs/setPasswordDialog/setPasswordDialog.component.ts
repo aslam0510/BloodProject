@@ -19,7 +19,7 @@ export class SetPasswordDialogComponent implements OnInit {
   setPasswordSuccess$: Observable<any>;
   setPasswordSuccess: any;
   setPasswordSub: Subscription;
-  pswdMissMatch = '';
+  pswdMissMatch;
   constructor(
     private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,6 +27,8 @@ export class SetPasswordDialogComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router
   ) {
+    this.dialogRef.disableClose = true;
+    this.pswdMissMatch = '';
     this.setPasswordSuccess$ = this.store.select(
       (state) => state.AuthSlice.setPasswordSuccess
     );
@@ -47,8 +49,6 @@ export class SetPasswordDialogComponent implements OnInit {
     this.setPasswordSub = this.setPasswordSuccess$.subscribe((data) => {
       if (data) {
         this.setPasswordSuccess = data;
-        console.log(this.setPasswordSuccess);
-
         if (
           this.setPasswordSuccess.code === 200 &&
           this.setPasswordSuccess.status == 'Success'
@@ -71,8 +71,7 @@ export class SetPasswordDialogComponent implements OnInit {
     const form = this.passwordForm.value;
     if (form.password !== form.confirmPassword) {
       this.pswdMissMatch = "Confirm Password dosen't match";
-    }
-    if (this.passwordForm.valid) {
+    } else if (this.passwordForm.valid) {
       const form = this.passwordForm.value;
       const payload = {
         pwd: form.password,

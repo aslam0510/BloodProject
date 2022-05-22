@@ -151,9 +151,8 @@ export class LoginComponent implements OnInit {
   //Click on loginvia otp
   onLoginViaOtp() {
     const dailogRef = this.dialog.open(LoginViaOtpComponent, {
-      width: '300px',
+      width: '350px',
       height: 'auto',
-
       data: {
         page: 'loginViaOtp',
       },
@@ -168,7 +167,7 @@ export class LoginComponent implements OnInit {
   //showing verify otp popup
   showVerifyOtpPopUp() {
     this.dialog.open(LoginViaOtpComponent, {
-      width: '300px',
+      width: '350px',
       height: 'auto',
       data: { page: 'verifyOtp', ref: this.loginSuccess.data.ref },
     });
@@ -179,6 +178,7 @@ export class LoginComponent implements OnInit {
     const dailogRef = this.dialog.open(SetPasswordDialogComponent, {
       width: '350px',
       height: 'auto',
+      disableClose: true,
       data: {
         type: 'setPassword',
       },

@@ -15,7 +15,7 @@
                           loginViaOtpForm.controls['mobileNumber'].invalid &&
                           loginViaOtpForm.controls['mobileNumber'].errors.required
                         ">
-          {{ "mobileNumber is required" }}
+          {{ "mobile Number is required" }}
         </mat-error>
       </mat-form-field>
     </div>
@@ -32,7 +32,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-1">
       <button mat-raised-button class="appBgColor text-white" *ngIf="page === 'loginViaOtp'" (click)="onLoginViaOtp()">Send OTP</button>
       <button mat-raised-button *ngIf="page === 'verifyOtp'" class="appBgColor text-white" (click)="onLoginViaOtp()">Verify OTP</button>
     </div>

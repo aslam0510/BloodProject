@@ -21,6 +21,9 @@ export class LoginViaOtpComponent implements OnInit {
     public dialogRef: MatDialogRef<LoginViaOtpComponent>
   ) {
     this.page = data.page;
+    if (this.page === 'verifyOtp') {
+      this.dialogRef.disableClose = true;
+    }
     this.ref = data.ref;
   }
 
