@@ -205,9 +205,9 @@ export class SignupComponent implements OnInit, OnDestroy {
       formData.append('pin', orgForm.orgPincode);
       formData.append('country', '');
       formData.append('location', orgForm.orgLocation);
-      formData.append('regno', orgForm.orgRegNum);
-      formData.append('regyear', orgForm.orgRegYear);
-      formData.append('regcouncil', orgForm.orgRegCouncil);
+      formData.append('regNo', orgForm.orgRegNum);
+      formData.append('regYear', orgForm.orgRegYear);
+      formData.append('regCouncil', orgForm.orgRegCouncil);
       for (var i = 0; i < this.organizationFiles.length; i++) {
         formData.append('docs', this.organizationFiles[i]);
       }

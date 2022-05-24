@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   verifyOTPSuccess$: Observable<any>;
   verfiyOTPSuccess: any;
   verifyOTPSuccessSub: Subscription;
+  ref = '';
 
   constructor(
     private dialog: MatDialog,
@@ -60,6 +61,7 @@ export class LoginComponent implements OnInit {
           this.loginSuccess.code === 200 &&
           this.loginSuccess.status === 'Success'
         ) {
+          this.ref = this.loginSuccess.data.ref;
           this.showVerifyOtpPopUp();
           this.snackBar.open(this.loginSuccess.data.message, 'ok', {
             duration: 2500,
@@ -169,7 +171,7 @@ export class LoginComponent implements OnInit {
     this.dialog.open(LoginViaOtpComponent, {
       width: '350px',
       height: 'auto',
-      data: { page: 'verifyOtp', ref: this.loginSuccess.data.ref },
+      data: { page: 'verifyOtp', ref: this.ref },
     });
   }
 

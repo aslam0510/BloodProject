@@ -37,12 +37,7 @@ export class SetPasswordDialogComponent implements OnInit {
 
   ngOnInit() {
     this.passwordForm = new FormGroup({
-      password: new FormControl('', [
-        Validators.required,
-        Validators.pattern(
-          '^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$'
-        ),
-      ]),
+      password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
     });
 
