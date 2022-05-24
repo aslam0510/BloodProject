@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { BldReqViewComponent } from '../Components/bldReqView/bldReqView.component';
+import { AllMessagesComponent } from '../Components/Dashboard/all-messages/all-messages.component';
 import { AllBloodReqComponent } from '../Components/Dashboard/allBloodReq/allBloodReq.component';
 import { AppDashboardComponent } from '../Components/Dashboard/app-dashboard/app-dashboard.component';
 import { BloodAvailabilityComponent } from '../Components/Dashboard/bloodAvailability/bloodAvailability.component';
@@ -34,6 +35,10 @@ export const dashboardRoutes: Routes = [
       {
         path: 'userManagement',
         component: UserManagementComponent,
+      },
+      {
+        path: 'allMessages',
+        component: AllMessagesComponent,
       },
     ],
   },
