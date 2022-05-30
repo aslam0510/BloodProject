@@ -51,6 +51,8 @@ import { AppDialogComponent } from './Dialogs/appDialog/appDialog.component';
 import { LoginViaOtpComponent } from './Dialogs/loginViaOtp/loginViaOtp.component';
 import { SetPasswordDialogComponent } from './Dialogs/setPasswordDialog/setPasswordDialog.component';
 import { AllMessagesComponent } from './Components/Dashboard/all-messages/all-messages.component';
+import { ProfileComponent } from './Components/profile/profile.component';
+import { OrgSettingsComponent } from './Components/orgSettings/orgSettings.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -87,6 +89,8 @@ const httpServices = [AppInterceptor, HttpStatus];
     LoginViaOtpComponent,
     SetPasswordDialogComponent,
     AllMessagesComponent,
+    ProfileComponent,
+    OrgSettingsComponent,
   ],
   imports: [
     BrowserModule,

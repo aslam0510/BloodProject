@@ -5,6 +5,8 @@ import { AllBloodReqComponent } from '../Components/Dashboard/allBloodReq/allBlo
 import { AppDashboardComponent } from '../Components/Dashboard/app-dashboard/app-dashboard.component';
 import { BloodAvailabilityComponent } from '../Components/Dashboard/bloodAvailability/bloodAvailability.component';
 import { DonarDatabaseComponent } from '../Components/Dashboard/donarDatabase/donarDatabase.component';
+import { OrgSettingsComponent } from '../Components/orgSettings/orgSettings.component';
+import { ProfileComponent } from '../Components/profile/profile.component';
 import { UserManagementComponent } from '../Components/userManagement/userManagement.component';
 import { AuthGuard } from '../shared/auth.guard';
 import { DashboardComponent } from './../Components/Dashboard/Dashboard.component';
@@ -39,6 +41,14 @@ export const dashboardRoutes: Routes = [
       {
         path: 'allMessages',
         component: AllMessagesComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+      },
+      {
+        path: 'orgSettings',
+        component: OrgSettingsComponent,
       },
     ],
   },

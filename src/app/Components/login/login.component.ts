@@ -94,6 +94,7 @@ export class LoginComponent implements OnInit {
           this.verfiyOTPSuccess.status === 'Success' &&
           !this.verfiyOTPSuccess.data.firstLogin
         ) {
+          localStorage.setItem('token', this.verfiyOTPSuccess.data.token);
           this.router.navigate(['/dashboard']);
         }
       }
