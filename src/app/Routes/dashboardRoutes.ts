@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AddEntityComponent } from '../Components/addEntity/addEntity.component';
 import { BldReqViewComponent } from '../Components/bldReqView/bldReqView.component';
 import { AllMessagesComponent } from '../Components/Dashboard/all-messages/all-messages.component';
 import { AllBloodReqComponent } from '../Components/Dashboard/allBloodReq/allBloodReq.component';

@@ -1,0 +1,254 @@
+<!-- <div class="accordion"> -->
+<!-- <div class="py-4  d-flex">
+    <img src="/assets/JioLogo.svg" alt="JioLogo" width="50px" height="50px" class="pl-5" />
+    <h2 class="mt-2 pl-4">Boond</h2>
+  </div> -->
+
+<div class="expansion">
+  <mat-accordion>
+    <mat-expansion-panel expanded="open">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="d-flex justify-content-around align-items-center">
+          <strong class="flex-grow-1 text-center">New Entity Info</strong>
+
+          <button color="accent" mat-button (click)="onResetOrgForm()">
+            <mat-icon color="accent">refresh</mat-icon> Reset
+          </button>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form class="orgForm" [formGroup]="organizationForm">
+        <div class="d-flex flex-row justify-content-around display">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ "Type of Entity" }}</mat-label>
+            <mat-select formControlName="organizationType" placeholder="Type of Entity">
+              <mat-option [value]="type" *ngFor="let type of orgTypes" (onSelectionChange)="onSignupForm()">{{ type }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="
+                  organizationForm.controls['organizationType'].invalid &&
+                  organizationForm.controls['organizationType'].errors.required
+                ">
+              {{ "organizationType is required" }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Entity Name</mat-label>
+            <input matInput placeholder="Entity Name" (input)="onSignupForm()" formControlName="organizationName" />
+            <mat-error *ngIf="
+                  organizationForm.controls['organizationName'].invalid &&
+                  organizationForm.controls['organizationName'].errors.required
+                ">
+              {{ "Organization Name is required" }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex flex-row justify-content-around">
+          <mat-form-field>
+            <mat-label>Parent Organisation Name</mat-label>
+            <input matInput placeholder="Parent Organisation Name" (input)="onSignupForm()" formControlName="email" />
+            <mat-error *ngIf="
+                              organizationForm.controls['email'].invalid &&
+                              organizationForm.controls['email'].errors.required
+                            ">
+              {{ "Email Address is required" }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Organisation Type</mat-label>
+            <input (input)="onSignupForm()" matInput placeholder="Organisation Type" formControlName="orgContact" />
+            <mat-error *ngIf="
+                              organizationForm.controls['orgContact'].invalid &&
+                              organizationForm.controls['orgContact'].errors.required
+                            ">
+              {{ "Contact No is required" }}
+            </mat-error>
+            <mat-error *ngIf="
+                              organizationForm.controls['orgContact'].invalid &&
+                              organizationForm.controls['orgContact'].errors.pattern
+                            ">
+              {{ "Please, Enter 10 digit Mobile Number" }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex flex-row justify-content-around">
+          <mat-form-field>
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="Email Address" (input)="onSignupForm()" formControlName="email" />
+            <mat-error *ngIf="
+                  organizationForm.controls['email'].invalid &&
+                  organizationForm.controls['email'].errors.required
+                ">
+              {{ "Email Address is required" }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Contact No.</mat-label>
+            <input (input)="onSignupForm()" matInput placeholder="Contact No." formControlName="orgContact" />
+            <mat-error *ngIf="
+                  organizationForm.controls['orgContact'].invalid &&
+                  organizationForm.controls['orgContact'].errors.required
+                ">
+              {{ "Contact No is required" }}
+            </mat-error>
+            <mat-error *ngIf="
+                  organizationForm.controls['orgContact'].invalid &&
+                  organizationForm.controls['orgContact'].errors.pattern
+                ">
+              {{ "Please, Enter 10 digit Mobile Number" }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex flex-row justify-content-around">
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input (input)="onSignupForm()" matInput placeholder="Address" formControlName="orgAddress" />
+            <mat-error *ngIf="
+                  organizationForm.controls['orgAddress'].invalid &&
+                  organizationForm.controls['orgAddress'].errors.required
+                ">
+              {{ "Address is required" }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Pincode</mat-label>
+            <input (input)="onSignupForm()" matInput placeholder="Pincode" formControlName="orgRegNum" />
+            <mat-error *ngIf="
+                  organizationForm.controls['orgRegNum'].invalid &&
+                  organizationForm.controls['orgRegNum'].errors.required
+                ">
+              {{ "Registration No is required" }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex flex-row justify-content-around">
+          <mat-form-field>
+            <mat-label>City</mat-label>
+            <input (input)="onSignupForm()" matInput placeholder="City" formControlName="orgRegCouncil" />
+            <mat-error *ngIf="
+                  organizationForm.controls['orgRegCouncil'].invalid &&
+                  organizationForm.controls['orgRegCouncil'].errors.required
+                ">
+              {{ "Registration Council is required" }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <input (input)="onSignupForm()" matInput placeholder="State" formControlName="orgRegCouncil" />
+            <mat-error *ngIf="
+                              organizationForm.controls['orgRegCouncil'].invalid &&
+                              organizationForm.controls['orgRegCouncil'].errors.required
+                            ">
+              {{ "Registration Council is required" }}
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+        <div class="d-flex flex-row justify-content-around">
+          <mat-form-field>
+            <mat-label>Website (optional)</mat-label>
+            <input (input)="onSignupForm()" matInput placeholder="Website (optional)" formControlName="orgCity" />
+            <mat-error *ngIf="
+                  organizationForm.controls['orgCity'].invalid &&
+                  organizationForm.controls['orgCity'].errors.required
+                ">
+              {{ "City is required" }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>License No.</mat-label>
+            <input (input)="onSignupForm()" matInput placeholder="License No." formControlName="orgPincode" />
+            <mat-error *ngIf="
+                  organizationForm.controls['orgPincode'].invalid &&
+                  organizationForm.controls['orgPincode'].errors.required
+                ">
+              {{ "Pincode is required" }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex flex-row justify-content-around">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ "Registration Year" }}</mat-label>
+            <mat-select formControlName="orgRegYear" placeholder="{{ 'Registration Year' }}  *">
+              <mat-option [value]="year" *ngFor="let year of years">{{ year }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="
+                                        organizationForm.controls['orgRegYear'].invalid &&
+                                        organizationForm.controls['orgRegYear'].errors.required
+                                      ">
+              {{ "Registration Year is required" }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Valid Till</mat-label>
+            <input (input)="onSignupForm()" matInput placeholder="Valid Till" formControlName="orgPincode" />
+            <mat-error *ngIf="
+                                              organizationForm.controls['orgPincode'].invalid &&
+                                              organizationForm.controls['orgPincode'].errors.required
+                                            ">
+              {{ "Pincode is required" }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex flex-row ml-2">
+          <div class="radio">
+            <p>Component Facility</p>
+            <mat-radio-group>
+              <mat-radio-button value="1" class="radioButton">Yes</mat-radio-button>
+              <mat-radio-button value="2">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div>
+            <p>Apheresis Facility</p>
+            <mat-radio-group>
+              <mat-radio-button value="1" class="radioButton">Yes</mat-radio-button>
+              <mat-radio-button value="2">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3 px-3">
+          <h3>Upload License of the Blood Bank</h3>
+          <p class="mat-body-1">*File size should be less than 1 MB</p>
+        </div>
+
+        <mat-error *ngIf="acceptOnlyPDF" class="fileErr">{{acceptOnlyPDF}}</mat-error>
+
+        <div class="upload">
+          <div class="d-flex justify-content-between">
+            <p class="pt-2">
+              Please upload your license for the blood bank issued by authories.
+            </p>
+            <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" formControlName="orgFileUpload" accept="application/pdf" (change)="onOrgFileUpload($event)"
+              (click)="fileInput.value = null" />
+            <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
+              <mat-icon color="accent">upload</mat-icon>
+              <span>Upload</span>
+            </button>
+          </div>
+
+          <ng-container *ngFor="let file of organizationFiles; let i = index">
+            <div class="files d-flex my-2 align-items-center" *ngIf="organizationFiles.length > 0">
+              <mat-icon class="icon pl-2 pr-4" color="accent"> insert_drive_file</mat-icon>
+              <div class="d-flex flex-column flex-grow-1">
+                <span clas="d-block">{{ file.name }}</span>
+                <span>{{ file.size + ' byte'}}</span>
+              </div>
+              <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)">close</mat-icon>
+            </div>
+          </ng-container>
+        </div>
+        <div class="d-flex justify-content-evenly align-items-center">
+          <button mat-raised-button class="mt-2 addEntity">
+            Cancel
+          </button>
+          <button mat-raised-button class="mt-2 addEntity" (click)="addNewEntity()">
+            Submit
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+
+<!-- </div> -->

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ResetPasswordComponent } from './Dialogs/resetPassword/resetPassword.component';
 import { dashboardRoutes } from './Routes/dashboardRoutes';
+import { AddEntityComponent } from './Components/addEntity/addEntity.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -21,6 +22,11 @@ const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent,
   },
+  // {
+  //   path: 'addEntity',
+  //   pathMatch: 'full',
+  //   component: AddEntityComponent,
+  // },
   ...dashboardRoutes,
 ];
 

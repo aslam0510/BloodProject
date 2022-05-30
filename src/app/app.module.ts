@@ -1,3 +1,4 @@
+import { AddEntityComponent } from './Components/addEntity/addEntity.component';
 import { AddUserDailogComponent } from './Components/userManagement/addUserDailog/addUserDailog.component';
 import { UserManagementComponent } from './Components/userManagement/userManagement.component';
 import { FilterComponent } from './Components/filter/filter.component';
@@ -91,6 +92,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     AllMessagesComponent,
     ProfileComponent,
     OrgSettingsComponent,
+    AddEntityComponent,
   ],
   imports: [
     BrowserModule,

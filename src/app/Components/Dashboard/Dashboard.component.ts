@@ -1,3 +1,4 @@
+import { NavigationEnd, Router } from '@angular/router';
 import { AddBloodRequestComponent } from './../../Dialogs/forgot-dialog/AddBloodRequest/AddBloodRequest.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -11,6 +12,7 @@ import { BroadcastMsgDialogComponent } from './../../Dialogs/broadcastMsgDialog/
   styleUrls: ['./Dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  currentRouter = '';
   sideMenus = [
     {
       menu: 'Dashboard',
@@ -73,9 +75,15 @@ export class DashboardComponent implements OnInit {
   public barChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40, 30] },
   ];
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRouter = event.url;
+      }
+    });
+  }
 
   onAddBloodReq() {
     this.dialog.open(AddBloodRequestComponent, {

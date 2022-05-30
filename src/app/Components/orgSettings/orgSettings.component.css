@@ -1,6 +1,9 @@
 .sideBar {
   background-color: gainsboro;
-  height: 100vh;
+  height: 92.5vh;
+  margin-left: -1rem;
+  margin-top: -22px;
+  margin-right: 1rem;
 }
 th,
 td {
@@ -29,9 +32,14 @@ table {
   width: 100%;
 }
 
-.addEntity {
-  width: 100%;
-  color: red;
-  position: fixed;
+.entityBtn {
+  position: absolute;
   bottom: 0;
+  width: 208px;
+  color: red;
+}
+mat-list-item {
+  width: 170px;
+  border-radius: 15px;
+  background-color: #e9ecef;
 }
