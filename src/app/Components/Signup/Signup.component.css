@@ -4,7 +4,7 @@ img {
 }
 
 .expansion {
-  margin: 0.7rem 18rem;
+  margin: 0.1rem 18rem;
 }
 
 .orgForm {
@@ -12,7 +12,7 @@ img {
 }
 
 mat-form-field {
-  margin-top: 0.5rem;
+  /* margin-top: 0.3rem; */
   width: 450px;
 }
 

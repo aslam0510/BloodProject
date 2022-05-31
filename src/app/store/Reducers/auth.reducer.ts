@@ -18,6 +18,9 @@ export function AuthReducer(
     case authActions.SET_PASSWORD_SUCCESS: {
       return { ...state, setPasswordSuccess: action.payload };
     }
+    case authActions.GET_ALL_CATEGORIES_SUCCESS: {
+      return { ...state, categories: action.payload };
+    }
     default:
       return state;
   }

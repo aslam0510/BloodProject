@@ -81,6 +81,7 @@ export class DashboardComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRouter = event.url;
+        console.log(this.currentRouter);
       }
     });
   }

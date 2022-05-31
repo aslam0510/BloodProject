@@ -1,5 +1,5 @@
 <div class="accordion">
-  <div class="py-4 mb-5 d-flex">
+  <div class="py-4 mb-2 d-flex">
     <img src="/assets/JioLogo.svg" alt="JioLogo" width="50px" height="50px" class="pl-5" />
     <h2 class="mt-2 pl-4">Boond</h2>
   </div>
@@ -17,12 +17,12 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <form class="orgForm" [formGroup]="organizationForm">
-          <div class="d-flex flex-row justify-content-around display">
-            <mat-form-field appearance="outline">
+          <div>
+            <mat-form-field appearance="outline" class="ml-3">
               <mat-label>{{ "Type of Organization" }}</mat-label>
               <mat-select formControlName="organizationType" placeholder="Type of Organization">
-                <mat-option [value]="type" *ngFor="let type of orgTypes" (onSelectionChange)="onSignupForm()">{{ type }}
-                </mat-option>
+                <!-- <mat-option [value]="type" *ngFor="let type of orgTypes" (onSelectionChange)="onSignupForm()">{{ type }}
+                </mat-option> -->
               </mat-select>
               <mat-error *ngIf="
                   organizationForm.controls['organizationType'].invalid &&
@@ -31,17 +31,31 @@
                 {{ "organizationType is required" }}
               </mat-error>
             </mat-form-field>
+          </div>
+          <div class="d-flex flex-row justify-content-around display">
             <mat-form-field>
-              <mat-label>Organization Name</mat-label>
-              <input matInput placeholder="Organization Name" (input)="onSignupForm()" formControlName="organizationName" />
-              <mat-error *ngIf="
+              <mat-label>Company Name</mat-label>
+              <input matInput placeholder="Company Name" (input)="onSignupForm()" formControlName="organizationName" />
+              <!-- <mat-error *ngIf="
                   organizationForm.controls['organizationName'].invalid &&
                   organizationForm.controls['organizationName'].errors.required
                 ">
                 {{ "Organization Name is required" }}
-              </mat-error>
+              </mat-error> -->
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Website</mat-label>
+              <input matInput placeholder="Website" (input)="onSignupForm()" formControlName="organizationName" />
+              <!-- <mat-error *ngIf="
+                  organizationForm.controls['organizationName'].invalid &&
+                  organizationForm.controls['organizationName'].errors.required
+                ">
+                {{ "Organization Name is required" }}
+              </mat-error> -->
             </mat-form-field>
           </div>
+
+
           <div class="d-flex flex-row justify-content-around">
             <mat-form-field>
               <mat-label>Email Address</mat-label>
@@ -72,16 +86,6 @@
           </div>
           <div class="d-flex flex-row justify-content-around">
             <mat-form-field>
-              <mat-label>Address</mat-label>
-              <input (input)="onSignupForm()" matInput placeholder="Address" formControlName="orgAddress" />
-              <mat-error *ngIf="
-                  organizationForm.controls['orgAddress'].invalid &&
-                  organizationForm.controls['orgAddress'].errors.required
-                ">
-                {{ "Address is required" }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
               <mat-label>Registration No</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="Registration No" formControlName="orgRegNum" />
               <mat-error *ngIf="
@@ -91,8 +95,43 @@
                 {{ "Registration No is required" }}
               </mat-error>
             </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Registration Year" }}</mat-label>
+              <mat-select formControlName="orgRegYear" placeholder="{{ 'Registration Year' }}  *">
+                <mat-option [value]="year" *ngFor="let year of years">{{ year }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="
+                    organizationForm.controls['orgRegYear'].invalid &&
+                    organizationForm.controls['orgRegYear'].errors.required
+                  ">
+                {{ "Registration Year is required" }}
+              </mat-error>
+            </mat-form-field>
           </div>
           <div class="d-flex flex-row justify-content-around">
+            <mat-form-field>
+              <mat-label>Address 1</mat-label>
+              <input (input)="onSignupForm()" matInput placeholder="Address 1" formControlName="orgAddress" />
+              <!-- <mat-error *ngIf="
+                  organizationForm.controls['orgAddress'].invalid &&
+                  organizationForm.controls['orgAddress'].errors.required
+                ">
+                {{ "Address  is required" }}
+              </mat-error> -->
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Address 2</mat-label>
+              <input (input)="onSignupForm()" matInput placeholder="Address 2" formControlName="orgAddress" />
+              <mat-error *ngIf="
+                              organizationForm.controls['orgAddress'].invalid &&
+                              organizationForm.controls['orgAddress'].errors.required
+                            ">
+                {{ "Address is required" }}
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+          <!-- <div class="d-flex flex-row justify-content-around">
             <mat-form-field>
               <mat-label>Registration Council</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="Registration Council" formControlName="orgRegCouncil" />
@@ -103,53 +142,77 @@
                 {{ "Registration Council is required" }}
               </mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>{{ "Registration Year" }}</mat-label>
-              <mat-select formControlName="orgRegYear" placeholder="{{ 'Registration Year' }}  *">
-                <mat-option [value]="year" *ngFor="let year of years">{{ year }}</mat-option>
-              </mat-select>
-              <mat-error *ngIf="
-                  organizationForm.controls['orgRegYear'].invalid &&
-                  organizationForm.controls['orgRegYear'].errors.required
-                ">
-                {{ "Registration Year is required" }}
-              </mat-error>
-            </mat-form-field>
-          </div>
+
+          </div> -->
           <div class="d-flex flex-row justify-content-around">
-            <mat-form-field class="width">
+            <mat-form-field>
               <mat-label>City</mat-label>
               <input (input)="onSignupForm()" matInput placeholder="City" formControlName="orgCity" />
-              <mat-error *ngIf="
+              <!-- <mat-error *ngIf="
                   organizationForm.controls['orgCity'].invalid &&
                   organizationForm.controls['orgCity'].errors.required
                 ">
                 {{ "City is required" }}
-              </mat-error>
+              </mat-error> -->
             </mat-form-field>
-            <mat-form-field class="width">
-              <mat-label>Pincode</mat-label>
-              <input (input)="onSignupForm()" matInput placeholder="Pincode" formControlName="orgPincode" />
-              <mat-error *ngIf="
+            <mat-form-field>
+              <mat-label>District</mat-label>
+              <input (input)="onSignupForm()" matInput placeholder="District" formControlName="orgPincode" />
+              <!-- <mat-error *ngIf="
                   organizationForm.controls['orgPincode'].invalid &&
                   organizationForm.controls['orgPincode'].errors.required
                 ">
                 {{ "Pincode is required" }}
-              </mat-error>
+              </mat-error> -->
             </mat-form-field>
-            <mat-form-field class="width">
-              <mat-label>Location</mat-label>
-              <input (input)="onSignupForm()" matInput placeholder="Location" formControlName="orgLocation" />
-              <mat-error *ngIf="
-                  organizationForm.controls['orgLocation'].invalid &&
-                  organizationForm.controls['orgLocation'].errors.required
-                ">
+
+          </div>
+          <div class="d-flex flex-row justify-content-around">
+            <mat-form-field>
+              <mat-label>State</mat-label>
+              <input (input)="onSignupForm()" matInput placeholder="State" formControlName="orgLocation" />
+              <!-- <mat-error *ngIf="
+                              organizationForm.controls['orgLocation'].invalid &&
+                              organizationForm.controls['orgLocation'].errors.required
+                            ">
                 {{ "Location is required" }}
-              </mat-error>
+              </mat-error> -->
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Pin Code</mat-label>
+              <input (input)="onSignupForm()" matInput placeholder="Pin Code" formControlName="orgLocation" />
+              <!-- <mat-error *ngIf="
+                                          organizationForm.controls['orgLocation'].invalid &&
+                                          organizationForm.controls['orgLocation'].errors.required
+                                        ">
+                            {{ "Location is required" }}
+                          </mat-error> -->
+            </mat-form-field>
+          </div>
+          <div class="d-flex flex-row justify-content-around">
+            <mat-form-field>
+              <mat-label>Name of Point of Contact</mat-label>
+              <input (input)="onSignupForm()" matInput placeholder="Name of Point of Contact" formControlName="orgLocation" />
+              <!-- <mat-error *ngIf="
+                                            organizationForm.controls['orgLocation'].invalid &&
+                                            organizationForm.controls['orgLocation'].errors.required
+                                          ">
+                              {{ "Location is required" }}
+                            </mat-error> -->
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Designation of Point of Contact</mat-label>
+              <input (input)="onSignupForm()" matInput placeholder="Designation of Point of Contact" formControlName="orgLocation" />
+              <!-- <mat-error *ngIf="
+                                                        organizationForm.controls['orgLocation'].invalid &&
+                                                        organizationForm.controls['orgLocation'].errors.required
+                                                      ">
+                                          {{ "Location is required" }}
+                                        </mat-error> -->
             </mat-form-field>
           </div>
           <div class="d-flex justify-content-between mt-2 px-5">
-            <h3>Certification of Incorportation</h3>
+            <h3>Upload License of Blood Bank</h3>
             <p class="mat-body-1">*File size should be less than 1 MB</p>
           </div>
 
@@ -161,8 +224,7 @@
                 Please upload your medical registration and document of state
                 medical council proof.
               </p>
-              <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" formControlName="orgFileUpload" accept="application/pdf" (change)="onOrgFileUpload($event)"
-                (click)="fileInput.value = null" />
+              <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" formControlName="orgFileUpload" accept="application/pdf" (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
               <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
                 <mat-icon color="accent">upload</mat-icon>
                 <span>Upload</span>
@@ -299,17 +361,17 @@
               </mat-form-field>
             </div>
             <div class="d-flex flex-row justify-content-around">
-              <mat-form-field class="width">
+              <mat-form-field>
                 <mat-label>City</mat-label>
                 <input matInput placeholder="City" formControlName="entCity" />
 
               </mat-form-field>
-              <mat-form-field class="width">
+              <mat-form-field>
                 <mat-label>Pincode</mat-label>
                 <input matInput placeholder="Pincode" formControlName="entPincode" />
 
               </mat-form-field>
-              <mat-form-field class="width">
+              <mat-form-field>
                 <mat-label>Location</mat-label>
                 <input matInput placeholder="Location" formControlName="entLocation" />
               </mat-form-field>
@@ -324,8 +386,7 @@
                   Please upload your medical registration and document of state
                   medical council proof.
                 </p>
-                <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" formControlName="entFileUpload" accept=".csv,.xls,.xlsx" (change)="onEntFileUpload($event)"
-                  (click)="fileInput.value = null" />
+                <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" formControlName="entFileUpload" accept=".csv,.xls,.xlsx" (change)="onEntFileUpload($event)" (click)="fileInput.value = null" />
                 <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
                   <mat-icon color="accent">upload</mat-icon>
                   <span>Upload</span>

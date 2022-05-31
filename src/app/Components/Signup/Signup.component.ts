@@ -17,6 +17,7 @@ import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/templat
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import * as dashboardActions from '../../store/Actions/dashboardActions';
+import * as AuthAction from '../../store/Actions/auth.action';
 import { Observable, Subscription } from 'rxjs';
 import { getOrgTypes } from './../../store/Selectors/dashboardSelector';
 import { OrgFormModel } from './../../models/orgFormModel';
@@ -35,9 +36,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   organizationFiles = [];
   entityFiles = [];
   acceptOnlyPDF = '';
-  orgTypes$: Observable<any>;
-  orgTypes: [] = [];
-  orgTypesSub: Subscription;
+  orgCategories$: Observable<any>;
+  orgCategories: [] = [];
+  orgCateogoriesSub: Subscription;
   orgForm$: Observable<OrgFormModel>;
   orgForm: OrgFormModel;
   orgFormSub: Subscription;
@@ -49,7 +50,9 @@ export class SignupComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private dialog: MatDialog
   ) {
-    this.orgTypes$ = this.store.select(getOrgTypes);
+    this.orgCategories$ = this.store.select(
+      (state) => state.AuthSlice.categories
+    );
     this.orgForm$ = this.store.select((state) => state.DashboardSlice.orgForm);
     this.selectedYear = new Date().getFullYear();
     for (let year = this.selectedYear; year >= 2000; year--) {
@@ -58,10 +61,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.dispatch(new dashboardActions.GetOrganizationTypes());
-    this.orgTypesSub = this.orgTypes$.subscribe((data) => {
+    this.store.dispatch(new AuthAction.GetAllCategories());
+    this.orgCateogoriesSub = this.orgCategories$.subscribe((data) => {
       if (data) {
-        this.orgTypes = data['types'];
+        this.orgCategories = data;
+        console.log(this.orgCategories);
       }
     });
     this.orgFormSub = this.orgForm$.subscribe((data) => {
@@ -231,7 +235,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.orgTypesSub.unsubscribe();
+    this.orgCateogoriesSub.unsubscribe();
     this.orgFormSub.unsubscribe();
     localStorage.removeItem('orgForm');
   }

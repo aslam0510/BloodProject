@@ -6,6 +6,8 @@ export const VERIFY_OTP = 'VERIFY_OTP';
 export const VERIFY_OTP_SUCCESS = 'VERIFY_OTP_SUCCESS';
 export const SET_PASSWORD = 'SET_PASSWORD';
 export const SET_PASSWORD_SUCCESS = 'SET_PASSWORD_SUCCESS';
+export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES';
+export const GET_ALL_CATEGORIES_SUCCESS = 'GET_ALL_CATEGORIES_SUCCESS';
 
 export class GetLogin {
   readonly type = GET_LOGIN;
@@ -46,6 +48,14 @@ export class SetPasswordSuccess {
   readonly type = SET_PASSWORD_SUCCESS;
   constructor(public payload: any) {}
 }
+
+export class GetAllCategories {
+  readonly type = GET_ALL_CATEGORIES;
+}
+export class GetAllCategoriesSuccess {
+  readonly type = GET_ALL_CATEGORIES_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Actions =
   | GetLogin
   | GetLoginSuccess
@@ -54,4 +64,6 @@ export type Actions =
   | VerifyOtp
   | VerifyOtpSuccess
   | SetPassword
-  | SetPasswordSuccess;
+  | SetPasswordSuccess
+  | GetAllCategories
+  | GetAllCategoriesSuccess;

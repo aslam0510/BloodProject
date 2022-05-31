@@ -56,4 +56,15 @@ export class AuthEffect {
       })
     );
   });
+
+  GetAllCategories$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.GET_ALL_CATEGORIES),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_ALL_CATEGORIES'))
+          .pipe(map((data: any) => new auth.GetAllCategoriesSuccess(data)));
+      })
+    );
+  });
 }
