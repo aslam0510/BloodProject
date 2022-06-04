@@ -21,13 +21,13 @@
           <div>
             <mat-form-field appearance="outline" class="ml-3">
               <mat-label>{{ "Type of Organization" }}</mat-label>
-              <mat-select formControlName="organizationType" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Type of Organization">
+              <mat-select formControlName="categoryName" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Type of Organization">
                 <mat-option [value]="category.categoryName" *ngFor="let category of orgCategories">{{ category.categoryName }}
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="
-                  organizationForm.controls['organizationType'].invalid &&
-                  organizationForm.controls['organizationType'].errors.required
+                  organizationForm.controls['categoryName'].invalid &&
+                  organizationForm.controls['categoryName'].errors.required
                 ">
                 {{ "organizationType is required" }}
               </mat-error>

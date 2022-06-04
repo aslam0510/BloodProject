@@ -69,7 +69,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
 
     this.organizationForm = this.fb.group({
-      organizationType: new FormControl('', [Validators.required]),
+      categoryName: new FormControl('', [Validators.required]),
     });
   }
 
@@ -90,8 +90,6 @@ export class SignupComponent implements OnInit, OnDestroy {
           );
         }
         this.orgFormFields = controls;
-        console.log(this.organizationForm);
-        console.log(this.organizationForm.valid);
       }
     });
     this.orgCateogoriesSub = this.orgCategories$.subscribe((data) => {
