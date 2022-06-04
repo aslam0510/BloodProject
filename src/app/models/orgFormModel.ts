@@ -17,3 +17,11 @@ export interface OrgFormModel {
   _id: string;
   crtat: string;
 }
+
+export interface OrgFormField {
+  fieldName: string;
+  fieldType: string;
+  inputType: string;
+  key: string;
+  mandatory: boolean;
+}

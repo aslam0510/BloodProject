@@ -1,5 +1,5 @@
 const appPort = {
-  port: 'http://10.157.195.32:8080/bbportal',
+  port: 'http://10.157.195.32:8080/apigateway',
 };
 
 const register = 'register';
@@ -15,10 +15,17 @@ const apis = {
 
   //register
   GET_ORG_TYPES: { url: `/${register}/getTypes`, port: appPort.port },
-  SUBMIT_ORGFORM: { url: `/${register}/organization`, port: appPort.port },
+  SUBMIT_ORGFORM: {
+    url: `/${register}/registerOrganization`,
+    port: appPort.port,
+  },
   SUBMIT_ENTITY_FORM: { url: `/${register}/entity`, port: appPort.port },
   GET_ALL_CATEGORIES: {
     url: `/${register}/getAllCategories`,
+    port: appPort.port,
+  },
+  GET_CATEGORY: {
+    url: `/${register}/getCategoryDetails`,
     port: appPort.port,
   },
 };

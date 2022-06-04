@@ -5,6 +5,7 @@ import {
   Validators,
   FormBuilder,
   FormArray,
+  ValidatorFn,
 } from '@angular/forms';
 import {
   Component,
@@ -20,7 +21,7 @@ import * as dashboardActions from '../../store/Actions/dashboardActions';
 import * as AuthAction from '../../store/Actions/auth.action';
 import { Observable, Subscription } from 'rxjs';
 import { getOrgTypes } from './../../store/Selectors/dashboardSelector';
-import { OrgFormModel } from './../../models/orgFormModel';
+import { OrgFormField, OrgFormModel } from './../../models/orgFormModel';
 import { MatDialog } from '@angular/material/dialog';
 import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
 
@@ -37,13 +38,18 @@ export class SignupComponent implements OnInit, OnDestroy {
   entityFiles = [];
   acceptOnlyPDF = '';
   orgCategories$: Observable<any>;
-  orgCategories: [] = [];
+  orgCategories: any;
   orgCateogoriesSub: Subscription;
   orgForm$: Observable<OrgFormModel>;
   orgForm: OrgFormModel;
   orgFormSub: Subscription;
+  categoryDetails$: Observable<any>;
+  categoryDetails: any;
+  categoryDetailsSub: Subscription;
   selectedYear: number;
   years: number[] = [];
+  orgFormFields: OrgFormField[] = [];
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -53,21 +59,47 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.orgCategories$ = this.store.select(
       (state) => state.AuthSlice.categories
     );
+    this.categoryDetails$ = this.store.select(
+      (state) => state.AuthSlice.categoryDetails
+    );
     this.orgForm$ = this.store.select((state) => state.DashboardSlice.orgForm);
     this.selectedYear = new Date().getFullYear();
     for (let year = this.selectedYear; year >= 2000; year--) {
       this.years.push(year);
     }
+
+    this.organizationForm = this.fb.group({
+      organizationType: new FormControl('', [Validators.required]),
+    });
   }
 
   ngOnInit() {
     this.store.dispatch(new AuthAction.GetAllCategories());
-    this.orgCateogoriesSub = this.orgCategories$.subscribe((data) => {
+    this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
-        this.orgCategories = data;
-        console.log(this.orgCategories);
+        this.categoryDetails = data.data;
+        const controls = this.categoryDetails.fields;
+        for (const formField of controls) {
+          this.organizationForm.addControl(
+            formField.key,
+            new FormControl(
+              '',
+
+              this.getValidators(formField)
+            )
+          );
+        }
+        this.orgFormFields = controls;
+        console.log(this.organizationForm);
+        console.log(this.organizationForm.valid);
       }
     });
+    this.orgCateogoriesSub = this.orgCategories$.subscribe((data) => {
+      if (data) {
+        this.orgCategories = data.data;
+      }
+    });
+
     this.orgFormSub = this.orgForm$.subscribe((data) => {
       if (data) {
         this.orgForm = data;
@@ -80,26 +112,26 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
 
     //ORGANIZATION FORM
-    this.organizationForm = new FormGroup({
-      organizationType: new FormControl('', [Validators.required]),
-      organizationName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-      ]),
-      orgAddress: new FormControl(''),
-      orgContact: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
-      ]),
-      orgRegNum: new FormControl('', [Validators.required]),
-      orgRegCouncil: new FormControl('', [Validators.required]),
-      orgRegYear: new FormControl('', [Validators.required]),
-      orgCity: new FormControl(''),
-      orgPincode: new FormControl(''),
-      orgLocation: new FormControl(''),
-      orgFileUpload: new FormControl('', [Validators.required]),
-    });
+    // this.organizationForm = new FormGroup({
+    //   organizationType: new FormControl('', [Validators.required]),
+    //   organizationName: new FormControl('', [Validators.required]),
+    //   email: new FormControl('', [
+    //     Validators.required,
+    //     Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+    //   ]),
+    //   orgAddress: new FormControl(''),
+    //   orgContact: new FormControl('', [
+    //     Validators.required,
+    //     Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+    //   ]),
+    //   orgRegNum: new FormControl('', [Validators.required]),
+    //   orgRegCouncil: new FormControl('', [Validators.required]),
+    //   orgRegYear: new FormControl('', [Validators.required]),
+    //   orgCity: new FormControl(''),
+    //   orgPincode: new FormControl(''),
+    //   orgLocation: new FormControl(''),
+    //   orgFileUpload: new FormControl('', [Validators.required]),
+    // });
 
     //ENTITY FORM
     this.newEntityForm = this.fb.group({
@@ -107,6 +139,22 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
   }
 
+  getValidators(control): ValidatorFn {
+    if (control.key === 'email' && control.mandatory) {
+      return (
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        Validators.required
+      );
+    }
+    if (control.key === 'contact' && control.mandatory) {
+      return (
+        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'), Validators.required
+      );
+    }
+    if (control.mandatory) {
+      return Validators.required;
+    }
+  }
   addNewEntity() {
     if (!this.organizationForm.valid) {
       let entity = this.NewEntity;
@@ -135,12 +183,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
   }
 
-  //DELETEING THE ENTITY
-  deleteEntity(index) {
-    let delEntity = this.NewEntity;
-    delEntity.removeAt(index);
-  }
-
   get NewEntity(): FormArray {
     return this.newEntityForm.get('newEntities') as FormArray;
   }
@@ -162,32 +204,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
   }
 
-  //ENTITY FORM UPLOAD
-  onEntFileUpload(event) {
-    const [...files] = event.target.files;
-    this.entityFiles.push(...files);
-  }
-
-  onSignupForm() {}
-
   //REMOVING ORGANIZATION FILE
   onDeleteFile(index) {
     this.organizationFiles = this.organizationFiles.filter(
       (x, i) => i !== index
     );
   }
-
-  // onParentAddChng() {
-  //   const parentAddress = this.organizationForm.get('orgAddress').value;
-  //   if (parentAddress) {
-  //     console.log(parentAddress);
-
-  //     this.newEntityForm.controls.entAddress.setValue(parentAddress);
-  //     // this.newEntityForm.get('entAddress').setValue('hiii');
-  //   }
-  // }
-
-  onDeleteEntityFile(index) {}
 
   //RESETING THE ORGANIZATION FORM
   onResetOrgForm() {
@@ -196,28 +218,22 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   //SUBMITING THE FORM
   onSubmit() {
-    if (this.organizationForm.valid) {
-      const orgForm = this.organizationForm.value;
-      let formData = new FormData();
-      formData.append('name', orgForm.organizationName);
-      formData.append('type', orgForm.organizationType);
-      formData.append('email', orgForm.email);
-      formData.append('contact', orgForm.orgContact);
-      formData.append('addr', orgForm.orgAddress);
-      formData.append('city', orgForm.orgCity);
-      formData.append('state', orgForm.orgState);
-      formData.append('pin', orgForm.orgPincode);
-      formData.append('country', '');
-      formData.append('location', orgForm.orgLocation);
-      formData.append('regNo', orgForm.orgRegNum);
-      formData.append('regYear', orgForm.orgRegYear);
-      formData.append('regCouncil', orgForm.orgRegCouncil);
-      for (var i = 0; i < this.organizationFiles.length; i++) {
-        formData.append('docs', this.organizationFiles[i]);
+    console.log(this.organizationForm.valid, this.organizationForm.invalid);
+
+    const formValues = this.organizationForm.value;
+    console.log(formValues);
+    let formData = new FormData();
+    Object.keys(this.organizationForm.controls).forEach((key) => {
+      console.log(key, formValues[key]);
+      if (key !== 'docs' && key !== 'organizationType') {
+        formData.append(key, formValues[key]);
       }
-      this.store.dispatch(new dashboardActions.SubmitOrgForm(formData));
-      localStorage.setItem('orgForm', 'true');
+    });
+    for (var i = 0; i < this.organizationFiles.length; i++) {
+      formData.append('docs', this.organizationFiles[i]);
     }
+    this.store.dispatch(new dashboardActions.SubmitOrgForm(formData));
+    localStorage.setItem('orgForm', 'true');
   }
 
   showDialog() {
@@ -233,6 +249,17 @@ export class SignupComponent implements OnInit, OnDestroy {
         button: 'Done',
       },
     });
+  }
+
+  //On Organisation Type select
+  onOrgTypSelect(category) {
+    if (category) {
+      this.store.dispatch(new AuthAction.GetCategory(category));
+    }
+  }
+
+  onCheckBox(event, control) {
+    // this.organizationForm.controls[control].setValue(event.checked);
   }
   ngOnDestroy() {
     this.orgCateogoriesSub.unsubscribe();

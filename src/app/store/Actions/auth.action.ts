@@ -8,6 +8,8 @@ export const SET_PASSWORD = 'SET_PASSWORD';
 export const SET_PASSWORD_SUCCESS = 'SET_PASSWORD_SUCCESS';
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES';
 export const GET_ALL_CATEGORIES_SUCCESS = 'GET_ALL_CATEGORIES_SUCCESS';
+export const GET_CATEGORY = 'GET_CATEGORY';
+export const GET_CATEGORY_SUCCESS = 'GET_CATEGORY_SUCCESS';
 
 export class GetLogin {
   readonly type = GET_LOGIN;
@@ -56,6 +58,18 @@ export class GetAllCategoriesSuccess {
   readonly type = GET_ALL_CATEGORIES_SUCCESS;
   constructor(public payload: any) {}
 }
+
+export class GetCategory {
+  readonly type = GET_CATEGORY;
+  constructor(public payload: string) {
+    console.log(payload);
+  }
+}
+
+export class GetCategorySuccess {
+  readonly type = GET_CATEGORY_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Actions =
   | GetLogin
   | GetLoginSuccess
@@ -66,4 +80,6 @@ export type Actions =
   | SetPassword
   | SetPasswordSuccess
   | GetAllCategories
-  | GetAllCategoriesSuccess;
+  | GetAllCategoriesSuccess
+  | GetCategory
+  | GetCategorySuccess;

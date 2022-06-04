@@ -21,6 +21,9 @@ export function AuthReducer(
     case authActions.GET_ALL_CATEGORIES_SUCCESS: {
       return { ...state, categories: action.payload };
     }
+    case authActions.GET_CATEGORY_SUCCESS: {
+      return { ...state, categoryDetails: action.payload };
+    }
     default:
       return state;
   }

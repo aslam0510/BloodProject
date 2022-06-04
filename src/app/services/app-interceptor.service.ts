@@ -69,23 +69,23 @@ export class AppInterceptor implements HttpInterceptor {
       req.url
         .toString()
         .trim()
-        .toLocaleLowerCase()
-        .indexOf('bbportal/login'.toLocaleLowerCase()) !== -1 &&
+        .toLowerCase()
+        .indexOf('/login'.toLowerCase()) !== -1 &&
       req.url
         .toString()
         .trim()
-        .toLocaleLowerCase()
-        .indexOf('bbportal/register/organization'.toLocaleLowerCase()) !== -1 &&
+        .toLowerCase()
+        .indexOf('/register/organization'.toLowerCase()) !== -1 &&
       req.url
         .toString()
         .trim()
-        .toLocaleLowerCase()
-        .indexOf('bbportal/register/entity'.toLocaleLowerCase()) !== -1 &&
+        .toLowerCase()
+        .indexOf('/register/entity'.toLowerCase()) !== -1 &&
       req.url
         .toString()
         .trim()
-        .toLocaleLowerCase()
-        .indexOf('bbportal/sendOTP'.toLocaleLowerCase()) !== -1
+        .toLowerCase()
+        .indexOf('/sendOTP'.toLowerCase()) !== -1
     ) {
       this.status.setHttpStatus(false, req);
       this.router.navigate(['/login']);

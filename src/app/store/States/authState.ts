@@ -4,6 +4,7 @@ export class AuthState {
   verifyOTPSuccess: any;
   setPasswordSuccess: any;
   categories: any;
+  categoryDetails: any;
   isEditMode: boolean;
   constructor(isEditMode) {
     this.isEditMode = isEditMode;
