@@ -109,9 +109,6 @@ export class LoginComponent implements OnInit {
       const payload = {
         userId: this.loginForm.value.userid,
         pwd: this.loginForm.value.pwd,
-        // nidhi212790@gmail.com
-        // MvnjbLxF64
-        // pwd: bcrypt.hashSync(this.loginForm.value.pwd, salt),
       };
 
       this.store.dispatch(new AuthAction.GetLogin(payload));

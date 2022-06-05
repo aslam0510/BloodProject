@@ -85,5 +85,6 @@ mat-card {
   position: fixed;
   bottom: 0;
   width: 85%;
+  display: inline-block;
   text-align: center;
 }

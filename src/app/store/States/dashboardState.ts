@@ -1,6 +1,8 @@
 export class DashboardState {
   orgTypes: [];
   orgForm: any;
-  entityForm: any;
+  addNewEntity: any;
+  entititiesDetails: any;
+  organizationDetails: any;
   constructor() {}
 }

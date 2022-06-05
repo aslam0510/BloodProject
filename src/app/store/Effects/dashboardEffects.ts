@@ -36,15 +36,41 @@ export class DashboardEffect {
     );
   });
 
-  submitEntityForm$ = createEffect(() => {
+  AddNewEntity$ = createEffect(() => {
     return this.action$.pipe(
-      ofType(dashboardActions.SUBMIT_ENTITYFORM),
+      ofType(dashboardActions.ADD_NEW_ENTITY),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .post(api.getAPI('SUBMIT_ENTITY_FORM'), payload)
+          .post(api.getAPI('ADD_NEW_ENTITY'), payload)
+          .pipe(map((data) => new dashboardActions.AddNewEntitySuccess(data)));
+      })
+    );
+  });
+
+  GetOrganizationDetails$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.GET_ORGANIZATION_DETAILS),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_ORANIZATION_DETAILS'))
           .pipe(
-            map((data) => new dashboardActions.SubmitEntityFormSuccess(data))
+            map(
+              (data) => new dashboardActions.GetOrganizationDetailsSuccess(data)
+            )
+          );
+      })
+    );
+  });
+
+  GetEntityDetails$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.GET_ENTITY_DETAILS),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_ENTITY_DETAILS'))
+          .pipe(
+            map((data) => new dashboardActions.GetEntityDetailsSuccess(data))
           );
       })
     );

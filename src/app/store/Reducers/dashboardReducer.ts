@@ -14,9 +14,15 @@ export function dashboardReducer(
       const data = action.payload.data;
       return { ...state, orgForm: data };
     }
-    case dashboardActions.SUBMIT_ENTITYFORM_SUCCESS: {
+    case dashboardActions.ADD_NEW_ENTITY_SUCCESS: {
       const data = action.payload.data;
-      return { ...state, entityForm: data };
+      return { ...state, addNewEntity: data };
+    }
+    case dashboardActions.GET_ENTITY_DETAILS_SUCCESS: {
+      return { ...state, entititiesDetails: action.payload };
+    }
+    case dashboardActions.GET_ORGANIZATION_DETAILS_SUCCESS: {
+      return { ...state, organizationDetails: action.payload };
     }
     default:
       return state;

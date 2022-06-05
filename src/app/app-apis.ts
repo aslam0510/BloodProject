@@ -4,6 +4,7 @@ const appPort = {
 
 const register = 'register';
 const user = 'user';
+const admin = 'admin';
 
 const apis = {
   GET_LOGIN: { url: '/login', port: appPort.port },
@@ -26,6 +27,12 @@ const apis = {
   },
   GET_CATEGORY: {
     url: `/${register}/getCategoryDetails`,
+    port: appPort.port,
+  },
+  ADD_NEW_ENTITY: { url: `/${admin}/registerEntity`, port: appPort.port },
+  GET_ENTITY_DETAILS: { url: `/${admin}/getAllEntities`, port: appPort.port },
+  GET_ORANIZATION_DETAILS: {
+    url: `/${admin}/getORganizationDetails`,
     port: appPort.port,
   },
 };

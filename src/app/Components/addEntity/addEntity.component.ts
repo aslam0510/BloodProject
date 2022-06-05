@@ -5,10 +5,12 @@ import {
   Validators,
   FormBuilder,
   FormArray,
+  ValidatorFn,
 } from '@angular/forms';
 import {
   Component,
   ElementRef,
+  Inject,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -17,133 +19,106 @@ import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/templat
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import * as dashboardActions from '../../store/Actions/dashboardActions';
+import * as AuthAction from '../../store/Actions/auth.action';
 import { Observable, Subscription } from 'rxjs';
 import { getOrgTypes } from './../../store/Selectors/dashboardSelector';
-import { OrgFormModel } from './../../models/orgFormModel';
-import { MatDialog } from '@angular/material/dialog';
-import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
-
+import { OrgFormField, OrgFormModel } from './../../models/orgFormModel';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 @Component({
   selector: 'app-addEntity',
   templateUrl: './addEntity.component.html',
   styleUrls: ['./addEntity.component.css'],
 })
 export class AddEntityComponent implements OnInit, OnDestroy {
-  organizationForm: FormGroup;
-  newEntityForm: FormGroup;
-  showFile = false;
+  addNewEntityForm: FormGroup;
   organizationFiles = [];
-  entityFiles = [];
   acceptOnlyPDF = '';
-  orgTypes$: Observable<any>;
-  orgTypes: [] = [];
-  orgTypesSub: Subscription;
-  orgForm$: Observable<OrgFormModel>;
-  orgForm: OrgFormModel;
-  orgFormSub: Subscription;
+  orgCategories$: Observable<any>;
+  orgCategories: any;
+  orgCateogoriesSub: Subscription;
+  addNewEntity$: Observable<OrgFormModel>;
+  addNewEntity: OrgFormModel;
+  addNewEntitySub: Subscription;
+  categoryDetails$: Observable<any>;
+  categoryDetails: any;
+  categoryDetailsSub: Subscription;
   selectedYear: number;
   years: number[] = [];
+  orgFormFields: OrgFormField[] = [];
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private store: Store<AppState>,
-    private dialog: MatDialog
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<AddEntityComponent>
   ) {
-    this.orgTypes$ = this.store.select(getOrgTypes);
-    this.orgForm$ = this.store.select((state) => state.DashboardSlice.orgForm);
+    this.orgCategories$ = this.store.select(
+      (state) => state.AuthSlice.categories
+    );
+    this.categoryDetails$ = this.store.select(
+      (state) => state.AuthSlice.categoryDetails
+    );
+    this.addNewEntity$ = this.store.select(
+      (state) => state.DashboardSlice.addNewEntity
+    );
     this.selectedYear = new Date().getFullYear();
     for (let year = this.selectedYear; year >= 2000; year--) {
       this.years.push(year);
     }
+
+    this.addNewEntityForm = this.fb.group({
+      categoryName: new FormControl('', [Validators.required]),
+    });
   }
 
   ngOnInit() {
-    // this.store.dispatch(new dashboardActions.GetOrganizationTypes());
-    this.orgTypesSub = this.orgTypes$.subscribe((data) => {
+    this.store.dispatch(new AuthAction.GetAllCategories());
+    this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
-        this.orgTypes = data['types'];
-      }
-    });
-    this.orgFormSub = this.orgForm$.subscribe((data) => {
-      if (data) {
-        this.orgForm = data;
-        const showPopup = localStorage.getItem('orgForm');
-        if (showPopup) {
-          this.router.navigate(['/login']);
-          this.showDialog();
+        this.categoryDetails = data.data;
+        const controls = this.categoryDetails.fields;
+        for (const formField of controls) {
+          this.addNewEntityForm.addControl(
+            formField.key,
+            new FormControl('', this.getValidators(formField))
+          );
         }
+        this.orgFormFields = controls;
+      }
+    });
+    this.orgCateogoriesSub = this.orgCategories$.subscribe((data) => {
+      if (data) {
+        this.orgCategories = data.data;
       }
     });
 
-    //ORGANIZATION FORM
-    this.organizationForm = new FormGroup({
-      organizationType: new FormControl('', [Validators.required]),
-      organizationName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [
-        Validators.required,
+    this.addNewEntitySub = this.addNewEntity$.subscribe((data) => {
+      if (data) {
+        this.addNewEntity = data;
+      }
+    });
+  }
+
+  getValidators(control): ValidatorFn {
+    if (control.key === 'email' && control.mandatory) {
+      return (
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-      ]),
-      orgAddress: new FormControl(''),
-      orgContact: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
-      ]),
-      orgRegNum: new FormControl('', [Validators.required]),
-      orgRegCouncil: new FormControl('', [Validators.required]),
-      orgRegYear: new FormControl('', [Validators.required]),
-      orgCity: new FormControl(''),
-      orgPincode: new FormControl(''),
-      orgLocation: new FormControl(''),
-      orgFileUpload: new FormControl('', [Validators.required]),
-    });
-
-    //ENTITY FORM
-    this.newEntityForm = this.fb.group({
-      newEntities: new FormArray([]),
-    });
-  }
-
-  addNewEntity() {
-    if (!this.organizationForm.valid) {
-      let entity = this.NewEntity;
-      let newEntity = this.fb.group({
-        entOrganizationType: new FormControl('', [Validators.required]),
-        entOrganizationName: new FormControl('', [Validators.required]),
-        entEmail: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-        ]),
-        entAddress: new FormControl('', [Validators.required]),
-        entContact: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
-        ]),
-        entRegNum: new FormControl('', [Validators.required]),
-        entRegCouncil: new FormControl('', [Validators.required]),
-        entRegYear: new FormControl('', [Validators.required]),
-        entCity: new FormControl(''),
-        entPincode: new FormControl(''),
-        entLocation: new FormControl(''),
-        entFileUpload: new FormControl(''),
-      });
-
-      entity.push(newEntity);
+        Validators.required
+      );
     }
-  }
-
-  //DELETEING THE ENTITY
-  deleteEntity(index) {
-    let delEntity = this.NewEntity;
-    delEntity.removeAt(index);
-  }
-
-  get NewEntity(): FormArray {
-    return this.newEntityForm.get('newEntities') as FormArray;
-  }
-
-  //ENTITY FORM CONTROL
-  NewEntityControl(): FormArray {
-    return this.newEntityForm.get('newEntities') as FormArray;
+    if (control.key === 'contact' && control.mandatory) {
+      return (
+        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'), Validators.required
+      );
+    }
+    if (control.mandatory) {
+      return Validators.required;
+    }
   }
 
   //ORGANIZATION FORM UPLOAD
@@ -158,14 +133,6 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     }
   }
 
-  //ENTITY FORM UPLOAD
-  onEntFileUpload(event) {
-    const [...files] = event.target.files;
-    this.entityFiles.push(...files);
-  }
-
-  onSignupForm() {}
-
   //REMOVING ORGANIZATION FILE
   onDeleteFile(index) {
     this.organizationFiles = this.organizationFiles.filter(
@@ -173,66 +140,44 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     );
   }
 
-  // onParentAddChng() {
-  //   const parentAddress = this.organizationForm.get('orgAddress').value;
-  //   if (parentAddress) {
-  //     console.log(parentAddress);
-
-  //     this.newEntityForm.controls.entAddress.setValue(parentAddress);
-  //     // this.newEntityForm.get('entAddress').setValue('hiii');
-  //   }
-  // }
-
-  onDeleteEntityFile(index) {}
-
   //RESETING THE ORGANIZATION FORM
   onResetOrgForm() {
-    this.organizationForm.reset();
+    this.addNewEntityForm.reset();
   }
 
   //SUBMITING THE FORM
   onSubmit() {
-    if (this.organizationForm.valid) {
-      const orgForm = this.organizationForm.value;
+    if (this.addNewEntityForm.valid) {
+      const formValues = this.addNewEntityForm.value;
       let formData = new FormData();
-      formData.append('name', orgForm.organizationName);
-      formData.append('type', orgForm.organizationType);
-      formData.append('email', orgForm.email);
-      formData.append('contact', orgForm.orgContact);
-      formData.append('addr', orgForm.orgAddress);
-      formData.append('city', orgForm.orgCity);
-      formData.append('state', orgForm.orgState);
-      formData.append('pin', orgForm.orgPincode);
-      formData.append('country', '');
-      formData.append('location', orgForm.orgLocation);
-      formData.append('regNo', orgForm.orgRegNum);
-      formData.append('regYear', orgForm.orgRegYear);
-      formData.append('regCouncil', orgForm.orgRegCouncil);
+      Object.keys(this.addNewEntityForm.controls).forEach((key) => {
+        console.log(key, formValues[key]);
+        if (key !== 'docs' && key !== 'organizationType') {
+          formData.append(key, formValues[key]);
+        }
+      });
       for (var i = 0; i < this.organizationFiles.length; i++) {
         formData.append('docs', this.organizationFiles[i]);
       }
-      this.store.dispatch(new dashboardActions.SubmitOrgForm(formData));
-      localStorage.setItem('orgForm', 'true');
+      this.store.dispatch(new dashboardActions.AddNewEntity(formData));
+      this.dialogRef.close();
     }
   }
 
-  showDialog() {
-    const dialogRef = this.dialog.open(AppDialogComponent, {
-      width: '350px',
-      height: 'auto',
-      data: {
-        title: 'Application Submitted Successfully !',
-        content:
-          'we have received your application. We are currently reviewing your application. After Successful verificatio you will receive Username and Password through email. We will get back to you with the status within 2-3 days',
-        ok: true,
-        cancel: false,
-        button: 'Done',
-      },
-    });
+  //On Organisation Type select
+  onOrgTypSelect(category) {
+    if (category) {
+      this.store.dispatch(new AuthAction.GetCategory(category));
+    }
   }
+
+  onCheckBox(event, control) {
+    // this.addNewEntityForm.controls[control].setValue(event.checked);
+  }
+
   ngOnDestroy() {
-    this.orgTypesSub.unsubscribe();
-    this.orgFormSub.unsubscribe();
+    this.orgCateogoriesSub.unsubscribe();
+    this.addNewEntitySub.unsubscribe();
     localStorage.removeItem('orgForm');
   }
 }
