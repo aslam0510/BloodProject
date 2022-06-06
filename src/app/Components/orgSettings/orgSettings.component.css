@@ -16,7 +16,7 @@ td {
 }
 th,
 td {
-  padding: 15px;
+  padding: 10px 13px;
   text-align: left;
 }
 .rows {
@@ -26,7 +26,7 @@ th {
   width: 500px;
 }
 td {
-  width: 280px;
+  width: 270px;
 }
 table {
   width: 100%;
@@ -44,7 +44,7 @@ mat-list-item {
   border-radius: 15px;
   background-color: #e9ecef;
 }
-.sideHeight {
-  height: 85vh;
-  overflow-y: scroll;
+
+.matList {
+  padding: 0;
 }

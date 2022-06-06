@@ -4,5 +4,6 @@ export class DashboardState {
   addNewEntity: any;
   entititiesDetails: any;
   organizationDetails: any;
+  entityCategories: any;
   constructor() {}
 }

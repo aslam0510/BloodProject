@@ -75,4 +75,29 @@ export class DashboardEffect {
       })
     );
   });
+
+  GetEntityById$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.GET_ENTITY_BYID),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_ENTITY_BYID') + `?entId=${payload}`)
+          .pipe(map((data) => new dashboardActions.GetEntityByIdSuccess(data)));
+      })
+    );
+  });
+
+  GetEntityCategories$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.GET_ENTITY_CATEGORIES),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_ENTITY_CATEGORIES'))
+          .pipe(
+            map((data) => new dashboardActions.GetEntityCategoriesSuccess(data))
+          );
+      })
+    );
+  });
 }

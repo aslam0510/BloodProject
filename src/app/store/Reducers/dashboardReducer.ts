@@ -24,6 +24,9 @@ export function dashboardReducer(
     case dashboardActions.GET_ORGANIZATION_DETAILS_SUCCESS: {
       return { ...state, organizationDetails: action.payload };
     }
+    case dashboardActions.GET_ENTITY_CATEGORIES_SUCCESS: {
+      return { ...state, entityCategories: action.payload };
+    }
     default:
       return state;
   }

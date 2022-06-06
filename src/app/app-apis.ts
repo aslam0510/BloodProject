@@ -35,6 +35,11 @@ const apis = {
     url: `/${admin}/getORganizationDetails`,
     port: appPort.port,
   },
+  GET_ENTITY_BYID: { url: `/${admin}/getEntityDetails`, port: appPort.port },
+  GET_ENTITY_CATEGORIES: {
+    url: `/${register}/getEntityCategories`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {

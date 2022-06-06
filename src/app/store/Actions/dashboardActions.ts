@@ -11,6 +11,10 @@ export const GET_ORGANIZATION_DETAILS_SUCCESS =
   'GET_ORGANIZATION_DETAILS_SUCCESS';
 export const GET_ENTITY_DETAILS = 'GET_ENTITY_DETAILS';
 export const GET_ENTITY_DETAILS_SUCCESS = 'GET_ENTITY_DETAILS_SUCCESS';
+export const GET_ENTITY_BYID = 'GET_ENTITY_BYID';
+export const GET_ENTITY_BYID_SUCCESS = 'GET_ENTITY_BYID_SUCCESS';
+export const GET_ENTITY_CATEGORIES = 'GET_ENTITY_CATEGORIES';
+export const GET_ENTITY_CATEGORIES_SUCCESS = 'GET_ENTITY_CATEGORIES_SUCCESS';
 export class GetOrganizationTypes {
   readonly type = GET_ORGANIZATION_TYPES;
   constructor() {}
@@ -66,6 +70,25 @@ export class GetEntityDetailsSuccess {
   readonly type = GET_ENTITY_DETAILS_SUCCESS;
   constructor(public payload: any) {}
 }
+
+export class GetEntityById {
+  readonly type = GET_ENTITY_BYID;
+  constructor(public payload: string) {}
+}
+
+export class GetEntityByIdSuccess {
+  readonly type = GET_ENTITY_BYID_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class GetEntityCategories {
+  readonly type = GET_ENTITY_CATEGORIES;
+  constructor() {}
+}
+export class GetEntityCategoriesSuccess {
+  readonly type = GET_ENTITY_CATEGORIES_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Actions =
   | GetOrganizationTypes
   | GetOrganizationTypesSuccess
@@ -78,4 +101,8 @@ export type Actions =
   | GetOrganizationDetails
   | GetOrganizationDetailsSuccess
   | GetEntityDetails
-  | GetEntityDetailsSuccess;
+  | GetEntityDetailsSuccess
+  | GetEntityById
+  | GetEntityByIdSuccess
+  | GetEntityCategories
+  | GetEntityCategoriesSuccess;

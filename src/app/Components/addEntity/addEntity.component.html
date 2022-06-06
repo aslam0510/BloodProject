@@ -3,7 +3,7 @@
     <mat-expansion-panel expanded="open">
       <mat-expansion-panel-header>
         <mat-panel-title class="d-flex justify-content-around align-items-center">
-          <strong class="flex-grow-1 text-center">Organization Info</strong>
+          <strong class="flex-grow-1 text-center">Entity Info</strong>
 
           <button color="accent" mat-button (click)="onResetOrgForm()">
             <mat-icon color="accent">refresh</mat-icon> Reset
@@ -14,9 +14,9 @@
       <form class="orgForm" [formGroup]="addNewEntityForm">
         <div>
           <mat-form-field appearance="outline" class="ml-3">
-            <mat-label>{{ "Type of Organization" }}</mat-label>
-            <mat-select formControlName="categoryName" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Type of Organization">
-              <mat-option [value]="category.categoryName" *ngFor="let category of orgCategories">{{ category.categoryName }}
+            <mat-label>{{ "Category Name" }}</mat-label>
+            <mat-select formControlName="categoryName" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Category Name">
+              <mat-option [value]="category.categoryName" *ngFor="let category of entityCategories">{{ category.categoryName }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="

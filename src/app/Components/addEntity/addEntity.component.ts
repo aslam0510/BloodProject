@@ -15,7 +15,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
+
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import * as dashboardActions from '../../store/Actions/dashboardActions';
@@ -37,9 +37,9 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   addNewEntityForm: FormGroup;
   organizationFiles = [];
   acceptOnlyPDF = '';
-  orgCategories$: Observable<any>;
-  orgCategories: any;
-  orgCateogoriesSub: Subscription;
+  entityCategories$: Observable<any>;
+  entityCategories: any;
+  entityCateogoriesSub: Subscription;
   addNewEntity$: Observable<OrgFormModel>;
   addNewEntity: OrgFormModel;
   addNewEntitySub: Subscription;
@@ -57,8 +57,8 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddEntityComponent>
   ) {
-    this.orgCategories$ = this.store.select(
-      (state) => state.AuthSlice.categories
+    this.entityCategories$ = this.store.select(
+      (state) => state.DashboardSlice.entityCategories
     );
     this.categoryDetails$ = this.store.select(
       (state) => state.AuthSlice.categoryDetails
@@ -74,10 +74,12 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.addNewEntityForm = this.fb.group({
       categoryName: new FormControl('', [Validators.required]),
     });
+
+    console.log(this.data);
   }
 
   ngOnInit() {
-    this.store.dispatch(new AuthAction.GetAllCategories());
+    this.store.dispatch(new dashboardActions.GetEntityCategories());
     this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
         this.categoryDetails = data.data;
@@ -91,9 +93,10 @@ export class AddEntityComponent implements OnInit, OnDestroy {
         this.orgFormFields = controls;
       }
     });
-    this.orgCateogoriesSub = this.orgCategories$.subscribe((data) => {
+    this.entityCateogoriesSub = this.entityCategories$.subscribe((data) => {
       if (data) {
-        this.orgCategories = data.data;
+        this.entityCategories = data.data;
+        console.log(this.entityCategories);
       }
     });
 
@@ -176,7 +179,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.orgCateogoriesSub.unsubscribe();
+    this.entityCateogoriesSub.unsubscribe();
     this.addNewEntitySub.unsubscribe();
     localStorage.removeItem('orgForm');
   }
