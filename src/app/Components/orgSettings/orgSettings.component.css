@@ -16,10 +16,13 @@ td {
 }
 th,
 td {
-  padding: 10px 13px;
+  padding: 5px 13px;
   text-align: left;
 }
 .rows {
+  padding: 0;
+}
+.mat-form-field-infix {
   padding: 0;
 }
 th {
@@ -40,6 +43,7 @@ table {
   margin: 0 0 0 5px;
 }
 mat-list-item {
+  cursor: pointer;
   width: 170px;
   border-radius: 15px;
   background-color: #e9ecef;

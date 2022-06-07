@@ -6,7 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import * as DashboardAction from '../../store/Actions/dashboardActions';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-orgSettings',
@@ -20,9 +20,14 @@ export class OrgSettingsComponent implements OnInit {
   entityDetails$: Observable<any>;
   entityDetails: any;
   entityDetailsSub: Subscription;
-  entityDetailsForm: FormGroup;
-  organizationDetailsForm: FormGroup;
+  editForm: FormGroup;
   isEdit: boolean;
+  orgEnityObject: any;
+  isOrgInfo: boolean;
+  isEntityInfo: boolean;
+  entity$: Observable<any>;
+  entity: any;
+  entitySub: Subscription;
 
   constructor(
     private router: Router,
@@ -35,26 +40,56 @@ export class OrgSettingsComponent implements OnInit {
     this.entityDetails$ = this.store.select(
       (state) => state.DashboardSlice.entititiesDetails
     );
+    this.entity$ = this.store.select(
+      (state) => state.DashboardSlice.entityById
+    );
     this.store.dispatch(new DashboardAction.GetOrganizationDetails());
-
     this.store.dispatch(new DashboardAction.GetEntityDetails());
   }
 
   ngOnInit() {
+    this.editForm = new FormGroup({});
+    this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
+      if (data) {
+        if (data.code === 200) {
+          this.entityDetails = data.data;
+        }
+      }
+    });
     this.organizationDetailsSub = this.organizationDetails$.subscribe(
       (data) => {
         if (data) {
           if (data.code === 200) {
+            this.isOrgInfo = true;
             this.organizationDetails = data.data;
+            this.orgEnityObject = data.data;
+            const form = data.data;
+            for (let control in form) {
+              console.log(control, form[control]);
+              if (control !== 'docs') {
+                this.editForm.addControl(
+                  control,
+                  new FormControl(form[control])
+                );
+              }
+            }
           }
         }
       }
     );
 
-    this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
+    this.entitySub = this.entity$.subscribe((data) => {
       if (data) {
         if (data.code === 200) {
-          this.entityDetails = data.data;
+          this.entity = data.data;
+          this.orgEnityObject = data.data;
+          const form = data.data;
+          for (let control in form) {
+            console.log(control, form[control]);
+            if (control !== 'docs') {
+              this.editForm.addControl(control, new FormControl(form[control]));
+            }
+          }
         }
       }
     });
@@ -67,42 +102,7 @@ export class OrgSettingsComponent implements OnInit {
       height: 'auto',
       panelClass: 'custom-dialog-container',
       data: {
-        form: [
-          {
-            id: 648854,
-            apsts: '2',
-            _id: '629457b52fdb507764b16830',
-            categoryName: 'Blood Bank',
-            bldbnkName: 'Jio Bloodbank123',
-            prnthsptlName: '9098776591',
-            addLine1: 'Koheda',
-            city: 'Siddipet',
-            state: 'Telangana',
-            country: 'india',
-            pinCode: '5054',
-            regAuthority: 'Telanagana',
-            regYear: '2019',
-            catgry: 'Govt',
-            licnsNmbr: '123456',
-            licnsValid: '2024',
-            district: 'Siddipet',
-            addLine2: 'Husnabad',
-            email: 'mailto:parsharam.maddela@assettl.com',
-            contact: '9603405870',
-            namePointCont: 'ede',
-            designPointCont: 'jknjn',
-            web: 'jioiomt.com',
-            compFacility: 'edewd',
-            apFacility: 'wffew',
-            docs: [
-              {
-                fileName: 'Org_2022-05-30T05_35_49.342Ztest.jpg',
-                filePath:
-                  'src\\documents\\Org_2022-05-30T05_35_49.342Ztest.jpg',
-              },
-            ],
-          },
-        ],
+        editForm: this.organizationDetails,
         isEdit: this.isEdit,
       },
     });
@@ -113,13 +113,19 @@ export class OrgSettingsComponent implements OnInit {
   }
 
   //Editing orgInfo and EntityInfo
-  onEdit(form) {
+  onEdit() {
     this.isEdit = true;
-    this.onAddEntitty(form);
+    // this.onAddEntitty(form);
   }
 
-  onEntity(entity) {
-    console.log(entity);
+  onEntityInfo(entity) {
+    this.isOrgInfo = false;
+    this.isEntityInfo = true;
     this.store.dispatch(new DashboardAction.GetEntityById(entity.id));
+  }
+  onOrgInfo(orgInfo) {
+    this.isEntityInfo = false;
+    this.isOrgInfo = true;
+    this.orgEnityObject = orgInfo;
   }
 }

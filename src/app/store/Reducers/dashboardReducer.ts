@@ -27,6 +27,9 @@ export function dashboardReducer(
     case dashboardActions.GET_ENTITY_CATEGORIES_SUCCESS: {
       return { ...state, entityCategories: action.payload };
     }
+    case dashboardActions.GET_ENTITY_BYID_SUCCESS: {
+      return { ...state, entityById: action.payload };
+    }
     default:
       return state;
   }
