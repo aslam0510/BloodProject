@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BloodGroupCardsComponent implements OnInit {
   @Input() bloodGroupCard;
   constructor() {
-    console.log(this.bloodGroupCard);
+    
   }
 
   ngOnInit(): void {}

@@ -173,6 +173,6 @@ export class BloodAvailabilityComponent implements OnInit {
   }
 
   onItem() {
-    console.log('hii');
+    
   }
 }

@@ -73,8 +73,6 @@ export class AuthEffect {
       ofType(auth.GET_CATEGORY),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload);
-
         return this.http
           .get(api.getAPI('GET_CATEGORY') + `?categoryName=${payload}`)
           .pipe(map((data: any) => new auth.GetCategorySuccess(data)));

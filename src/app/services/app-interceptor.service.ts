@@ -27,14 +27,18 @@ export class HttpStatus {
 
   setHttpStatus(inFlight: boolean, httpReq) {
     if (inFlight) {
-      this.loaderStatus.set(encodeURI(httpReq.url), '');
+      console.log(httpReq.url);
+      this.loaderStatus.set(httpReq.url, '');
       this.requestInFlight$.next(inFlight);
     } else {
-      httpReq.url ? this.loaderStatus.delete(httpReq.url) : '';
+      console.log('encded ' + decodeURI(httpReq.url));
+      this.loaderStatus.delete(decodeURI(httpReq.url));
     }
+
     this.loaderStatus.size === 0
       ? this.requestInFlight$.next(false)
       : this.requestInFlight$.next(true);
+    console.log(this.loaderStatus.size);
   }
 
   //clear the request inFlight
@@ -63,7 +67,6 @@ export class AppInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this.status.setHttpStatus(true, req);
     const token = localStorage.getItem('token');
-
     if (
       !token &&
       req.url

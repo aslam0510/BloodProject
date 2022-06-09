@@ -61,9 +61,7 @@ export class GetAllCategoriesSuccess {
 
 export class GetCategory {
   readonly type = GET_CATEGORY;
-  constructor(public payload: string) {
-    console.log(payload);
-  }
+  constructor(public payload: string) {}
 }
 
 export class GetCategorySuccess {

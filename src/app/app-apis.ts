@@ -40,6 +40,15 @@ const apis = {
     url: `/${register}/getEntityCategories`,
     port: appPort.port,
   },
+  UPDATE_ORG_INFO: {
+    url: `/${admin}/updateOrganizationById`,
+    port: appPort.port,
+  },
+
+  UPDATE_ENTITY_INFO: {
+    url: `/${admin}/updateEntityById`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {

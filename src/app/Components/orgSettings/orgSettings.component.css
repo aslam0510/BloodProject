@@ -1,6 +1,6 @@
 .sideBar {
   background-color: gainsboro;
-  height: 92.5vh;
+  /* height: 92.5vh; */
   margin-left: -1rem;
   margin-top: -22px;
   margin-right: 1rem;
@@ -38,9 +38,8 @@ table {
 .entityBtn {
   width: 180px;
   color: red;
-  position: absolute;
-  bottom: 0;
-  margin: 0 0 0 5px;
+  border-radius: 15px;
+  margin: 10px 0 0 5px;
 }
 mat-list-item {
   cursor: pointer;
@@ -51,4 +50,13 @@ mat-list-item {
 
 .matList {
   padding: 0;
+}
+
+.saveBtn {
+  margin-left: 1rem;
+}
+
+.data {
+  height: 86vh;
+  overflow-y: scroll;
 }

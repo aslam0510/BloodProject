@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   verfiyOTPSuccess: any;
   verifyOTPSuccessSub: Subscription;
   ref = '';
+  showVerify: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit {
     );
 
     this.loginErrors = [];
+    this.showVerify = true;
   }
 
   ngOnInit() {
@@ -62,7 +64,9 @@ export class LoginComponent implements OnInit {
           this.loginSuccess.status === 'Success'
         ) {
           this.ref = this.loginSuccess.data.ref;
-          this.showVerifyOtpPopUp();
+          if (this.showVerify) {
+            this.showVerifyOtpPopUp();
+          }
           this.snackBar.open(this.loginSuccess.data.message, 'ok', {
             duration: 2500,
           });
@@ -89,6 +93,7 @@ export class LoginComponent implements OnInit {
         ) {
           localStorage.setItem('token', this.verfiyOTPSuccess.data.token);
           this.setPasswordDialog();
+          this.showVerify = false;
         } else if (
           this.verfiyOTPSuccess.code === 200 &&
           this.verfiyOTPSuccess.status === 'Success' &&

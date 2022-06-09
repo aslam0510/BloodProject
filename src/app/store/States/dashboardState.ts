@@ -6,5 +6,7 @@ export class DashboardState {
   organizationDetails: any;
   entityCategories: any;
   entityById: any;
+  updateOrgInfo: any;
+  updateEntityInfo: any;
   constructor() {}
 }

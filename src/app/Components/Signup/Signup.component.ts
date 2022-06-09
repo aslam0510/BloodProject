@@ -216,13 +216,10 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   //SUBMITING THE FORM
   onSubmit() {
-    console.log(this.organizationForm.valid, this.organizationForm.invalid);
-
     const formValues = this.organizationForm.value;
-    console.log(formValues);
+
     let formData = new FormData();
     Object.keys(this.organizationForm.controls).forEach((key) => {
-      console.log(key, formValues[key]);
       if (key !== 'docs' && key !== 'organizationType') {
         formData.append(key, formValues[key]);
       }

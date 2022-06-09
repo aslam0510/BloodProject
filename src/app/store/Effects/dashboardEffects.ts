@@ -100,4 +100,34 @@ export class DashboardEffect {
       })
     );
   });
+
+  UpdateOrgInfo$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.UPDATE_ORG_INFO),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .put(api.getAPI('UPDATE_ORG_INFO'), payload)
+          .pipe(map((data) => new dashboardActions.UpdateOrgInfoSuccess(data)));
+      })
+    );
+  });
+
+  UpdateEntityInfo$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.UPDATE_ENTITY_INFO),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .put(
+            api.getAPI('UPDATE_ENTITY_INFO') +
+              `?entId=${Number(payload.entId)}`,
+            payload
+          )
+          .pipe(
+            map((data) => new dashboardActions.UpdateEntityInfoSuccess(data))
+          );
+      })
+    );
+  });
 }

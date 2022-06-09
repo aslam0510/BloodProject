@@ -30,6 +30,12 @@ export function dashboardReducer(
     case dashboardActions.GET_ENTITY_BYID_SUCCESS: {
       return { ...state, entityById: action.payload };
     }
+    case dashboardActions.UPDATE_ENTITY_INFO_SUCCESS: {
+      return { ...state, updateEntityInfo: action.payload };
+    }
+    case dashboardActions.UPDATE_ORG_INFO_SUCCESS: {
+      return { ...state, updateOrgInfo: action.payload };
+    }
     default:
       return state;
   }

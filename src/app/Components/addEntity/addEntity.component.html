@@ -27,114 +27,114 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <ng-container>
 
-          <div class="d-inline " *ngFor="let orgFormField of orgFormFields">
-            <mat-form-field *ngIf="orgFormField.inputType === 'TextBox'">
-              <mat-label>{{orgFormField.fieldName}}</mat-label>
-              <input matInput [formControlName]="orgFormField.key">
-              <mat-error *ngIf="
+
+        <ng-container *ngFor="let orgFormField of orgFormFields">
+          <mat-form-field *ngIf="orgFormField.inputType === 'TextBox'">
+            <mat-label>{{orgFormField.fieldName}}</mat-label>
+            <input matInput [formControlName]="orgFormField.key">
+            <mat-error *ngIf="
                                   addNewEntityForm.controls[orgFormField.key].invalid &&
                                   addNewEntityForm.controls[orgFormField.key].errors.required
                                 ">
-                {{orgFormField.fieldName + ' is required'}}
-              </mat-error>
-              <mat-error *ngIf="
+              {{orgFormField.fieldName + ' is required'}}
+            </mat-error>
+            <mat-error *ngIf="
                                                   addNewEntityForm.controls[orgFormField.key].invalid &&
                                                   addNewEntityForm.controls[orgFormField.key].errors.pattern
                                                 ">
-                {{'invalid ' + orgFormField.fieldName }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" *ngIf="orgFormField.inputType === 'Dropdown'">
-              <mat-label>{{orgFormField.fieldName}}</mat-label>
-              <mat-select formControlName="{{orgFormField.key}}">
-                <mat-option value="duplicateValue">{{ 'duplicateValue' }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="
+              {{'invalid ' + orgFormField.fieldName }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" *ngIf="orgFormField.inputType === 'Dropdown'">
+            <mat-label>{{orgFormField.fieldName}}</mat-label>
+            <mat-select formControlName="{{orgFormField.key}}">
+              <mat-option value="duplicateValue">{{ 'duplicateValue' }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="
                                                                   addNewEntityForm.controls[orgFormField.key].invalid &&
                                                                   addNewEntityForm.controls[orgFormField.key].errors.pattern
                                                                 ">
-                {{'invalid ' + orgFormField.fieldName }}
-              </mat-error>
-              <mat-error *ngIf="
+              {{'invalid ' + orgFormField.fieldName }}
+            </mat-error>
+            <mat-error *ngIf="
                                                   addNewEntityForm.controls[orgFormField.key].invalid &&
                                                   addNewEntityForm.controls[orgFormField.key].errors.required
                                                 ">
-                {{orgFormField.fieldName + ' is required'}}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" *ngIf="orgFormField.inputType === 'Date'">
-              <mat-label>{{orgFormField.fieldName}}</mat-label>
-              <mat-select formControlName="{{orgFormField.key}}">
-                <mat-option [value]="year" *ngFor="let year of years">{{ year }}</mat-option>
+              {{orgFormField.fieldName + ' is required'}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" *ngIf="orgFormField.inputType === 'Date'">
+            <mat-label>{{orgFormField.fieldName}}</mat-label>
+            <mat-select formControlName="{{orgFormField.key}}">
+              <mat-option [value]="year" *ngFor="let year of years">{{ year }}</mat-option>
 
-              </mat-select>
-              <mat-error *ngIf="
+            </mat-select>
+            <mat-error *ngIf="
                                                                   addNewEntityForm.controls[orgFormField.key].invalid &&
                                                                   addNewEntityForm.controls[orgFormField.key].errors.required
                                                                 ">
-                {{orgFormField.fieldName + ' is required'}}
-              </mat-error>
-            </mat-form-field>
-            <div class='checkbox' *ngIf="orgFormField.inputType === 'CheckBox'">
-              <mat-checkbox (change)="onCheckBox($event, orgFormField.key)" [formControlName]="orgFormField.key">{{orgFormField.fieldName}}</mat-checkbox>
-              <mat-error *ngIf="addNewEntityForm.controls[orgFormField.key].touched &&
+              {{orgFormField.fieldName + ' is required'}}
+            </mat-error>
+          </mat-form-field>
+          <div class='checkbox' *ngIf="orgFormField.inputType === 'CheckBox'">
+            <mat-checkbox (change)="onCheckBox($event, orgFormField.key)" [formControlName]="orgFormField.key">{{orgFormField.fieldName}}</mat-checkbox>
+            <mat-error *ngIf="addNewEntityForm.controls[orgFormField.key].touched &&
                                                     addNewEntityForm.controls[orgFormField.key].invalid &&
                                                     addNewEntityForm.controls[orgFormField.key].errors.required
                                                   ">
-                {{orgFormField.fieldName + ' is required'}}
-              </mat-error>
-            </div>
+              {{orgFormField.fieldName + ' is required'}}
+            </mat-error>
+          </div>
 
-            <div *ngIf="orgFormField.inputType === 'Radio'" class="radio">
-              <span>{{orgFormField.fieldName}}</span>
-              <mat-radio-group [formControlName]="orgFormField.key" class="'radioTitle">
-                <mat-radio-button value="1" class="radioButton">Yes</mat-radio-button>
-                <mat-radio-button value="2">No</mat-radio-button>
-                <mat-error *ngIf="addNewEntityForm.controls[orgFormField.key].touched &&
+          <div *ngIf="orgFormField.inputType === 'Radio'" class="radio">
+            <span>{{orgFormField.fieldName}}</span>
+            <mat-radio-group [formControlName]="orgFormField.key" class="'radioTitle">
+              <mat-radio-button value="1" class="radioButton">Yes</mat-radio-button>
+              <mat-radio-button value="2">No</mat-radio-button>
+              <mat-error *ngIf="addNewEntityForm.controls[orgFormField.key].touched &&
                                                       addNewEntityForm.controls[orgFormField.key].invalid &&
                                                       addNewEntityForm.controls[orgFormField.key].errors.required
                                                     ">
-                  {{orgFormField.fieldName + ' is required'}}
-                </mat-error>
-              </mat-radio-group>
+                {{orgFormField.fieldName + ' is required'}}
+              </mat-error>
+            </mat-radio-group>
 
+          </div>
+
+          <div *ngIf="orgFormField.inputType === 'File'">
+            <div class="d-flex justify-content-between mt-2 px-4">
+              <h3>Upload License of Blood Bank</h3>
+              <p class="mat-body-1">*File size should be less than 1 MB</p>
             </div>
-
-            <div *ngIf="orgFormField.inputType === 'File'">
-              <div class="d-flex justify-content-between mt-2 px-4">
-                <h3>Upload License of Blood Bank</h3>
-                <p class="mat-body-1">*File size should be less than 1 MB</p>
+            <mat-error *ngIf="acceptOnlyPDF" class="fileErr">{{acceptOnlyPDF}}</mat-error>
+            <div class="upload">
+              <div class="d-flex justify-content-between">
+                <p class="pt-2">
+                  Please upload your medical registration and document of state
+                  medical council proof.
+                </p>
+                <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" [formControlName]="orgFormField.key" accept="application/pdf" (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
+                <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
+                  <mat-icon color="accent">upload</mat-icon>
+                  <span>Upload</span>
+                </button>
               </div>
-              <mat-error *ngIf="acceptOnlyPDF" class="fileErr">{{acceptOnlyPDF}}</mat-error>
-              <div class="upload">
-                <div class="d-flex justify-content-between">
-                  <p class="pt-2">
-                    Please upload your medical registration and document of state
-                    medical council proof.
-                  </p>
-                  <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" [formControlName]="orgFormField.key" accept="application/pdf" (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
-                  <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
-                    <mat-icon color="accent">upload</mat-icon>
-                    <span>Upload</span>
-                  </button>
-                </div>
 
-                <ng-container *ngFor="let file of organizationFiles; let i = index">
-                  <div class="files d-flex my-2 align-items-center" *ngIf="organizationFiles.length > 0">
-                    <mat-icon class="icon pl-2 pr-4" color="accent"> insert_drive_file</mat-icon>
-                    <div class="d-flex flex-column flex-grow-1">
-                      <span clas="d-block">{{ file.name }}</span>
-                      <span>{{ file.size + ' byte'}}</span>
-                    </div>
-                    <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)">close</mat-icon>
+              <ng-container *ngFor="let file of organizationFiles; let i = index">
+                <div class="files d-flex my-2 align-items-center" *ngIf="organizationFiles.length > 0">
+                  <mat-icon class="icon pl-2 pr-4" color="accent"> insert_drive_file</mat-icon>
+                  <div class="d-flex flex-column flex-grow-1">
+                    <span clas="d-block">{{ file.name }}</span>
+                    <span>{{ file.size + ' byte'}}</span>
                   </div>
-                </ng-container>
-              </div>
+                  <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)">close</mat-icon>
+                </div>
+              </ng-container>
             </div>
           </div>
+
         </ng-container>
         <div class="d-flex justify-content-evenly align-items-center">
           <button mat-raised-button class="mt-2 addEntity">

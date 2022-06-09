@@ -75,7 +75,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
       categoryName: new FormControl('', [Validators.required]),
     });
 
-    console.log(this.data);
+    
   }
 
   ngOnInit() {
@@ -154,7 +154,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
       const formValues = this.addNewEntityForm.value;
       let formData = new FormData();
       Object.keys(this.addNewEntityForm.controls).forEach((key) => {
-        console.log(key, formValues[key]);
+       
         if (key !== 'docs' && key !== 'organizationType') {
           formData.append(key, formValues[key]);
         }

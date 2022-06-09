@@ -12,7 +12,6 @@ export class NotificationDialogComponent implements OnInit {
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
     this.message = data.message;
     this.content = data.content;
-    console.log(data);
   }
 
   ngOnInit() {}

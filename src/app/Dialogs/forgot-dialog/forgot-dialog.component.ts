@@ -19,7 +19,5 @@ export class ForgotDialogComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSend() {
-    console.log(this.forgotPassForm);
-  }
+  onSend() {}
 }

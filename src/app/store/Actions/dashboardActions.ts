@@ -15,6 +15,10 @@ export const GET_ENTITY_BYID = 'GET_ENTITY_BYID';
 export const GET_ENTITY_BYID_SUCCESS = 'GET_ENTITY_BYID_SUCCESS';
 export const GET_ENTITY_CATEGORIES = 'GET_ENTITY_CATEGORIES';
 export const GET_ENTITY_CATEGORIES_SUCCESS = 'GET_ENTITY_CATEGORIES_SUCCESS';
+export const UPDATE_ORG_INFO = 'UPDATE_ORG_INFO';
+export const UPDATE_ORG_INFO_SUCCESS = 'UPDATE_ORG_INFO_SUCCESS';
+export const UPDATE_ENTITY_INFO = 'UPDATE_ENTITY_INFO';
+export const UPDATE_ENTITY_INFO_SUCCESS = 'UPDATE_ENTITY_INFO_SUCCESS';
 export class GetOrganizationTypes {
   readonly type = GET_ORGANIZATION_TYPES;
   constructor() {}
@@ -89,6 +93,23 @@ export class GetEntityCategoriesSuccess {
   readonly type = GET_ENTITY_CATEGORIES_SUCCESS;
   constructor(public payload: any) {}
 }
+export class UpdateOrgInfo {
+  readonly type = UPDATE_ORG_INFO;
+  constructor(public payload: any) {}
+}
+
+export class UpdateOrgInfoSuccess {
+  readonly type = UPDATE_ORG_INFO_SUCCESS;
+  constructor(public payload: any) {}
+}
+export class UpdateEntityInfo {
+  readonly type = UPDATE_ENTITY_INFO;
+  constructor(public payload: any) {}
+}
+export class UpdateEntityInfoSuccess {
+  readonly type = UPDATE_ENTITY_INFO_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Actions =
   | GetOrganizationTypes
   | GetOrganizationTypesSuccess
@@ -105,4 +126,8 @@ export type Actions =
   | GetEntityById
   | GetEntityByIdSuccess
   | GetEntityCategories
-  | GetEntityCategoriesSuccess;
+  | GetEntityCategoriesSuccess
+  | UpdateEntityInfo
+  | UpdateEntityInfoSuccess
+  | UpdateEntityInfo
+  | UpdateOrgInfoSuccess;
