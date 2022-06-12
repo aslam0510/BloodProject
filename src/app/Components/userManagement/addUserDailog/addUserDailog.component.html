@@ -1,32 +1,38 @@
 <mat-card>
   <div class="py-3 d-flex align-items-center justify-content-around appBgColor">
     <h2 class="flex-1 m-0 text-white">Add User</h2>
-    <mat-icon>close</mat-icon>
+    <mat-icon class="text-white" (click)="dialogRef.close()">close</mat-icon>
   </div>
-  <form class="p-4">
+  <form class="p-4" [formGroup]="addUserForm">
     <p>
       <mat-form-field>
         <mat-label>User name</mat-label>
-        <input matInput placeholder="userNmae" formControlName="User name">
+        <input matInput placeholder="userNmae" formControlName="userName">
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input matInput placeholder="Email">
+        <input matInput placeholder="email" formControlName="email">
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Contact No.</mat-label>
-        <input matInput placeholder="Contact No.">
+        <input matInput placeholder="Contact No." formControlName="contactNo">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="Contact No." formControlName="address">
       </mat-form-field>
     </p>
     <p>
       <mat-form-field appearance="outline">
         <mat-label>{{ "Type of Entity" }}</mat-label>
-        <mat-select placeholder="Type of Entity">
-          <mat-option value="hospital">{{ "hospital" }}
+        <mat-select placeholder="Type of Entity" formControlName="typeOfEntity">
+          <mat-option [value]="entity.categoryName" *ngFor="let entity of entityCategories">{{ entity.categoryName }}
           </mat-option>
         </mat-select>
 
@@ -35,8 +41,8 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Role</mat-label>
-        <mat-select placeholder="Role">
-          <mat-option value="hospital">{{ "hospital" }}
+        <mat-select placeholder="Role" formControlName="role">
+          <mat-option [value]="role.name" *ngFor="let role of userRole">{{ role.name }}
           </mat-option>
         </mat-select>
 
@@ -45,8 +51,10 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Stauts</mat-label>
-        <mat-select placeholder="Stauts">
-          <mat-option value="hospital">{{ "hospital" }}
+        <mat-select placeholder="Stauts" formControlName="status">
+          <mat-option value="1">{{ "Active" }}
+          </mat-option>
+          <mat-option value="0">{{ "InActive" }}
           </mat-option>
         </mat-select>
 
@@ -54,7 +62,7 @@
     </p>
     <div class="mt-3 d-flex align-items-center justify-content-evenly">
       <button mat-raised-button>Clear</button>
-      <button mat-raised-button>Save</button>
+      <button mat-raised-button class="appBgColor text-white" (click)="save()" [disabled]="!addUserForm.valid">Save</button>
     </div>
   </form>
 </mat-card>

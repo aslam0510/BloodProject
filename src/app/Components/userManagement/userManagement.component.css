@@ -13,3 +13,7 @@ td {
   /* padding-left: 25px; */
   /* text-align: left; */
 }
+
+.field {
+  margin-left: 1rem;
+}

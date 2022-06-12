@@ -27,8 +27,8 @@ export class HttpStatus {
 
   setHttpStatus(inFlight: boolean, httpReq) {
     if (inFlight) {
-      console.log(httpReq.url);
-      this.loaderStatus.set(httpReq.url, '');
+      console.log(encodeURI(httpReq.url));
+      this.loaderStatus.set(encodeURI(httpReq.url), '');
       this.requestInFlight$.next(inFlight);
     } else {
       console.log('encded ' + decodeURI(httpReq.url));

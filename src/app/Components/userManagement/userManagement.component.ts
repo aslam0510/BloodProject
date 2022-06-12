@@ -1,89 +1,12 @@
 import { AddUserDailogComponent } from './addUserDailog/addUserDailog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from './../../app.state';
+import { Observable, Subscription } from 'rxjs';
 
-const ELEMENT_DATA = [
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-  {
-    userName: 'Ajith Sharma',
-    email: 'abc@gmail.com',
-    createdOn: '17-02-2022',
-    status: 'Active',
-    role: 'Admin',
-  },
-];
-const userPermission = [
-  { featureAccess: 'Registration/Approval of organisation account' },
-  { featureAccess: 'Registration/Approval of organisation account' },
-  { featureAccess: 'Registration/Approval of organisation account' },
-  { featureAccess: 'Registration/Approval of organisation account' },
-  { featureAccess: 'Registration/Approval of organisation account' },
-  { featureAccess: 'Registration/Approval of organisation account' },
-  { featureAccess: 'Registration/Approval of organisation account' },
-  { featureAccess: 'Registration/Approval of organisation account' },
-];
+import * as SideNavAction from '../../store/Actions/sideNavAction';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-userManagement',
@@ -109,11 +32,26 @@ export class UserManagementComponent implements OnInit {
     'doctor',
     'labTechnician',
   ];
-  dataSource = ELEMENT_DATA;
-  userPermissiondataSource = userPermission;
-  constructor(private dialog: MatDialog) {}
+  userListDataSource: MatTableDataSource<any>;
+  userPermissiondataSource = '';
+  usersList$: Observable<any>;
+  usersList: any;
+  userListSub: Subscription;
+  constructor(private dialog: MatDialog, private store: Store<AppState>) {
+    this.usersList$ = this.store.select((state) => state.SidNavSlice.usersList);
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(new SideNavAction.GetUsersList());
+
+    this.userListSub = this.usersList$.subscribe((data) => {
+      if (data) {
+        console.log(data);
+        this.usersList = data.data;
+        this.userListDataSource = new MatTableDataSource(this.usersList);
+      }
+    });
+  }
 
   onAddUser() {
     this.dialog.open(AddUserDailogComponent, {
@@ -121,5 +59,15 @@ export class UserManagementComponent implements OnInit {
       height: 'auto',
       panelClass: 'custom-dialog-container',
     });
+  }
+
+  onDeleteUser(user) {
+    if (user.id) {
+      this.store.dispatch(new SideNavAction.DeleteUser(user.id));
+    }
+  }
+
+  filterData(event) {
+    this.userListDataSource.filter = event.target.value;
   }
 }

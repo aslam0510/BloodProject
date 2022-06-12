@@ -11,10 +11,11 @@ const apis = {
   GENERATE_OTP: { url: '/sendOTP', port: appPort.port },
   VERIFY_OTP: { url: '/verifyOTP', port: appPort.port },
 
-  //user
+  //********************USER*********************************
   SET_PASSWORD: { url: `/${user}/resetPassword`, port: appPort.port },
+  ADD_USER: { url: `/${user}/createUser`, port: appPort.port },
 
-  //register
+  //***************************Register************************
   GET_ORG_TYPES: { url: `/${register}/getTypes`, port: appPort.port },
   SUBMIT_ORGFORM: {
     url: `/${register}/registerOrganization`,
@@ -29,6 +30,12 @@ const apis = {
     url: `/${register}/getCategoryDetails`,
     port: appPort.port,
   },
+  GET_ENTITY_CATEGORIES: {
+    url: `/${register}/getEntityCategories`,
+    port: appPort.port,
+  },
+
+  //*************************Admin**********************/
   ADD_NEW_ENTITY: { url: `/${admin}/registerEntity`, port: appPort.port },
   GET_ENTITY_DETAILS: { url: `/${admin}/getAllEntities`, port: appPort.port },
   GET_ORANIZATION_DETAILS: {
@@ -36,10 +43,7 @@ const apis = {
     port: appPort.port,
   },
   GET_ENTITY_BYID: { url: `/${admin}/getEntityDetails`, port: appPort.port },
-  GET_ENTITY_CATEGORIES: {
-    url: `/${register}/getEntityCategories`,
-    port: appPort.port,
-  },
+
   UPDATE_ORG_INFO: {
     url: `/${admin}/updateOrganizationById`,
     port: appPort.port,
@@ -47,6 +51,14 @@ const apis = {
 
   UPDATE_ENTITY_INFO: {
     url: `/${admin}/updateEntityById`,
+    port: appPort.port,
+  },
+
+  GET_USERS_LIST: { url: `/${admin}/getUsersList`, port: appPort.port },
+  DELETE_USER: { url: `/${admin}/deleteUser`, port: appPort.port },
+  GET_USER_ROLE: { url: `/${admin}/getRoles`, port: appPort.port },
+  GET_USER_ENTITY_CATEGORIES: {
+    url: `/${admin}/getEntityCategories`,
     port: appPort.port,
   },
 };
