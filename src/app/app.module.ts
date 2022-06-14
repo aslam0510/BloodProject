@@ -54,6 +54,7 @@ import { SetPasswordDialogComponent } from './Dialogs/setPasswordDialog/setPassw
 import { AllMessagesComponent } from './Components/Dashboard/all-messages/all-messages.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { OrgSettingsComponent } from './Components/orgSettings/orgSettings.component';
+import { SharedDialogComponent } from './Dialogs/sharedDialog/sharedDialog.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -93,6 +94,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     ProfileComponent,
     OrgSettingsComponent,
     AddEntityComponent,
+    SharedDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,16 @@
 <mat-card>
-  <div class="py-3 d-flex align-items-center justify-content-around appBgColor">
+  <div class="py-1 d-flex align-items-center justify-content-around appBgColor">
     <h2 class="flex-1 m-0 text-white">Add User</h2>
     <mat-icon class="text-white" (click)="dialogRef.close()">close</mat-icon>
   </div>
-  <form class="p-4" [formGroup]="addUserForm">
+  <div class="appBgColor px-2 py-2">
+    <h5 class="text-white ml-2">Select</h5>
+    <mat-radio-group aria-label="Select an option" class="my-2 mx-2">
+      <mat-radio-button (change)="radioChnage($event)" value="org" class="text-white mx-2">Organization</mat-radio-button>
+      <mat-radio-button (change)="radioChnage($event)" value="entity" class="text-white">Entity</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <form class="p-4" [formGroup]="orgForm" *ngIf="isOrg">
     <p>
       <mat-form-field>
         <mat-label>User name</mat-label>
@@ -30,14 +37,72 @@
     </p>
     <p>
       <mat-form-field appearance="outline">
-        <mat-label>{{ "Type of Entity" }}</mat-label>
-        <mat-select placeholder="Type of Entity" formControlName="typeOfEntity">
-          <mat-option [value]="entity.categoryName" *ngFor="let entity of entityCategories">{{ entity.categoryName }}
+        <mat-label>Role</mat-label>
+        <mat-select placeholder="Role" formControlName="role">
+          <mat-option [value]="role.name" *ngFor="let role of userRole">{{ role.name }}
           </mat-option>
         </mat-select>
 
       </mat-form-field>
     </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Stauts</mat-label>
+        <mat-select placeholder="Stauts" formControlName="status">
+          <mat-option value="1">{{ "Active" }}
+          </mat-option>
+          <mat-option value="0">{{ "InActive" }}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+    </p>
+    <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
+      <button mat-raised-button>Clear</button>
+      <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()">Save</button>
+    </div>
+  </form>
+  <form class="p-4" [formGroup]="entityForm" *ngIf="isEntity">
+    <p>
+      <mat-form-field appearance="outline" class="ml-3">
+        <mat-label>{{ "Select Entity" }}</mat-label>
+        <mat-select placeholder="Select Entity">
+          <mat-option (click)="onSelectEntity(entity)" [value]="entity.bldbnkName" *ngFor="let entity of entities">{{ entity.bldbnkName }}
+          </mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="
+                        organizationForm.controls['categoryName'].invalid &&
+                        organizationForm.controls['categoryName'].errors.required
+                      ">
+          {{ "organizationType is required" }}
+        </mat-error> -->
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>User name</mat-label>
+        <input matInput placeholder="userNmae" formControlName="userName">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="email" formControlName="email">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Contact No.</mat-label>
+        <input matInput placeholder="Contact No." formControlName="contactNo">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="Contact No." formControlName="address">
+      </mat-form-field>
+    </p>
+
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Role</mat-label>
@@ -60,9 +125,11 @@
 
       </mat-form-field>
     </p>
-    <div class="mt-3 d-flex align-items-center justify-content-evenly">
+    <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
       <button mat-raised-button>Clear</button>
-      <button mat-raised-button class="appBgColor text-white" (click)="save()" [disabled]="!addUserForm.valid">Save</button>
+      <button mat-raised-button class="appBgColor text-white" (click)="onEntityFormSave()">Save</button>
     </div>
   </form>
+
+
 </mat-card>

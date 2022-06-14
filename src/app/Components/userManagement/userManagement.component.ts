@@ -7,6 +7,8 @@ import { Observable, Subscription } from 'rxjs';
 
 import * as SideNavAction from '../../store/Actions/sideNavAction';
 import { MatTableDataSource } from '@angular/material/table';
+import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
+import { SharedDialogComponent } from 'src/app/Dialogs/sharedDialog/sharedDialog.component';
 
 @Component({
   selector: 'app-userManagement',
@@ -46,9 +48,10 @@ export class UserManagementComponent implements OnInit {
 
     this.userListSub = this.usersList$.subscribe((data) => {
       if (data) {
-        console.log(data);
         this.usersList = data.data;
-        this.userListDataSource = new MatTableDataSource(this.usersList);
+        this.userListDataSource = new MatTableDataSource(
+          this.usersList.details
+        );
       }
     });
   }
@@ -62,11 +65,33 @@ export class UserManagementComponent implements OnInit {
   }
 
   onDeleteUser(user) {
-    if (user.id) {
-      this.store.dispatch(new SideNavAction.DeleteUser(user.id));
-    }
+    const dailogRef = this.dialog.open(SharedDialogComponent, {
+      width: '300px',
+      height: 'auto',
+      data: {
+        content: 'Are you want to delete this User?',
+        cancelButton: 'Cancel',
+        okButton: 'Ok',
+      },
+    });
+    dailogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.store.dispatch(new SideNavAction.DeleteUser(user.userId));
+      }
+    });
   }
 
+  onEdit(user) {
+    this.dialog.open(AddUserDailogComponent, {
+      width: '480px',
+      height: 'auto',
+      data: {
+        formData: user,
+        isEdit: true,
+      },
+      panelClass: 'custom-dialog-container',
+    });
+  }
   filterData(event) {
     this.userListDataSource.filter = event.target.value;
   }

@@ -1,0 +1,8 @@
+<div mat-dialog-content>
+  <h3>{{data.title ? data.title : ''}}</h3>
+  <p>{{data.content ? data.content : ''}}</p>
+</div>
+<div mat-dialog-actions style="float: right;">
+  <button mat-button (click)="cancel()">{{data.cancelButton}}</button>
+  <button mat-raised-button (click)="done()">{{data.okButton}}</button>
+</div>
