@@ -49,6 +49,35 @@ export class SignupComponent implements OnInit, OnDestroy {
   selectedYear: number;
   years: number[] = [];
   orgFormFields: OrgFormField[] = [];
+  states = [
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland	',
+    'Odisha',
+    'Punjab	',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
+  ];
 
   constructor(
     private fb: FormBuilder,

@@ -18,13 +18,17 @@
       </mat-form-field>
       <div class="d-flex flex-column buttons">
         <button class="d-block my-3 mt-2" type="submit" mat-raised-button color="accent" [disabled]="!loginForm.valid">Login</button>
-        <button mat-raised-button type="button" color="accent" (click)="onSignup()">Sign up</button>
+
         <button mat-raised-button type="button" color="accent" class="mt-2" (click)="onLoginViaOtp()">Login via otp</button>
 
       </div>
-      <h5 (click)="onForgotPass()" class="forgotPass text-center mt-5 text-primary">
-        Forgot password
-      </h5>
+      <div class=" px-3 mt-5 pt-3 d-flex align-items-center justify-content-between">
+        <h5 (click)="onForgotPass()" class="forgotPass  text-secondary">
+          Forgot password
+        </h5>
+        <h5 (click)="onSignup()" class="forgotPass     text-danger">Register now</h5>
+      </div>
+
     </form>
 
   </mat-card-content>

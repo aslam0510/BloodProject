@@ -52,25 +52,46 @@
                   {{'invalid ' + orgFormField.fieldName }}
                 </mat-error>
               </mat-form-field>
-              <mat-form-field appearance="outline" *ngIf="orgFormField.inputType === 'Dropdown'">
-                <mat-label>{{orgFormField.fieldName}}</mat-label>
-                <mat-select formControlName="{{orgFormField.key}}">
-                  <mat-option value="duplicateValue">{{ 'duplicateValue' }}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="
+              <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
+                <mat-form-field appearance="outline" *ngIf="orgFormField.key !== 'state'">
+                  <mat-label>{{orgFormField.fieldName}}</mat-label>
+                  <mat-select formControlName="{{orgFormField.key}}">
+                    <mat-option [value]="i" *ngFor="let value of orgFormField.values; let i = index">{{ orgFormField.values[i]}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="
                                                                   organizationForm.controls[orgFormField.key].invalid &&
                                                                   organizationForm.controls[orgFormField.key].errors.pattern
                                                                 ">
-                  {{'invalid ' + orgFormField.fieldName }}
-                </mat-error>
-                <mat-error *ngIf="
+                    {{'invalid ' + orgFormField.fieldName }}
+                  </mat-error>
+                  <mat-error *ngIf="
                                                   organizationForm.controls[orgFormField.key].invalid &&
                                                   organizationForm.controls[orgFormField.key].errors.required
                                                 ">
-                  {{orgFormField.fieldName + ' is required'}}
-                </mat-error>
-              </mat-form-field>
+                    {{orgFormField.fieldName + ' is required'}}
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="orgFormField.key === 'state'">
+                  <mat-label>{{orgFormField.fieldName}}</mat-label>
+                  <mat-select formControlName="{{orgFormField.key}}">
+                    <mat-option [value]="state" *ngFor="let state of states; let i = index">{{ state}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="
+                                                                                organizationForm.controls[orgFormField.key].invalid &&
+                                                                                organizationForm.controls[orgFormField.key].errors.pattern
+                                                                              ">
+                    {{'invalid ' + orgFormField.fieldName }}
+                  </mat-error>
+                  <mat-error *ngIf="
+                                                                organizationForm.controls[orgFormField.key].invalid &&
+                                                                organizationForm.controls[orgFormField.key].errors.required
+                                                              ">
+                    {{orgFormField.fieldName + ' is required'}}
+                  </mat-error>
+                </mat-form-field>
+              </ng-container>
               <mat-form-field appearance="outline" *ngIf="orgFormField.inputType === 'Date'">
                 <mat-label>{{orgFormField.fieldName}}</mat-label>
                 <mat-select formControlName="{{orgFormField.key}}">

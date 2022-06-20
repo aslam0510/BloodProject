@@ -24,4 +24,5 @@ export interface OrgFormField {
   inputType: string;
   key: string;
   mandatory: boolean;
+  values: string[];
 }
