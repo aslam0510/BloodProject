@@ -6,7 +6,7 @@
   <div class="appBgColor px-2 py-2">
     <h5 class="text-white ml-2">Select</h5>
     <mat-radio-group aria-label="Select an option" class="my-2 mx-2">
-      <mat-radio-button (change)="radioChnage($event)" value="org" class="text-white mx-2">Organization</mat-radio-button>
+      <mat-radio-button checked="true" (change)="radioChnage($event)" value="org" class="text-white mx-2">Organization</mat-radio-button>
       <mat-radio-button (change)="radioChnage($event)" value="entity" class="text-white">Entity</mat-radio-button>
     </mat-radio-group>
   </div>
@@ -59,7 +59,7 @@
     </p>
     <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
       <button mat-raised-button>Clear</button>
-      <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()">Save</button>
+      <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()" [disabled]="!orgForm.valid">Save</button>
     </div>
   </form>
   <form class="p-4" [formGroup]="entityForm" *ngIf="isEntity">
@@ -127,7 +127,7 @@
     </p>
     <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
       <button mat-raised-button>Clear</button>
-      <button mat-raised-button class="appBgColor text-white" (click)="onEntityFormSave()">Save</button>
+      <button mat-raised-button class="appBgColor text-white" (click)="onEntityFormSave()" [disabled]="!entityForm.valid">Save</button>
     </div>
   </form>
 

@@ -53,6 +53,7 @@ export class DeleteUserSuccess {
 
 export class GetUserRole {
   readonly type = GET_USER_ROLE;
+  constructor(public payload: any) {}
 }
 
 export class GetUserRoleSuccess {

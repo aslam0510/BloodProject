@@ -45,37 +45,68 @@ export class AddUserDailogComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new DashboardAction.GetEntityDetails());
-    this.store.dispatch(new SideNavAction.GetUserRole());
+    this.store.dispatch(new SideNavAction.GetUserRole(2));
 
     this.orgForm = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-      ]),
-      contactNo: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
-      ]),
-      address: new FormControl(''),
-      role: new FormControl('', [Validators.required]),
-      status: new FormControl('', [Validators.required]),
+      userName: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.userName : '',
+        [Validators.required]
+      ),
+      email: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.email : '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ]
+      ),
+      contactNo: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.contact : '',
+        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]
+      ),
+      address: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.addr : ''
+      ),
+      role: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.role : '',
+        [Validators.required]
+      ),
+      status: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.sts : '',
+        [Validators.required]
+      ),
     });
 
     this.entityForm = new FormGroup({
-      entity: new FormControl('', [Validators.required]),
-      userName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-      ]),
-      contactNo: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
-      ]),
-      address: new FormControl(''),
-      role: new FormControl('', [Validators.required]),
-      status: new FormControl('', [Validators.required]),
+      entity: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.userName : '',
+        [Validators.required]
+      ),
+      userName: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.userName : '',
+        [Validators.required]
+      ),
+      email: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.userName : '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ]
+      ),
+      contactNo: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.userName : '',
+        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]
+      ),
+      address: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.userName : ''
+      ),
+      role: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.userName : '',
+        [Validators.required]
+      ),
+      status: new FormControl(
+        this.editUserData?.orgId ? this.editUserData.userName : '',
+        [Validators.required]
+      ),
     });
 
     this.userRoleSub = this.userRole$.subscribe((data) => {
@@ -118,6 +149,7 @@ export class AddUserDailogComponent implements OnInit {
     };
 
     this.store.dispatch(new SideNavAction.AddUser(payload));
+    this.dialogRef.close();
   }
 
   onEntityFormSave() {
@@ -138,17 +170,20 @@ export class AddUserDailogComponent implements OnInit {
     };
 
     this.store.dispatch(new SideNavAction.AddUser(payload));
+    this.dialogRef.close();
   }
 
   radioChnage(event) {
     if (event.value !== 'org') {
       this.isOrg = false;
       this.isEntity = true;
-      this.orgForm.reset();
+      // this.orgForm.reset();
+      this.store.dispatch(new SideNavAction.GetUserRole(3));
     } else {
+      this.store.dispatch(new SideNavAction.GetUserRole(2));
       this.isEntity = false;
       this.isOrg = true;
-      this.entityForm.reset();
+      // this.entityForm.reset();
     }
   }
 }

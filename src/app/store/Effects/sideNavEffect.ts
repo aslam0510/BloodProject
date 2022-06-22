@@ -25,9 +25,13 @@ export class SideNavEffect {
   getUserRole$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_USER_ROLE),
+      map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_USER_ROLE'))
+          .get(
+            api.getAPI('GET_USER_ROLE') +
+              `?roleCategory=system&roleType=${payload}`
+          )
           .pipe(map((data: any) => new SideNavAction.GetUserRoleSuccess(data)));
       })
     );
