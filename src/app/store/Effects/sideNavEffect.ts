@@ -77,4 +77,16 @@ export class SideNavEffect {
       })
     );
   });
+
+  editUser$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.EDIT_USER),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .put(api.getAPI('EDIT_USER'), payload)
+          .pipe(map((data: any) => new SideNavAction.EditUserSuccess(data)));
+      })
+    );
+  });
 }

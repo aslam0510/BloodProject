@@ -14,6 +14,7 @@ const apis = {
   //********************USER*********************************
   SET_PASSWORD: { url: `/${user}/resetPassword`, port: appPort.port },
   ADD_USER: { url: `/${user}/createUser`, port: appPort.port },
+  EDIT_USER: { url: `/${user}/editProfile`, port: appPort.port },
 
   //***************************Register************************
   GET_ORG_TYPES: { url: `/${register}/getTypes`, port: appPort.port },

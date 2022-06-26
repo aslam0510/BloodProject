@@ -86,6 +86,7 @@ export class LoginComponent implements OnInit {
     this.verifyOTPSuccessSub = this.verifyOTPSuccess$.subscribe((data) => {
       if (data) {
         this.verfiyOTPSuccess = data;
+        this.showVerify = false;
         if (
           this.verfiyOTPSuccess.code === 200 &&
           this.verfiyOTPSuccess.status === 'Success' &&
@@ -93,7 +94,6 @@ export class LoginComponent implements OnInit {
         ) {
           localStorage.setItem('token', this.verfiyOTPSuccess.data.token);
           this.setPasswordDialog();
-          this.showVerify = false;
         } else if (
           this.verfiyOTPSuccess.code === 200 &&
           this.verfiyOTPSuccess.status === 'Success' &&

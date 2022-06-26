@@ -27,6 +27,7 @@ export class AddUserDailogComponent implements OnInit {
   entity: any;
   entitySub: Subscription;
   editUserData: any;
+  isEdit: boolean;
   constructor(
     private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -39,75 +40,13 @@ export class AddUserDailogComponent implements OnInit {
     this.entity$ = this.store.select(
       (state) => state.DashboardSlice.entityById
     );
-    this.editUserData = data?.formData;
-    console.log(this.editUserData);
-  }
+    this.editUserData = data.formData;
+    this.isEdit = data.isEdit;
 
-  ngOnInit() {
-    this.store.dispatch(new DashboardAction.GetEntityDetails());
-    this.store.dispatch(new SideNavAction.GetUserRole(2));
-
-    this.orgForm = new FormGroup({
-      userName: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.userName : '',
-        [Validators.required]
-      ),
-      email: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.email : '',
-        [
-          Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-        ]
-      ),
-      contactNo: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.contact : '',
-        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]
-      ),
-      address: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.addr : ''
-      ),
-      role: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.role : '',
-        [Validators.required]
-      ),
-      status: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.sts : '',
-        [Validators.required]
-      ),
-    });
-
-    this.entityForm = new FormGroup({
-      entity: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.userName : '',
-        [Validators.required]
-      ),
-      userName: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.userName : '',
-        [Validators.required]
-      ),
-      email: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.userName : '',
-        [
-          Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-        ]
-      ),
-      contactNo: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.userName : '',
-        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]
-      ),
-      address: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.userName : ''
-      ),
-      role: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.userName : '',
-        [Validators.required]
-      ),
-      status: new FormControl(
-        this.editUserData?.orgId ? this.editUserData.userName : '',
-        [Validators.required]
-      ),
-    });
+    if (this.isEdit) {
+      this.isOrg = false;
+      this.isEntity = false;
+    }
 
     this.userRoleSub = this.userRole$.subscribe((data) => {
       if (data) {
@@ -124,8 +63,84 @@ export class AddUserDailogComponent implements OnInit {
     this.entitySub = this.entity$.subscribe((data) => {
       if (data) {
         this.entity = data.data;
-        console.log(this.entity);
       }
+    });
+  }
+
+  ngOnInit() {
+    this.store.dispatch(new DashboardAction.GetEntityDetails());
+    if (this.isEdit) {
+      this.store.dispatch(
+        new SideNavAction.GetUserRole(this.editUserData?.userType)
+      );
+    } else {
+      this.store.dispatch(new SideNavAction.GetUserRole(2));
+    }
+
+    this.orgForm = new FormGroup({
+      userName: new FormControl(
+        this.editUserData?.userType === 2 ? this.editUserData.userName : '',
+        [Validators.required]
+      ),
+      email: new FormControl(
+        this.editUserData?.userType === 2 ? this.editUserData.email : '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ]
+      ),
+      contactNo: new FormControl(
+        this.editUserData?.userType === 2 ? this.editUserData.contact : '',
+        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]
+      ),
+      address: new FormControl(
+        this.editUserData?.userType === 2 ? this.editUserData.addr : ''
+      ),
+      role: new FormControl(
+        this.editUserData?.userType === 2 ? this.editUserData.role : '',
+        [Validators.required]
+      ),
+      status: new FormControl(
+        this.editUserData?.userType === 2
+          ? this.editUserData.sts.toString()
+          : '',
+        [Validators.required]
+      ),
+    });
+
+    this.entityForm = new FormGroup({
+      entity: new FormControl(
+        this.editUserData?.userType === 3 ? this.editUserData.entName : '',
+        [Validators.required]
+      ),
+      userName: new FormControl(
+        this.editUserData?.userType === 3 ? this.editUserData.userName : '',
+        [Validators.required]
+      ),
+      email: new FormControl(
+        this.editUserData?.userType === 3 ? this.editUserData.email : '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ]
+      ),
+      contactNo: new FormControl(
+        this.editUserData?.userType === 3 ? this.editUserData.contact : '',
+        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]
+      ),
+      address: new FormControl(
+        this.editUserData?.userType === 3 ? this.editUserData.addr : ''
+      ),
+      role: new FormControl(
+        this.editUserData?.userType === 3 ? this.editUserData.role : '',
+        [Validators.required]
+      ),
+      status: new FormControl(
+        this.editUserData?.userType === 3
+          ? this.editUserData.sts.toString()
+          : '',
+        [Validators.required]
+      ),
     });
   }
 
@@ -141,14 +156,17 @@ export class AddUserDailogComponent implements OnInit {
     const payload = {
       userName: orgFormValues.userName,
       email: orgFormValues.email,
-      contact: Number(orgFormValues.contactNo),
+      contact: orgFormValues.contactNo,
       addr: orgFormValues.address,
-      status: Number(orgFormValues.status),
+      sts: orgFormValues.status,
       userType: 2,
       role: role,
     };
-
-    this.store.dispatch(new SideNavAction.AddUser(payload));
+    if (this.isEdit) {
+      this.store.dispatch(new SideNavAction.EditUser(payload));
+    } else {
+      this.store.dispatch(new SideNavAction.AddUser(payload));
+    }
     this.dialogRef.close();
   }
 
@@ -162,14 +180,18 @@ export class AddUserDailogComponent implements OnInit {
       entId: this.entity.entId,
       userName: entityFormValues.userName,
       email: entityFormValues.email,
-      contact: Number(entityFormValues.contactNo),
+      contact: entityFormValues.contactNo,
       addr: entityFormValues.address,
-      status: Number(entityFormValues.status),
+      sts: Number(entityFormValues.status),
       userType: 3,
       role: role,
     };
+    if (this.isEdit) {
+      this.store.dispatch(new SideNavAction.EditUser(payload));
+    } else {
+      this.store.dispatch(new SideNavAction.AddUser(payload));
+    }
 
-    this.store.dispatch(new SideNavAction.AddUser(payload));
     this.dialogRef.close();
   }
 
@@ -185,5 +207,11 @@ export class AddUserDailogComponent implements OnInit {
       this.isOrg = true;
       // this.entityForm.reset();
     }
+  }
+
+  ngOnDestory() {
+    this.userRoleSub.unsubscribe();
+    this.entitySub.unsubscribe();
+    this.entitiesSub.unsubscribe();
   }
 }

@@ -3,7 +3,7 @@ export const GET_USERS_LIST_SUCCESS = 'GET_USERS_LIST_SUCCESS';
 export const ADD_USER = 'ADD_USER';
 export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
 export const EDIT_USER = 'EDIT_USER';
-export const EIDT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
+export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const DELETE_USER = 'DELETE_USER';
 export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
 export const GET_USER_ROLE = 'GET_USER_ROLE';
@@ -37,7 +37,7 @@ export class EditUser {
 }
 
 export class EditUserSuccess {
-  readonly type = EIDT_USER_SUCCESS;
+  readonly type = EDIT_USER_SUCCESS;
   constructor(public payload: any) {}
 }
 

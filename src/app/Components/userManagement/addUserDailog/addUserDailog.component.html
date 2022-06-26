@@ -4,13 +4,13 @@
     <mat-icon class="text-white" (click)="dialogRef.close()">close</mat-icon>
   </div>
   <div class="appBgColor px-2 py-2">
-    <h5 class="text-white ml-2">Select</h5>
+    <h3 class="text-white select">Select</h3>
     <mat-radio-group aria-label="Select an option" class="my-2 mx-2">
-      <mat-radio-button checked="true" (change)="radioChnage($event)" value="org" class="text-white mx-2">Organization</mat-radio-button>
-      <mat-radio-button (change)="radioChnage($event)" value="entity" class="text-white">Entity</mat-radio-button>
+      <mat-radio-button checked="isOrg" *ngIf="editUserData?.userType === 2 || editUserData === null" (change)="radioChnage($event)" value="org" class="text-white mx-2">Organization</mat-radio-button>
+      <mat-radio-button [checked]="this.isEdit" *ngIf="editUserData?.userType === 3 || editUserData === null" (change)="radioChnage($event)" value="entity" class="text-white">Entity</mat-radio-button>
     </mat-radio-group>
   </div>
-  <form class="p-4" [formGroup]="orgForm" *ngIf="isOrg">
+  <form class="p-4" [formGroup]="orgForm" *ngIf="isOrg || editUserData?.userType === 2">
     <p>
       <mat-form-field>
         <mat-label>User name</mat-label>
@@ -58,11 +58,11 @@
       </mat-form-field>
     </p>
     <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
-      <button mat-raised-button>Clear</button>
-      <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()" [disabled]="!orgForm.valid">Save</button>
+      <button mat-raised-button (click)="dialogRef.close()">Clear</button>
+      <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()" [disabled]="!orgForm.valid">{{!isEdit ? 'Save' : "Update"}}</button>
     </div>
   </form>
-  <form class="p-4" [formGroup]="entityForm" *ngIf="isEntity">
+  <form class="p-4" [formGroup]="entityForm" *ngIf="isEntity || editUserData?.userType === 3">
     <p>
       <mat-form-field appearance="outline" class="ml-3">
         <mat-label>{{ "Select Entity" }}</mat-label>
@@ -126,8 +126,8 @@
       </mat-form-field>
     </p>
     <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
-      <button mat-raised-button>Clear</button>
-      <button mat-raised-button class="appBgColor text-white" (click)="onEntityFormSave()" [disabled]="!entityForm.valid">Save</button>
+      <button mat-raised-button (click)="dialogRef.close()">Clear</button>
+      <button mat-raised-button [disabled]="!entityForm.valid" class="appBgColor text-white" (click)="onEntityFormSave()">{{!isEdit ? 'Save' : "Update"}}</button>
     </div>
   </form>
 

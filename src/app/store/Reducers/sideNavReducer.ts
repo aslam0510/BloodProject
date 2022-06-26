@@ -12,7 +12,7 @@ export function SideNavReducer(
     case SideNavActions.ADD_USER_SUCCESS: {
       return { ...state, addUser: action.payload };
     }
-    case SideNavActions.EIDT_USER_SUCCESS: {
+    case SideNavActions.EDIT_USER_SUCCESS: {
       return { ...state, editUser: action.payload };
     }
     case SideNavActions.DELETE_USER_SUCCESS: {

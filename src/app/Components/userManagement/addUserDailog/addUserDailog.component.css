@@ -5,3 +5,6 @@ mat-form-field {
 mat-card {
   padding: 0;
 }
+.select {
+  margin-left: 1.6rem;
+}
