@@ -134,3 +134,17 @@ table {
   width: 75px;
   border-right: 1px #0000001f;
 }
+mat-card {
+  width: 150px;
+  display: inline-block;
+}
+
+.mat-fab {
+  width: 45px;
+  height: 45px;
+}
+
+.mat-fab .mat-button-wrapper {
+  padding: 11px 0 !important;
+  display: block !;
+}
