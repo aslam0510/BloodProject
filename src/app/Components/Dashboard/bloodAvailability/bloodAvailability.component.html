@@ -22,15 +22,12 @@
             </mat-form-field>
           </mat-button-toggle>
         </mat-button-toggle-group>
-        <button class="appBgColor btn btn-sm editButton" mat-raised-button *ngIf="showBASEditbtn" (click)="onEditBldStatus('bldAvalStatus')">Edit</button>
-        <button class="appBgColor editButton" mat-raised-button *ngIf="!showBASEditbtn" (click)="onCancelBldStatus('bldAvalStatus')">
-          Cancel
-        </button>
-        <button class="appBgColor editButton" mat-raised-button *ngIf="!showBASEditbtn">Save</button>
+        <button class="appBgColor btn btn-sm editButton" mat-raised-button (click)="onEditBldStatus('bldAvalStatus')">Edit</button>
+
       </div>
 
     </div>
-    <div class="my-1">
+    <!-- <div class="my-1">
       <mat-card class="mat-elevation-z8 p-1">
         <div class="d-flex align-items-center justify-content-around p-1">
           <button class="d-block" mat-fab aria-label="Example icon button with a heart icon">
@@ -47,7 +44,7 @@
         <p class="text-center">-5 Units issued</p>
         <p class="text-center">-5 Units issued</p>
       </mat-card>
-    </div>
+    </div> -->
     <div class="mt-2 mx-0">
     </div>
     <div class="d-flex justify-content-between px-2 py-1">
@@ -71,71 +68,44 @@
             </mat-form-field>
           </mat-button-toggle>
         </mat-button-toggle-group>
-        <button class="appBgColor btn btn-sm editButton" mat-raised-button *ngIf="showBCSEditbtn" (click)="onEditBldStatus('bldCompStatus')">Edit</button>
-        <button class="appBgColor editButton" mat-raised-button *ngIf="!showBCSEditbtn" (click)="onCancelBldStatus('bldCompStatus')">
-          Cancel
-        </button>
-        <button class="appBgColor editButton" mat-raised-button *ngIf="!showBCSEditbtn">Save</button>
+        <button class="appBgColor btn btn-sm editButton" mat-raised-button (click)="onEditBldStatus('bldCompStatus')">Edit</button>
+
       </div>
     </div>
 
 
-    <div class="mt-2 mx-0 ">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-        <!-- Position Column -->
-        <ng-container matColumnDef="Item_Name">
-          <th mat-header-cell *matHeaderCellDef> Item_Name </th>
-          <td mat-cell *matCellDef="let element"> {{element.Item_Name}} </td>
-        </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="Aplus">
-          <th mat-header-cell *matHeaderCellDef> A+ </th>
-          <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Aplus}} </td>
-        </ng-container>
+    <mat-card class="mt-2 mx-0 my-2 mb-3" *ngFor="let bloodComp of bloodCompStatus; let i = index">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">{{bloodComp._id}}</th>
+            <th *ngFor="let group of bloodComp.availability">{{group.bldgrp}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row" class="text-secondary">Available Unit</td>
+            <td *ngFor="let group of bloodComp.availability">{{group.totalAvailable}}</td>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="Aminus">
-          <th mat-header-cell *matHeaderCellDef> A- </th>
-          <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Aminus}} </td>
-        </ng-container>
+          </tr>
+          <tr>
+            <td scope="row" class="text-primary">Reserved Unit</td>
+            <td *ngFor="let group of bloodComp.availability">{{group.totalResorvedUnits}}</td>
 
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="Bplus">
-          <th mat-header-cell *matHeaderCellDef> B+ </th>
-          <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Bplus}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Bminus">
-          <th mat-header-cell *matHeaderCellDef> B- </th>
-          <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Bminus}} </td>
-        </ng-container>
-        <ng-container matColumnDef="ABplus">
-          <th mat-header-cell *matHeaderCellDef> AB+ </th>
-          <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.ABplus}} </td>
-        </ng-container>
-        <ng-container matColumnDef="ABminus">
-          <th mat-header-cell *matHeaderCellDef> AB- </th>
-          <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.ABminus}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Oplus">
-          <th mat-header-cell *matHeaderCellDef> O+ </th>
-          <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Oplus}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Ominus">
-          <th mat-header-cell *matHeaderCellDef> O- </th>
-          <td mat-cell *matCellDef="let element" (click)="onUpdateBloodStatus(1000)"> {{element.Ominus}} </td>
-        </ng-container>
-        <!-- <ng-container matColumnDef="edit">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element" > 
-              <mat-icon>edit</mat-icon>
-               </td>
-          </ng-container> -->
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </tr>
+          <tr>
+            <td scope="row" class="text-success">Added Unit</td>
+            <td *ngFor="let group of bloodComp.availability">{{group.totalAddedUnits}}</td>
+          </tr>
+          <tr>
+            <td class="text-danger">Issued Unit</td>
+            <td *ngFor="let group of bloodComp.availability">{{group.totalIssuedUnits}}</td>
+          </tr>
+        </tbody>
       </table>
-    </div>
+    </mat-card>
+
 
   </div>
 

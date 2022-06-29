@@ -1,46 +1,57 @@
 <div>
   <div class="d-flex justify-content-between align-items-center">
-    <h3>Update Blood Component Status</h3>
-    <mat-icon>close</mat-icon>
+    <h3 class="m-0">{{data.page === 'bloodComp' ? 'Update Blood Component Status' : 'Update Blood Status'}}</h3>
+    <mat-icon (click)="dialogRef.close()">close</mat-icon>
   </div>
-  <p>Component Name : {{'Fresh Frozone Plasma'}}</p>
-  <div>
+
+  <form [formGroup]="updateBloodForm" class="mt-2">
+    <div *ngIf="data.page === 'bloodComp'">
+      <p class="text-secondary">Select Blood Component</p>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "Select Blood Component" }}</mat-label>
+        <mat-select formControlName="bloodComp" placeholder="Select Blood Component">
+          <mat-option [value]="list" *ngFor="let list of bloodCompList?.types">{{ list}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="
+                      updateBloodForm.controls['bloodComp'].invalid &&
+                      updateBloodForm.controls['bloodComp'].errors.required
+                    ">
+          {{ "blood Component is required" }}
+        </mat-error>
+      </mat-form-field>
+    </div>
     <p>Select Blood Type</p>
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="mb-2">
-      <mat-button-toggle value="A+">A+</mat-button-toggle>
-      <mat-button-toggle value="A-">A-</mat-button-toggle>
-      <mat-button-toggle value="B+">B+</mat-button-toggle>
-      <mat-button-toggle value="B-">B-</mat-button-toggle>
-      <mat-button-toggle value="AB+">AB+</mat-button-toggle>
-      <mat-button-toggle value="AB-">AB-</mat-button-toggle>
-      <mat-button-toggle value="O+">O+</mat-button-toggle>
-      <mat-button-toggle value="O-">O-</mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-  <div class="mt-3">
-    <form>
+    <p>
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="mb-2" formControlName="bloodGroup">
+        <mat-button-toggle [value]="group" *ngFor="let group of bloodGroupList?.types">{{group}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </p>
+
+    <div class="mt-3">
       <p class="d-flex justify-content-around">
         <mat-form-field class="matForm">
-          <input type="text" matInput placeholder="Available Unit" />
+          <input type="number" matInput placeholder="Available Unit" formControlName="availableUnit" />
         </mat-form-field>
-
         <mat-form-field class="matForm">
-          <input type="text" matInput placeholder="New Unit" />
+          <input type="number" matInput placeholder="New Unit" formControlName="newUnit" />
         </mat-form-field>
       </p>
       <p class="d-flex justify-content-around">
-        <button mat-raised-button>Add</button>
-        <button mat-raised-button>Minus</button>
+        <button mat-raised-button (click)="totalSum('add')">Add</button>
+        <button mat-raised-button (click)="totalSum('minus')">Minus</button>
       </p>
 
       <p class="mt-4">
         <mat-form-field class="d-flex justify-content-center">
-          <input type="text" matInput placeholder="Total Blood Unit" />
+          <input type="number" [disabled]=true matInput placeholder="Total Blood Unit" formControlName="totalUnit" />
         </mat-form-field>
       </p>
       <p class="d-flex justify-content-center">
-        <button mat-raised-button (click)="onSave(); dialogRef.close()">Save</button>
+        <button mat-raised-button class="appBgColor" (click)="onSave()" [disabled]="!updateBloodForm.valid">Update</button>
       </p>
-    </form>
-  </div>
+    </div>
+  </form>
+
 </div>

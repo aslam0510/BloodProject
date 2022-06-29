@@ -5,6 +5,7 @@ const appPort = {
 const register = 'register';
 const user = 'user';
 const admin = 'admin';
+const bloodBank = 'bloodbank';
 
 const apis = {
   GET_LOGIN: { url: '/login', port: appPort.port },
@@ -60,6 +61,24 @@ const apis = {
   GET_USER_ROLE: { url: `/${admin}/getRoles`, port: appPort.port },
   GET_USER_ENTITY_CATEGORIES: {
     url: `/${admin}/getEntityCategories`,
+    port: appPort.port,
+  },
+
+  //bloodBank
+  GET_BLOOD_COMP_STATUS: {
+    url: `/${bloodBank}/availability/getBloodComponetsAvailability`,
+    port: appPort.port,
+  },
+  GET_BLOOD_COMP_LIST: {
+    url: `/${bloodBank}/availability/getBloodComponentsList`,
+    port: appPort.port,
+  },
+  GET_BLOOD_GROUP_LIST: {
+    url: `/${bloodBank}/availability/getBloodGroupsList`,
+    port: appPort.port,
+  },
+  UPDATE_BLOOD_COMP_STATUS: {
+    url: `/${bloodBank}/availability/updateBloodGroup`,
     port: appPort.port,
   },
 };

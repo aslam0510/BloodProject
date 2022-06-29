@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 export class SideNavEffect {
   constructor(private action$: Actions, private http: HttpClient) {}
 
+  // UserManagement page
   getUsersList$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_USERS_LIST),
@@ -86,6 +87,66 @@ export class SideNavEffect {
         return this.http
           .put(api.getAPI('EDIT_USER'), payload)
           .pipe(map((data: any) => new SideNavAction.EditUserSuccess(data)));
+      })
+    );
+  });
+
+  //ALl Blood Availability page effects
+  getBloodCompStatus$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.GET_BLOOD_COMP_STATUS),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_BLOOD_COMP_STATUS') + '?start=06-28-2022')
+          .pipe(
+            map(
+              (data: any) => new SideNavAction.GetBloodCompStatusSuccess(data)
+            )
+          );
+      })
+    );
+  });
+
+  getBloodCompList = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.GET_BLOOD_COMP_LIST),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_BLOOD_COMP_LIST'))
+          .pipe(
+            map((data: any) => new SideNavAction.GetBloodCompListSuccess(data))
+          );
+      })
+    );
+  });
+
+  getBloodGroupList = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.GET_BLOOD_GROUP_LIST),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_BLOOD_GROUP_LIST'))
+          .pipe(
+            map((data: any) => new SideNavAction.GetBloodGroupListSuccess(data))
+          );
+      })
+    );
+  });
+
+  UpdateBloodCompStatus = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.UPDATE_BLOOD_COMP_STATUS),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .put(api.getAPI('UPDATE_BLOOD_COMP_STATUS'), payload)
+          .pipe(
+            map(
+              (data: any) =>
+                new SideNavAction.UpdateBloodCompStatusSuccess(data)
+            )
+          );
       })
     );
   });

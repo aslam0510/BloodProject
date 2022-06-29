@@ -34,21 +34,6 @@ btn-group {
 mat-card {
   padding: 0;
 }
-thead {
-  background-color: #0000001f;
-}
-th,
-td {
-  padding-left: 25px;
-  padding-top: 10px;
-  padding-bottom: 8px;
-}
-td {
-  padding-bottom: 3px;
-}
-table {
-  width: 100%;
-}
 
 .card1 {
   height: 100px;
@@ -134,10 +119,6 @@ table {
   width: 75px;
   border-right: 1px #0000001f;
 }
-mat-card {
-  width: 150px;
-  display: inline-block;
-}
 
 .mat-fab {
   width: 45px;
@@ -147,4 +128,8 @@ mat-card {
 .mat-fab .mat-button-wrapper {
   padding: 11px 0 !important;
   display: block !;
+}
+
+th:first-child {
+  width: 260px;
 }

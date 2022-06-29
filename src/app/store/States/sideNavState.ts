@@ -5,5 +5,8 @@ export class SideNavState {
   deleteUser: any;
   userRole: any;
   userEntityCategories: any;
+  bloodCompStatus: any;
+  bloodGroupTypes: any;
+  bloodCompList: any;
   constructor() {}
 }

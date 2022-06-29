@@ -24,6 +24,15 @@ export function SideNavReducer(
     case SideNavActions.GET_USER_ENTITY_CATEGORY_SUCCESS: {
       return { ...state, userEntityCategories: action.payload };
     }
+    case SideNavActions.GET_BLOOD_COMP_STATUS_SUCCESS: {
+      return { ...state, bloodCompStatus: action.payload };
+    }
+    case SideNavActions.GET_BLOOD_COMP_LIST_SUCCESS: {
+      return { ...state, bloodCompList: action.payload };
+    }
+    case SideNavActions.GET_BLOOD_GROUP_LIST_SUCCESS: {
+      return { ...state, bloodGroupTypes: action.payload };
+    }
     default: {
       return state;
     }

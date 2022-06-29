@@ -11,6 +11,15 @@ export const GET_USERS_ROLES_SUCCESS = 'GET_USER_ROLE_SUCCESS';
 export const GET_USER_ENTITY_CATEGORY = 'GET_USER_ENTITY_CATEGORY';
 export const GET_USER_ENTITY_CATEGORY_SUCCESS =
   'GET_USER_ENTITY_CATEGORY_SUCCESS';
+export const GET_BLOOD_COMP_STATUS = 'BLOOD_COMP_STATUS';
+export const GET_BLOOD_COMP_STATUS_SUCCESS = 'BLOOD_COMP_STATUS_SUCCESS';
+export const GET_BLOOD_COMP_LIST = 'GET_BLOOD_COMP_LIST';
+export const GET_BLOOD_COMP_LIST_SUCCESS = 'GET_BLOOD_COMP_LIST_SUCCESS';
+export const GET_BLOOD_GROUP_LIST = 'GET_BLOOD_GROUP_LIST';
+export const GET_BLOOD_GROUP_LIST_SUCCESS = 'GET_BLOOD_GROUP_LIST_SUCCESS';
+export const UPDATE_BLOOD_COMP_STATUS = ' UPDATE_BLOOD_COMP_STATUS';
+export const UPDATE_BLOOD_COMP_STATUS_SUCCESS =
+  ' UPDATE_BLOOD_COMP_STATUS_SUCCESS';
 
 export class GetUsersList {
   readonly type = GET_USERS_LIST;
@@ -70,6 +79,41 @@ export class GetEntityCategoriesSuccess {
   constructor(public payload: any) {}
 }
 
+export class GetBloodCompStatus {
+  readonly type = GET_BLOOD_COMP_STATUS;
+  constructor(public payload: any) {}
+}
+export class GetBloodCompStatusSuccess {
+  readonly type = GET_BLOOD_COMP_STATUS_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class GetBloodCompList {
+  readonly type = GET_BLOOD_COMP_LIST;
+}
+export class GetBloodCompListSuccess {
+  readonly type = GET_BLOOD_COMP_LIST_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class GetBloodGroupList {
+  readonly type = GET_BLOOD_GROUP_LIST;
+}
+
+export class GetBloodGroupListSuccess {
+  readonly type = GET_BLOOD_GROUP_LIST_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class UpdateBloodCompStatus {
+  readonly type = UPDATE_BLOOD_COMP_STATUS;
+  constructor(public payload: any) {}
+}
+
+export class UpdateBloodCompStatusSuccess {
+  readonly type = UPDATE_BLOOD_COMP_STATUS_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Action =
   | GetUsersList
   | GetUsersListSuccess
@@ -82,4 +126,12 @@ export type Action =
   | GetUserRole
   | GetUserRoleSuccess
   | GetEntityCategories
-  | GetEntityCategoriesSuccess;
+  | GetEntityCategoriesSuccess
+  | GetBloodCompStatus
+  | GetBloodCompStatusSuccess
+  | GetBloodCompList
+  | GetBloodCompListSuccess
+  | GetBloodGroupList
+  | GetBloodGroupListSuccess
+  | UpdateBloodCompStatus
+  | UpdateBloodCompStatusSuccess;
