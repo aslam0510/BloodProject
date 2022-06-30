@@ -20,7 +20,9 @@ export const GET_BLOOD_GROUP_LIST_SUCCESS = 'GET_BLOOD_GROUP_LIST_SUCCESS';
 export const UPDATE_BLOOD_COMP_STATUS = ' UPDATE_BLOOD_COMP_STATUS';
 export const UPDATE_BLOOD_COMP_STATUS_SUCCESS =
   ' UPDATE_BLOOD_COMP_STATUS_SUCCESS';
-
+export const GET_BLOOD_AVAILABILITY_STATUS = 'GET_BLOOD_AVAILABILITY_STATUS';
+export const GET_BLOOD_AVAILABILITY_STATUS_SUCCESS =
+  ' GET_BLOOD_AVAILABILITY_STATUS_SUCCESS';
 export class GetUsersList {
   readonly type = GET_USERS_LIST;
 }
@@ -114,6 +116,16 @@ export class UpdateBloodCompStatusSuccess {
   readonly type = UPDATE_BLOOD_COMP_STATUS_SUCCESS;
   constructor(public payload: any) {}
 }
+
+export class GetBloodAvailabilityStatus {
+  readonly type = GET_BLOOD_AVAILABILITY_STATUS;
+  constructor(public payload: any) {}
+}
+
+export class GetBloodAvailabilityStatusSuccess {
+  readonly type = GET_BLOOD_AVAILABILITY_STATUS_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Action =
   | GetUsersList
   | GetUsersListSuccess
@@ -134,4 +146,6 @@ export type Action =
   | GetBloodGroupList
   | GetBloodGroupListSuccess
   | UpdateBloodCompStatus
-  | UpdateBloodCompStatusSuccess;
+  | UpdateBloodCompStatusSuccess
+  | GetBloodAvailabilityStatus
+  | GetBloodAvailabilityStatusSuccess;

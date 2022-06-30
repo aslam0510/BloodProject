@@ -1,11 +1,16 @@
 mat-card {
   border-radius: 10px;
 }
+.card {
+  width: 155px;
+}
 
 .borders {
   border-bottom: 1px solid #0000001f;
 }
-
+.avaliableUnits {
+  font-size: 12px;
+}
 .activityCard {
   padding: 0 10px;
   /* height: 80vh !important; */
@@ -30,9 +35,6 @@ btn-group {
   margin-left: 10px;
   border-radius: 15px;
   color: white;
-}
-mat-card {
-  padding: 0;
 }
 
 .card1 {
@@ -70,66 +72,31 @@ mat-card {
   font-size: 18px !important;
 }
 
-.mat-header-row {
-  font-weight: bold;
-}
-.mat-column-Item_Name {
-  width: 200px;
-  border-right: 1px #0000001f;
-}
+/* .mat-fab {
+  width: 40px;
+  height: 40px;
+} */
 
-.mat-column-Aplus {
-  padding-left: 1rem;
-  width: 75px;
-  border-right: 1px #0000001f;
-}
-.mat-column-Aminus {
-  padding-left: 1rem;
-  width: 75px;
-  border-right: 1px #0000001f;
-}
-.mat-column-Bplus {
-  padding-left: 1rem;
-  width: 75px;
-  border-right: 1px #0000001f;
-}
-.mat-column-Bminus {
-  padding-left: 1rem;
-  width: 75px;
-  border-right: 1px #0000001f;
-}
-.mat-column-ABplus {
-  padding-left: 1rem;
-  width: 75px;
-  border-right: 1px #0000001f;
-}
-.mat-column-ABminus {
-  padding-left: 1rem;
-  width: 75px;
-  border-right: 1px #0000001f;
-}
-.mat-column-Oplus {
-  padding-left: 1rem;
-  width: 75px;
-  border-right: 1px #0000001f;
-}
-
-.mat-column-Ominus {
-  padding-left: 1rem;
-  width: 75px;
-  border-right: 1px #0000001f;
-}
-
-.mat-fab {
-  width: 45px;
-  height: 45px;
-}
-
-.mat-fab .mat-button-wrapper {
-  padding: 11px 0 !important;
-  display: block !;
+mat-button-wrapper {
+  padding: 0 !important;
 }
 
 th:first-child {
   width: 260px;
+}
+
+.mat-button-toggle-checked {
+  background-color: brown;
+  color: white;
+}
+input {
+  border-color: transparent;
+  border: none;
+}
+input:focus {
+  outline: none;
+}
+
+.date {
+  width: 85px;
 }

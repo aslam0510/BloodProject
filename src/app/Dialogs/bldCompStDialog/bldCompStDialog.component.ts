@@ -18,6 +18,7 @@ export class BldCompStDialogComponent implements OnInit {
   mode = '';
   bloodCompList: any;
   bloodGroupList: any;
+  bloodType: string = null;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<BldCompStDialogComponent>,
@@ -27,6 +28,7 @@ export class BldCompStDialogComponent implements OnInit {
     console.log(data);
     this.bloodCompList = data.bloodComp;
     this.bloodGroupList = data.bloodGrop;
+    this.bloodType = data.bloodType;
   }
 
   ngOnInit() {
@@ -58,7 +60,9 @@ export class BldCompStDialogComponent implements OnInit {
     if (this.updateBloodForm.valid) {
       const payload = {
         bldgrp: this.updateBloodForm.value.bloodGroup,
-        bldComponent: this.updateBloodForm.value.bloodComp,
+        bldComponent: this.bloodType
+          ? this.bloodType
+          : this.updateBloodForm.value.bloodComp,
         modUnits: this.updateBloodForm.value.newUnit,
         mode: this.mode,
       };

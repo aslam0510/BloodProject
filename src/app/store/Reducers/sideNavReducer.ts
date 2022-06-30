@@ -33,6 +33,9 @@ export function SideNavReducer(
     case SideNavActions.GET_BLOOD_GROUP_LIST_SUCCESS: {
       return { ...state, bloodGroupTypes: action.payload };
     }
+    case SideNavActions.GET_BLOOD_AVAILABILITY_STATUS_SUCCESS: {
+      return { ...state, bloodAvailabilityStatus: action.payload };
+    }
     default: {
       return state;
     }

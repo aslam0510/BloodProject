@@ -7,19 +7,23 @@
         <span class="m-0" class="text-primary">Minimum level to be maintained : 30 units</span>
       </div>
       <div class="pt-2">
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-          <mat-button-toggle value="Today">Today</mat-button-toggle>
-          <mat-button-toggle value="Yesterday">Yesterday</mat-button-toggle>
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup" [value]="bldAvailableSelectedVal" (change)="onBlodAvailableValChange(group.value)">
+          <mat-button-toggle value="Today" (click)="onBldAvailableDaySelect('today')">Today</mat-button-toggle>
+          <mat-button-toggle value="Yesterday" (click)="onBldAvailableDaySelect('yesterday')">Yesterday</mat-button-toggle>
           <mat-button-toggle value="Pick Date">
-            <mat-form-field appearance="fill" class="example-form-field">
-              <input matInput [matDatepicker]="datepicker">
-              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-form-field class="date" *ngIf="bloodAvailableDate === ''">
+              <input #dates matInput [matDatepicker]="datepicker" placeholder="Pick Date">
+              <mat-datepicker-toggle matSuffix [for]="datepicker" (click)="onBlodAvailableValChange('Pick Date')"></mat-datepicker-toggle>
               <mat-datepicker #datepicker>
                 <mat-datepicker-actions>
-                  <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                  <button mat-raised-button color="primary" matDatepickerApply (click)="onBloodAvailableDatePick(dates)">Apply</button>
                 </mat-datepicker-actions>
               </mat-datepicker>
             </mat-form-field>
+            <div *ngIf="bloodAvailableDate" class="pt-1 d-flex align-items-center justify-content-around ">
+              <p>{{bloodAvailableDate}}</p>
+              <mat-icon (click)="onRemoveBloodAvailableDate()">close</mat-icon>
+            </div>
           </mat-button-toggle>
         </mat-button-toggle-group>
         <button class="appBgColor btn btn-sm editButton" mat-raised-button (click)="onEditBldStatus('bldAvalStatus')">Edit</button>
@@ -27,24 +31,25 @@
       </div>
 
     </div>
-    <!-- <div class="my-1">
-      <mat-card class="mat-elevation-z8 p-1">
+
+    <div class="m-2 d-inline-block" *ngFor="let blood of bloodAvailableStatus">
+      <mat-card class="mat-elevation-z8 p-1 card">
         <div class="d-flex align-items-center justify-content-around p-1">
-          <button class="d-block" mat-fab aria-label="Example icon button with a heart icon">
-            A+
+          <button style="background-color: brown" class="d-block text-center appBgColor" mat-mini-fab aria-label="Example icon button with a heart icon">
+            {{blood.bldgrp}}
           </button>
           <div class="content">
-            <h5 class="m-0 flex-end">100</h5>
-            <span>Available Unit</span>
+            <h5 class="m-0 text-right ">{{blood.totalAvailable}}</h5>
+            <span class="avaliableUnits">Available Unit</span>
           </div>
         </div>
         <mat-divider class="px-1"></mat-divider>
-        <p class="text-center">25 Units Reserved</p>
-        <p class="text-center">+10 units added</p>
-        <p class="text-center">-5 Units issued</p>
-        <p class="text-center">-5 Units issued</p>
+        <p class="text-center mt-2">{{blood.totalResorvedUnits + ' Units Reserved'}}</p>
+        <p class="text-center"> {{ blood.totalAddedUnits + ' units added'}}</p>
+        <p class="text-center"> {{blood.totalIssuedUnits +' Units issued'}}</p>
       </mat-card>
-    </div> -->
+    </div>
+
     <div class="mt-2 mx-0">
     </div>
     <div class="d-flex justify-content-between px-2 py-1">
@@ -53,19 +58,23 @@
         <span class="m-0" class="text-primary">Minimum level to be maintained : 30 units</span>
       </div>
       <div class="pt-2">
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-          <mat-button-toggle value="Today">Today</mat-button-toggle>
-          <mat-button-toggle value="Yesterday">Yesterday</mat-button-toggle>
-          <mat-button-toggle value="Pick Date">
-            <mat-form-field appearance="fill" class="example-form-field">
-              <input matInput [matDatepicker]="datepicker">
-              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-              <mat-datepicker #datepicker>
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="bldCompSelectedVal" (change)="onBlodComValChange(group.value)">
+          <mat-button-toggle value="Today" (click)="onBlodCompDaySelect('today')">Today</mat-button-toggle>
+          <mat-button-toggle value="Yesterday" (click)="onBlodCompDaySelect('yesterday')">Yesterday</mat-button-toggle>
+          <mat-button-toggle value="PickDate">
+            <mat-form-field class="date" *ngIf="bloodCompDate === ''">
+              <input matInput #date [matDatepicker]="datepickers" placeholder="Pick Date">
+              <mat-datepicker-toggle matSuffix [for]="datepickers" (click)="onBlodComValChange('PickDate')"></mat-datepicker-toggle>
+              <mat-datepicker #datepickers>
                 <mat-datepicker-actions>
-                  <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                  <button mat-raised-button color="primary" matDatepickerApply (click)="onBloodCompDatePicker(date)">Apply</button>
                 </mat-datepicker-actions>
               </mat-datepicker>
             </mat-form-field>
+            <div *ngIf="bloodCompDate" class="pt-1 d-flex align-items-center justify-content-around ">
+              <p>{{bloodCompDate}}</p>
+              <mat-icon (click)="onRemoveBloodComDate()">close</mat-icon>
+            </div>
           </mat-button-toggle>
         </mat-button-toggle-group>
         <button class="appBgColor btn btn-sm editButton" mat-raised-button (click)="onEditBldStatus('bldCompStatus')">Edit</button>

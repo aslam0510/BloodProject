@@ -98,7 +98,7 @@ export class SideNavEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_BLOOD_COMP_STATUS') + '?start=06-28-2022')
+          .get(api.getAPI('GET_BLOOD_COMP_STATUS') + `?start=${payload}`)
           .pipe(
             map(
               (data: any) => new SideNavAction.GetBloodCompStatusSuccess(data)
@@ -145,6 +145,25 @@ export class SideNavEffect {
             map(
               (data: any) =>
                 new SideNavAction.UpdateBloodCompStatusSuccess(data)
+            )
+          );
+      })
+    );
+  });
+
+  getBloodAvailabilityStatus = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.GET_BLOOD_AVAILABILITY_STATUS),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .get(
+            api.getAPI('GET_BLOOD_AVAILABILITY_STATUS') + `?start=${payload}`
+          )
+          .pipe(
+            map(
+              (data: any) =>
+                new SideNavAction.GetBloodAvailabilityStatusSuccess(data)
             )
           );
       })

@@ -81,6 +81,10 @@ const apis = {
     url: `/${bloodBank}/availability/updateBloodGroup`,
     port: appPort.port,
   },
+  GET_BLOOD_AVAILABILITY_STATUS: {
+    url: `/${bloodBank}/availability/getBloodAvailability`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {
