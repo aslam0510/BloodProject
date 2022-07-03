@@ -1,6 +1,6 @@
 <div>
-  <div class="d-flex justify-content-between align-items-center">
-    <h3 class="m-0">{{data.page === 'bloodComp' ? 'Update Blood Component Status' : 'Update Blood Status'}}</h3>
+  <div class="d-flex justify-content-around align-items-center">
+    <h3 class="m-0 text-bold">{{data.page === 'bloodComp' ? 'Update Blood Component Status' : 'Update Blood Status'}}</h3>
     <mat-icon (click)="dialogRef.close()">close</mat-icon>
   </div>
 
@@ -9,7 +9,7 @@
       <p class="text-secondary">Select Blood Component</p>
       <mat-form-field appearance="outline">
         <mat-label>{{ "Select Blood Component" }}</mat-label>
-        <mat-select formControlName="bloodComp" placeholder="Select Blood Component">
+        <mat-select formControlName="bloodComp" placeholder="Select Blood Component" (selectionChange)="onBloodComp($event.value)">
           <mat-option [value]="list" *ngFor="let list of bloodCompList?.types">{{ list}}
           </mat-option>
         </mat-select>
@@ -23,7 +23,7 @@
     </div>
     <p>Select Blood Type</p>
     <p>
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="mb-2" formControlName="bloodGroup">
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="mb-2" (click)="onBloodGroup($event.target.innerText)" formControlName="bloodGroup">
         <mat-button-toggle [value]="group" *ngFor="let group of bloodGroupList?.types">{{group}}
         </mat-button-toggle>
       </mat-button-toggle-group>
@@ -39,8 +39,8 @@
         </mat-form-field>
       </p>
       <p class="d-flex justify-content-around">
-        <button mat-raised-button (click)="totalSum('add')">Add</button>
-        <button mat-raised-button (click)="totalSum('minus')">Minus</button>
+        <button mat-raised-button (click)="totalSum('add')" class="buttons">Add</button>
+        <button mat-raised-button (click)="totalSum('minus')" class="buttons">Minus</button>
       </p>
 
       <p class="mt-4">
@@ -49,7 +49,7 @@
         </mat-form-field>
       </p>
       <p class="d-flex justify-content-center">
-        <button mat-raised-button class="appBgColor" (click)="onSave()" [disabled]="!updateBloodForm.valid">Update</button>
+        <button mat-raised-button class="appBgColor text-white" (click)="onSave()" [disabled]="!updateBloodForm.valid">Update</button>
       </p>
     </div>
   </form>

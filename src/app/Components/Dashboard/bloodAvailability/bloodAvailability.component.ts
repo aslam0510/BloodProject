@@ -2,11 +2,12 @@ import { UpdateBldStsDialogComponent } from './../../../Dialogs/updateBldStsDial
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { BldCompStDialogComponent } from 'src/app/Dialogs/bldCompStDialog/bldCompStDialog.component';
-import { Store } from '@ngrx/store';
+import { Store, ActionsSubject } from '@ngrx/store';
 import { AppState } from './../../../app.state';
 import * as SideNavAction from '../../../store/Actions/sideNavAction';
 import { Observable, Subscription } from 'rxjs';
 import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-bloodAvailability',
   templateUrl: './bloodAvailability.component.html',
@@ -32,7 +33,16 @@ export class BloodAvailabilityComponent implements OnInit {
   bloodAvailableDate: string = '';
   public bldAvailableSelectedVal: string;
   public bldCompSelectedVal: string;
-  constructor(private dialog: MatDialog, private store: Store<AppState>) {
+  actionSubcription: Subscription;
+  constructor(
+    private dialog: MatDialog,
+    private store: Store<AppState>,
+    private actionsSubj: ActionsSubject,
+    private snackBar: MatSnackBar
+  ) {
+    this.actionSubcription = this.actionsSubj.subscribe((data) => {
+      this.handleActionSubscription(data);
+    });
     this.bloodCompStatus$ = this.store.select(
       (state) => state.SidNavSlice.bloodCompStatus
     );
@@ -48,6 +58,32 @@ export class BloodAvailabilityComponent implements OnInit {
     );
   }
 
+  handleActionSubscription(data: any) {
+    console.log(data);
+
+    switch (data.type) {
+      case SideNavAction.EDIT_USER_SUCCESS:
+        if (data.payload.data.message === 200) {
+          this.snackBar.open('Updated Successfully', '', { duration: 2000 });
+        }
+        break;
+
+      case SideNavAction.ADD_USER_SUCCESS:
+        if (data.payload.code === 200) {
+          this.snackBar.open('User Created Successfully', '', {
+            duration: 2000,
+          });
+        }
+        break;
+      case SideNavAction.DELETE_USER_SUCCESS:
+        if (data.payload.code === 200) {
+          this.snackBar.open('User Deleted Successfully', '', {
+            duration: 2000,
+          });
+        }
+        break;
+    }
+  }
   ngOnInit() {
     this.bldAvailableSelectedVal = 'Today';
     this.bldCompSelectedVal = 'Today';
@@ -105,6 +141,7 @@ export class BloodAvailabilityComponent implements OnInit {
           page: 'bloodComp',
           bloodComp: this.bloodCompList,
           bloodGrop: this.bloodGroupList,
+          availableUnits: this.bloodCompStatus,
         },
       });
     } else {
@@ -116,6 +153,7 @@ export class BloodAvailabilityComponent implements OnInit {
           bloodComp: null,
           bloodGrop: this.bloodGroupList,
           bloodType: this.bloodType[0],
+          availableUnits: this.bloodAvailableStatus,
         },
       });
     }

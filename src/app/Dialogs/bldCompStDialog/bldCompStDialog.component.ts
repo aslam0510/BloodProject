@@ -19,6 +19,8 @@ export class BldCompStDialogComponent implements OnInit {
   bloodCompList: any;
   bloodGroupList: any;
   bloodType: string = null;
+  availableUnits: any;
+  bloodComponent: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<BldCompStDialogComponent>,
@@ -33,12 +35,23 @@ export class BldCompStDialogComponent implements OnInit {
 
   ngOnInit() {
     this.updateBloodForm = new FormGroup({
-      bloodComp: new FormControl('', [Validators.required]),
       bloodGroup: new FormControl('', [Validators.required]),
-      availableUnit: new FormControl(200, [Validators.required]),
+      availableUnit: new FormControl('', [Validators.required]),
       newUnit: new FormControl('', [Validators.required]),
       totalUnit: new FormControl(''),
     });
+    this.updateBloodForm.controls['totalUnit'].disable();
+    this.updateBloodForm.controls['availableUnit'].disable();
+    this.data.page === 'bloodComp'
+      ? this.updateBloodForm.controls['bloodGroup'].disable()
+      : this.updateBloodForm.controls['bloodGroup'].enable();
+
+    if (this.data.page === 'bloodComp') {
+      this.updateBloodForm.addControl(
+        'bloodComp',
+        new FormControl('', [Validators.required])
+      );
+    }
   }
 
   totalSum(operand) {
@@ -50,9 +63,34 @@ export class BldCompStDialogComponent implements OnInit {
       const totalSum = Number(avilableUnit) + Number(newUnit);
       this.updateBloodForm.controls['totalUnit'].setValue(totalSum);
     } else {
-      this.mode = 'MINUS';
+      this.mode = 'DEL';
       const totalSum = Number(avilableUnit) - Number(newUnit);
       this.updateBloodForm.controls['totalUnit'].setValue(totalSum);
+    }
+  }
+
+  onBloodComp(com?) {
+    this.bloodComponent = this.data.availableUnits.filter(
+      (x) => x._id === com
+    )[0];
+    this.updateBloodForm.controls['bloodGroup'].enable();
+  }
+
+  onBloodGroup(bloodGroup) {
+    if (this.data.page === 'bloodComp') {
+      this.availableUnits = this.bloodComponent.availability.filter(
+        (x) => x.bldgrp === bloodGroup
+      );
+      this.updateBloodForm.controls['availableUnit'].setValue(
+        this.availableUnits[0].totalAvailable
+      );
+    } else {
+      const group = this.data.availableUnits.filter(
+        (x) => x.bldgrp === bloodGroup
+      );
+      this.updateBloodForm.controls['availableUnit'].setValue(
+        group[0].totalAvailable
+      );
     }
   }
   onSave() {
