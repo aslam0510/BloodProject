@@ -88,3 +88,7 @@ mat-card {
   display: inline-block;
   text-align: center;
 }
+
+.headerIcons {
+  margin-right: 10px;
+}

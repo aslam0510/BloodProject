@@ -55,7 +55,7 @@ export class UserManagementComponent implements OnInit {
   handleActionSubscription(data: any) {
     switch (data.type) {
       case SideNavAction.EDIT_USER_SUCCESS:
-        if (data.payload.data.message === 200) {
+        if (data.payload.code === 200) {
           this.snackBar.open('Updated Successfully', '', { duration: 2000 });
         }
         break;

@@ -59,27 +59,20 @@ export class BloodAvailabilityComponent implements OnInit {
   }
 
   handleActionSubscription(data: any) {
-    console.log(data);
-
     switch (data.type) {
-      case SideNavAction.EDIT_USER_SUCCESS:
-        if (data.payload.data.message === 200) {
-          this.snackBar.open('Updated Successfully', '', { duration: 2000 });
-        }
-        break;
-
-      case SideNavAction.ADD_USER_SUCCESS:
+      case SideNavAction.UPDATE_BLOOD_COMP_STATUS_SUCCESS:
         if (data.payload.code === 200) {
-          this.snackBar.open('User Created Successfully', '', {
+          this.snackBar.open(data.payload.data.Message, '', {
             duration: 2000,
           });
-        }
-        break;
-      case SideNavAction.DELETE_USER_SUCCESS:
-        if (data.payload.code === 200) {
-          this.snackBar.open('User Deleted Successfully', '', {
-            duration: 2000,
-          });
+          this.store.dispatch(
+            new SideNavAction.GetBloodCompStatus(moment().add(-1, 'days'))
+          );
+          this.store.dispatch(
+            new SideNavAction.GetBloodAvailabilityStatus(
+              moment().add(-1, 'days')
+            )
+          );
         }
         break;
     }
@@ -120,12 +113,6 @@ export class BloodAvailabilityComponent implements OnInit {
         if (response) {
           this.bloodAvailableStatus = response.data[0]?.availability;
           this.bloodType = response.data.map((x) => x._id);
-          // if (typeof response.data?.message === 'string') {
-          //   this.showBloodAvailableMsg = response.data?.message;
-          //   console.log(this.showBloodAvailableMsg);
-          // } else {
-
-          // }
         }
       }
     );
