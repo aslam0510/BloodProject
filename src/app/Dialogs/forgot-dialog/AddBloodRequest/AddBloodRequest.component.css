@@ -47,3 +47,8 @@ mat-form-field {
   border-radius: 25px;
   padding: 8px 10px;
 }
+
+.bloodReq {
+  width: 550px;
+  border: 1px dotted gainsboro;
+}

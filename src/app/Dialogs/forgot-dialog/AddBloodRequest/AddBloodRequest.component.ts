@@ -8,6 +8,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 export class AddBloodRequestComponent implements OnInit {
   organizationFiles: any;
+  isLinear = false;
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public dialogRef: MatDialogRef<AddBloodRequestComponent>

@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit {
 
   onAddBloodReq() {
     this.dialog.open(AddBloodRequestComponent, {
-      width: '950px',
+      width: '850px',
       height: 'auto',
       panelClass: 'custom-dialog-container',
     });
