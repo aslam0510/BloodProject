@@ -17,9 +17,9 @@
         <input matInput placeholder="Password" formControlName="pwd" type="password">
       </mat-form-field>
       <div class="d-flex flex-column buttons">
-        <button class="d-block my-3 mt-2" type="submit" mat-raised-button color="accent" [disabled]="!loginForm.valid">Login</button>
+        <button class="d-block my-3 mt-2 text-white" type="submit" mat-raised-button style="background-color: #EA0029;" [disabled]="!loginForm.valid">Login</button>
 
-        <button mat-raised-button type="button" color="accent" class="mt-2" (click)="onLoginViaOtp()">Login via otp</button>
+        <button mat-raised-button type="button" class="mt-2 " style="border-color: #EA0029;" (click)="onLoginViaOtp()">Login via otp</button>
 
       </div>
       <div class=" px-3 mt-5 pt-3 d-flex align-items-center justify-content-between">
