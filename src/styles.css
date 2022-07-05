@@ -58,3 +58,7 @@ button {
 ::ng-deep mat-button-toggle-group {
   outline: none;
 }
+
+.appBtnBgColor {
+  background-color: #ea0029;
+}

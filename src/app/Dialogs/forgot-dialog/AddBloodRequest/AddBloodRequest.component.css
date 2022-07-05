@@ -49,6 +49,26 @@ mat-form-field {
 }
 
 .bloodReq {
-  width: 550px;
+  width: 600px;
   border: 1px dotted gainsboro;
+  height: 300px;
+  overflow: auto;
+}
+
+h3 {
+  font-weight: bolder;
+}
+
+mat-radio-button {
+  margin-right: 1.5rem;
+}
+
+.matstep2 {
+  padding: 1rem 4rem;
+}
+
+mat-card {
+  width: 250px;
+  display: inline;
+  border-radius: 10px;
 }
