@@ -16,8 +16,8 @@
   </div>
   <mat-stepper [linear]="isLinear" #stepper>
     <mat-step label="Patient's Details">
-      <div>
-        <form class="pl-4 mt-4">
+      <div class="pl-4 mt-2">
+        <form>
           <div class="d-flex justify-content-evenly">
             <mat-form-field>
               <mat-label>Patient's Name</mat-label>
@@ -26,7 +26,7 @@
             <mat-form-field>
               <mat-label>{{ "Blood Group " }}</mat-label>
               <mat-select placeholder="{{ 'Blood Group ' }}  *">
-                <mat-option value="hospital">{{ "hospital" }}
+                <mat-option [value]="group.type" *ngFor="let group of bloodGroupList">{{ group.type }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -39,7 +39,9 @@
             <mat-form-field>
               <mat-label>{{ "Gender" }}</mat-label>
               <mat-select placeholder="{{ 'Gender' }}  *">
-                <mat-option value="hospital">{{ "hospital" }}
+                <mat-option value="male">{{ "Male" }}
+                </mat-option>
+                <mat-option value="female">{{ "Female" }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -84,7 +86,7 @@
               <input matInput placeholder="Patient's Address">
             </mat-form-field>
           </div>
-          <div class="d-flex justify-content-evenly">
+          <div class="d-inline location">
             <mat-form-field>
               <mat-label>Location</mat-label>
               <input matInput placeholder="Location">
@@ -108,15 +110,25 @@
           <div class="bloodReq">
             <mat-tab-group>
               <mat-tab label="Whole blood" *ngIf="showWholeBlood">
-                <mat-card *ngFor="let type of bloodGroupList?.types" class="d-inline m-3 p-2 d-flex justify-content-between align-items-center">
-                  <h3>{{type}}</h3>
-                  <button mat-raised-button class="appBtnBgColor">Add</button>
+                <mat-card *ngFor="let group of bloodGroupList; let i = index;" class="d-inline m-3 p-2 d-flex justify-content-between align-items-center">
+                  <h3>{{group.type}}</h3>
+                  <button mat-raised-button class="appBtnBgColor" *ngIf="group.showAddBtn" (click)="bldGropAddBtn(i)">Add</button>
+                  <button mat-raised-button class="appBgColor text-white" *ngIf="group.showCountBtn">
+                    <mat-icon (click)="removeBloodGroupCount(group,i)">remove</mat-icon>
+                    {{group.count}}
+                    <mat-icon (click)="addBloodGroupCount(group,i)">add</mat-icon>
+                  </button>
                 </mat-card>
               </mat-tab>
               <mat-tab label="Blood Component" *ngIf="showBlodComp">
-                <mat-card *ngFor="let list of bloodCompList?.types" class="d-inline m-3 p-2 d-flex justify-content-between align-items-center">
-                  <h4>{{list}}</h4>
-                  <button mat-raised-button class="appBtnBgColor">Add</button>
+                <mat-card *ngFor="let bldComp of bloodCompList; let i = index;" class="d-inline m-3 p-2 d-flex justify-content-between align-items-center">
+                  <h4>{{bldComp.list}}</h4>
+                  <button mat-raised-button class="appBtnBgColor" *ngIf="bldComp.showAddBtn" (click)="bldCompAddBtn(i)">Add</button>
+                  <button mat-raised-button class="appBgColor text-white" *ngIf="bldComp.showCountBtn">
+                    <mat-icon (click)="removeBloodComCount(bldComp, i)">remove</mat-icon>
+                    {{bldComp.count}}
+                    <mat-icon (click)="addBloodcomCount(bldComp, i)">add</mat-icon>
+                  </button>
                 </mat-card>
               </mat-tab>
             </mat-tab-group>
@@ -129,9 +141,11 @@
 
   <div class="bottom d-flex justify-content-between align-items-center">
     <div>
-      <mat-icon color="accent" class="mt-4">refresh</mat-icon>
-      <button color="accent" mat-button class="mt-2">Reset</button>
+      <button color="accent" mat-button>
+        <mat-icon color="accent">refresh</mat-icon>
+        Reset
+      </button>
     </div>
-    <button mat-raised-button color="accent">Submit</button>
+    <button mat-raised-button class="appBgColor text-white">Submit</button>
   </div>
 </div>

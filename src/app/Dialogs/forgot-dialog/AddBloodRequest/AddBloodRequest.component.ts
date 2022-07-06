@@ -15,11 +15,14 @@ export class AddBloodRequestComponent implements OnInit {
   showWholeBlood = true;
   showBlodComp = false;
   bloodGroupList$: Observable<any>;
-  bloodGroupList: any;
+  bloodGroupList = [];
   bloodGroupListSub: Subscription;
   bloodCompList$: Observable<any>;
-  bloodCompList: any;
+  bloodCompList = [];
   bloodCompListSub: Subscription;
+  bloodGroupcount = 0;
+  bloodCompCount = 0;
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public dialogRef: MatDialogRef<AddBloodRequestComponent>,
@@ -37,15 +40,28 @@ export class AddBloodRequestComponent implements OnInit {
     this.store.dispatch(new SideNavAction.GetBloodGroupList());
     this.bloodCompListSub = this.bloodCompList$.subscribe((response) => {
       if (response) {
-        this.bloodCompList = response.data;
+        response.data?.types.forEach((x) => {
+          this.bloodCompList.push({
+            list: x,
+            count: 0,
+            showAddBtn: true,
+            showCountBtn: false,
+          });
+        });
         console.log(this.bloodCompList);
       }
     });
 
     this.bloodGroupListSub = this.bloodGroupList$.subscribe((response) => {
       if (response) {
-        this.bloodGroupList = response.data;
-        console.log(this.bloodGroupList);
+        response.data?.types.forEach((x) => {
+          this.bloodGroupList.push({
+            type: x,
+            count: 0,
+            showAddBtn: true,
+            showCountBtn: false,
+          });
+        });
       }
     });
   }
@@ -65,5 +81,37 @@ export class AddBloodRequestComponent implements OnInit {
       this.showBlodComp = true;
       this.showWholeBlood = true;
     }
+  }
+
+  removeBloodGroupCount(data, index) {
+    if (data.count <= 0) {
+      this.bloodGroupList[index].count = 0;
+    } else {
+      this.bloodGroupList[index].count = data.count - 1;
+    }
+  }
+
+  addBloodGroupCount(group, index) {
+    this.bloodGroupList[index].count = group.count + 1;
+  }
+
+  removeBloodComCount(data, index) {
+    if (data.count <= 0) {
+      this.bloodCompList[index].count = 0;
+    } else {
+      this.bloodCompList[index].count = data.count - 1;
+    }
+  }
+  addBloodcomCount(data, index) {
+    this.bloodCompList[index].count = data.count + 1;
+  }
+  bldGropAddBtn(index) {
+    this.bloodGroupList[index].showAddBtn = false;
+    this.bloodGroupList[index].showCountBtn = true;
+  }
+
+  bldCompAddBtn(index) {
+    this.bloodCompList[index].showAddBtn = false;
+    this.bloodCompList[index].showCountBtn = true;
   }
 }

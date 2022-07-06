@@ -68,7 +68,15 @@ mat-radio-button {
 }
 
 mat-card {
-  width: 250px;
+  width: 270px;
   display: inline;
   border-radius: 10px;
+}
+
+.location {
+  margin-left: 2rem;
+}
+
+button {
+  border-radius: 5px;
 }

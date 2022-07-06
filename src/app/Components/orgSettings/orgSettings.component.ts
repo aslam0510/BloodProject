@@ -125,7 +125,7 @@ export class OrgSettingsComponent implements OnInit {
     this.updateEntityInfoSub = this.updateEntityInfo$.subscribe((data) => {
       if (data) {
         if (data.code === 200) {
-          this.snackBar.open(data.data.message, 'ok', {
+          this.snackBar.open(data.payload.data.message, 'ok', {
             duration: 2500,
           });
           this.cancel();
