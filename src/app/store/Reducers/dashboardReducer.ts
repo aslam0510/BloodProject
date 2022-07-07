@@ -36,6 +36,9 @@ export function dashboardReducer(
     case dashboardActions.UPDATE_ORG_INFO_SUCCESS: {
       return { ...state, updateOrgInfo: action.payload };
     }
+    case dashboardActions.CREATE_BLOOD_REQUEST_SUCCESS: {
+      return { ...state, createBloodReq: action.payload };
+    }
     default:
       return state;
   }

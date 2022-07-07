@@ -19,6 +19,8 @@ export const UPDATE_ORG_INFO = 'UPDATE_ORG_INFO';
 export const UPDATE_ORG_INFO_SUCCESS = 'UPDATE_ORG_INFO_SUCCESS';
 export const UPDATE_ENTITY_INFO = 'UPDATE_ENTITY_INFO';
 export const UPDATE_ENTITY_INFO_SUCCESS = 'UPDATE_ENTITY_INFO_SUCCESS';
+export const CREATE_BLOOD_REQUEST = 'CREATE_BLOOD_REQUEST';
+export const CREATE_BLOOD_REQUEST_SUCCESS = 'CREATE_BLOOD_REQUEST_SUCCESS';
 export class GetOrganizationTypes {
   readonly type = GET_ORGANIZATION_TYPES;
   constructor() {}
@@ -110,6 +112,15 @@ export class UpdateEntityInfoSuccess {
   readonly type = UPDATE_ENTITY_INFO_SUCCESS;
   constructor(public payload: any) {}
 }
+export class CreateBloodReq {
+  readonly type = CREATE_BLOOD_REQUEST;
+  constructor(public payload: any) {}
+}
+export class CreateBloodReqSuccess {
+  readonly type = CREATE_BLOOD_REQUEST_SUCCESS;
+  _SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Actions =
   | GetOrganizationTypes
   | GetOrganizationTypesSuccess
@@ -130,4 +141,6 @@ export type Actions =
   | UpdateEntityInfo
   | UpdateEntityInfoSuccess
   | UpdateEntityInfo
-  | UpdateOrgInfoSuccess;
+  | UpdateOrgInfoSuccess
+  | CreateBloodReq
+  | CreateBloodReqSuccess;

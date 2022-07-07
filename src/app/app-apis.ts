@@ -85,6 +85,11 @@ const apis = {
     url: `/${bloodBank}/availability/getBloodAvailability`,
     port: appPort.port,
   },
+
+  CREATE_BLOOD_REQUEST: {
+    url: `/${bloodBank}/request/createBloodRequest`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {

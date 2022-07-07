@@ -130,4 +130,18 @@ export class DashboardEffect {
       })
     );
   });
+
+  createBloodRequest$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.CREATE_BLOOD_REQUEST),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('CREATE_BLOOD_REQUEST'), payload)
+          .pipe(
+            map((data) => new dashboardActions.CreateBloodReqSuccess(data))
+          );
+      })
+    );
+  });
 }
