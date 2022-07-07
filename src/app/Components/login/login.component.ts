@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
         } else if (
           this.loginSuccess &&
           this.loginSuccess.code === 201 &&
-          this.loginSuccess.msg
+          this.loginSuccess.message
         ) {
           this.loginErrors.push(this.loginSuccess.msg);
         }

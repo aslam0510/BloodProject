@@ -140,7 +140,7 @@
                       Please upload your medical registration and document of state
                       medical council proof.
                     </p>
-                    <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
+                    <input [formControlName]="orgFormField.key" #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
                     <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
                       <mat-icon color="accent">upload</mat-icon>
                       <span>Upload</span>

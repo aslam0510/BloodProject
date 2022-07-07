@@ -66,11 +66,13 @@ export class BloodAvailabilityComponent implements OnInit {
             duration: 2000,
           });
           this.store.dispatch(
-            new SideNavAction.GetBloodCompStatus(moment().add(-1, 'days'))
+            new SideNavAction.GetBloodCompStatus(
+              moment().add(-1, 'days').format('MM-DD-YYYY')
+            )
           );
           this.store.dispatch(
             new SideNavAction.GetBloodAvailabilityStatus(
-              moment().add(-1, 'days')
+              moment().add(-1, 'days').format('MM-DD-YYYY')
             )
           );
         }
@@ -82,10 +84,14 @@ export class BloodAvailabilityComponent implements OnInit {
     this.bldCompSelectedVal = 'Today';
     const today = moment();
     this.store.dispatch(
-      new SideNavAction.GetBloodCompStatus(moment().add(-1, 'days'))
+      new SideNavAction.GetBloodCompStatus(
+        moment().add(-1, 'days').format('MM-DD-YYYY')
+      )
     );
     this.store.dispatch(
-      new SideNavAction.GetBloodAvailabilityStatus(moment().add(-1, 'days'))
+      new SideNavAction.GetBloodAvailabilityStatus(
+        moment().add(-1, 'days').format('MM-DD-YYYY')
+      )
     );
     this.store.dispatch(new SideNavAction.GetBloodGroupList());
     this.store.dispatch(new SideNavAction.GetBloodCompList());
