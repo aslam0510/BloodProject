@@ -19,28 +19,40 @@ import { tap } from 'rxjs/operators';
 export class HttpStatus {
   private requestInFlight$: BehaviorSubject<boolean>;
   private loaderStatus: Map<String, String>;
-
+  private noInFlight: number;
   constructor() {
     this.requestInFlight$ = new BehaviorSubject(false);
     this.loaderStatus = new Map();
+    this.noInFlight = 0;
   }
 
-  setHttpStatus(inFlight: boolean, httpReq) {
+  // setHttpStatus(inFlight: boolean, httpReq) {
+  //   if (inFlight) {
+  //     console.log(encodeURI(httpReq.url));
+  //     this.loaderStatus.set(encodeURI(httpReq.url), '');
+  //     this.requestInFlight$.next(inFlight);
+  //   } else {
+  //     console.log('encded ' + decodeURI(httpReq.url));
+  //     this.loaderStatus.delete(decodeURI(httpReq.url));
+  //   }
+
+  //   this.loaderStatus.size === 0
+  //     ? this.requestInFlight$.next(false)
+  //     : this.requestInFlight$.next(true);
+  //   console.log(this.loaderStatus.size);
+  // }
+
+  setHttpStatus(inFlight: boolean, httpReqs) {
     if (inFlight) {
-      console.log(encodeURI(httpReq.url));
-      this.loaderStatus.set(encodeURI(httpReq.url), '');
+      this.noInFlight++;
       this.requestInFlight$.next(inFlight);
-    } else {
-      console.log('encded ' + decodeURI(httpReq.url));
-      this.loaderStatus.delete(decodeURI(httpReq.url));
+    } else if (!inFlight && this.noInFlight === 1) {
+      this.noInFlight--;
+      this.requestInFlight$.next(inFlight);
+    } else if (!inFlight && this.noInFlight > 1) {
+      this.noInFlight--;
     }
-
-    this.loaderStatus.size === 0
-      ? this.requestInFlight$.next(false)
-      : this.requestInFlight$.next(true);
-    console.log(this.loaderStatus.size);
   }
-
   //clear the request inFlight
   clearHttpRequest() {
     this.loaderStatus.clear();
@@ -65,7 +77,7 @@ export class AppInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // this.status.setHttpStatus(true, req);
+    this.status.setHttpStatus(true, req);
     const token = localStorage.getItem('token');
     if (
       !token &&
@@ -103,7 +115,7 @@ export class AppInterceptor implements HttpInterceptor {
       return next.handle(authReq).pipe(
         tap((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
-            // this.status.setHttpStatus(false, event);
+            this.status.setHttpStatus(false, event);
           }
         })
       );

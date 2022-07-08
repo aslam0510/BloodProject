@@ -94,7 +94,6 @@ export class BldCompStDialogComponent implements OnInit {
     }
   }
   onSave() {
-    console.log(this.updateBloodForm.value);
     if (this.updateBloodForm.valid) {
       const payload = {
         bldgrp: this.updateBloodForm.value.bloodGroup,
@@ -105,7 +104,7 @@ export class BldCompStDialogComponent implements OnInit {
         mode: this.mode,
       };
       this.store.dispatch(new SideNavActions.UpdateBloodCompStatus(payload));
-      this.dialogRef.close();
+      this.dialogRef.close(this.data.day);
     }
     // this.snackBar.openFromComponent(NotificationDialogComponent, {
     //   data: {

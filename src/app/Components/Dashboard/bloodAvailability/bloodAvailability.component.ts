@@ -34,6 +34,7 @@ export class BloodAvailabilityComponent implements OnInit {
   public bldAvailableSelectedVal: string;
   public bldCompSelectedVal: string;
   actionSubcription: Subscription;
+  calenderDate: any;
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
@@ -65,16 +66,6 @@ export class BloodAvailabilityComponent implements OnInit {
           this.snackBar.open(data.payload.data.Message, '', {
             duration: 2000,
           });
-          this.store.dispatch(
-            new SideNavAction.GetBloodCompStatus(
-              moment().add(-1, 'days').format('MM-DD-YYYY')
-            )
-          );
-          this.store.dispatch(
-            new SideNavAction.GetBloodAvailabilityStatus(
-              moment().add(-1, 'days').format('MM-DD-YYYY')
-            )
-          );
         }
         break;
     }
@@ -84,14 +75,10 @@ export class BloodAvailabilityComponent implements OnInit {
     this.bldCompSelectedVal = 'Today';
     const today = moment();
     this.store.dispatch(
-      new SideNavAction.GetBloodCompStatus(
-        moment().add(-1, 'days').format('MM-DD-YYYY')
-      )
+      new SideNavAction.GetBloodCompStatus(today.format('MM-DD-YYYY'))
     );
     this.store.dispatch(
-      new SideNavAction.GetBloodAvailabilityStatus(
-        moment().add(-1, 'days').format('MM-DD-YYYY')
-      )
+      new SideNavAction.GetBloodAvailabilityStatus(today.format('MM-DD-YYYY'))
     );
     this.store.dispatch(new SideNavAction.GetBloodGroupList());
     this.store.dispatch(new SideNavAction.GetBloodCompList());
@@ -135,10 +122,30 @@ export class BloodAvailabilityComponent implements OnInit {
           bloodComp: this.bloodCompList,
           bloodGrop: this.bloodGroupList,
           availableUnits: this.bloodCompStatus,
+          day: this.bldCompSelectedVal,
         },
       });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === 'Today') {
+          this.store.dispatch(
+            new SideNavAction.GetBloodCompStatus(moment().format('MM-DD-YYYY'))
+          );
+        } else if (result === 'Yesterday') {
+          const yesterday = moment().add(-1, 'days');
+          this.store.dispatch(
+            new SideNavAction.GetBloodCompStatus(yesterday.format('MM-DD-YYYY'))
+          );
+        } else {
+          this.store.dispatch(
+            new SideNavAction.GetBloodCompStatus(
+              moment(this.calenderDate.value).format('MM-DD-YYYY')
+            )
+          );
+        }
+      });
     } else {
-      this.dialog.open(BldCompStDialogComponent, {
+      const dialogRef = this.dialog.open(BldCompStDialogComponent, {
         width: '400px',
         height: 'auto',
         data: {
@@ -147,7 +154,31 @@ export class BloodAvailabilityComponent implements OnInit {
           bloodGrop: this.bloodGroupList,
           bloodType: this.bloodType[0],
           availableUnits: this.bloodAvailableStatus,
+          day: this.bldAvailableSelectedVal,
         },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === 'Today') {
+          this.store.dispatch(
+            new SideNavAction.GetBloodAvailabilityStatus(
+              moment().format('MM-DD-YYYY')
+            )
+          );
+        } else if (result === 'Yesterday') {
+          const yesterday = moment().add(-1, 'days');
+          this.store.dispatch(
+            new SideNavAction.GetBloodAvailabilityStatus(
+              yesterday.format('MM-DD-YYYY')
+            )
+          );
+        } else {
+          this.store.dispatch(
+            new SideNavAction.GetBloodAvailabilityStatus(
+              moment(this.calenderDate.value).format('MM-DD-YYYY')
+            )
+          );
+        }
       });
     }
   }
@@ -166,7 +197,7 @@ export class BloodAvailabilityComponent implements OnInit {
   onBlodCompDaySelect(day) {
     this.bloodCompDate = '';
     const today = moment();
-    const yesterday = moment().add(-2, 'days');
+    const yesterday = moment().add(-1, 'days');
     if (day === 'today') {
       this.store.dispatch(
         new SideNavAction.GetBloodCompStatus(today.format('MM-DD-YYYY'))
@@ -182,7 +213,7 @@ export class BloodAvailabilityComponent implements OnInit {
   onBldAvailableDaySelect(day) {
     this.bloodAvailableDate = '';
     const today = moment();
-    const yesterday = moment().add(-2, 'days');
+    const yesterday = moment().add(-1, 'days');
     if (day === 'today') {
       this.store.dispatch(
         new SideNavAction.GetBloodAvailabilityStatus(today.format('MM-DD-YYYY'))
@@ -198,6 +229,7 @@ export class BloodAvailabilityComponent implements OnInit {
 
   //on blood component status date select
   onBloodCompDatePicker(date) {
+    this.calenderDate = date;
     this.bloodCompDate = moment(date.value).format('MM-DD-YYYY');
     this.store.dispatch(
       new SideNavAction.GetBloodCompStatus(
@@ -208,6 +240,7 @@ export class BloodAvailabilityComponent implements OnInit {
 
   //on blood available status date select
   onBloodAvailableDatePick(date) {
+    this.calenderDate = date;
     this.bloodAvailableDate = moment(date.value).format('MM-DD-YYYY');
     this.store.dispatch(
       new SideNavAction.GetBloodAvailabilityStatus(
