@@ -19,7 +19,6 @@ export class AppComponent {
     this.httpStatus.getHttpStatus().subscribe((data) => {
       Promise.resolve(null).then(() => {
         this.showLoader = data ? 'showLoader' : '';
-        console.log(this.showLoader);
       });
     });
   }

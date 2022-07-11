@@ -14,6 +14,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AppState } from '../app.state';
 import { Route, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { AppErrorDialogComponent } from '../Dialogs/appErrorDialog/appErrorDialog.component';
 
 @Injectable()
 export class HttpStatus {
@@ -71,7 +72,7 @@ export class AppInterceptor implements HttpInterceptor {
     private status: HttpStatus,
     private store: Store<AppState>,
     private router: Router,
-    public dailog: MatDialog
+    public dialog: MatDialog
   ) {}
   intercept(
     req: HttpRequest<any>,
@@ -113,11 +114,31 @@ export class AppInterceptor implements HttpInterceptor {
       });
 
       return next.handle(authReq).pipe(
-        tap((event: HttpEvent<any>) => {
-          if (event instanceof HttpResponse) {
-            this.status.setHttpStatus(false, event);
+        tap(
+          (event: HttpEvent<any>) => {
+            if (event instanceof HttpResponse) {
+              this.status.setHttpStatus(false, event);
+            }
+          },
+          (err: any) => {
+            this.status.setHttpStatus(false, err);
+            if ((err.status && err.status === 401) || err.status === 500) {
+              this.router.navigate(['/login']);
+            } else {
+              if (err.error.message) {
+                console.log(err);
+                const dialogRef = this.dialog.open(AppErrorDialogComponent, {
+                  width: '45%',
+                  height: 'auto',
+                  data: { errors: err.error.message },
+                });
+                dialogRef.afterClosed().subscribe((result) => {
+                  this.dialog.closeAll();
+                });
+              }
+            }
           }
-        })
+        )
       );
     }
   }

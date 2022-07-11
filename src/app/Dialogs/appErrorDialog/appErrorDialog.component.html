@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>
+  Oops! Something went wrong.
+</h2>
+
+<mat-dialog-content>
+  <div class="mat-subheading-2">
+    An error occured while dealing with your request.
+  </div>
+  <div *ngIf="errors && errors.length > 0">
+    <div *ngFor="let error of errors">
+      Error : {{(error ? error : 'Unhandled Error')}} <br />
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="float-right">
+  <button class="btn-secondary" mat-flat-button (click)="close()">
+    Ok
+  </button>
+</mat-dialog-actions>

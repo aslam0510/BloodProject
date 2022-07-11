@@ -55,6 +55,7 @@ import { AllMessagesComponent } from './Components/Dashboard/all-messages/all-me
 import { ProfileComponent } from './Components/profile/profile.component';
 import { OrgSettingsComponent } from './Components/orgSettings/orgSettings.component';
 import { SharedDialogComponent } from './Dialogs/sharedDialog/sharedDialog.component';
+import { AppErrorDialogComponent } from './Dialogs/appErrorDialog/appErrorDialog.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -94,7 +95,8 @@ const httpServices = [AppInterceptor, HttpStatus];
     ProfileComponent,
     OrgSettingsComponent,
     AddEntityComponent,
-    SharedDialogComponent
+    SharedDialogComponent,
+    AppErrorDialogComponent,
   ],
   imports: [
     BrowserModule,
