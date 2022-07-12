@@ -47,11 +47,12 @@ export class HttpStatus {
     if (inFlight) {
       this.noInFlight++;
       this.requestInFlight$.next(inFlight);
-    } else if (!inFlight && this.noInFlight === 1) {
+    } else if (!inFlight && (this.noInFlight === 1 || this.noInFlight === 0)) {
       this.noInFlight--;
       this.requestInFlight$.next(inFlight);
     } else if (!inFlight && this.noInFlight > 1) {
       this.noInFlight--;
+      this.requestInFlight$.next(inFlight);
     }
   }
   //clear the request inFlight

@@ -9,5 +9,7 @@ export class SideNavState {
   bloodGroupTypes: any;
   bloodCompList: any;
   bloodAvailabilityStatus: any;
+  bloodReqList: any;
+  bloodReqStatus: any;
   constructor() {}
 }

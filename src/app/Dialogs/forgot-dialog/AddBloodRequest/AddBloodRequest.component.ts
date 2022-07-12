@@ -1,5 +1,5 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './../../../app.state';
 import * as SideNavAction from '../../../store/Actions/sideNavAction';
@@ -11,7 +11,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './AddBloodRequest.component.html',
   styleUrls: ['./AddBloodRequest.component.css'],
 })
-export class AddBloodRequestComponent implements OnInit {
+export class AddBloodRequestComponent implements OnInit, OnDestroy {
   bloodReqForm: FormGroup;
   isLinear = false;
   showWholeBlood = true;
@@ -194,5 +194,9 @@ export class AddBloodRequestComponent implements OnInit {
       this.store.dispatch(new DashboardActions.CreateBloodReq(payload));
       this.dialogRef.close();
     }
+  }
+
+  ngOnDestroy() {
+    this.dialogRef.close();
   }
 }

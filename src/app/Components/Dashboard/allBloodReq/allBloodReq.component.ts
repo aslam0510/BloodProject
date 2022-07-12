@@ -1,7 +1,11 @@
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { FilterComponent } from './../../filter/filter.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as SideNavAction from '../../../store/Actions/sideNavAction';
+import { AppState } from 'src/app/app.state';
 
 const ELEMENT_DATA = [
   {
@@ -247,9 +251,42 @@ export class AllBloodReqComponent implements OnInit {
     'Issue blood',
   ];
 
-  constructor(private dialog: MatDialog, private router: Router) {}
+  bloodReqList$: Observable<any>;
+  bloodReqList: any;
+  bloodReqListSub: Subscription;
+  bloodReqStatus$: Observable<any>;
+  bloodReqStatus: any;
+  bloodReqStatusSub: Subscription;
 
-  ngOnInit() {}
+  constructor(
+    private dialog: MatDialog,
+    private router: Router,
+    private store: Store<AppState>
+  ) {
+    this.bloodReqList$ = this.store.select(
+      (state) => state.SidNavSlice.bloodReqList
+    );
+    this.bloodReqStatus$ = this.store.select(
+      (state) => state.SidNavSlice.bloodReqStatus
+    );
+  }
+
+  ngOnInit() {
+    this.store.dispatch(new SideNavAction.GetBloodReqStatusList());
+    this.store.dispatch(new SideNavAction.GetBloodReqList());
+
+    this.bloodReqListSub = this.bloodReqList$.subscribe((data) => {
+      if (data) {
+        console.log(data);
+      }
+    });
+
+    this.bloodReqStatusSub = this.bloodReqStatus$.subscribe((data) => {
+      if (data) {
+        console.log(data);
+      }
+    });
+  }
 
   onFilter(event) {
     const dialogConfig = new MatDialogConfig();
