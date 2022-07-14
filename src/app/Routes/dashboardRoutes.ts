@@ -28,7 +28,7 @@ export const dashboardRoutes: Routes = [
         component: AllBloodReqComponent,
       },
       {
-        path: 'bloodRequests',
+        path: 'editBloodRequest/:id',
         component: BldReqViewComponent,
       },
       {

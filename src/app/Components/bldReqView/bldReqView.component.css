@@ -29,3 +29,7 @@ th {
 td {
   width: 280px;
 }
+
+.header {
+  border-bottom: 2px solid lightgray;
+}

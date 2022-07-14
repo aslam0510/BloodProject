@@ -30,51 +30,42 @@
           <table mat-table [dataSource]="dataSource" class=" demo-table">
             <ng-container matColumnDef="Patient Name">
               <th class="mat-body-2" mat-header-cell *matHeaderCellDef> Patient Name </th>
-              <td class="mat-body-1" mat-cell *matCellDef="let element"> {{element.patientName}} </td>
+              <td class="mat-body-1" mat-cell *matCellDef="let element"> {{element?.patName}} </td>
             </ng-container>
-            <ng-container matColumnDef="Blood type">
-              <th mat-header-cell *matHeaderCellDef> Blood type </th>
-              <td mat-cell *matCellDef="let element"> {{element.bloodType}} </td>
+            <ng-container matColumnDef="Blood Group">
+              <th mat-header-cell *matHeaderCellDef> Blood Group </th>
+              <td mat-cell *matCellDef="let element"> {{element?.bldgrp}} </td>
             </ng-container>
-            <ng-container matColumnDef="Component type">
-              <th mat-header-cell *matHeaderCellDef> Component type </th>
-              <td mat-cell *matCellDef="let element"> {{element.componentType}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Patient age">
-              <th mat-header-cell *matHeaderCellDef> Patient age </th>
-              <td mat-cell *matCellDef="let element"> {{element.patientAge}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Gender">
-              <th mat-header-cell *matHeaderCellDef> Gender </th>
-              <td mat-cell *matCellDef="let element"> {{element.Gender}} </td>
+            <ng-container matColumnDef="Requirements">
+              <th mat-header-cell *matHeaderCellDef> Requirements </th>
+              <td mat-cell *matCellDef="let element"> {{element?.requirements}} </td>
             </ng-container>
             <ng-container matColumnDef="Location">
               <th mat-header-cell *matHeaderCellDef>Location </th>
-              <td mat-cell *matCellDef="let element"> {{element.Location}} </td>
+              <td mat-cell *matCellDef="let element"> {{element?.location}} </td>
             </ng-container>
             <ng-container matColumnDef="Date of request">
               <th mat-header-cell *matHeaderCellDef>Date of request </th>
-              <td mat-cell *matCellDef="let element"> {{element.dateOfRequest}} </td>
+              <td mat-cell *matCellDef="let element"> {{element?.reqDate | date}} </td>
             </ng-container>
-            <ng-container matColumnDef="Date of requirement">
-              <th mat-header-cell *matHeaderCellDef> Date of requirement </th>
-              <td mat-cell *matCellDef="let element"> {{element.dateOfRequirement}} </td>
+            <ng-container matColumnDef="Required On">
+              <th mat-header-cell *matHeaderCellDef> Required On </th>
+              <td mat-cell *matCellDef="let element"> {{element?.age}} </td>
             </ng-container>
-            <ng-container matColumnDef="Remark by doctor">
-              <th mat-header-cell *matHeaderCellDef> Remark by doctor </th>
-              <td mat-cell *matCellDef="let element"> {{element.remarkByDoctor}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Uploaded documents">
-              <th mat-header-cell *matHeaderCellDef> Uploaded documents </th>
-              <td mat-cell *matCellDef="let element"> {{element.uploadedDocuments}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Issue blood">
-              <th mat-header-cell *matHeaderCellDef> Issue blood </th>
-              <td mat-cell *matCellDef="let element"> {{element.issueBlood}} </td>
+            <ng-container matColumnDef="Purpose">
+              <th mat-header-cell *matHeaderCellDef> Purpose </th>
+              <td mat-cell *matCellDef="let element"> {{element?.purpose}} </td>
             </ng-container>
 
+
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef> Status </th>
+              <td mat-cell *matCellDef="let element"> {{element?.reqStatusId}} </td>
+            </ng-container>
+
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onBlgReqView()"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editRequest(row)"></tr>
           </table>
         </div>
       </mat-tab>

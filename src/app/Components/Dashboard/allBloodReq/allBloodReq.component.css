@@ -4,7 +4,7 @@ mat-card {
 
 .mattable {
   height: 53vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .demo-table {
   width: 100%;
@@ -19,4 +19,26 @@ mat-card {
 }
 mat-form-field {
   margin-right: 1rem;
+}
+
+table {
+  border: 1px solid gainsboro;
+}
+
+th {
+  background-color: gray;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+}
+
+th,
+td {
+  padding-left: 1rem !important;
+  border-right: 1px solid lightcyan;
+}
+
+tr:hover {
+  background-color: l;
+  cursor: pointer;
 }

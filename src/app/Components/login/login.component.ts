@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit {
         userId: this.loginForm.value.userid,
         pwd: this.loginForm.value.pwd,
       };
-
+      // 7259901543;
       this.store.dispatch(new AuthAction.GetLogin(payload));
       localStorage.setItem('userName', payload.userId);
     }

@@ -100,6 +100,10 @@ const apis = {
     url: `/${bloodBank}/request/getAllBloodRequests`,
     port: appPort.port,
   },
+  GET_BLD_REQ_BY_ID: {
+    url: `/${bloodBank}/request/viewBloodRequestDetails`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {

@@ -108,7 +108,7 @@ export class SideNavEffect {
     );
   });
 
-  getBloodCompList = createEffect(() => {
+  getBloodCompList$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_BLOOD_COMP_LIST),
       exhaustMap((payload) => {
@@ -121,7 +121,7 @@ export class SideNavEffect {
     );
   });
 
-  getBloodGroupList = createEffect(() => {
+  getBloodGroupList$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_BLOOD_GROUP_LIST),
       exhaustMap((payload) => {
@@ -134,7 +134,7 @@ export class SideNavEffect {
     );
   });
 
-  UpdateBloodCompStatus = createEffect(() => {
+  UpdateBloodCompStatus$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.UPDATE_BLOOD_COMP_STATUS),
       map((data: any) => data.payload),
@@ -151,7 +151,7 @@ export class SideNavEffect {
     );
   });
 
-  getBloodAvailabilityStatus = createEffect(() => {
+  getBloodAvailabilityStatus$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_BLOOD_AVAILABILITY_STATUS),
       map((data: any) => data.payload),
@@ -170,12 +170,13 @@ export class SideNavEffect {
     );
   });
 
-  getBloodReqStatusList = createEffect(() => {
+  getBloodReqStatusList$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_BLOOD_REQUEST_STATUS_LIST),
+      map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_BLOOD_REQUEST_STATUS_LIST'))
+          .get(api.getAPI('GET_BLOOD_REQUEST_STATUS_LIST') + payload)
           .pipe(
             map(
               (data: any) =>
@@ -198,6 +199,25 @@ export class SideNavEffect {
           )
           .pipe(
             map((data: any) => new SideNavAction.GetBloodReqListSuccess(data))
+          );
+      })
+    );
+  });
+
+  getBldReqById = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.GET_BLD_REQ_BY_ID),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        console.log(payload);
+
+        return this.http
+          .get(
+            api.getAPI('GET_BLD_REQ_BY_ID') +
+              `?id=${payload.id}&reqStatusId=${payload.reqStatusId}`
+          )
+          .pipe(
+            map((data: any) => new SideNavAction.GetBldReqByIdSuccess(data))
           );
       })
     );

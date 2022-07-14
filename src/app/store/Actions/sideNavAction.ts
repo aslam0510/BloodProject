@@ -28,6 +28,8 @@ export const GET_BLOOD_REQUEST_STATUS_LIST_SUCCESS =
   'GET_BLOOD_REQUEST_STATUS_LIST_SUCCESS';
 export const GET_BLOOD_REQUEST_LIST = 'GET_BLOOD_REQUEST_LIST';
 export const GET_BLOOD_REQUEST_LIST_SUCCESS = 'GET_BLOOD_REQUEST_LIST_SUCCESS';
+export const GET_BLD_REQ_BY_ID = 'GET_BLD_REQ_BY_ID';
+export const GET_BLD_REQ_BY_ID_SUCCESS = 'GET_BLD_REQ_BY_ID_SUCCESS';
 export class GetUsersList {
   readonly type = GET_USERS_LIST;
 }
@@ -148,6 +150,16 @@ export class GetBloodReqListSuccess {
   readonly type = GET_BLOOD_REQUEST_LIST_SUCCESS;
   constructor(public payload: any) {}
 }
+
+export class GetBldReqById {
+  readonly type = GET_BLD_REQ_BY_ID;
+  constructor(public payload: any) {}
+}
+
+export class GetBldReqByIdSuccess {
+  readonly type = GET_BLD_REQ_BY_ID_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Action =
   | GetUsersList
   | GetUsersListSuccess
@@ -174,4 +186,6 @@ export type Action =
   | GetBloodReqList
   | GetBloodReqListSuccess
   | GetBloodReqStatusList
-  | GetBloodReqStatusListSuccess;
+  | GetBloodReqStatusListSuccess
+  | GetBldReqById
+  | GetBldReqByIdSuccess;
