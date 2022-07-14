@@ -8,3 +8,12 @@ mat-card {
 .select {
   margin-left: 1.6rem;
 }
+
+.header {
+  padding-left: 11rem;
+  padding-right: 11rem;
+}
+
+button {
+  border-radius: 10px;
+}

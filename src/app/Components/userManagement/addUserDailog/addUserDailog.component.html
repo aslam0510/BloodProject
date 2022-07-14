@@ -1,9 +1,9 @@
 <mat-card>
-  <div class="py-1 d-flex align-items-center justify-content-around appBgColor">
-    <h2 class="flex-1 m-0 text-white">Add User</h2>
+  <div class="p-2 appBgColor d-flex align-items-center">
+    <h2 class="m-0 text-white d-inline header">{{isEdit ? 'Edit User' : 'Add User'}}</h2>
     <mat-icon class="text-white" (click)="dialogRef.close()">close</mat-icon>
   </div>
-  <div class="appBgColor px-2 py-2">
+  <div class="appBgColor px-2 py-1">
     <h3 class="text-white select">Select</h3>
     <mat-radio-group aria-label="Select an option" class="my-2 mx-2">
       <mat-radio-button checked="isOrg" *ngIf="editUserData?.userType === 2 || editUserData === null" (change)="radioChnage($event)" value="org" class="text-white mx-2">Organization</mat-radio-button>

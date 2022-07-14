@@ -52,7 +52,6 @@ export class HttpStatus {
       this.requestInFlight$.next(inFlight);
     } else if (!inFlight && this.noInFlight > 1) {
       this.noInFlight--;
-      this.requestInFlight$.next(inFlight);
     }
   }
   //clear the request inFlight
@@ -129,7 +128,7 @@ export class AppInterceptor implements HttpInterceptor {
               if (err.error.message) {
                 console.log(err);
                 const dialogRef = this.dialog.open(AppErrorDialogComponent, {
-                  width: '45%',
+                  width: '35%',
                   height: 'auto',
                   data: { errors: err.error.message },
                 });
