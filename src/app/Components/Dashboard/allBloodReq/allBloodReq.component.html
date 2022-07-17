@@ -4,25 +4,26 @@
     <mat-tab-group>
       <mat-tab label="Hight-Priority Request"> Hight-Priority Request </mat-tab>
       <mat-tab label="Open Blood Request">
-        <div class="d-flex justify-content-between px-2 mt-2 py-1">
-
+        <div class="d-flex align-items-center justify-content-end px-2 mt-2 py-1">
+          <!-- 
           <button mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event)">
             <mat-icon>filter_list</mat-icon> <span>{{'Filter'}}</span>
-          </button>
-          <div class="d-flex justify-content-between align-items-center">
-            <h3 class="mt-1 mr-1 type">Blood Type</h3>
+          </button> -->
+          <div>
             <mat-form-field>
-              <mat-select placeholder="{{ 'Select Blood Type' }}">
-                <mat-option value="hospital">
-                  {{ "hospital" }}</mat-option>
+              <mat-select placeholder="{{ 'Blood Type' }}">
+                <mat-option [value]="type" *ngFor="let type of bloodGroupTypes?.types">
+                  {{ type }}</mat-option>
               </mat-select>
             </mat-form-field>
-            <h3 class="mt-1  type">Component Type</h3>
             <mat-form-field>
               <mat-select placeholder="{{ 'Select Component' }}">
-                <mat-option value="hospital">
-                  {{ "hospital" }}</mat-option>
+                <mat-option [value]="type" *ngFor="let type of bloodCompList?.types">
+                  {{ type }}</mat-option>
               </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput placeholder="location" (keyup)="filterData($event.target.value)">
             </mat-form-field>
           </div>
         </div>

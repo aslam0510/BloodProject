@@ -29,9 +29,13 @@ export class AllBloodReqComponent implements OnInit {
   bloodReqList$: Observable<any>;
   bloodReqList: any;
   bloodReqListSub: Subscription;
-  bloodReqStatus$: Observable<any>;
-  bloodReqStatus: any;
-  bloodReqStatusSub: Subscription;
+
+  bloodGroupTypes$: Observable<any>;
+  bloodGroupTypes: any;
+  bloodGroupTypesSub: Subscription;
+  bloodCompList$: Observable<any>;
+  bloodCompList: any;
+  bloodCompListSub: Subscription;
 
   constructor(
     private dialog: MatDialog,
@@ -41,25 +45,36 @@ export class AllBloodReqComponent implements OnInit {
     this.bloodReqList$ = this.store.select(
       (state) => state.SidNavSlice.bloodReqList
     );
-    this.bloodReqStatus$ = this.store.select(
-      (state) => state.SidNavSlice.bloodReqStatus
+
+    this.bloodGroupTypes$ = this.store.select(
+      (state) => state.SidNavSlice.bloodGroupTypes
+    );
+
+    this.bloodCompList$ = this.store.select(
+      (state) => state.SidNavSlice.bloodCompList
     );
   }
 
   ngOnInit() {
-    this.store.dispatch(new SideNavAction.GetBloodReqStatusList());
     this.store.dispatch(new SideNavAction.GetBloodReqList());
 
     this.bloodReqListSub = this.bloodReqList$.subscribe((data) => {
       if (data) {
         this.bloodReqList = data.data;
         this.dataSource = new MatTableDataSource(this.bloodReqList.details);
-        console.log(this.dataSource);
+        this.dataSource.filterPredicate = this.filterRequests();
       }
     });
 
-    this.bloodReqStatusSub = this.bloodReqStatus$.subscribe((data) => {
+    this.bloodGroupTypesSub = this.bloodGroupTypes$.subscribe((data) => {
       if (data) {
+        this.bloodGroupTypes = data.data;
+      }
+    });
+
+    this.bloodCompListSub = this.bloodCompList$.subscribe((data) => {
+      if (data) {
+        this.bloodCompList = data.data;
       }
     });
   }
@@ -79,7 +94,34 @@ export class AllBloodReqComponent implements OnInit {
   }
 
   editRequest(row: any) {
-    this.router.navigate(['/dashboard/editBloodRequest', row.id]);
-    this.store.dispatch(new SideNavAction.GetBldReqById(row));
+    this.router.navigate([
+      '/dashboard/editBloodRequest',
+      `?id=${row.id}&reqStatusId=${row.reqStatusId}`,
+    ]);
+  }
+
+  filterData(filterValue: string) {
+    const filter = {
+      value: filterValue.trim().toLocaleLowerCase(),
+      type: 'search',
+    };
+
+    this.dataSource.filter = JSON.stringify(filter);
+  }
+
+  filterRequests(): (data: any, filter: string) => boolean {
+    const filterFunction = function (data, filter): boolean {
+      const searchTerms = JSON.parse(filter);
+      if (searchTerms.type) {
+        return (
+          data.location
+            .toString()
+            .trim()
+            .toLowerCase()
+            .indexOf(searchTerms.value.toLowerCase()) !== -1
+        );
+      }
+    };
+    return filterFunction;
   }
 }

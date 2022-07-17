@@ -42,6 +42,9 @@ export function SideNavReducer(
     case SideNavActions.GET_BLOOD_REQUEST_STATUS_LIST_SUCCESS: {
       return { ...state, bloodReqStatus: action.payload };
     }
+    case SideNavActions.GET_BLD_REQ_BY_ID_SUCCESS: {
+      return { ...state, bloodReqDetail: action.payload };
+    }
     default: {
       return state;
     }

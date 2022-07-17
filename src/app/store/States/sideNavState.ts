@@ -11,5 +11,6 @@ export class SideNavState {
   bloodAvailabilityStatus: any;
   bloodReqList: any;
   bloodReqStatus: any;
+  bloodReqDetail: any;
   constructor() {}
 }

@@ -1,8 +1,8 @@
 <div>
   <h3 routerLink="/dashboard/bloodRequest"> {{'<'}} Blood Component Request</h3>
 </div>
-<div class="row">
-  <div class="col-6">
+<div class="row mb-5">
+  <div class="col-6 mb-3">
     <mat-card class="mat-elevation-z8">
       <div class="p-3 px-4 d-flex align-items-center justify-content-between header">
         <h3 class="m-0">Request Detail's</h3>
@@ -12,46 +12,74 @@
         <table>
           <tr>
             <td>Patient's Name</td>
-            <th>RTR65732687</th>
+            <th>{{bloodReqDetail?.patName}}</th>
           </tr>
           <tr>
-            <td>Blood Type</td>
-            <th>567456</th>
-          </tr>
-          <tr>
-            <td>Component Type</td>
-            <th>Fresh Frozen plasma</th>
+            <td>Blood Group</td>
+            <th>{{bloodReqDetail?.bldgrp}}</th>
           </tr>
           <tr>
             <td>Age</td>
-            <th>32</th>
+            <th>{{bloodReqDetail?.age}}</th>
           </tr>
           <tr>
             <td>Gender</td>
-            <th>Male</th>
+            <th>{{bloodReqDetail?.gender}}</th>
           </tr>
           <tr>
-            <td>Location</td>
-            <th>bangalore</th>
+            <td>Purpose</td>
+            <th>{{bloodReqDetail?.purpose}}</th>
+          </tr>
+          <tr>
+            <td>Name Of Requester</td>
+            <th>{{bloodReqDetail?.reqstrName}}</th>
+          </tr>
+          <tr>
+            <td>Relation with Patient</td>
+            <th>{{bloodReqDetail?.reqstrRel}}</th>
+          </tr>
+          <tr>
+            <td>Contact No.</td>
+            <th>{{bloodReqDetail?.contact}}</th>
+          </tr>
+          <tr>
+            <td>Blood Requirement Type</td>
+            <th>{{bloodReqDetail?.bldReqType}}</th>
           </tr>
           <tr>
             <td>Date of Request</td>
-            <th>29-03-2022</th>
+            <th>{{bloodReqDetail?.reqDate | date}}</th>
           </tr>
           <tr>
             <td>Date of Requirement</td>
-            <th>29-03-2022</th>
+            <th>{{bloodReqDetail?.reqDate | date}}</th>
+          </tr>
+          <tr>
+            <td>Hospital Name</td>
+            <th>{{bloodReqDetail?.hospitalName}}</th>
+          </tr>
+          <tr>
+            <td>Hospital Address</td>
+            <th>{{bloodReqDetail?.hospitalAddr}}</th>
+          </tr>
+          <tr>
+            <td>patient's Address</td>
+            <th>{{bloodReqDetail?.patAddr}}</th>
+          </tr>
+          <tr>
+            <td>Location</td>
+            <th>{{bloodReqDetail?.location}}</th>
           </tr>
         </table>
       </div>
     </mat-card>
   </div>
-  <div class="col-6">
+  <div class="col-6 mb-3">
     <mat-card class="mat-elevation-z8">
       <div class="p-3 px-4 header">
         <h3 class="m-0">Requirements</h3>
       </div>
-      <div>
+      <div class="mb-3">
         <table>
           <thead>
             <th>Items</th>
@@ -60,8 +88,37 @@
             <th>Issue</th>
             <th>Reserve</th>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr *ngFor="let item of bloodReqDetail?.requirements; let i = index">
+              <td>{{item.bldComponent}}</td>
+              <td>{{item.requiredUnit}}</td>
+              <td>{{item.available}}</td>
+              <td>
+                <mat-form-field>
+                  <input type="number" matInput placeholder="Issue Units" (keyup)="onIssueUnits($event.target.value,i)">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input type="number" matInput placeholder="Reserve Units" (keyup)="onResrveUnits($event.target.value,i)">
+                </mat-form-field>
+              </td>
+            </tr>
+          </tbody>
         </table>
+      </div>
+      <div class="mt-5 my-2 px-4">
+        <h3>Request Status</h3>
+        <div class="d-flex align-items-center justify-content-between">
+          <mat-form-field class="formField">
+            <mat-select placeholder="{{ 'Select Request Type' }}" (selectionChange)="onSelectReqType($event.value)">
+              <mat-option [value]="type.reqStatusId" *ngFor="let type of bloodReqStatus">
+                {{ type.reqStatus }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button class="appBgColor text-white" (click)="save()">Save</button>
+        </div>
+
       </div>
     </mat-card>
   </div>

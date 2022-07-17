@@ -176,7 +176,7 @@ export class SideNavEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_BLOOD_REQUEST_STATUS_LIST') + payload)
+          .get(api.getAPI('GET_BLOOD_REQUEST_STATUS_LIST'))
           .pipe(
             map(
               (data: any) =>
@@ -212,10 +212,7 @@ export class SideNavEffect {
         console.log(payload);
 
         return this.http
-          .get(
-            api.getAPI('GET_BLD_REQ_BY_ID') +
-              `?id=${payload.id}&reqStatusId=${payload.reqStatusId}`
-          )
+          .get(api.getAPI('GET_BLD_REQ_BY_ID') + payload)
           .pipe(
             map((data: any) => new SideNavAction.GetBldReqByIdSuccess(data))
           );
