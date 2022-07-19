@@ -189,4 +189,8 @@ export class LoginComponent implements OnInit {
       },
     });
   }
+
+  ngDestroy() {
+    this.showVerify = false;
+  }
 }

@@ -170,13 +170,12 @@ export class DonarDatabaseComponent implements OnInit {
   displayedColumns: string[] = [
     'select',
     'donorName',
-    'bloodType',
+    'donorId',
+    'UHID',
+    'bloodGroup',
+    'age',
     'gender',
-    'donorAge',
-    'donorWeight',
-    'disease',
-    'lastDonated',
-    'contact',
+    'lastDonation',
     'location',
   ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);

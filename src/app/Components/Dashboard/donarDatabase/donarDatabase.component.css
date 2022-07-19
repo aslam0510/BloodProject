@@ -35,3 +35,6 @@ mat-button-toggle-appearance-standard mat-button-toggle-label-content {
   width: 48px;
   height: 48px;
 }
+.date {
+  width: 85px;
+}

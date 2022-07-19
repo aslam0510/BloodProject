@@ -187,7 +187,7 @@ export class SideNavEffect {
     );
   });
 
-  getBloodReqList = createEffect(() => {
+  getBloodReqList$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_BLOOD_REQUEST_LIST),
       map((data: any) => data.payload),
@@ -204,7 +204,7 @@ export class SideNavEffect {
     );
   });
 
-  getBldReqById = createEffect(() => {
+  getBldReqById$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_BLD_REQ_BY_ID),
       map((data: any) => data.payload),
@@ -215,6 +215,38 @@ export class SideNavEffect {
           .get(api.getAPI('GET_BLD_REQ_BY_ID') + payload)
           .pipe(
             map((data: any) => new SideNavAction.GetBldReqByIdSuccess(data))
+          );
+      })
+    );
+  });
+
+  getDonorRepoList$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.GET_DONOR_REPO_LIST),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        console.log(payload);
+        return this.http
+          .get(api.getAPI('GET_DONOR_REPO_LIST') + payload)
+          .pipe(
+            map((data: any) => new SideNavAction.GetDonorRepoListSuccess(data))
+          );
+      })
+    );
+  });
+
+  getDonorDonationList$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.GET_DONOR_DONATION_HISTORY_LIST),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        console.log(payload);
+        return this.http
+          .get(api.getAPI('GET_DONOR_DONATION_LIST') + payload)
+          .pipe(
+            map(
+              (data: any) => new SideNavAction.GetDonorDonationListSuccess(data)
+            )
           );
       })
     );
