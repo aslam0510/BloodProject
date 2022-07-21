@@ -46,16 +46,24 @@ export class BldReqViewComponent implements OnInit {
       if (response) {
         this.bloodReqDetail = response.data;
         this.bloodReqDetail?.requirements.forEach((x) => {
-          [...x, { reserved: 0 }];
+          this.requirementUnits.push({
+            available: x.available,
+            bldComponent: x.bldComponent,
+            id: x.id,
+            issuedUnits: Number(0),
+            requiredUnit: x.requiredUnit,
+            reservedUnits: Number(0),
+          });
         });
 
-        console.log(this.bloodReqDetail);
+        console.log(this.requirementUnits);
       }
     });
 
     this.bloodReqStatusSub = this.bloodReqStatus$.subscribe((data) => {
       if (data) {
         this.bloodReqStatus = data.data;
+        console.log(this.bloodReqStatus);
       }
     });
   }
@@ -64,14 +72,21 @@ export class BldReqViewComponent implements OnInit {
     console.log(type);
   }
 
-  onResrveUnits(unit, index) {
-    // console.log(this.requirementUnits[i]);
-    // this.requirementUnits[i].Object.assign({ reserved: unit });
-    // console.log(this.requirementUnits);
-  }
-  onIssueUnits(unit, i) {
-    this.requirementUnits[i]['issued'] = unit;
+  onResrveUnits(unit, i) {
+    this.requirementUnits[i].reservedUnits = unit;
     console.log(this.requirementUnits);
   }
-  save() {}
+  onIssueUnits(unit, i) {
+    this.requirementUnits[i].issuedUnits = unit;
+    console.log(this.requirementUnits);
+  }
+  save() {
+    const payload = {
+      bldReqId: '62cf02dfbd768eeaccae5a92',
+      reqSts: this.bloodReqDetail.reqSts,
+      subSts: 1,
+      requirements: this.requirementUnits,
+    };
+    this.store.dispatch(new SideNavAction.UpdateBloodRequest(payload));
+  }
 }

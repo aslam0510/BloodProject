@@ -1,9 +1,12 @@
+import { Store } from '@ngrx/store';
 import { SendMessageComponent } from './../../../Dialogs/send-message/send-message.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FilterComponent } from '../../filter/filter.component';
+import { AppState } from 'src/app/app.state';
+import * as SideNavActions from '../../../store/Actions/sideNavAction';
 
 const ELEMENT_DATA = [
   {
@@ -181,9 +184,11 @@ export class DonarDatabaseComponent implements OnInit {
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   selection = new SelectionModel(true, []);
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(new SideNavActions.GetDonorRepoList());
+  }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;

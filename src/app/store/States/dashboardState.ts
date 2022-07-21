@@ -9,5 +9,6 @@ export class DashboardState {
   updateOrgInfo: any;
   updateEntityInfo: any;
   createBloodReq: any;
+  userDetails: any;
   constructor() {}
 }

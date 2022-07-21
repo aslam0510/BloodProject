@@ -209,12 +209,26 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_BLD_REQ_BY_ID),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload);
-
         return this.http
           .get(api.getAPI('GET_BLD_REQ_BY_ID') + payload)
           .pipe(
             map((data: any) => new SideNavAction.GetBldReqByIdSuccess(data))
+          );
+      })
+    );
+  });
+
+  updateBldReq$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.UPDATE_BLOOD_REQUEST),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .put(api.getAPI('UPDATE_BLOOD_REQUEST'), payload)
+          .pipe(
+            map(
+              (data: any) => new SideNavAction.UpdateBloodRequestSuccess(data)
+            )
           );
       })
     );
@@ -227,7 +241,10 @@ export class SideNavEffect {
       exhaustMap((payload) => {
         console.log(payload);
         return this.http
-          .get(api.getAPI('GET_DONOR_REPO_LIST') + payload)
+          .get(
+            api.getAPI('GET_DONOR_REPO_LIST') +
+              `?page=1&size=100&date=07-19-2022`
+          )
           .pipe(
             map((data: any) => new SideNavAction.GetDonorRepoListSuccess(data))
           );
@@ -242,7 +259,10 @@ export class SideNavEffect {
       exhaustMap((payload) => {
         console.log(payload);
         return this.http
-          .get(api.getAPI('GET_DONOR_DONATION_LIST') + payload)
+          .get(
+            api.getAPI('GET_DONOR_DONATION_LIST') +
+              `?page=1&size=100&date=06-04-2022`
+          )
           .pipe(
             map(
               (data: any) => new SideNavAction.GetDonorDonationListSuccess(data)

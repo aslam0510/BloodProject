@@ -36,6 +36,8 @@ export const GET_DONOR_DONATION_HISTORY_LIST =
   'GET_DONOR_DONATION_HISTORY_LIST';
 export const GET_DONOR_DONATION_HISTORY_LIST_SUCCESS =
   'GET_DONOR_DONATION_HISTORY_LIST_SUCCESS';
+export const UPDATE_BLOOD_REQUEST = 'UPDATE_BLOOD_REQUEST';
+export const UPDATE_BLOOD_REQUEST_SUCCESS = 'UPDATE_BLOOD_REQUEST_SUUCESS';
 export class GetUsersList {
   readonly type = GET_USERS_LIST;
 }
@@ -168,7 +170,7 @@ export class GetBldReqByIdSuccess {
 }
 export class GetDonorRepoList {
   readonly type = GET_DONOR_REPO_LIST;
-  constructor(public payload: any) {}
+  // constructor(public payload: any) {}
 }
 
 export class GetDonorRepoListSuccess {
@@ -186,6 +188,14 @@ export class GetDonorDonationListSuccess {
   constructor(public payload: any) {}
 }
 
+export class UpdateBloodRequest {
+  readonly type = UPDATE_BLOOD_REQUEST;
+  constructor(public payload: any) {}
+}
+export class UpdateBloodRequestSuccess {
+  readonly type = UPDATE_BLOOD_REQUEST_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Action =
   | GetUsersList
   | GetUsersListSuccess
@@ -218,4 +228,6 @@ export type Action =
   | GetDonorDonationList
   | GetDonorDonationListSuccess
   | GetDonorDonationListSuccess
-  | GetDonorRepoListSuccess;
+  | GetDonorRepoListSuccess
+  | UpdateBloodRequest
+  | UpdateBloodRequestSuccess;

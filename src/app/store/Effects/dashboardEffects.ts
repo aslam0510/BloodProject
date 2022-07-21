@@ -144,4 +144,32 @@ export class DashboardEffect {
       })
     );
   });
+
+  getUserDetails$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.GET_USER_DETAILS),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_USER_DETAILS'))
+          .pipe(
+            map((data) => new dashboardActions.GetUserDetailsSuccess(data))
+          );
+      })
+    );
+  });
+
+  updateUserDetails$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.UPDATE_USER_DETAILS),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .put(api.getAPI('UPDATE_USER_DETAILS'), payload)
+          .pipe(
+            map((data) => new dashboardActions.UpdateUserDetailsSuccess(data))
+          );
+      })
+    );
+  });
 }

@@ -11,13 +11,10 @@ const apis = {
   GET_LOGIN: { url: '/login', port: appPort.port },
   GENERATE_OTP: { url: '/sendOTP', port: appPort.port },
   VERIFY_OTP: { url: '/verifyOTP', port: appPort.port },
-
-  //********************USER*********************************
   SET_PASSWORD: { url: `/${user}/resetPassword`, port: appPort.port },
   ADD_USER: { url: `/${user}/createUser`, port: appPort.port },
   EDIT_USER: { url: `/${user}/editProfile`, port: appPort.port },
 
-  //***************************Register************************
   GET_ORG_TYPES: { url: `/${register}/getTypes`, port: appPort.port },
   SUBMIT_ORGFORM: {
     url: `/${register}/registerOrganization`,
@@ -36,8 +33,6 @@ const apis = {
     url: `/${register}/getEntityCategories`,
     port: appPort.port,
   },
-
-  //*************************Admin**********************/
   ADD_NEW_ENTITY: { url: `/${admin}/registerEntity`, port: appPort.port },
   GET_ENTITY_DETAILS: { url: `/${admin}/getAllEntities`, port: appPort.port },
   GET_ORANIZATION_DETAILS: {
@@ -63,8 +58,6 @@ const apis = {
     url: `/${admin}/getEntityCategories`,
     port: appPort.port,
   },
-
-  //bloodBank
   GET_BLOOD_COMP_STATUS: {
     url: `/${bloodBank}/availability/getBloodComponetsAvailability`,
     port: appPort.port,
@@ -102,6 +95,22 @@ const apis = {
   },
   GET_BLD_REQ_BY_ID: {
     url: `/${bloodBank}/request/viewBloodRequestDetails`,
+    port: appPort.port,
+  },
+  GET_DONOR_REPO_LIST: {
+    url: `/${bloodBank}/donor/getDonors/`,
+    port: appPort.port,
+  },
+  UPDATE_BLOOD_REQUEST: {
+    url: `/${bloodBank}/request/updateRequirements`,
+    port: appPort.port,
+  },
+  GET_USER_DETAILS: {
+    url: `/${user}/getUserDetails`,
+    port: appPort.port,
+  },
+  UPDATE_USER_DETAILS: {
+    url: `/${user}/editProfile`,
     port: appPort.port,
   },
 };

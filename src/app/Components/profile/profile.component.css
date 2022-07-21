@@ -28,3 +28,21 @@ th {
 td {
   width: 280px;
 }
+
+mat-card {
+  border-radius: 15px;
+}
+
+::ng-deep.mat-form-field-disabled {
+  font-weight: bold;
+  color: black;
+}
+
+button {
+  color: white;
+  border-radius: 10px;
+  margin-left: 1rem;
+}
+.mat-form-field-infix {
+  padding: 0;
+}

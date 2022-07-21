@@ -39,6 +39,9 @@ export function dashboardReducer(
     case dashboardActions.CREATE_BLOOD_REQUEST_SUCCESS: {
       return { ...state, createBloodReq: action.payload };
     }
+    case dashboardActions.GET_USER_DETAILS_SUCCESS: {
+      return { ...state, userDetails: action.payload };
+    }
     default:
       return state;
   }
