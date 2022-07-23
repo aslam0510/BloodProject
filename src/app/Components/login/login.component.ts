@@ -1,5 +1,5 @@
 import * as AuthAction from './../../store/Actions/auth.action';
-import { Store } from '@ngrx/store';
+import { Store, ActionsSubject } from '@ngrx/store';
 import { ForgotDialogComponent } from './../../Dialogs/forgot-dialog/forgot-dialog.component';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -32,14 +32,18 @@ export class LoginComponent implements OnInit {
   verifyOTPSuccessSub: Subscription;
   ref = '';
   showVerify: boolean;
-
+  actionSubcription: Subscription;
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
     private router: Router,
     private store: Store<AppState>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private actionsSubj: ActionsSubject
   ) {
+    this.actionSubcription = this.actionsSubj.subscribe((data) => {
+      this.handleActionSubscription(data);
+    });
     this.loginSuccess$ = this.store.select((state) => state.AuthSlice.auth);
     this.verifyOTPSuccess$ = this.store.select(
       (state) => state.AuthSlice.verifyOTPSuccess
@@ -48,7 +52,20 @@ export class LoginComponent implements OnInit {
     this.loginErrors = [];
     this.showVerify = true;
   }
-
+  handleActionSubscription(data: any) {
+    switch (data.type) {
+      case AuthAction.FORGET_PASSWORD_SUCCESS:
+        if (data.payload.code === 200) {
+          this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
+        }
+        break;
+      case AuthAction.GET_LOGIN_SUCCESS:
+      // if (data.payload.code === 200) {
+      //     this.showVerifyOtpPopUp();
+      //   this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
+      // }
+    }
+  }
   ngOnInit() {
     this.loginForm = new FormGroup({
       userid: new FormControl('', Validators.required),
@@ -82,6 +99,7 @@ export class LoginComponent implements OnInit {
       }
     });
 
+    // f8rihztJ3X
     //verifying if the user is firstime or not, if first time showing the setpassword popup, if not redirecting to the dashboard page
     this.verifyOTPSuccessSub = this.verifyOTPSuccess$.subscribe((data) => {
       if (data) {

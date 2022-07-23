@@ -79,4 +79,28 @@ export class AuthEffect {
       })
     );
   });
+
+  ForgetPassword$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.FORGET_PASSWORD),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('FORGET_PASSWORD'), payload)
+          .pipe(map((data: any) => new auth.ForgetPasswordSuccess(data)));
+      })
+    );
+  });
+
+  resetPassword$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.RESET_PASSWORD),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('RESET_PASSWORD'), payload)
+          .pipe(map((data: any) => new auth.ResetPasswordSuccess(data)));
+      })
+    );
+  });
 }

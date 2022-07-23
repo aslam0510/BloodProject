@@ -1,10 +1,11 @@
+import { ResetPasswordComponent } from './../../Dialogs/resetPassword/resetPassword.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { LoginViaOtpComponent } from './../../Dialogs/loginViaOtp/loginViaOtp.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -43,11 +44,13 @@ export class HomeComponent implements OnInit {
   generateOtp$: Observable<any>;
   generateOtp: any;
   generateOtpSub: Subscription;
+  urlToken: string = '';
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private route: ActivatedRoute
   ) {
     this.generateOtp$ = this.store.select(
       (state) => state.AuthSlice.generateOtp
@@ -55,6 +58,19 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe((param) => {
+      this.urlToken = param.token;
+    });
+
+    if (this.urlToken) {
+      this.dialog.open(ResetPasswordComponent, {
+        width: '500px',
+        height: 'auto',
+        data: {
+          token: this.urlToken,
+        },
+      });
+    }
     this.generateOtpSub = this.generateOtp$.subscribe((data) => {
       if (data) {
         this.generateOtp = data;

@@ -113,6 +113,14 @@ const apis = {
     url: `/${user}/editProfile`,
     port: appPort.port,
   },
+  FORGET_PASSWORD: {
+    url: `/forgetPassword`,
+    port: appPort.port,
+  },
+  RESET_PASSWORD: {
+    url: `/setPassword`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {

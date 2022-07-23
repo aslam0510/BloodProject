@@ -8,10 +8,7 @@ import { AddEntityComponent } from './Components/addEntity/addEntity.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
-  {
-    path: 'resetPassword',
-    component: ResetPasswordComponent,
-  },
+
   {
     path: 'signup',
     pathMatch: 'full',
@@ -22,11 +19,11 @@ const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent,
   },
-  // {
-  //   path: 'addEntity',
-  //   pathMatch: 'full',
-  //   component: AddEntityComponent,
-  // },
+  {
+    path: 'resetPassword/:token',
+    pathMatch: 'full',
+    component: HomeComponent,
+  },
   ...dashboardRoutes,
 ];
 

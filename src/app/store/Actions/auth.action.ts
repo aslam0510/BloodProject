@@ -10,6 +10,10 @@ export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES';
 export const GET_ALL_CATEGORIES_SUCCESS = 'GET_ALL_CATEGORIES_SUCCESS';
 export const GET_CATEGORY = 'GET_CATEGORY';
 export const GET_CATEGORY_SUCCESS = 'GET_CATEGORY_SUCCESS';
+export const FORGET_PASSWORD = 'FORGET_PASSWORD';
+export const FORGET_PASSWORD_SUCCESS = 'FORGET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD = 'RESET_PASSWORD';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 
 export class GetLogin {
   readonly type = GET_LOGIN;
@@ -68,6 +72,26 @@ export class GetCategorySuccess {
   readonly type = GET_CATEGORY_SUCCESS;
   constructor(public payload: any) {}
 }
+
+export class ForgetPassword {
+  readonly type = FORGET_PASSWORD;
+  constructor(public payload: any) {}
+}
+
+export class ForgetPasswordSuccess {
+  readonly type = FORGET_PASSWORD_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class ResetPassword {
+  readonly type = RESET_PASSWORD;
+  constructor(public payload: any) {}
+}
+
+export class ResetPasswordSuccess {
+  readonly type = RESET_PASSWORD_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Actions =
   | GetLogin
   | GetLoginSuccess
@@ -80,4 +104,8 @@ export type Actions =
   | GetAllCategories
   | GetAllCategoriesSuccess
   | GetCategory
-  | GetCategorySuccess;
+  | GetCategorySuccess
+  | ForgetPassword
+  | ForgetPasswordSuccess
+  | ResetPassword
+  | ResetPasswordSuccess;

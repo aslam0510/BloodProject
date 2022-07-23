@@ -6,23 +6,30 @@
   z-index: 999;
   width: 14%;
   /* height: 100%; */
-  background-color: brown;
+  background-color: white;
   padding: 10px 10px;
+  color: black;
 }
 
 .menus {
   margin-top: 3rem;
 }
-
+.active-link {
+  background-color: lightcoral;
+  color: red !important;
+  border-radius: 10px;
+}
 .menuItem {
   cursor: pointer;
-  color: white;
+  color: black;
+  padding: 0.6rem 0 0.5rem 0.5rem;
   margin-bottom: 1.5rem;
   margin-left: 1rem;
 }
 
 .menu {
   margin-left: 1rem;
+  margin-right: 2.5rem;
   font-size: 15px;
 }
 
