@@ -121,6 +121,10 @@ const apis = {
     url: `/setPassword`,
     port: appPort.port,
   },
+  GET_DASHBOARD_SUMMARY: {
+    url: `/dashboard/summary`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {

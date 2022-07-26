@@ -172,4 +172,18 @@ export class DashboardEffect {
       })
     );
   });
+
+  dashboardSummary$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.GET_DASHBOARD_SUMMARY),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_DASHBOARD_SUMMARY'))
+          .pipe(
+            map((data) => new dashboardActions.GetDashboardSummarySuccess(data))
+          );
+      })
+    );
+  });
 }

@@ -8,6 +8,7 @@ import { Label } from 'ng2-charts';
 import { BroadcastMsgDialogComponent } from './../../Dialogs/broadcastMsgDialog/broadcastMsgDialog.component';
 import { AppState } from 'src/app/app.state';
 import * as SideNavActions from '../../store/Actions/sideNavAction';
+import * as DashboardActions from '../../store/Actions/dashboardActions';
 
 @Component({
   selector: 'app-Dashboard',
@@ -87,6 +88,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new SideNavActions.GetBloodGroupList());
     this.store.dispatch(new SideNavActions.GetBloodCompList());
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRouter = event.url;

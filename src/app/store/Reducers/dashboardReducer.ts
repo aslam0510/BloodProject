@@ -42,6 +42,16 @@ export function dashboardReducer(
     case dashboardActions.GET_USER_DETAILS_SUCCESS: {
       return { ...state, userDetails: action.payload };
     }
+
+    case dashboardActions.GET_DASHBOARD_SUMMARY_SUCCESS: {
+      const data = action.payload.data;
+      return {
+        ...state,
+        bloodAvailable: data.bloodAvailable,
+        bldRequestStatus: data.bldRequestStatus,
+        activityDetails: data.activityDetails,
+      };
+    }
     default:
       return state;
   }

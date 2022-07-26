@@ -8,6 +8,16 @@
 .menus {
   margin-top: 3rem;
 }
+th,
+td {
+  border-right: 1px solid lightgray;
+  padding-left: 1rem;
+}
+
+.mat-button-toggle-checked {
+  background-color: brown;
+  color: white;
+}
 
 .menuItem {
   cursor: pointer;
@@ -15,7 +25,17 @@
   margin-bottom: 1.5rem;
   margin-left: 1rem;
 }
-
+.viewAll {
+  display: inline;
+  color: brown;
+  margin-left: 1.5rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+h6 {
+  font-size: 15px;
+  font-weight: bold;
+}
 .menu {
   margin-left: 1rem;
   font-size: 15px;

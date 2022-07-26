@@ -10,5 +10,8 @@ export class DashboardState {
   updateEntityInfo: any;
   createBloodReq: any;
   userDetails: any;
+  bloodAvailable: any;
+  bldRequestStatus: any;
+  activityDetails: any;
   constructor() {}
 }
