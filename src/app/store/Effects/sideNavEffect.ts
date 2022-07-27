@@ -243,7 +243,7 @@ export class SideNavEffect {
         return this.http
           .get(
             api.getAPI('GET_DONOR_REPO_LIST') +
-              `?page=1&size=100&date=07-19-2022`
+              `?page=1&size=100&date=07-23-2022`
           )
           .pipe(
             map((data: any) => new SideNavAction.GetDonorRepoListSuccess(data))

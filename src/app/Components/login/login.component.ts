@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   verifyOTPSuccessSub: Subscription;
   ref = '';
   showVerify: boolean;
+  hide = true;
   actionSubcription: Subscription;
   constructor(
     private dialog: MatDialog,

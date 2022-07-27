@@ -1,7 +1,7 @@
 <div class="accordion">
   <div class="py-4 mb-2 d-flex">
-    <img src="/assets/JioLogo.svg" alt="JioLogo" width="50px" height="50px" class="pl-5" />
-    <h2 class="mt-2 pl-4">Boond</h2>
+    <img src="/assets/Images/logo.svg" alt="JioLogo" class="ml-2 pl-5 logo" width="130px" height="100px" />
+
   </div>
 
   <div class="expansion">
@@ -140,7 +140,8 @@
                       Please upload your medical registration and document of state
                       medical council proof.
                     </p>
-                    <input [formControlName]="orgFormField.key" #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
+                    <input [formControlName]="orgFormField.key" #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event)"
+                      (click)="fileInput.value = null" />
                     <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
                       <mat-icon color="accent">upload</mat-icon>
                       <span>Upload</span>
@@ -306,7 +307,8 @@
                   Please upload your medical registration and document of state
                   medical council proof.
                 </p>
-                <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" formControlName="entFileUpload" accept=".csv,.xls,.xlsx" (change)="onEntFileUpload($event)" (click)="fileInput.value = null" />
+                <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" formControlName="entFileUpload" accept=".csv,.xls,.xlsx" (change)="onEntFileUpload($event)"
+                  (click)="fileInput.value = null" />
                 <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
                   <mat-icon color="accent">upload</mat-icon>
                   <span>Upload</span>

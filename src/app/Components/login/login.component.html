@@ -14,7 +14,10 @@
       </mat-form-field>
       <mat-form-field class="d-block">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" formControlName="pwd" type="password">
+        <input matInput placeholder="Password" formControlName="pwd" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
       </mat-form-field>
       <div class="d-flex flex-column buttons">
         <button class="d-block my-3 mt-2 text-white" type="submit" mat-raised-button style="background-color: #EA0029;" [disabled]="!loginForm.valid">Login</button>

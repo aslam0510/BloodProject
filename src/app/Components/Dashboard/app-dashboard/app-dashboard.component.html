@@ -7,9 +7,9 @@
 
     <div>
       <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup" [value]="bldAvailableSelectedVal" (change)="onBlodAvailableValChange(group.value)">
-        <mat-button-toggle value="availableUnit">Available Unit</mat-button-toggle>
-        <mat-button-toggle value="openRequest">Open Request</mat-button-toggle>
-        <mat-button-toggle value="requiredUnit">Required Unit</mat-button-toggle>
+        <mat-button-toggle value="availableUnit" (click)="onBldAvailableDaySelect('availableUnit')">Available Unit</mat-button-toggle>
+        <mat-button-toggle value="openRequest" (click)="onBldAvailableDaySelect('openRequest')">Open Request</mat-button-toggle>
+        <mat-button-toggle value="requiredUnit" (click)="onBldAvailableDaySelect('requiredUnit')">Required Unit</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
     <h5 class="viewAll m-0" routerLink="/dashboard/bloodAvailability">View All</h5>

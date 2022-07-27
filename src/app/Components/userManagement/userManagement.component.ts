@@ -136,6 +136,7 @@ export class UserManagementComponent implements OnInit {
       this.store.dispatch(new SideNavAction.GetUsersList());
     });
   }
+
   filterData(event) {
     this.userListDataSource.filter = event.target.value;
   }
