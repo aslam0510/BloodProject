@@ -162,16 +162,20 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
       const form = this.bloodReqForm.value;
       let bloodComp = [];
       let reqUnits = [];
+      let bldReqType;
       if (this.showWholeBlood && this.showBlodComp) {
         bloodComp = this.selectedBldCom.map((x) => x.list);
         bloodComp.unshift('Whole blood');
         reqUnits = this.selectedBldCom.map((x) => x.count);
         reqUnits.unshift(this.bloodGroupcount);
+        bldReqType = 'Whole Blood and Blood Component Both';
       } else if (this.showWholeBlood && !this.showBlodComp) {
         bloodComp.push('Whole blood'), reqUnits.push(this.bloodGroupcount);
+        bldReqType = 'Whole Blood';
       } else if (!this.showWholeBlood && this.showBlodComp) {
         bloodComp = this.selectedBldCom.map((x) => x.list);
         reqUnits = this.selectedBldCom.map((x) => x.count);
+        bldReqType = 'Blood Component';
       }
       const payload = {
         patName: form.patientName,
@@ -190,6 +194,7 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
         bldgrp: form.bloodGroup,
         bldComponent: bloodComp,
         requiredUnit: reqUnits,
+        bldReqType: bldReqType,
       };
       this.store.dispatch(new DashboardActions.CreateBloodReq(payload));
       this.dialogRef.close();

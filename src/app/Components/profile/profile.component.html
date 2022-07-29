@@ -116,9 +116,9 @@
       <hr>
       <div class="d-flex justify-content-between align-content-center">
         <h3 class="m-0">Minimum Blood units to be maintained</h3>
-        <mat-icon>remove </mat-icon>
-        <span>30</span>
-        <mat-icon>add</mat-icon>
+        <mat-icon (click)="removeCount()">remove </mat-icon>
+        <span>{{count}}</span>
+        <mat-icon (click)="addCount()">add</mat-icon>
       </div>
     </mat-card>
   </div>

@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   userName = new FormControl('');
   isEditBtn: boolean = true;
   actionSubcription: Subscription;
+  count: number = 0;
   constructor(
     private store: Store<AppState>,
     private actionsSubj: ActionsSubject,
@@ -138,5 +139,12 @@ export class ProfileComponent implements OnInit {
     };
     this.store.dispatch(new DashboardActions.UpdateUserDetails(payload));
     this.isEditBtn = true;
+  }
+
+  removeCount() {
+    this.count--;
+  }
+  addCount() {
+    this.count++;
   }
 }
