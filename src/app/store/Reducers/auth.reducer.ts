@@ -24,6 +24,10 @@ export function AuthReducer(
     case authActions.GET_CATEGORY_SUCCESS: {
       return { ...state, categoryDetails: action.payload };
     }
+    case authActions.LOGOUT_SUCCESS: {
+      localStorage.setItem('token', '');
+      return { ...state, logout: action.payload };
+    }
     default:
       return state;
   }

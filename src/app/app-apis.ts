@@ -1,5 +1,5 @@
 const appPort = {
-  port: 'http://10.157.195.32:8080/apigateway',
+  port: 'http://apigateway-jiohealth-iomt.apps.dev-jh-iomt.ocp.bss.jio.com',
 };
 
 const register = 'register';
@@ -123,6 +123,11 @@ const apis = {
   },
   GET_DASHBOARD_SUMMARY: {
     url: `/dashboard/summary`,
+    port: appPort.port,
+  },
+
+  LOGOUT: {
+    url: `/logout`,
     port: appPort.port,
   },
 };

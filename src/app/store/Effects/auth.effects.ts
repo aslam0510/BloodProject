@@ -103,4 +103,16 @@ export class AuthEffect {
       })
     );
   });
+
+  logout$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.LOGOUT),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('LOGOUT'), payload)
+          .pipe(map((data: any) => new auth.LogoutSuccess(data)));
+      })
+    );
+  });
 }

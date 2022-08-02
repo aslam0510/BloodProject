@@ -9,7 +9,7 @@ import { BroadcastMsgDialogComponent } from './../../Dialogs/broadcastMsgDialog/
 import { AppState } from 'src/app/app.state';
 import * as SideNavActions from '../../store/Actions/sideNavAction';
 import * as DashboardActions from '../../store/Actions/dashboardActions';
-
+import * as AuthActions from '../../store/Actions/auth.action';
 @Component({
   selector: 'app-Dashboard',
   templateUrl: './Dashboard.component.html',
@@ -121,4 +121,15 @@ export class DashboardComponent implements OnInit {
   }
 
   onOrgsetting() {}
+
+  onLogOut() {
+    const payload = {
+      refreshToken: localStorage.getItem('refreshToken'),
+    };
+    this.store.dispatch(new AuthActions.Logout(payload));
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userName');
+    this.router.navigate(['/login']);
+  }
 }

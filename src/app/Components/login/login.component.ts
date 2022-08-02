@@ -119,6 +119,10 @@ export class LoginComponent implements OnInit {
           !this.verfiyOTPSuccess.data.firstLogin
         ) {
           localStorage.setItem('token', this.verfiyOTPSuccess.data.token);
+          localStorage.setItem(
+            'refreshToken',
+            this.verfiyOTPSuccess.data.refreshToken
+          );
           this.router.navigate(['/dashboard']);
         }
       }
@@ -135,7 +139,7 @@ export class LoginComponent implements OnInit {
         pwd: this.loginForm.value.pwd,
       };
       // 7259901543;
-      this.store.dispatch(new AuthAction.GetLogin(payload));
+      // this.store.dispatch(new AuthAction.GetLogin(payload));
       localStorage.setItem('userName', payload.userId);
     }
   }
