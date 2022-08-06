@@ -53,7 +53,7 @@
                 </mat-error>
               </mat-form-field>
               <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
-                <mat-form-field appearance="outline" *ngIf="orgFormField.key !== 'state'">
+                <mat-form-field appearance="outline" *ngIf="orgFormField.key !== 'state' && orgFormField.key !== 'typeOfEntity'">
                   <mat-label>{{orgFormField.fieldName}}</mat-label>
                   <mat-select formControlName="{{orgFormField.key}}">
                     <mat-option [value]="i" *ngFor="let value of orgFormField.values; let i = index">{{ orgFormField.values[i]}}
@@ -69,6 +69,25 @@
                                                   organizationForm.controls[orgFormField.key].invalid &&
                                                   organizationForm.controls[orgFormField.key].errors.required
                                                 ">
+                    {{orgFormField.fieldName + ' is required'}}
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="orgFormField.key === 'typeOfEntity'">
+                  <mat-label>{{orgFormField.fieldName}}</mat-label>
+                  <mat-select formControlName="{{orgFormField.key}}">
+                    <mat-option [value]="category.categoryName" *ngFor="let category of entityCategories; let i = index">{{category.categoryName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="
+                                                                                                  organizationForm.controls[orgFormField.key].invalid &&
+                                                                                                  organizationForm.controls[orgFormField.key].errors.pattern
+                                                                                                ">
+                    {{'invalid ' + orgFormField.fieldName }}
+                  </mat-error>
+                  <mat-error *ngIf="
+                                                                                  organizationForm.controls[orgFormField.key].invalid &&
+                                                                                  organizationForm.controls[orgFormField.key].errors.required
+                                                                                ">
                     {{orgFormField.fieldName + ' is required'}}
                   </mat-error>
                 </mat-form-field>
@@ -114,7 +133,7 @@
               </div>
 
               <div *ngIf="orgFormField.inputType === 'Radio'" class="radio">
-                <span>{{orgFormField.fieldName}}</span>
+                <mat-label>{{orgFormField.fieldName}} *</mat-label>
                 <mat-radio-group [formControlName]="orgFormField.key" class="'radioTitle">
                   <mat-radio-button value="1" class="radioButton">Yes</mat-radio-button>
                   <mat-radio-button value="2">No</mat-radio-button>
@@ -125,7 +144,6 @@
                     {{orgFormField.fieldName + ' is required'}}
                   </mat-error>
                 </mat-radio-group>
-
               </div>
 
               <div *ngIf="orgFormField.inputType === 'File'">

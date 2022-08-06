@@ -14,7 +14,7 @@
     <p>
       <mat-form-field>
         <mat-label>User name</mat-label>
-        <input matInput placeholder="userNmae" formControlName="userName">
+        <input matInput placeholder="userName" formControlName="userName">
       </mat-form-field>
     </p>
     <p>
@@ -59,14 +59,14 @@
     </p>
     <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
       <button mat-raised-button (click)="dialogRef.close()">Clear</button>
-      <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()" [disabled]="!orgForm.valid">{{!isEdit ? 'Save' : "Update"}}</button>
+      <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()" [disabled]="!orgForm.valid">{{!isEdit ? 'Submit' : "Update"}}</button>
     </div>
   </form>
   <form class="p-4" [formGroup]="entityForm" *ngIf="isEntity || editUserData?.userType === 3">
     <p>
       <mat-form-field appearance="outline" class="ml-3">
         <mat-label>{{ "Select Entity" }}</mat-label>
-        <mat-select placeholder="Select Entity">
+        <mat-select placeholder="Select Entity" formControlName="entity">
           <mat-option (click)="onSelectEntity(entity)" [value]="entity.bldbnkName" *ngFor="let entity of entities">{{ entity.bldbnkName }}
           </mat-option>
         </mat-select>
@@ -127,7 +127,7 @@
     </p>
     <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
       <button mat-raised-button (click)="dialogRef.close()">Clear</button>
-      <button mat-raised-button [disabled]="!entityForm.valid" class="appBgColor text-white" (click)="onEntityFormSave()">{{!isEdit ? 'Save' : "Update"}}</button>
+      <button mat-raised-button [disabled]="!entityForm.valid" class="appBgColor text-white" (click)="onEntityFormSave()">{{!isEdit ? 'Submit' : "Update"}}</button>
     </div>
   </form>
 

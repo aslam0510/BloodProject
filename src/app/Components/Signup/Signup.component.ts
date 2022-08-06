@@ -49,6 +49,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   selectedYear: number;
   years: number[] = [];
   orgFormFields: OrgFormField[] = [];
+  entityCateogries$: Observable<any>;
+  entityCategories: any;
+  entityCategoriesSub: Subscription;
   states = [
     'Arunachal Pradesh',
     'Assam',
@@ -92,6 +95,9 @@ export class SignupComponent implements OnInit, OnDestroy {
       (state) => state.AuthSlice.categoryDetails
     );
     this.orgForm$ = this.store.select((state) => state.DashboardSlice.orgForm);
+    this.entityCateogries$ = this.store.select(
+      (state) => state.DashboardSlice.entityCategories
+    );
     this.selectedYear = new Date().getFullYear();
     for (let year = this.selectedYear; year >= 2000; year--) {
       this.years.push(year);
@@ -124,6 +130,13 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.orgCateogoriesSub = this.orgCategories$.subscribe((data) => {
       if (data) {
         this.orgCategories = data.data;
+      }
+    });
+
+    this.entityCategoriesSub = this.entityCateogries$.subscribe((data) => {
+      if (data) {
+        this.entityCategories = data.data;
+        console.log(this.entityCategories);
       }
     });
 
@@ -279,6 +292,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   onOrgTypSelect(category) {
     if (category) {
       this.store.dispatch(new AuthAction.GetCategory(category));
+    }
+    if (category === 'Multiple Services') {
+      this.store.dispatch(new dashboardActions.GetEntityCategories());
     }
   }
 

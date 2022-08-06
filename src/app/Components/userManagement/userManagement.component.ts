@@ -66,6 +66,9 @@ export class UserManagementComponent implements OnInit {
             duration: 2000,
           });
         }
+        if (data.payload.code === 400) {
+          this.snackBar.open(data.payload.message, '', { duration: 2000 });
+        }
         break;
       case SideNavAction.DELETE_USER_SUCCESS:
         if (data.payload.code === 200) {

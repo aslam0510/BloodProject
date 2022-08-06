@@ -33,6 +33,10 @@
   font-size: 15px;
 }
 
+mat-menu-panel {
+  max-width: 0 !important;
+  padding: 5px 10px !important;
+}
 .header {
   margin: 0;
   padding: 0 3rem;

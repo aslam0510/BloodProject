@@ -183,6 +183,7 @@ export class LoginComponent implements OnInit {
       height: 'auto',
       data: {
         page: 'loginViaOtp',
+        ref: this.ref,
       },
     });
     dailogRef.afterClosed().subscribe((result) => {
