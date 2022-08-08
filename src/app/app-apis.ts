@@ -13,7 +13,7 @@ const apis = {
   VERIFY_OTP: { url: '/verifyOTP', port: appPort.port },
   SET_PASSWORD: { url: `/${user}/resetPassword`, port: appPort.port },
   ADD_USER: { url: `/${user}/createUser`, port: appPort.port },
-  EDIT_USER: { url: `/${user}/editProfile`, port: appPort.port },
+  EDIT_USER: { url: `/${user}/editUser`, port: appPort.port },
 
   GET_ORG_TYPES: { url: `/${register}/getTypes`, port: appPort.port },
   SUBMIT_ORGFORM: {

@@ -51,6 +51,8 @@ export class AppDashboardComponent implements OnInit {
     'O+',
     'O-',
   ];
+  activityData: any;
+  showMoreActivity: boolean = true;
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
@@ -129,7 +131,8 @@ export class AppDashboardComponent implements OnInit {
 
     this.activityDetailsSub = this.activityDetails$.subscribe((data) => {
       if (data) {
-        this.activityDetails = data;
+        this.activityData = data?.activities;
+        this.activityDetails = data?.activities.slice(0, 3);
       }
     });
   }
@@ -138,6 +141,15 @@ export class AppDashboardComponent implements OnInit {
     this.bldAvailableSelectedVal = val;
   }
 
+  OnViewAllClick(data) {
+    if (data === 'more') {
+      this.showMoreActivity = false;
+      this.activityDetails = this.activityData;
+    } else {
+      this.showMoreActivity = true;
+      this.activityDetails = this.activityData.slice(0, 3);
+    }
+  }
   onBldAvailableDaySelect(type) {
     if (type === 'availableUnit') {
       this.showAvailableUnit = true;

@@ -65,52 +65,25 @@ export class ProfileComponent implements OnInit {
     this.userDetailsSub = this.userDetails$.subscribe((response) => {
       if (response) {
         this.userDetails = response.data;
-        const data = response.data;
-        this.setFormValue(
-          data.addr,
-          data.city,
-          data.state,
-          data.district,
-          data.pin,
-          data.contact,
-          data.email,
-          data.userName
-        );
+        this.setFormValue();
       }
     });
   }
 
-  setFormValue(
-    addr,
-    city,
-    state,
-    district,
-    pin,
-    altcontact,
-    altemail,
-    userName
-  ) {
-    console.log(
-      addr,
-      city,
-      state,
-      district,
-      pin,
-      altcontact,
-      altemail,
-      userName
-    );
-
-    this.userDetailsForm.setValue({
-      addr: addr,
-      city: city,
-      state: state,
-      district: district,
-      pin: pin,
-      altcontact: altcontact,
-      altemail: altemail,
-      userName: userName,
+  setFormValue() {
+    console.log(this.userDetails);
+    this.userDetailsForm.patchValue({
+      addr: this.userDetails?.addr,
+      city: this.userDetails?.city,
+      state: this.userDetails?.state,
+      district: this.userDetails?.district,
+      pin: this.userDetails?.pin,
+      altcontact: this.userDetails?.contact,
+      altemail: this.userDetails?.email,
+      userName: this.userDetails?.userName,
     });
+    console.log(this.userDetailsForm.value);
+
     this.userDetailsForm.disable();
   }
 

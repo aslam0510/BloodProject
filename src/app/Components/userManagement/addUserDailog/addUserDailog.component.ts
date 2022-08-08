@@ -163,6 +163,8 @@ export class AddUserDailogComponent implements OnInit {
       role: role,
     };
     if (this.isEdit) {
+      payload['userId'] = this.editUserData?.userId;
+      console.log(payload);
       this.store.dispatch(new SideNavAction.EditUser(payload));
     } else {
       this.store.dispatch(new SideNavAction.AddUser(payload));
@@ -187,6 +189,9 @@ export class AddUserDailogComponent implements OnInit {
       role: role,
     };
     if (this.isEdit) {
+      payload['userId'] = this.editUserData?.userId;
+      console.log(payload);
+
       this.store.dispatch(new SideNavAction.EditUser(payload));
     } else {
       this.store.dispatch(new SideNavAction.AddUser(payload));

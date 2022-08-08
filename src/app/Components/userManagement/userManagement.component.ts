@@ -126,6 +126,8 @@ export class UserManagementComponent implements OnInit {
   }
 
   onEdit(user) {
+    console.log(user);
+
     const dialogRef = this.dialog.open(AddUserDailogComponent, {
       width: '480px',
       height: 'auto',

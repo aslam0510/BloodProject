@@ -115,33 +115,35 @@
   <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <h3 class="title">Activity</h3>
     <mat-card class="mat-elevation-z8 card">
-      <div class="py-2 d-flex justify-content-between align-items-center borders" *ngFor="let activity of activityDetails?.activities">
+      <div class="py-2 d-flex justify-content-between align-items-center borders" *ngFor="let activity of activityDetails">
         <button mat-flat-button class="activitybtn">A+</button>
         <div class="flex">
           <p class="m-0">{{activity?.activity}}</p>
           <span class="m-0">{{activity?.crtdt | date}}</span>
         </div>
       </div>
+      <h5 class="viewAll m-0 text-center pt-4 pb-2 d-block" (click)="OnViewAllClick('more')" *ngIf="showMoreActivity">View All</h5>
+      <h5 class="viewAll m-0 text-center pt-4 pb-2 d-block" (click)="OnViewAllClick('less')" *ngIf="!showMoreActivity">View Less</h5>
     </mat-card>
   </div>
   <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
     <h3 class="title">Blood Request Status</h3>
     <mat-card class="d-flex mat-elevation-z8 ">
-      <!-- <mat-icon>search</mat-icon> -->
+      <img src="/assets/Images/requestbloodicon.svg" alt="">
       <div>
         <h6>{{bldRequestStatus?.totalBloodRequest}}</h6>
         <p>Total blood request</p>
       </div>
     </mat-card>
     <mat-card class="d-flex mat-elevation-z8 my-4">
-      <!-- <mat-icon>search</mat-icon> -->
+      <img src="/assets/Images/requestbloodicon.svg" alt="">
       <div>
         <h6>{{bldRequestStatus?.totalClosedRequest}}</h6>
         <p>Total Closed Request</p>
       </div>
     </mat-card>
     <mat-card class="d-flex mat-elevation-z8">
-      <!-- <mat-icon>search</mat-icon> -->
+      <img src="/assets/Images/requestbloodicon.svg" alt="">
       <div>
         <h6>{{bldRequestStatus?.openRequest}}</h6>
         <p>Total Open Request</p>
