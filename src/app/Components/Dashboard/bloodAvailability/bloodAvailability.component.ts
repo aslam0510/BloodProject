@@ -63,7 +63,7 @@ export class BloodAvailabilityComponent implements OnInit {
     switch (data.type) {
       case SideNavAction.UPDATE_BLOOD_COMP_STATUS_SUCCESS:
         if (data.payload.code === 200) {
-          this.snackBar.open(data.payload.data.Message, '', {
+          this.snackBar.open(data.payload.message, '', {
             duration: 2000,
           });
         }
@@ -104,8 +104,10 @@ export class BloodAvailabilityComponent implements OnInit {
     this.bloodAvailableStatusSub = this.bloodAvailableStatus$.subscribe(
       (response) => {
         if (response) {
-          this.bloodAvailableStatus = response.data[0]?.availability;
-          this.bloodType = response.data.map((x) => x._id);
+          console.log(response);
+
+          this.bloodAvailableStatus = response.data.details[0]?.availability;
+          this.bloodType = response.data.details.map((x) => x._id);
         }
       }
     );

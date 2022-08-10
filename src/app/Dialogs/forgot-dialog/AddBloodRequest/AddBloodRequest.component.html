@@ -26,23 +26,23 @@
           <div class="d-flex justify-content-evenly">
             <mat-form-field>
               <mat-label>Patient's Name</mat-label>
-              <input matInput placeholder="Patient's Name" formControlName="patientName">
+              <input matInput placeholder="Patient's Name" formControlName="patName">
               <mat-error *ngIf="
-                                          bloodReqForm.controls['patientName'].invalid &&
-                                          bloodReqForm.controls['patientName'].errors.required
+                                          bloodReqForm.controls['patName'].invalid &&
+                                          bloodReqForm.controls['patName'].errors.required
                                         ">
                 {{ "Patient's Name is required" }}
               </mat-error>
             </mat-form-field>
             <mat-form-field>
               <mat-label>{{ "Blood Group " }}</mat-label>
-              <mat-select placeholder="{{ 'Blood Group ' }}" formControlName="bloodGroup">
+              <mat-select placeholder="{{ 'Blood Group ' }}" formControlName="bldgrp">
                 <mat-option [value]="group.type" *ngFor="let group of bloodGroupList">{{ group.type }}
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="
-                                                        bloodReqForm.controls['bloodGroup'].invalid &&
-                                                        bloodReqForm.controls['bloodGroup'].errors.required
+                                                        bloodReqForm.controls['bldgrp'].invalid &&
+                                                        bloodReqForm.controls['bldgrp'].errors.required
                                                       ">
                 {{ "Blood Group is required" }}
               </mat-error>
@@ -80,26 +80,26 @@
           <div class="d-flex justify-content-evenly">
             <mat-form-field>
               <mat-label>Name of the Requester</mat-label>
-              <input matInput placeholder="Name of the Requester" formControlName="nameOfRequester">
-              <mat-error *ngIf="bloodReqForm.controls['nameOfRequester'].invalid && bloodReqForm.controls['nameOfRequester'].errors.required">
+              <input matInput placeholder="Name of the Requester" formControlName="reqstrName">
+              <mat-error *ngIf="bloodReqForm.controls['reqstrName'].invalid && bloodReqForm.controls['reqstrName'].errors.required">
                 {{ "Name of the Requester is required" }}
               </mat-error>
             </mat-form-field>
             <mat-form-field>
               <mat-label>Relation with Patient</mat-label>
-              <input matInput placeholder="Relation with Patient" formControlName="realtionWithPatient">
-              <mat-error *ngIf="bloodReqForm.controls['realtionWithPatient'].invalid && bloodReqForm.controls['realtionWithPatient'].errors.required">
+              <input matInput placeholder="Relation with Patient" formControlName="reqstrRel">
+              <mat-error *ngIf="bloodReqForm.controls['reqstrRel'].invalid && bloodReqForm.controls['reqstrRel'].errors.required">
                 {{ "Relation with Patient is required" }}
               </mat-error>
             </mat-form-field>
           </div>
           <div class="d-flex justify-content-evenly">
-            <mat-form-field>
-              <mat-label>Date of Requirement</mat-label>
-              <input matInput placeholder="Date of Requirement" formControlName="dateOfRequriement">
-              <mat-error *ngIf="bloodReqForm.controls['dateOfRequriement'].invalid && bloodReqForm.controls['dateOfRequriement'].errors.required">
-                {{ "Date of Requirement is required" }}
-              </mat-error>
+            <mat-form-field class="example-full-width">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" placeholder="Date of Requirement" formControlName="reqDate">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
               <mat-label>purpose</mat-label>
@@ -119,8 +119,8 @@
             </mat-form-field>
             <mat-form-field>
               <mat-label>Hospital Address</mat-label>
-              <input matInput placeholder="Hospital Address" formControlName="hospitalAddress">
-              <mat-error *ngIf="bloodReqForm.controls['hospitalAddress'].invalid && bloodReqForm.controls['hospitalAddress'].errors.required">
+              <input matInput placeholder="Hospital Address" formControlName="hospitalAddr">
+              <mat-error *ngIf="bloodReqForm.controls['hospitalAddr'].invalid && bloodReqForm.controls['hospitalAddr'].errors.required">
                 {{ "Hospital Address is required" }}
               </mat-error>
             </mat-form-field>
@@ -128,12 +128,12 @@
           <div class="d-flex justify-content-evenly">
             <mat-form-field>
               <mat-label>Conatact No.</mat-label>
-              <input matInput placeholder="Conatact No." formControlName="contactNo">
+              <input matInput placeholder="Conatact No." formControlName="contact">
             </mat-form-field>
             <mat-form-field>
               <mat-label>Patient's Address</mat-label>
-              <input matInput placeholder="Patient's Address" formControlName="patientAddress">
-              <mat-error *ngIf="bloodReqForm.controls['patientAddress'].invalid && bloodReqForm.controls['patientAddress'].errors.required">
+              <input matInput placeholder="Patient's Address" formControlName="patAddr">
+              <mat-error *ngIf="bloodReqForm.controls['patAddr'].invalid && bloodReqForm.controls['patAddr'].errors.required">
                 {{ "Patient's Address is required" }}
               </mat-error>
             </mat-form-field>
@@ -167,9 +167,9 @@
             <div class="bloodReq">
               <mat-tab-group>
                 <mat-tab label="Whole blood" *ngIf="showWholeBlood">
-                  <div class="row" *ngIf="bloodReqForm.controls['bloodGroup'].value">
+                  <div class="row" *ngIf="bloodReqForm.controls['bldgrp'].value">
                     <mat-card class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-3 p-3 d-flex justify-content-between align-items-center">
-                      <h3>{{bloodReqForm.controls['bloodGroup'].value }}</h3>
+                      <h3>{{bloodReqForm.controls['bldgrp'].value }}</h3>
                       <button mat-raised-button class="appBgColor text-white" (click)="bldGropAddBtn()" *ngIf="showBloodGrupAddBtn">Add</button>
                       <button mat-raised-button class="appBgColor text-white" *ngIf="showBldGrpCountBtn">
                         <mat-icon (click)="removeBloodGroupCount()">remove</mat-icon>

@@ -44,21 +44,21 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
 
     this.bloodReqForm = new FormGroup({
       priority: new FormControl('', [Validators.required]),
-      patientName: new FormControl('', [Validators.required]),
-      bloodGroup: new FormControl('', [Validators.required]),
+      patName: new FormControl('', [Validators.required]),
+      bldgrp: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required]),
       gender: new FormControl('', [Validators.required]),
-      nameOfRequester: new FormControl('', [Validators.required]),
-      realtionWithPatient: new FormControl('', [Validators.required]),
-      dateOfRequriement: new FormControl('', [Validators.required]),
+      reqstrName: new FormControl('', [Validators.required]),
+      reqstrRel: new FormControl('', [Validators.required]),
+      reqDate: new FormControl('', [Validators.required]),
       purpose: new FormControl('', [Validators.required]),
       hospitalName: new FormControl('', [Validators.required]),
-      hospitalAddress: new FormControl('', [Validators.required]),
-      contactNo: new FormControl('', [
+      hospitalAddr: new FormControl('', [Validators.required]),
+      contact: new FormControl('', [
         Validators.required,
         Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
       ]),
-      patientAddress: new FormControl('', [Validators.required]),
+      patAddr: new FormControl('', [Validators.required]),
       location: new FormControl('', [Validators.required]),
     });
     this.bloodCompListSub = this.bloodCompList$.subscribe((response) => {
@@ -72,7 +72,6 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
             select: false,
           });
         });
-        console.log(this.bloodCompList);
       }
     });
 
@@ -159,49 +158,40 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
   }
   onSubmit() {
     if (this.bloodReqForm.valid) {
-      const form = this.bloodReqForm.value;
+      const formValues = this.bloodReqForm.value;
       let bloodComp = [];
       let reqUnits = [];
       let bldReqType;
       if (this.showWholeBlood && this.showBlodComp) {
         bloodComp = this.selectedBldCom.map((x) => x.list);
-        bloodComp.unshift('Whole blood');
+        bloodComp.unshift('Whole Blood');
         reqUnits = this.selectedBldCom.map((x) => x.count);
         reqUnits.unshift(this.bloodGroupcount);
         bldReqType = 'Whole Blood and Blood Component Both';
       } else if (this.showWholeBlood && !this.showBlodComp) {
-        bloodComp.push('Whole blood'), reqUnits.push(this.bloodGroupcount);
+        bloodComp.push('Whole Blood'), reqUnits.push(this.bloodGroupcount);
         bldReqType = 'Whole Blood';
       } else if (!this.showWholeBlood && this.showBlodComp) {
         bloodComp = this.selectedBldCom.map((x) => x.list);
         reqUnits = this.selectedBldCom.map((x) => x.count);
         bldReqType = 'Blood Component';
       }
-      const payload = {
-        patName: form.patientName,
-        age: form.age,
-        gender: form.gender,
-        location: form.location,
-        patAddr: form.patientAddress,
-        hospitalName: form.hospitalName,
-        hospitalAddr: form.hospitalAddress,
-        reqDate: form.dateOfRequriement,
-        reqstrName: form.nameOfRequester,
-        reqstrRel: form.realtionWithPatient,
-        contact: form.contactNo,
-        purpose: form.purpose,
-        priority: form.priority,
-        bldgrp: form.bloodGroup,
-        bldComponent: bloodComp,
-        requiredUnit: reqUnits,
-        bldReqType: bldReqType,
-      };
-      this.store.dispatch(new DashboardActions.CreateBloodReq(payload));
-      this.dialogRef.close();
+      let formData = new FormData();
+      Object.keys(this.bloodReqForm.controls).forEach((key) => {
+        formData.append(key, formValues[key]);
+      });
+      formData.append('bldReqType', bldReqType);
+      bloodComp.forEach((bldCom) => {
+        formData.append('bldComponent', bldCom);
+      });
+      reqUnits.forEach((unit) => {
+        formData.append('requiredUnit', unit);
+      });
+
+      this.store.dispatch(new DashboardActions.CreateBloodReq(formData));
     }
+    this.dialogRef.close(true);
   }
 
-  ngOnDestroy() {
-    this.dialogRef.close();
-  }
+  ngOnDestroy() {}
 }
