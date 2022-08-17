@@ -1,6 +1,8 @@
 <mat-card class="mat-elevation-z8">
-  <mat-card-title class="mt-3 pt-5 text-center">Login</mat-card-title>
-  <mat-card-subtitle class="mt-5 mb-3 text-center">Please enter your username and password to access the portal</mat-card-subtitle>
+  <mat-card-title class="mt-3 pt-5 title" *ngIf="!showOtp">Log in <br> to Jio Boond Admin <br> Portal</mat-card-title>
+  <mat-card-title class="mt-3 pt-5 title" *ngIf="showOtp">Enter OTP <br>
+    <mat-hint class="hint">An OTP has been sent for verification on your registered Email ID</mat-hint>
+  </mat-card-title>
   <mat-card-content>
     <div class="row">
       <mat-error *ngIf="loginErrors.length > 0" class="d-flex align-items-center justify-content-around">
@@ -8,31 +10,35 @@
       </mat-error>
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="onLoginForm()">
-      <mat-form-field class="d-block">
+      <mat-form-field class="d-block" *ngIf="!showPhnNumber && !showOtp">
         <mat-label>User Name</mat-label>
-        <input matInput placeholder="User Nmae" formControlName="userid">
+        <input matInput placeholder="Username" formControlName="userid">
       </mat-form-field>
-      <mat-form-field class="d-block">
+      <mat-form-field class="d-block" *ngIf="!showPhnNumber && !showOtp">
         <mat-label>Password</mat-label>
         <input matInput placeholder="Password" formControlName="pwd" [type]="hide ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
-      <div class="d-flex flex-column buttons">
-        <button class="d-block my-3 mt-2 text-white" type="submit" mat-raised-button style="background-color: #EA0029;" [disabled]="!loginForm.valid">Login</button>
-
-        <button mat-raised-button type="button" class="mt-2 " style="border-color: #EA0029;" (click)="onLoginViaOtp()">Login via otp</button>
-
-      </div>
-      <div class=" px-3 mt-5 pt-3 d-flex align-items-center justify-content-between">
-        <h5 (click)="onForgotPass()" class="forgotPass  text-secondary">
-          Forgot password
+      <mat-form-field class="d-block" *ngIf="showPhnNumber && !showOtp">
+        <mat-label>Phone Number</mat-label>
+        <input matInput placeholder="Phone Number" formControlName="phnNumber">
+      </mat-form-field>
+      <mat-form-field class="d-block" *ngIf="!showPhnNumber && showOtp">
+        <mat-label>Enter OTP</mat-label>
+        <input matInput placeholder="otp" formControlName="otp">
+      </mat-form-field>
+      <div class="d-flex align-items-center justify-content-end" *ngIf="!showOtp && !showPhnNumber">
+        <h5 (click)="onForgotPass()" class="forgotPass  text-danger flex-end">
+          Forgot password ?
         </h5>
-        <h5 (click)="onSignup()" class="forgotPass     text-danger">Register now</h5>
       </div>
-
+      <div class="d-flex flex-column buttons">
+        <button class="d-block my-3 mt-2 text-white" type="submit" mat-raised-button style="background-color: #EA0029;">{{showOtp ? 'Verify': 'Log in' }}</button>
+        <button mat-raised-button type="button" class="mt-2 " style="border-color: #EA0029;" (click)="onLoginViaOtp()" *ngIf="!showOtp">{{showPhnNumber ? 'Log in with Username' : 'Log in with Phone
+          Number'}}</button>
+      </div>
     </form>
-
   </mat-card-content>
 </mat-card>

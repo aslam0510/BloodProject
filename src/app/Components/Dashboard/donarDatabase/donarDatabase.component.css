@@ -3,10 +3,15 @@ table {
 }
 .mattable {
   height: 54vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 mat-card {
   border-radius: 15px;
+}
+.example-chip-list {
+  width: 500px !important;
+  padding: 0;
+  margin-left: 2rem;
 }
 
 .sendMessage {

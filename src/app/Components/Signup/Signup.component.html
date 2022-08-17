@@ -1,9 +1,16 @@
-<div class="accordion">
-  <div class="py-4 mb-2 d-flex">
-    <img src="/assets/Images/logo.svg" alt="JioLogo" class="ml-2 pl-5 logo" width="130px" height="100px" />
-
+<div class="header d-flex align-items-center justify-content-between">
+  <div class="py-4">
+    <img src="/assets/Images/logo.svg" alt="JioLogo" class="ml-2 pl-5 logo" width="130px" height="50px" />
   </div>
-
+  <mat-list role="list" class="d-flex align-items-center">
+    <mat-list-item role="listitem" routerLinkOptions="{exact: true}"> <a routerLinkActive="activeLink" routerLink="/login">Login </a>
+    </mat-list-item>
+    <mat-list-item role="listitem" routerLinkOptions="{exact: true}">
+      <a routerLink="/signup" routerLinkActive="activeLink">Register</a>
+    </mat-list-item>
+  </mat-list>
+</div>
+<div class="accordion">
   <div class="expansion">
     <mat-accordion>
       <mat-expansion-panel expanded="open">

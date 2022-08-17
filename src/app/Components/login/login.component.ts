@@ -9,13 +9,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppState } from 'src/app/app.state';
 import { Observable, Subscription } from 'rxjs';
 import * as bcrypt from 'bcryptjs';
+import * as Forge from 'node-forge';
 import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
 import { OrgFormModel } from './../../models/orgFormModel';
 import { LoginViaOtpComponent } from './../../Dialogs/loginViaOtp/loginViaOtp.component';
 import { helpers } from 'chart.js';
 import { SetPasswordDialogComponent } from './../../Dialogs/setPasswordDialog/setPasswordDialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { publicKey, privateKey } from 'src/app/config';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,6 +35,8 @@ export class LoginComponent implements OnInit {
   showVerify: boolean;
   hide = true;
   actionSubcription: Subscription;
+  showPhnNumber: boolean = false;
+  showOtp: boolean = false;
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
@@ -54,7 +57,16 @@ export class LoginComponent implements OnInit {
     this.showVerify = true;
   }
   handleActionSubscription(data: any) {
+    console.log(data);
+
     switch (data.type) {
+      case AuthAction.GENERATE_OTP_SUCCESS:
+        if (data.payload.code === 200) {
+          this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
+          this.showOtp = true;
+          this.showPhnNumber = false;
+          this.ref = data.payload.data.ref;
+        }
       case AuthAction.FORGET_PASSWORD_SUCCESS:
         if (data.payload.code === 200) {
           this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
@@ -71,6 +83,8 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       userid: new FormControl('', Validators.required),
       pwd: new FormControl('', Validators.required),
+      phnNumber: new FormControl('', Validators.required),
+      otp: new FormControl('', Validators.required),
     });
 
     this.loginSuccess$.subscribe((data) => {
@@ -82,9 +96,7 @@ export class LoginComponent implements OnInit {
           this.loginSuccess.status === 'Success'
         ) {
           this.ref = this.loginSuccess.data.ref;
-          if (this.showVerify) {
-            this.showVerifyOtpPopUp();
-          }
+          this.showOtp = true;
           this.snackBar.open(this.loginSuccess.data.message, 'ok', {
             duration: 2500,
           });
@@ -100,12 +112,10 @@ export class LoginComponent implements OnInit {
       }
     });
 
-    // f8rihztJ3X
     //verifying if the user is firstime or not, if first time showing the setpassword popup, if not redirecting to the dashboard page
     this.verifyOTPSuccessSub = this.verifyOTPSuccess$.subscribe((data) => {
       if (data) {
         this.verfiyOTPSuccess = data;
-        this.showVerify = false;
         if (
           this.verfiyOTPSuccess.code === 200 &&
           this.verfiyOTPSuccess.status === 'Success' &&
@@ -129,18 +139,32 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  encrypt(pwd: any) {
+    const pubPem = Forge.pki.publicKeyFromPem(publicKey);
+    // console.log(pubPem.encrypt("Test",'RSA-OAEP'));
+    return Forge.util.encode64(pubPem.encrypt(pwd, 'RSA-OAEP'));
+  }
   //Submitting login form
   onLoginForm() {
-    if (this.loginForm.valid) {
-      this.loginErrors = [];
-      const salt = bcrypt.genSaltSync(10);
+    this.loginErrors = [];
+    if (!this.showOtp && !this.showPhnNumber) {
       const payload = {
         userId: this.loginForm.value.userid,
-        pwd: this.loginForm.value.pwd,
+        pwd: this.encrypt(this.loginForm.value.pwd),
       };
-      // 7259901543;
       this.store.dispatch(new AuthAction.GetLogin(payload));
       localStorage.setItem('userName', payload.userId);
+    } else if (this.showPhnNumber) {
+      const payload = {
+        mob: this.loginForm.value.phnNumber,
+      };
+      this.store.dispatch(new AuthAction.GenerateOtp(payload));
+    } else if (this.showOtp) {
+      const payload = {
+        ref: this.ref,
+        otp: +this.loginForm.value.otp,
+      };
+      this.store.dispatch(new AuthAction.VerifyOtp(payload));
     }
   }
 
@@ -149,6 +173,7 @@ export class LoginComponent implements OnInit {
     this.dialog.open(ForgotDialogComponent, {
       width: '450px',
       height: 'auto',
+      panelClass: 'custom-dialog-container',
       data: {
         content:
           'Dont worry we are here help you to reset your password. Enter your registered email address to get link to reset password.',
@@ -178,19 +203,20 @@ export class LoginComponent implements OnInit {
 
   //Click on loginvia otp
   onLoginViaOtp() {
-    const dailogRef = this.dialog.open(LoginViaOtpComponent, {
-      width: '350px',
-      height: 'auto',
-      data: {
-        page: 'loginViaOtp',
-        ref: this.ref,
-      },
-    });
-    dailogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.showVerifyOtpPopUp();
-      }
-    });
+    this.showPhnNumber = !this.showPhnNumber;
+    // const dailogRef = this.dialog.open(LoginViaOtpComponent, {
+    //   width: '350px',
+    //   height: 'auto',
+    //   data: {
+    //     page: 'loginViaOtp',
+    //     ref: this.ref,
+    //   },
+    // });
+    // dailogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     this.showVerifyOtpPopUp();
+    //   }
+    // });
   }
 
   //showing verify otp popup
@@ -215,6 +241,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngDestroy() {
-    this.showVerify = false;
+    this.showOtp = false;
+    this.showPhnNumber = false;
   }
 }

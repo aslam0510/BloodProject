@@ -1,10 +1,23 @@
-.width {
-  width: 130px;
+.forms {
+  padding: 0.7rem 1.5rem;
 }
 
 .select {
-  /* background-color: #fff; */
-  width: 120px;
+  width: 80px;
   border-radius: 25px;
-  /* padding: 8px 10px; */
+}
+
+mat-form-field {
+  width: 130px !important;
+  margin: 0;
+  padding: 0;
+}
+
+mat-form-field-wrapper {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.radio {
+  margin-left: 15px;
 }

@@ -6,6 +6,7 @@ import { AllBloodReqComponent } from '../Components/Dashboard/allBloodReq/allBlo
 import { AppDashboardComponent } from '../Components/Dashboard/app-dashboard/app-dashboard.component';
 import { BloodAvailabilityComponent } from '../Components/Dashboard/bloodAvailability/bloodAvailability.component';
 import { DonarDatabaseComponent } from '../Components/Dashboard/donarDatabase/donarDatabase.component';
+import { EditDonorRepoComponent } from '../Components/Dashboard/donarDatabase/edit-donor-repo/edit-donor-repo.component';
 import { OrgSettingsComponent } from '../Components/orgSettings/orgSettings.component';
 import { ProfileComponent } from '../Components/profile/profile.component';
 import { UserManagementComponent } from '../Components/userManagement/userManagement.component';
@@ -34,6 +35,10 @@ export const dashboardRoutes: Routes = [
       {
         path: 'donorDatabase',
         component: DonarDatabaseComponent,
+      },
+      {
+        path: 'editDonorRep/:id',
+        component: EditDonorRepoComponent,
       },
       {
         path: 'userManagement',

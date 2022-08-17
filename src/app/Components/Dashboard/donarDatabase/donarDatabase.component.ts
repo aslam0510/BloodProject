@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SendMessageComponent } from './../../../Dialogs/send-message/send-message.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -7,6 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FilterComponent } from '../../filter/filter.component';
 import { AppState } from 'src/app/app.state';
 import * as SideNavActions from '../../../store/Actions/sideNavAction';
+import { Observable, Subscription } from 'rxjs';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { timeStamp } from 'console';
 
 @Component({
   selector: 'app-donarDatabase',
@@ -25,13 +29,36 @@ export class DonarDatabaseComponent implements OnInit {
     'lastDonation',
     'location',
   ];
+  donorRepos$: Observable<any>;
+  donorRepos: any;
+  donorReposSub: Subscription;
   dataSource = new MatTableDataSource();
+  addOnBlur = true;
+  readonly separatorKeysCodes = ['ENTER', 'COMMA'] as const;
+  filterData = [];
   selection = new SelectionModel(true, []);
-
-  constructor(private dialog: MatDialog, private store: Store<AppState>) {}
+  formValues: any;
+  constructor(
+    private dialog: MatDialog,
+    private store: Store<AppState>,
+    private router: Router
+  ) {
+    this.donorRepos$ = this.store.select(
+      (state) => state.SidNavSlice.donorRepoList
+    );
+  }
 
   ngOnInit() {
-    this.store.dispatch(new SideNavActions.GetDonorRepoList());
+    this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
+    // this.store.dispatch(new SideNavActions.GetDonorDonationList());
+
+    this.donorReposSub = this.donorRepos$.subscribe((data) => {
+      if (data) {
+        this.donorRepos = data.data.details;
+        this.dataSource = new MatTableDataSource(this.donorRepos);
+        this.dataSource.filter = JSON.stringify(this.formValues);
+      }
+    });
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -73,6 +100,41 @@ export class DonarDatabaseComponent implements OnInit {
       top: targetAttr.y + targetAttr.height - 7 + 'px',
       left: targetAttr.x + targetAttr.width - 5 + 'px',
     };
-    this.dialog.open(FilterComponent, dialogConfig);
+    const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      for (const key in result) {
+        if (result[key] !== '') {
+          this.filterData.push(result[key]);
+          this.dataSource.filter = JSON.stringify(this.formValues);
+        }
+      }
+      console.log(this.filterData);
+    });
+  }
+
+  editDonoRepo(row) {
+    this.router.navigate(['/dashboard/editDonorRep', row._id]);
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.filterData.push({ value });
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  remove(fruit): void {
+    const index = this.filterData.indexOf(fruit);
+
+    if (index >= 0) {
+      this.filterData.splice(index, 1);
+    }
   }
 }

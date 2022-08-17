@@ -56,6 +56,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { OrgSettingsComponent } from './Components/orgSettings/orgSettings.component';
 import { SharedDialogComponent } from './Dialogs/sharedDialog/sharedDialog.component';
 import { AppErrorDialogComponent } from './Dialogs/appErrorDialog/appErrorDialog.component';
+import { EditDonorRepoComponent } from './Components/Dashboard/donarDatabase/edit-donor-repo/edit-donor-repo.component';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -97,6 +98,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     AddEntityComponent,
     SharedDialogComponent,
     AppErrorDialogComponent,
+    EditDonorRepoComponent,
   ],
   imports: [
     BrowserModule,

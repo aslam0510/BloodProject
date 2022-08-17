@@ -1,7 +1,16 @@
-<div class="pt-2 ">
-  <img src="/assets/Images/logo.svg" alt="JioLogo" class="ml-2 pl-5 logo" width="130px" height="100px" />
-  <!-- <h2 class="mt-2 pl-4">Boond</h2> -->
+<div class="header d-flex align-items-center justify-content-between">
+  <div class="py-4">
+    <img src="/assets/Images/logo.svg" alt="JioLogo" class="ml-2 pl-5 logo" width="130px" height="50px" />
+  </div>
+  <mat-list role="list" class="d-flex align-items-center">
+    <mat-list-item role="listitem" routerLinkOptions="{exact: true}"> <a routerLinkActive="activeLink" routerLink="/login">Login </a>
+    </mat-list-item>
+    <mat-list-item role="listitem" routerLinkOptions="{exact: true}" routerLinkActive="activeLink">
+      <a routerLink="/signup">Register</a>
+    </mat-list-item>
+  </mat-list>
 </div>
+
 <div class="row height d-flex justify-content-space-between ">
   <div class="col-lg-8 col-sm-12">
     <div class="d-flex justify-content-around align-items-center blood row">

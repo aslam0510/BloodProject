@@ -170,7 +170,7 @@ export class GetBldReqByIdSuccess {
 }
 export class GetDonorRepoList {
   readonly type = GET_DONOR_REPO_LIST;
-  // constructor(public payload: any) {}
+  constructor(public payload: any) {}
 }
 
 export class GetDonorRepoListSuccess {

@@ -239,12 +239,8 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_DONOR_REPO_LIST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload);
         return this.http
-          .get(
-            api.getAPI('GET_DONOR_REPO_LIST') +
-              `?page=1&size=100&date=07-23-2022`
-          )
+          .get(api.getAPI('GET_DONOR_REPO_LIST') + `?page=${payload}`)
           .pipe(
             map((data: any) => new SideNavAction.GetDonorRepoListSuccess(data))
           );
