@@ -79,7 +79,7 @@ export class AppInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.status.setHttpStatus(true, req);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
     if (
       !token &&
       req.url

@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
         this.loginSuccess = data;
       }
     });
-    this.token = localStorage.getItem('token');
+    this.token = localStorage.getItem('accessToken');
   }
 
   canActivate(route: ActivatedRouteSnapshot) {
@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
     ) {
       return true;
     } else {
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
       this.rourter.navigate(['/login']);
       return false;
     }

@@ -65,6 +65,16 @@ export class BldCompStDialogComponent implements OnInit {
     } else {
       this.mode = 'DEL';
       const totalSum = Number(avilableUnit) - Number(newUnit);
+      if (Number(newUnit) >= Number(avilableUnit)) {
+        this.snackBar.open(
+          'New Unit should not be greater than available unit',
+          '',
+          {
+            duration: 2000,
+          }
+        );
+        return false;
+      }
       this.updateBloodForm.controls['totalUnit'].setValue(totalSum);
     }
   }

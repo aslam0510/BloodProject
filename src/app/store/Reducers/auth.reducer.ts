@@ -25,7 +25,7 @@ export function AuthReducer(
       return { ...state, categoryDetails: action.payload };
     }
     case authActions.LOGOUT_SUCCESS: {
-      localStorage.setItem('token', '');
+      localStorage.setItem('accessToken', '');
       return { ...state, logout: action.payload };
     }
     default:

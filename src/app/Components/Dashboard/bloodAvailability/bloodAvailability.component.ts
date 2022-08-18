@@ -60,10 +60,12 @@ export class BloodAvailabilityComponent implements OnInit {
   }
 
   handleActionSubscription(data: any) {
+    console.log(data);
+
     switch (data.type) {
       case SideNavAction.UPDATE_BLOOD_COMP_STATUS_SUCCESS:
         if (data.payload.code === 200) {
-          this.snackBar.open(data.payload.message, '', {
+          this.snackBar.open(data.payload.data.message, '', {
             duration: 2000,
           });
         }

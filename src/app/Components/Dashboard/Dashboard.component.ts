@@ -131,7 +131,7 @@ export class DashboardComponent implements OnInit {
       refreshToken: localStorage.getItem('refreshToken'),
     };
     this.store.dispatch(new AuthActions.Logout(payload));
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userName');
     this.router.navigate(['/login']);

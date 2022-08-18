@@ -121,14 +121,20 @@ export class LoginComponent implements OnInit {
           this.verfiyOTPSuccess.status === 'Success' &&
           this.verfiyOTPSuccess.data.firstLogin
         ) {
-          localStorage.setItem('token', this.verfiyOTPSuccess.data.token);
+          localStorage.setItem(
+            'accessToken',
+            this.verfiyOTPSuccess.data.accessToken
+          );
           this.setPasswordDialog();
         } else if (
           this.verfiyOTPSuccess.code === 200 &&
           this.verfiyOTPSuccess.status === 'Success' &&
           !this.verfiyOTPSuccess.data.firstLogin
         ) {
-          localStorage.setItem('token', this.verfiyOTPSuccess.data.token);
+          localStorage.setItem(
+            'accessToken',
+            this.verfiyOTPSuccess.data.accessToken
+          );
           localStorage.setItem(
             'refreshToken',
             this.verfiyOTPSuccess.data.refreshToken

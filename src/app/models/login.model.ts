@@ -3,6 +3,6 @@ export interface LoginModel {
   type: number;
   email: string;
   contact: number;
-  token: string;
+  accessToken: string;
   refreshToken: string;
 }
