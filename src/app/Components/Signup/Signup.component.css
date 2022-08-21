@@ -4,19 +4,53 @@ img {
 }
 
 .expansion {
-  margin: 0.1rem 18rem;
+  /* background-color: white; */
+  /* margin: 0.1rem 1rem; */
 }
 
 .header {
   margin: 0;
   padding: 0.5rem 0;
   width: 100%;
-  height: 65px;
+  height: 8%;
   background-color: white;
   z-index: 100;
   margin-bottom: 3rem;
 }
 
+.mat-step {
+  padding: 0 1.5;
+  display: flex !important;
+}
+mat-vertical-stepper {
+  margin: 0 4rem !important;
+}
+.mat-vertical-content-container {
+  width: 80%;
+  /* background-color: #f4f0ec !important; */
+  /* margin-top: 1rem; */
+}
+
+.mat-step-header {
+  border-left: 2px solid lightgrey !important;
+  width: 250px;
+  /* background-color: #f4f0ec !important; */
+}
+
+.mat-step-header :target {
+  border-left: 2px solid red !important;
+}
+/* .mat-step-header[aria-selected="true"] {
+  background-color: red !important;
+  color: white !important;
+  border-left: 2px solid red !important;
+} */
+.mat-step-header[ng-reflect-selected="true"] ~ .mat-step-header .mat-step-icon {
+  background-color: blue;
+}
+.mat-step-icon {
+  display: none !important;
+}
 .activeLink {
   color: red;
   border-bottom: 3px solid red;
@@ -82,7 +116,7 @@ h2 {
 }
 
 .accordion {
-  height: 93.3%;
+  height: 75%;
   scroll-behavior: smooth;
   overflow: auto;
 }

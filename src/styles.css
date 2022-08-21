@@ -61,4 +61,6 @@ button {
 
 .appBtnBgColor {
   background-color: #ea0029;
+  color: white;
+  border-radius: 15px;
 }

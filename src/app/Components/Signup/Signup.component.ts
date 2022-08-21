@@ -13,6 +13,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
 import { Store } from '@ngrx/store';
@@ -29,6 +30,7 @@ import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.componen
   selector: 'app-Signup',
   templateUrl: './Signup.component.html',
   styleUrls: ['./Signup.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class SignupComponent implements OnInit, OnDestroy {
   organizationForm: FormGroup;
@@ -51,6 +53,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   orgFormFields: OrgFormField[] = [];
   entityCateogries$: Observable<any>;
   entityCategories: any;
+  isEditable = false;
   entityCategoriesSub: Subscription;
   states = [
     'Arunachal Pradesh',
