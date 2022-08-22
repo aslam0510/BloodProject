@@ -29,10 +29,23 @@ export class DonarDatabaseComponent implements OnInit {
     'lastDonation',
     'location',
   ];
+  donationDisplayedColumns: string[] = [
+    'donorName',
+    'donorId',
+    'bloodGroup',
+    'donationType',
+    'collectionDate',
+    'bloodRequestId',
+    'location',
+  ];
   donorRepos$: Observable<any>;
   donorRepos: any;
   donorReposSub: Subscription;
+  donorDonationList$: Observable<any>;
+  donorDonationList: any;
+  donorDonationListSub: Subscription;
   dataSource = new MatTableDataSource();
+  DonationdataSource = new MatTableDataSource();
   addOnBlur = true;
   readonly separatorKeysCodes = ['ENTER', 'COMMA'] as const;
   filterData = [];
@@ -46,19 +59,93 @@ export class DonarDatabaseComponent implements OnInit {
     this.donorRepos$ = this.store.select(
       (state) => state.SidNavSlice.donorRepoList
     );
+
+    this.donorDonationList$ = this.store.select(
+      (state) => state.SidNavSlice.donorDonationHistory
+    );
   }
 
   ngOnInit() {
     this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
-    // this.store.dispatch(new SideNavActions.GetDonorDonationList());
+    this.store.dispatch(new SideNavActions.GetDonorDonationList());
 
     this.donorReposSub = this.donorRepos$.subscribe((data) => {
       if (data) {
         this.donorRepos = data.data.details;
         this.dataSource = new MatTableDataSource(this.donorRepos);
-        this.dataSource.filter = JSON.stringify(this.formValues);
+        this.dataSource.filterPredicate = this.filterRequests();
+        // this.dataSource.filter = JSON.stringify(this.formValues);
       }
     });
+    this.donorDonationListSub = this.donorDonationList$.subscribe((data) => {
+      if (data) {
+        this.donorDonationList = data.data.details;
+        this.DonationdataSource = new MatTableDataSource(
+          this.donorDonationList
+        );
+        this.DonationdataSource.filterPredicate = this.filterRequests();
+      }
+    });
+  }
+
+  filterRequests(): (data: any, filter: string) => boolean {
+    const filterFunction = function (data, filter): boolean {
+      const searchTerms = JSON.parse(filter);
+      const arr = searchTerms.range.split(' ');
+      const range = arr[arr.length - 1];
+      console.log(
+        (searchTerms.bloodGroup
+          ? data.bldgrp
+            ? data.bldgrp
+                .toLowerCase()
+                .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1
+            : true
+          : true) &&
+          (searchTerms.gender
+            ? data.gender
+              ? data.gender
+                  .toLowerCase()
+                  .indexOf(searchTerms.gender.toLowerCase()) !== -1
+              : true
+            : true) &&
+          (searchTerms.location
+            ? data.city
+              ? data.city
+                  .toLowerCase()
+                  .indexOf(searchTerms.location.toLowerCase()) !== -1
+              : true
+            : true) &&
+          searchTerms.range
+          ? Number(data.age) < Number(range)
+          : true
+      );
+
+      return (searchTerms.bloodGroup
+        ? data.bldgrp
+          ? data.bldgrp
+              .toLowerCase()
+              .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1
+          : true
+        : true) &&
+        (searchTerms.gender
+          ? data.gender
+            ? data.gender
+                .toLowerCase()
+                .indexOf(searchTerms.gender.toLowerCase()) !== -1
+            : true
+          : true) &&
+        (searchTerms.location
+          ? data.city
+            ? data.city
+                .toLowerCase()
+                .indexOf(searchTerms.location.toLowerCase()) !== -1
+            : true
+          : true) &&
+        searchTerms.range
+        ? Number(data.age) <= Number(range)
+        : true;
+    };
+    return filterFunction;
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -103,14 +190,15 @@ export class DonarDatabaseComponent implements OnInit {
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      this.filterData = [];
+      const formValues = result;
       for (const key in result) {
         if (result[key] !== '') {
           this.filterData.push(result[key]);
-          this.dataSource.filter = JSON.stringify(this.formValues);
         }
       }
-      console.log(this.filterData);
+      this.formValues = formValues;
+      this.dataSource.filter = JSON.stringify(this.formValues);
     });
   }
 
@@ -135,6 +223,14 @@ export class DonarDatabaseComponent implements OnInit {
 
     if (index >= 0) {
       this.filterData.splice(index, 1);
+      const f = this.formValues;
+      for (const key in f) {
+        if (f[key] == fruit) {
+          delete f[key];
+        }
+      }
+      this.formValues = f;
+      this.dataSource.filter = JSON.stringify(this.formValues);
     }
   }
 }

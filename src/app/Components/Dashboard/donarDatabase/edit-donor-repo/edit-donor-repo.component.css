@@ -1,0 +1,16 @@
+mat-card {
+  margin-left: 2rem;
+  width: 65%;
+}
+
+h3 {
+  font-weight: bold;
+}
+
+mat-form-field {
+  width: 350px !important;
+}
+
+.mat-input-element:disabled {
+  color: black !important;
+}

@@ -31,7 +31,14 @@ export const GET_BLOOD_REQUEST_LIST_SUCCESS = 'GET_BLOOD_REQUEST_LIST_SUCCESS';
 export const GET_BLD_REQ_BY_ID = 'GET_BLD_REQ_BY_ID';
 export const GET_BLD_REQ_BY_ID_SUCCESS = 'GET_BLD_REQ_BY_ID_SUCCESS';
 export const GET_DONOR_REPO_LIST = ' GET_DONOR_REPO_LIST';
-export const GET_DONOR_REPO_LIST_SUCCESS = ' GET_DONOR_REPO_LIST_SUCCESS';
+export const GET_DONOR_REPO_LIST_SUCCESS = 'GET_DONOR_REPO_LIST_SUCCESS';
+export const GET_DONOR_REPO_BYID = 'GET_DONOR_REPO_BYID';
+export const GET_DONOR_REPO_BYID_SUCCESS = 'GET_DONOR_REPO_BYID_SUCCESS';
+export const GET_DONOR_DONATION_BYID = 'GET_DONOR_DONATION_BYID';
+export const GET_DONOR_DONATION_BYID_SUCCESS =
+  'GET_DONOR_DONATION_BYID_SUCCESS';
+export const UPDATE_DONOR_REPO_BYID = 'UPDATE_DONOR_REPO_BYID';
+export const UPDATE_DONOR_REPO_BYID_SUCCESS = 'UPDATE_DONOR_REPO_BYID_SUCCESS';
 export const GET_DONOR_DONATION_HISTORY_LIST =
   'GET_DONOR_DONATION_HISTORY_LIST';
 export const GET_DONOR_DONATION_HISTORY_LIST_SUCCESS =
@@ -180,7 +187,7 @@ export class GetDonorRepoListSuccess {
 
 export class GetDonorDonationList {
   readonly type = GET_DONOR_DONATION_HISTORY_LIST;
-  constructor(public payload: any) {}
+  constructor() {}
 }
 
 export class GetDonorDonationListSuccess {
@@ -196,6 +203,37 @@ export class UpdateBloodRequestSuccess {
   readonly type = UPDATE_BLOOD_REQUEST_SUCCESS;
   constructor(public payload: any) {}
 }
+
+export class GetDonorRepoById {
+  readonly type = GET_DONOR_REPO_BYID;
+  constructor(public payload: any) {}
+}
+
+export class GetDonorRepoByIdSucess {
+  readonly type = GET_DONOR_REPO_BYID_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class GetDonorDonationById {
+  readonly type = GET_DONOR_DONATION_BYID;
+  constructor(public payload: any) {}
+}
+
+export class GetDonorDonationByIdSucess {
+  readonly type = GET_DONOR_DONATION_BYID_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class UpdateDonorRepoById {
+  readonly type = UPDATE_DONOR_REPO_BYID;
+  constructor(public payload: any) {}
+}
+
+export class UpdateDonorRepoByIdSuccess {
+  readonly type = UPDATE_DONOR_REPO_BYID_SUCCESS;
+  constructor(public payload: any) {}
+}
+
 export type Action =
   | GetUsersList
   | GetUsersListSuccess
@@ -230,4 +268,10 @@ export type Action =
   | GetDonorDonationListSuccess
   | GetDonorRepoListSuccess
   | UpdateBloodRequest
-  | UpdateBloodRequestSuccess;
+  | UpdateBloodRequestSuccess
+  | GetDonorRepoById
+  | GetDonorRepoByIdSucess
+  | UpdateDonorRepoById
+  | UpdateDonorRepoByIdSuccess
+  | GetDonorDonationById
+  | GetDonorDonationByIdSucess;

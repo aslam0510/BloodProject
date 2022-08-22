@@ -101,6 +101,10 @@ const apis = {
     url: `/${bloodBank}/donor/getDonors/`,
     port: appPort.port,
   },
+  GET_DONOR_DONATION_LIST: {
+    url: `/${bloodBank}/donor/getDonationDetails/`,
+    port: appPort.port,
+  },
   UPDATE_BLOOD_REQUEST: {
     url: `/${bloodBank}/request/updateRequirements`,
     port: appPort.port,
@@ -128,6 +132,19 @@ const apis = {
 
   LOGOUT: {
     url: `/logout`,
+    port: appPort.port,
+  },
+
+  GET_DONOR_REPO_BYID: {
+    url: `/${bloodBank}/donor/getDonorDetails`,
+    port: appPort.port,
+  },
+  UPDATE_DONOR_REPO_BYID: {
+    url: `/${bloodBank}/donor/updateDonor`,
+    port: appPort.port,
+  },
+  GET_DONOR_DONATION_BYID: {
+    url: `/${bloodBank}/donor/getDonationDetailsById`,
     port: appPort.port,
   },
 };

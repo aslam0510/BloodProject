@@ -14,5 +14,7 @@ export class SideNavState {
   bloodReqDetail: any;
   donorRepoList: any;
   donorDonationHistory: any;
+  donorById: any;
+  donorDonationById: any;
   constructor() {}
 }

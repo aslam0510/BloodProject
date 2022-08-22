@@ -51,6 +51,12 @@ export function SideNavReducer(
     case SideNavActions.GET_DONOR_REPO_LIST_SUCCESS: {
       return { ...state, donorRepoList: action.payload };
     }
+    case SideNavActions.GET_DONOR_REPO_BYID_SUCCESS: {
+      return { ...state, donorById: action.payload };
+    }
+    case SideNavActions.GET_DONOR_DONATION_BYID_SUCCESS: {
+      return { ...state, donorDonationById: action.payload };
+    }
     default: {
       return state;
     }

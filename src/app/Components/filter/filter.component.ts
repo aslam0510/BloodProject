@@ -77,12 +77,21 @@ export class FilterComponent implements OnInit {
     this.bloodGroupListSub = this.bloodGroupList$.subscribe((response) => {
       if (response) {
         this.bloodGroupList = response.data;
-        console.log(this.bloodGroupList);
       }
     });
   }
 
   OnUpload() {
-    this.dialogRef.close(this.filterForm.value);
+    const range1 = this.filterForm.value.range[0];
+    const range2 = this.filterForm.value.range[1];
+    const range = `Age ${range1} - ${range2}`;
+    const payload = {
+      bloodGroup: this.filterForm.value.bloodGroup,
+      gender: this.filterForm.value.gender,
+      lastDonation: this.filterForm.value.lastDonation,
+      location: this.filterForm.value.location,
+      range: range,
+    };
+    this.dialogRef.close(payload);
   }
 }

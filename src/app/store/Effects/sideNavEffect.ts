@@ -253,15 +253,56 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_DONOR_DONATION_HISTORY_LIST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload);
         return this.http
-          .get(
-            api.getAPI('GET_DONOR_DONATION_LIST') +
-              `?page=1&size=100&date=06-04-2022`
-          )
+          .get(api.getAPI('GET_DONOR_DONATION_LIST') + `?isDonorRepo=true`)
           .pipe(
             map(
               (data: any) => new SideNavAction.GetDonorDonationListSuccess(data)
+            )
+          );
+      })
+    );
+  });
+
+  getDonorByid$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.GET_DONOR_REPO_BYID),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_DONOR_REPO_BYID') + `?_id=${payload}`)
+          .pipe(
+            map((data: any) => new SideNavAction.GetDonorRepoByIdSucess(data))
+          );
+      })
+    );
+  });
+
+  getDonorDoantionByid$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.GET_DONOR_DONATION_BYID),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_DONOR_DONATION_BYID') + `?_id=${payload}`)
+          .pipe(
+            map(
+              (data: any) => new SideNavAction.GetDonorDonationByIdSucess(data)
+            )
+          );
+      })
+    );
+  });
+  updateDonorByid$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.UPDATE_DONOR_REPO_BYID),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .put(api.getAPI('UPDATE_DONOR_REPO_BYID'), payload)
+          .pipe(
+            map(
+              (data: any) => new SideNavAction.UpdateDonorRepoByIdSuccess(data)
             )
           );
       })
