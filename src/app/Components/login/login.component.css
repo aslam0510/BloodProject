@@ -25,9 +25,9 @@ button {
 }
 mat-form-field {
   margin-top: 1rem;
-  padding-right: 1.5rem;
+  /* padding-right: 1.5rem; */
   padding-left: 1rem;
-  width: 475px;
+  width: 380px;
 }
 
 mat-card-subtitle {
