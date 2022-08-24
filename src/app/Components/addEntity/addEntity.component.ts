@@ -206,4 +206,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.addNewEntitySub.unsubscribe();
     localStorage.removeItem('orgForm');
   }
+  navigate() {
+    this.router.navigate(['/dashboard']);
+  }
 }

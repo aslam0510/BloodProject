@@ -309,4 +309,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.orgFormSub.unsubscribe();
     localStorage.removeItem('orgForm');
   }
+
+  navigate() {
+    this.router.navigate(['/dashboard']);
+  }
 }

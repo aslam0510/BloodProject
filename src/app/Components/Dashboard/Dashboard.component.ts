@@ -98,15 +98,16 @@ export class DashboardComponent implements OnInit {
   }
 
   onAddBloodReq() {
-    const dailogRef = this.dialog.open(AddBloodRequestComponent, {
-      width: '850px',
-      height: 'auto',
-      panelClass: 'custom-dialog-container',
-    });
+    this.router.navigate(['/addBldRequest']);
+    // const dailogRef = this.dialog.open(AddBloodRequestComponent, {
+    //   width: '850px',
+    //   height: 'auto',
+    //   panelClass: 'custom-dialog-container',
+    // });
 
-    dailogRef.afterClosed().subscribe((result) => {
-      dailogRef.close();
-    });
+    // dailogRef.afterClosed().subscribe((result) => {
+    //   dailogRef.close();
+    // });
   }
 
   onBroadCaseMsg(event) {

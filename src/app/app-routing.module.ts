@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ResetPasswordComponent } from './Dialogs/resetPassword/resetPassword.component';
 import { dashboardRoutes } from './Routes/dashboardRoutes';
 import { AddEntityComponent } from './Components/addEntity/addEntity.component';
+import { AddBloodRequestComponent } from './Dialogs/forgot-dialog/AddBloodRequest/AddBloodRequest.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -28,6 +29,11 @@ const routes: Routes = [
     path: 'addEntity',
     pathMatch: 'full',
     component: AddEntityComponent,
+  },
+  {
+    path: 'addBldRequest',
+    pathMatch: 'full',
+    component: AddBloodRequestComponent,
   },
   ...dashboardRoutes,
 ];

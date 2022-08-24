@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -25,12 +26,10 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
   bloodGroupcount = 0;
   showBloodGrupAddBtn = true;
   showBldGrpCountBtn = false;
+  acceptOnlyPDF = '';
+  organizationFiles = [];
   selectedBldCom = [];
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public dialogRef: MatDialogRef<AddBloodRequestComponent>,
-    private store: Store<AppState>
-  ) {
+  constructor(private store: Store<AppState>, private router: Router) {
     this.bloodCompList$ = this.store.select(
       (state) => state.SidNavSlice.bloodCompList
     );
@@ -187,11 +186,33 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
       reqUnits.forEach((unit) => {
         formData.append('requiredUnit', unit);
       });
+      for (var i = 0; i < this.organizationFiles.length; i++) {
+        formData.append('docs', this.organizationFiles[i]);
+      }
 
       this.store.dispatch(new DashboardActions.CreateBloodReq(formData));
     }
-    this.dialogRef.close(true);
   }
 
+  onOrgFileUpload(event) {
+    this.acceptOnlyPDF = '';
+    for (var i = 0; i < event.target.files.length; i++) {
+      if (event.target.files[i].type == 'application/pdf') {
+        this.organizationFiles.push(event.target.files[i]);
+      } else {
+        this.acceptOnlyPDF = 'Accept only PDF File';
+      }
+    }
+  }
+
+  //REMOVING ORGANIZATION FILE
+  onDeleteFile(index) {
+    this.organizationFiles = this.organizationFiles.filter(
+      (x, i) => i !== index
+    );
+  }
+  navigate() {
+    this.router.navigate(['/dashboard']);
+  }
   ngOnDestroy() {}
 }

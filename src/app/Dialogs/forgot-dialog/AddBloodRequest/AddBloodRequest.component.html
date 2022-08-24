@@ -1,218 +1,283 @@
-<div>
-  <form [formGroup]="bloodReqForm">
-    <div class="d-flex pt-3 justify-content-between align-items-center header">
-      <p>
-        <mat-form-field appearance=" outline" class="width">
-          <mat-select class="select" placeholder="{{ 'Set Priority' }}" formControlName="priority">
-            <mat-option value="1">{{ "Emergency" }} </mat-option>
-            <mat-option value="2">{{ "Routine" }} </mat-option>
-          </mat-select>
-          <mat-error *ngIf="
-                            bloodReqForm.controls['priority'].invalid &&
-                            bloodReqForm.controls['priority'].errors.required
-                          ">
-            {{ "Set Priority is required" }}
-          </mat-error>
-        </mat-form-field>
-      </p>
-      <h3 class="text-white">Add Blood Reqeust</h3>
-      <button mat-icon-button class="pl-3">
-        <mat-icon (click)="dialogRef.close()">close</mat-icon>
-      </button>
-    </div>
-    <mat-stepper [linear]="isLinear" #stepper>
-      <mat-step label="Patient's Details">
-        <div class="pl-4 mt-2">
-          <div class="d-flex justify-content-evenly">
-            <mat-form-field>
-              <mat-label>Patient's Name</mat-label>
-              <input matInput placeholder="Patient's Name" formControlName="patName">
-              <mat-error *ngIf="
-                                          bloodReqForm.controls['patName'].invalid &&
-                                          bloodReqForm.controls['patName'].errors.required
-                                        ">
-                {{ "Patient's Name is required" }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>{{ "Blood Group " }}</mat-label>
-              <mat-select placeholder="{{ 'Blood Group ' }}" formControlName="bldgrp">
-                <mat-option [value]="group.type" *ngFor="let group of bloodGroupList">{{ group.type }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="
-                                                        bloodReqForm.controls['bldgrp'].invalid &&
-                                                        bloodReqForm.controls['bldgrp'].errors.required
+<div class="header d-flex align-items-center justify-content-between">
+  <div>
+    <img src="/assets/Images/logo.svg" alt="JioLogo" class="ml-2 pl-5 logo" width="130px" height="50px" />
+  </div>
+</div>
+<div class="d-inline d-flex align-items-center" style=" margin-left: 4rem; background-color: #f4f0ec">
+  <mat-icon (click)="navigate()" style="cursor: pointer;">keyboard_arrow_left</mat-icon>
+  <h2 class="m-0 ml-2 d-inline">Blood Request Form</h2>
+</div>
+<div class="accordion">
+
+  <mat-vertical-stepper linear>
+    <form class="orgForm" [formGroup]="bloodReqForm">
+      <mat-step>
+        <ng-template matStepLabel>Patient Details</ng-template>
+        <div class="expansion">
+          <mat-accordion>
+            <mat-expansion-panel expanded=" open">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="d-flex justify-content-between align-items-center">
+                  <strong>Patient Details</strong>
+
+                  <button color="accent" mat-button>
+                    <mat-icon color="accent">refresh</mat-icon> Reset
+                  </button>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="pl-4 mt-2">
+                <div class="d-flex justify-content-evenly">
+                  <mat-form-field>
+                    <mat-label>Patient's Name</mat-label>
+                    <input matInput placeholder="Patient's Name" formControlName="patName">
+                    <mat-error *ngIf="
+                                                        bloodReqForm.controls['patName'].invalid &&
+                                                        bloodReqForm.controls['patName'].errors.required
                                                       ">
-                {{ "Blood Group is required" }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="d-flex justify-content-evenly">
-            <mat-form-field>
-              <mat-label>Age</mat-label>
-              <input matInput placeholder="Age" formControlName="age" type="number">
-              <mat-error *ngIf="
-                                                                      bloodReqForm.controls['age'].invalid &&
-                                                                      bloodReqForm.controls['age'].errors.required
+                      {{ "Patient's Name is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>{{ "Blood Group " }}</mat-label>
+                    <mat-select placeholder="{{ 'Blood Group ' }}" formControlName="bldgrp">
+                      <mat-option [value]="group.type" *ngFor="let group of bloodGroupList">{{ group.type }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="
+                                                                      bloodReqForm.controls['bldgrp'].invalid &&
+                                                                      bloodReqForm.controls['bldgrp'].errors.required
                                                                     ">
-                {{ "Age is required" }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>{{ "Gender" }}</mat-label>
-              <mat-select placeholder="{{ 'Gender' }}" formControlName="gender">
-                <mat-option value="Male">{{ "Male" }}
-                </mat-option>
-                <mat-option value="Female">{{ "Female" }}
-                </mat-option>
-                <mat-option value="Others">{{ "Others" }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="
-                                                                                    bloodReqForm.controls['gender'].invalid &&
-                                                                                    bloodReqForm.controls['gender'].errors.required
+                      {{ "Blood Group is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="d-flex justify-content-evenly">
+                  <mat-form-field>
+                    <mat-label>Age</mat-label>
+                    <input matInput placeholder="Age" formControlName="age" type="number">
+                    <mat-error *ngIf="
+                                                                                    bloodReqForm.controls['age'].invalid &&
+                                                                                    bloodReqForm.controls['age'].errors.required
                                                                                   ">
-                {{ "Gender is required" }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="d-flex justify-content-evenly">
-            <mat-form-field>
-              <mat-label>Name of the Requester</mat-label>
-              <input matInput placeholder="Name of the Requester" formControlName="reqstrName">
-              <mat-error *ngIf="bloodReqForm.controls['reqstrName'].invalid && bloodReqForm.controls['reqstrName'].errors.required">
-                {{ "Name of the Requester is required" }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Relation with Patient</mat-label>
-              <input matInput placeholder="Relation with Patient" formControlName="reqstrRel">
-              <mat-error *ngIf="bloodReqForm.controls['reqstrRel'].invalid && bloodReqForm.controls['reqstrRel'].errors.required">
-                {{ "Relation with Patient is required" }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="d-flex justify-content-evenly">
-            <mat-form-field class="example-full-width">
-              <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker" placeholder="Date of Requirement" formControlName="reqDate">
-              <mat-hint>MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>purpose</mat-label>
-              <input matInput placeholder="Purpose" formControlName="purpose">
-              <mat-error *ngIf="bloodReqForm.controls['purpose'].invalid && bloodReqForm.controls['purpose'].errors.required">
-                {{ "Purpose is required" }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="d-flex justify-content-evenly">
-            <mat-form-field>
-              <mat-label>Hospital Name</mat-label>
-              <input matInput placeholder="Hospital Name" formControlName="hospitalName">
-              <mat-error *ngIf="bloodReqForm.controls['hospitalName'].invalid && bloodReqForm.controls['hospitalName'].errors.required">
-                {{ "Hospital Name is required" }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Hospital Address</mat-label>
-              <input matInput placeholder="Hospital Address" formControlName="hospitalAddr">
-              <mat-error *ngIf="bloodReqForm.controls['hospitalAddr'].invalid && bloodReqForm.controls['hospitalAddr'].errors.required">
-                {{ "Hospital Address is required" }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="d-flex justify-content-evenly">
-            <mat-form-field>
-              <mat-label>Conatact No.</mat-label>
-              <input matInput placeholder="Conatact No." formControlName="contact">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Patient's Address</mat-label>
-              <input matInput placeholder="Patient's Address" formControlName="patAddr">
-              <mat-error *ngIf="bloodReqForm.controls['patAddr'].invalid && bloodReqForm.controls['patAddr'].errors.required">
-                {{ "Patient's Address is required" }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="d-inline location">
-            <mat-form-field>
-              <mat-label>Location</mat-label>
-              <input matInput placeholder="Location" formControlName="location">
-              <mat-error *ngIf="bloodReqForm.controls['location'].invalid && bloodReqForm.controls['location'].errors.required">
-                {{ "Location is required" }}
-              </mat-error>
-            </mat-form-field>
-          </div>
+                      {{ "Age is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>{{ "Gender" }}</mat-label>
+                    <mat-select placeholder="{{ 'Gender' }}" formControlName="gender">
+                      <mat-option value="Male">{{ "Male" }}
+                      </mat-option>
+                      <mat-option value="Female">{{ "Female" }}
+                      </mat-option>
+                      <mat-option value="Others">{{ "Others" }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="
+                                                                                                  bloodReqForm.controls['gender'].invalid &&
+                                                                                                  bloodReqForm.controls['gender'].errors.required
+                                                                                                ">
+                      {{ "Gender is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="d-flex justify-content-evenly">
+                  <mat-form-field>
+                    <mat-label>Name of the Requester</mat-label>
+                    <input matInput placeholder="Name of the Requester" formControlName="reqstrName">
+                    <mat-error *ngIf="bloodReqForm.controls['reqstrName'].invalid && bloodReqForm.controls['reqstrName'].errors.required">
+                      {{ "Name of the Requester is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Relation with Patient</mat-label>
+                    <input matInput placeholder="Relation with Patient" formControlName="reqstrRel">
+                    <mat-error *ngIf="bloodReqForm.controls['reqstrRel'].invalid && bloodReqForm.controls['reqstrRel'].errors.required">
+                      {{ "Relation with Patient is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="d-flex justify-content-evenly">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="Date of Requirement" formControlName="reqDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>purpose</mat-label>
+                    <input matInput placeholder="Purpose" formControlName="purpose">
+                    <mat-error *ngIf="bloodReqForm.controls['purpose'].invalid && bloodReqForm.controls['purpose'].errors.required">
+                      {{ "Purpose is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="d-flex justify-content-evenly">
+                  <mat-form-field>
+                    <mat-label>Hospital Name</mat-label>
+                    <input matInput placeholder="Hospital Name" formControlName="hospitalName">
+                    <mat-error *ngIf="bloodReqForm.controls['hospitalName'].invalid && bloodReqForm.controls['hospitalName'].errors.required">
+                      {{ "Hospital Name is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Hospital Address</mat-label>
+                    <input matInput placeholder="Hospital Address" formControlName="hospitalAddr">
+                    <mat-error *ngIf="bloodReqForm.controls['hospitalAddr'].invalid && bloodReqForm.controls['hospitalAddr'].errors.required">
+                      {{ "Hospital Address is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="d-flex justify-content-evenly">
+                  <mat-form-field>
+                    <mat-label>Conatact No.</mat-label>
+                    <input matInput placeholder="Conatact No." formControlName="contact">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Patient's Address</mat-label>
+                    <input matInput placeholder="Patient's Address" formControlName="patAddr">
+                    <mat-error *ngIf="bloodReqForm.controls['patAddr'].invalid && bloodReqForm.controls['patAddr'].errors.required">
+                      {{ "Patient's Address is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="d-inline location">
+                  <mat-form-field>
+                    <mat-label>Location</mat-label>
+                    <input matInput placeholder="Location" formControlName="location">
+                    <mat-error *ngIf="bloodReqForm.controls['location'].invalid && bloodReqForm.controls['location'].errors.required">
+                      {{ "Location is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between pr-5 mt-2" style="padding: 0 3rem ;">
+                <mat-checkbox>{{ 'Mark as Emergency Request' }}</mat-checkbox>
+                <button mat-raised-button matStepperNext class="appBtnBgColor">Next</button>
+              </div>
+            </mat-expansion-panel>
+
+          </mat-accordion>
         </div>
-        <div class="m-2">
-          <button mat-raised-button matStepperNext class="flex-end">Next</button>
-        </div>
+
       </mat-step>
-      <mat-step label="Requirement Details">
-        <div class="matstep2">
-          <h3>Blood Requirement</h3>
-          <div>
-            <mat-radio-group aria-label="Select an option">
-              <mat-radio-button (change)="radioChnage($event)" checked="true" value="1">Whole Blood</mat-radio-button>
-              <mat-radio-button (change)="radioChnage($event)" value="2">Blood Components</mat-radio-button>
-              <mat-radio-button (change)="radioChnage($event)" value="3">Whole Blood and Blood Components Both</mat-radio-button>
-            </mat-radio-group>
-          </div>
-          <div>
-            <h3 class="mt-4">Select Blood Requirement</h3>
-            <div class="bloodReq">
-              <mat-tab-group>
-                <mat-tab label="Whole blood" *ngIf="showWholeBlood">
-                  <div class="row" *ngIf="bloodReqForm.controls['bldgrp'].value">
-                    <mat-card class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-3 p-3 d-flex justify-content-between align-items-center">
-                      <h3>{{bloodReqForm.controls['bldgrp'].value }}</h3>
-                      <button mat-raised-button class="appBgColor text-white" (click)="bldGropAddBtn()" *ngIf="showBloodGrupAddBtn">Add</button>
-                      <button mat-raised-button class="appBgColor text-white" *ngIf="showBldGrpCountBtn">
-                        <mat-icon (click)="removeBloodGroupCount()">remove</mat-icon>
-                        {{bloodGroupcount}}
-                        <mat-icon (click)="addBloodGroupCount();">add</mat-icon>
-                      </button>
-                    </mat-card>
+      <mat-step>
+        <ng-template matStepLabel>Requirements Details</ng-template>
+        <div class=" expansion">
+          <mat-accordion>
+            <mat-expansion-panel expanded=" open">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="d-flex justify-content-between align-items-center">
+                  <strong>Requirements Details</strong>
+
+                  <button color="accent" mat-button>
+                    <mat-icon color="accent">refresh</mat-icon> Reset
+                  </button>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="matstep2">
+                <h3>Blood Requirement</h3>
+                <div>
+                  <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button (change)="radioChnage($event)" checked="true" value="1">Whole Blood</mat-radio-button>
+                    <mat-radio-button (change)="radioChnage($event)" value="2">Blood Components</mat-radio-button>
+                    <mat-radio-button (change)="radioChnage($event)" value="3">Whole Blood and Blood Components Both</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div>
+                  <h3 class="mt-4">Select Blood Requirement</h3>
+                  <div class="bloodReq">
+                    <mat-tab-group>
+                      <mat-tab label="Whole blood" *ngIf="showWholeBlood">
+                        <div class="row" *ngIf="bloodReqForm.controls['bldgrp'].value">
+                          <mat-card class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-3 p-3 d-flex justify-content-between align-items-center">
+                            <h3>{{bloodReqForm.controls['bldgrp'].value }}</h3>
+                            <button mat-button class="addBtn" (click)="bldGropAddBtn()" *ngIf="showBloodGrupAddBtn">Add</button>
+                            <button mat-button class="addBtn " *ngIf="showBldGrpCountBtn">
+                              <mat-icon (click)="removeBloodGroupCount()" class="addBtn">remove</mat-icon>
+                              <span class="addBtn">{{bloodGroupcount}}</span>
+                              <mat-icon (click)="addBloodGroupCount();" class="addBtn">add</mat-icon>
+                            </button>
+                          </mat-card>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Blood Component" *ngIf="showBlodComp">
+                        <p *ngIf="selectedBldCom.length > 0" class="float-right">Selected : {{selectedBldCom.length}}</p>
+                        <div class="row">
+                          <mat-card (click)="onBlodComCardClick(bldComp,i)" *ngFor="let bldComp of bloodCompList; let i = index;"
+                            class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-3 p-3 d-flex justify-content-between align-items-center" [ngStyle]="bldComp.select && {'border': '1px solid red'}">
+                            <h4>{{bldComp.list}}</h4>
+                            <button mat-button class="addBtn" *ngIf="bldComp.showAddBtn" (click)="bldCompAddBtn($event,i)" [disabled]="!bldComp.select">Add</button>
+                            <button mat-button class="addBtn" *ngIf="bldComp.showCountBtn">
+                              <mat-icon (click)="removeBloodComCount(bldComp, i); $event.stopPropagation()" class="addBtn">remove</mat-icon>
+                              <span class="addBtn">{{bldComp.count}}</span>
+                              <mat-icon (click)="addBloodcomCount(bldComp, i) ; $event.stopPropagation()" class="addBtn">add</mat-icon>
+                            </button>
+                          </mat-card>
+                        </div>
+                      </mat-tab>
+                    </mat-tab-group>
                   </div>
-                </mat-tab>
-                <mat-tab label="Blood Component" *ngIf="showBlodComp">
-                  <p *ngIf="selectedBldCom.length > 0" class="float-right">Selected : {{selectedBldCom.length}}</p>
-                  <div class="row">
-                    <mat-card (click)="onBlodComCardClick(bldComp,i)" *ngFor="let bldComp of bloodCompList; let i = index;"
-                      class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-3 p-3 d-flex justify-content-between align-items-center" [ngStyle]="bldComp.select && {'border': '1px solid red'}">
-                      <h4>{{bldComp.list}}</h4>
-                      <button mat-raised-button class="appBgColor text-white" *ngIf="bldComp.showAddBtn" (click)="bldCompAddBtn($event,i)" [disabled]="!bldComp.select">Add</button>
-                      <button mat-raised-button class="appBgColor text-white" *ngIf="bldComp.showCountBtn">
-                        <mat-icon (click)="removeBloodComCount(bldComp, i); $event.stopPropagation()">remove</mat-icon>
-                        {{bldComp.count}}
-                        <mat-icon (click)="addBloodcomCount(bldComp, i) ; $event.stopPropagation()">add</mat-icon>
-                      </button>
-                    </mat-card>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button mat-raised-button matStepperPrevious style="margin-right: 1rem;">Previous</button>
+                <button mat-raised-button matStepperNext class="appBtnBgColor">Next</button>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Upload Document</ng-template>
+        <div class="d-inline">
+          <div>
+            <div class="d-flex justify-content-between mt-2 px-4">
+              <h3>Upload License of Blood Bank</h3>
+              <p class="mat-body-1">
+                *File size should be less than 1 MB
+              </p>
+            </div>
+            <mat-error *ngIf="acceptOnlyPDF" class="fileErr">{{
+              acceptOnlyPDF
+              }}</mat-error>
+            <div class="upload">
+              <div class="d-flex justify-content-between">
+                <p class="pt-2">
+                  Please upload your medical registration and document
+                  of state medical council proof.
+                </p>
+                <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
+                <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
+                  <mat-icon color="accent">upload</mat-icon>
+                  <span>Upload</span>
+                </button>
+              </div>
+
+              <ng-container *ngFor="let file of organizationFiles; let i = index">
+                <div class="files d-flex my-2 align-items-center" *ngIf="organizationFiles.length > 0">
+                  <mat-icon class="icon pl-2 pr-4" color="accent">
+                    insert_drive_file</mat-icon>
+                  <div class="d-flex flex-column flex-grow-1">
+                    <span clas="d-block">{{ file.name }}</span>
+                    <span>{{ file.size + " byte" }}</span>
                   </div>
-                </mat-tab>
-              </mat-tab-group>
+                  <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)">close</mat-icon>
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>
-        <div class="m-1">
-          <button mat-raised-button matStepperPrevious>Back</button>
+        <div class="d-flex justify-content-end mt-2">
+          <button mat-raised-button matStepperPrevious style="margin-right: 1rem;">Back</button>
+          <button mat-raised-button class="btn-danger signup " [disabled]="!bloodReqForm.valid && organizationFiles.length < 0" (click)="onSubmit()" type="submit">
+            Submit
+          </button>
         </div>
+
       </mat-step>
-    </mat-stepper>
-
-
-    <div class=" bottom d-flex justify-content-between align-items-center">
-      <div>
-        <button color="accent" mat-button (click)="onReset()">
-          <mat-icon color="accent">refresh</mat-icon>
-          Reset
-        </button>
-      </div>
-      <button mat-raised-button class="appBgColor text-white" (click)="onSubmit()" [disabled]="!bloodReqForm.valid ">Submit</button>
-    </div>
-  </form>
+    </form>
+  </mat-vertical-stepper>
 </div>

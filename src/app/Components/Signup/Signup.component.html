@@ -2,18 +2,19 @@
   <div>
     <img src="/assets/Images/logo.svg" alt="JioLogo" class="ml-2 pl-5 logo" width="130px" height="50px" />
   </div>
-  <mat-list role="list" class="d-flex align-items-center" style="padding-top: 2.3rem;">
+  <mat-list role="list" class="d-flex align-items-center" style="padding-top: 3.5rem;">
     <mat-list-item role="listitem" routerLinkOptions="{exact: true}"> <a routerLinkActive="activeLink" routerLink="/login">Login </a>
     </mat-list-item>
-    <mat-list-item role="listitem" routerLinkOptions="{exact: true}" routerLinkActive="activeLink">
-      <a routerLink="/signup">Register</a>
+    <mat-list-item role="listitem" routerLinkOptions="{exact: true}">
+      <a routerLink="/signup" routerLinkActive="activeLink">Register</a>
     </mat-list-item>
   </mat-list>
 </div>
-<div class="d-inline" style="margin-left: 5rem; background-color: #f4f0ec">
-  <h2 class="m-0 d-inline">Registration Form</h2><br>
-  <span style="margin-left: 5rem;">Please enter you Organization information</span>
+<div class="d-inline d-flex align-items-center" style=" margin-left: 4rem; background-color: #f4f0ec">
+  <h2 class="m-0 d-inline">Registration Form</h2>
 </div>
+<span style="margin-left: 4rem;">Please enter you Organization information</span>
+
 <div class="accordion">
 
   <mat-vertical-stepper linear>
@@ -24,8 +25,8 @@
           <mat-accordion>
             <mat-expansion-panel expanded=" open">
               <mat-expansion-panel-header>
-                <mat-panel-title class="d-flex justify-content-between ign-items-center">
-                  <strong class="flex-grow-1 text-center">Organization Info</strong>
+                <mat-panel-title class="d-flex justify-content-between align-items-center">
+                  <strong>Organization Info</strong>
 
                   <button color="accent" mat-button (click)="onResetOrgForm()">
                     <mat-icon color="accent">refresh</mat-icon> Reset
@@ -34,7 +35,7 @@
               </mat-expansion-panel-header>
 
               <div>
-                <mat-form-field appearance="outline" class="ml-3">
+                <mat-form-field class="ml-3">
                   <mat-label>{{ "Type of Organization" }}</mat-label>
                   <mat-select formControlName="categoryName" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Type of Organization">
                     <mat-option [value]="category.categoryName" *ngFor="let category of orgCategories">{{ category.categoryName }}
@@ -72,7 +73,7 @@
                     </mat-form-field>
                   </ng-container>
                   <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
-                    <mat-form-field appearance="outline" *ngIf="
+                    <mat-form-field *ngIf="
                         orgFormField.key !== 'state' &&
                         orgFormField.key !== 'typeOfEntity'
                       ">
@@ -99,7 +100,7 @@
                         {{ orgFormField.fieldName + " is required" }}
                       </mat-error>
                     </mat-form-field>
-                    <mat-form-field appearance="outline" *ngIf="orgFormField.key === 'typeOfEntity'">
+                    <mat-form-field *ngIf="orgFormField.key === 'typeOfEntity'">
                       <mat-label>{{ orgFormField.fieldName }}</mat-label>
                       <mat-select formControlName="{{ orgFormField.key }}">
                         <mat-option [value]="category.categoryName" *ngFor="
@@ -182,7 +183,7 @@
             <mat-expansion-panel expanded=" open">
               <mat-expansion-panel-header>
                 <mat-panel-title class="d-flex justify-content-between align-items-center">
-                  <strong class="flex-grow-1 text-center">Address Info</strong>
+                  <strong>Address Info</strong>
 
                   <button color="accent" mat-button (click)="onResetOrgForm()">
                     <mat-icon color="accent">refresh</mat-icon> Reset
@@ -214,7 +215,7 @@
                     </mat-form-field>
                   </ng-container>
                   <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
-                    <mat-form-field appearance="outline" *ngIf="orgFormField.key === 'state'">
+                    <mat-form-field *ngIf="orgFormField.key === 'state'">
                       <mat-label>{{ orgFormField.fieldName }}</mat-label>
                       <mat-select formControlName="{{ orgFormField.key }}">
                         <mat-option [value]="state" *ngFor="let state of states; let i = index">{{ state }}
@@ -317,7 +318,7 @@
           </mat-expansion-panel-header>
           <form class="orgForm" [formGroupName]="i">
             <div class="d-flex flex-row justify-content-around">
-              <mat-form-field appearance="outline">
+              <mat-form-field>
                 <mat-label>{{ "Type of Organization" }}</mat-label>
                 <mat-select formControlName="entOrganizationType" placeholder="{{ 'Type of Organization' }}  *">
                   <mat-option [value]="type" *ngFor="let type of orgTypes"></mat-option>
@@ -398,7 +399,7 @@
                   {{ "Registration Council is required" }}
                 </mat-error>
               </mat-form-field>
-              <mat-form-field appearance="outline">
+              <mat-form-field>
                 <mat-label>{{ "Registration Year" }}</mat-label>
                 <mat-select formControlName="entRegYear" placeholder="{{ 'Registration Year' }}  *">
                   <mat-option value="hospital"> {{ "hospital" }}</mat-option>
