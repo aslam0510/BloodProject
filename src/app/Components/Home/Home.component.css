@@ -10,7 +10,7 @@ img {
   margin: 0;
   padding: 0.5;
   width: 100%;
-  /* height: 8%; */
+  height: 80px;
   background-color: white;
   z-index: 100;
   margin-bottom: 3rem;
@@ -18,8 +18,8 @@ img {
 }
 
 .activeLink {
-  color: red;
-  border-bottom: 3px solid red;
+  color: #aa182c;
+  border-bottom: 3px solid #aa182c;
 }
 a {
   color: black;
@@ -30,6 +30,6 @@ a {
 }
 
 .blood {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
 }

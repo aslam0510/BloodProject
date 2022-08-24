@@ -1,21 +1,28 @@
 img {
+  /* margin-left: 3rem; */
+  /* margin-right: 5rem; */
+}
+.logo {
   margin-left: 3rem;
-  margin-right: 5rem;
 }
 
 .expansion {
   /* background-color: white; */
   /* margin: 0.1rem 1rem; */
 }
+.mat-step-label .mat-step-label-active .mat-step-label-selected {
+  color: red !important;
+}
 
 .header {
   margin: 0;
-  padding: 0.5rem 0;
+  padding: 0.5;
   width: 100%;
-  height: 8%;
+  height: 80px;
   background-color: white;
   z-index: 100;
   margin-bottom: 3rem;
+  padding-right: 4rem;
 }
 
 .mat-step {
@@ -52,8 +59,8 @@ mat-vertical-stepper {
   display: none !important;
 }
 .activeLink {
-  color: red;
-  border-bottom: 3px solid red;
+  color: #aa182c;
+  border-bottom: 3px solid #aa182c;
 }
 a {
   color: black;

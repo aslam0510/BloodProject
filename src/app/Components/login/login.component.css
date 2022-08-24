@@ -11,17 +11,23 @@ button {
   border-radius: 25px;
 }
 .hint {
-  font-size: 15px;
+  font-size: 12px;
   font-weight: normal;
+  color: lightgray;
 }
 
 .title {
-  line-height: 1.3;
+  line-height: 1.5;
+  padding-left: 1rem;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 30px;
 }
 mat-form-field {
   margin-top: 1rem;
   padding-right: 1.5rem;
   padding-left: 1rem;
+  width: 380px;
 }
 
 mat-card-subtitle {
