@@ -47,14 +47,17 @@ mat-vertical-stepper {
 .mat-step-header :target {
   border-left: 2px solid red !important;
 }
-/* .mat-step-header[aria-selected="true"] {
-  background-color: red !important;
-  color: white !important;
-  border-left: 2px solid red !important;
-} */
-.mat-step-header[ng-reflect-selected="true"] ~ .mat-step-header .mat-step-icon {
-  background-color: blue;
+.mat-step-header[aria-selected="true"] .mat-focus-indicator {
+  border-left: 3px solid red;
 }
+
+/* mat-focus-indicator */
+.mat-step-label-selected {
+  color: red !important;
+}
+/* .mat-step-header[ng-reflect-selected="true"] ~ .mat-step-header .mat-step-icon {
+  background-color: blue;
+} */
 .mat-step-icon {
   display: none !important;
 }
@@ -62,6 +65,7 @@ mat-vertical-stepper {
   color: #aa182c;
   border-bottom: 3px solid #aa182c;
 }
+
 a {
   color: black;
   text-decoration: none;
