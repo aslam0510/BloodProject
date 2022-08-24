@@ -1,16 +1,49 @@
 img {
+  /* margin-left: 3rem; */
+  /* margin-right: 5rem; */
+}
+.logo {
   margin-left: 3rem;
-  margin-right: 5rem;
 }
 
-mat-expansion-panel {
-  padding: 0;
+.expansion {
+  /* background-color: white; */
+  /* margin: 0.1rem 1rem; */
 }
+.mat-step-label .mat-step-label-active .mat-step-label-selected {
+  color: red !important;
+}
+
+.header {
+  margin: 0;
+  padding: 0.5;
+  width: 100%;
+  height: 80px;
+  background-color: white;
+  z-index: 100;
+  margin-bottom: 3rem;
+  padding-right: 4rem;
+}
+
+.activeLink {
+  color: #aa182c;
+  border-bottom: 3px solid #aa182c;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+/* .orgForm {
+  padding: 0 1rem;
+} */
+
 mat-form-field {
   /* margin-top: 0.3rem; */
-  width: 300px;
-  /* margin-right: 3rem; */
-  margin-left: 1.7rem;
+  display: inline-block;
+  width: 450px;
+  margin-right: 3rem;
+  margin-left: 0.7rem;
 }
 
 .width {
@@ -45,10 +78,7 @@ h2 {
   width: 42px;
   cursor: pointer;
 }
-.expansion {
-  height: 750px;
-  overflow-y: scroll;
-}
+
 .files {
   border: 1px dotted grey;
   padding: 10px;
@@ -61,7 +91,7 @@ h2 {
 }
 
 .accordion {
-  height: 93.3%;
+  height: 75%;
   scroll-behavior: smooth;
   overflow: auto;
 }
@@ -70,13 +100,19 @@ h2 {
   margin-left: 16rem;
 }
 
+@media only screen and (max-width: 1400px) {
+  .expansion {
+    margin: 1rem 1.5rem;
+  }
+}
+
 .fileErr {
   padding-left: 3rem;
 }
 
 .radio {
-  margin-left: 2rem;
-  width: 310px;
+  margin-left: 1rem;
+  width: 493px;
   display: inline-block;
 }
 .radioButton {
@@ -89,4 +125,45 @@ h2 {
 .checkbox {
   display: inline-block;
   margin-left: 1rem;
+}
+
+::ng-deep .mat-step-label .mat-step-label-active .mat-step-label-selected {
+  color: red !important;
+}
+
+::ng-deep .mat-step {
+  padding: 0 1.5;
+  display: flex !important;
+}
+mat-vertical-stepper {
+  margin: 0 4rem !important;
+}
+::ng-deep .mat-vertical-content-container {
+  width: 80%;
+  /* background-color: #f4f0ec !important; */
+  /* margin-top: 1rem; */
+}
+
+::ng-deep .mat-step-header {
+  border-left: 2px solid lightgrey !important;
+  width: 250px;
+  /* background-color: #f4f0ec !important; */
+}
+
+::ng-deep .mat-step-header :target {
+  border-left: 2px solid red !important;
+}
+::ng-deep .mat-step-header[aria-selected="true"] .mat-focus-indicator {
+  border-left: 3px solid red;
+}
+
+/* mat-focus-indicator */
+::ng-deep .mat-step-label-selected {
+  color: red !important;
+}
+/* .mat-step-header[ng-reflect-selected="true"] ~ .mat-step-header .mat-step-icon {
+  background-color: blue;
+} */
+::ng-deep .mat-step-icon {
+  display: none !important;
 }

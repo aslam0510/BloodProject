@@ -146,16 +146,17 @@ export class OrgSettingsComponent implements OnInit {
 
   //Adding new Entity
   onAddEntitty() {
-    const dialogRef = this.dialog.open(AddEntityComponent, {
-      width: '770px',
-      height: 'auto',
-      panelClass: 'custom-dialog-container',
-      data: {
-        editForm: this.organizationDetails,
-      },
-    });
+    this.router.navigate(['/addEntity']);
+    // const dialogRef = this.dialog.open(AddEntityComponent, {
+    //   width: '770px',
+    //   height: 'auto',
+    //   panelClass: 'custom-dialog-container',
+    //   data: {
+    //     editForm: this.organizationDetails,
+    //   },
+    // });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    // dialogRef.afterClosed().subscribe((result) => {});
   }
 
   onEntityInfo(entity) {

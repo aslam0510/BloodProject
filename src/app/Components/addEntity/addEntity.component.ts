@@ -82,9 +82,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private store: Store<AppState>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<AddEntityComponent>
+    private store: Store<AppState>
   ) {
     this.entityCategories$ = this.store.select(
       (state) => state.DashboardSlice.entityCategories
@@ -189,7 +187,6 @@ export class AddEntityComponent implements OnInit, OnDestroy {
         formData.append('docs', this.organizationFiles[i]);
       }
       this.store.dispatch(new dashboardActions.AddNewEntity(formData));
-      this.dialogRef.close();
     }
   }
 
