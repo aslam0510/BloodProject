@@ -284,7 +284,10 @@ export class SideNavEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_DONOR_DONATION_BYID') + `?_id=${payload}`)
+          .get(
+            api.getAPI('GET_DONOR_DONATION_LIST') +
+              `?isDonorRepo=true&did=${payload}`
+          )
           .pipe(
             map(
               (data: any) => new SideNavAction.GetDonorDonationByIdSucess(data)

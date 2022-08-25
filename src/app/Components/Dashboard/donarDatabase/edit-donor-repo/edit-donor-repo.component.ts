@@ -19,6 +19,7 @@ export class EditDonorRepoComponent implements OnInit {
   donationDetails: any;
   donationDetailsSub: Subscription;
   donorRepoForm: FormGroup;
+  donationForm: FormGroup;
   isEditBtn: boolean = true;
   constructor(
     private route: ActivatedRoute,
@@ -54,27 +55,36 @@ export class EditDonorRepoComponent implements OnInit {
       contact: new FormControl(''),
     });
 
+    this.donationForm = new FormGroup({
+      did: new FormControl(),
+      bldReqId: new FormControl(),
+      donationType: new FormControl(),
+      collectionDate: new FormControl(),
+      fitforDonation: new FormControl(),
+    });
+
     this.route.params.subscribe((param) => {
       this.urlId = param.id;
     });
     if (this.urlId) {
       this.store.dispatch(new SideNavActions.GetDonorRepoById(this.urlId));
-      this.store.dispatch(
-        new SideNavActions.GetDonorDonationById('62ea1c6a3c30335bbe6aa108')
-      );
     }
 
     this.donorRepoSub = this.donorRepo$.subscribe((data) => {
       if (data) {
         this.donorRepo = data.data;
+        this.store.dispatch(
+          new SideNavActions.GetDonorDonationById(this.donorRepo?.did)
+        );
         this.setFormValue(this.donorRepo);
       }
     });
 
     this.donationDetailsSub = this.donationDetails$.subscribe((data) => {
       if (data) {
-        this.donationDetails = data.dat;
+        this.donationDetails = data.data;
         console.log(this.donationDetails);
+        this.setDonationFormValue(this.donationDetails?.details[0]);
       }
     });
   }
@@ -104,7 +114,16 @@ export class EditDonorRepoComponent implements OnInit {
     });
     this.donorRepoForm.disable();
   }
-
+  setDonationFormValue(formValue) {
+    const data = formValue;
+    this.donationForm.patchValue({
+      did: data?.did,
+      bldReqId: data?.bldReqId,
+      donationType: data?.donationType,
+      collectionDate: data?.donatedDate,
+      fitforDonation: data?.fitForDonate,
+    });
+  }
   onEdit() {
     this.isEditBtn = false;
     this.donorRepoForm.enable();
@@ -144,6 +163,10 @@ export class EditDonorRepoComponent implements OnInit {
     };
 
     this.store.dispatch(new SideNavActions.UpdateDonorRepoById(payload));
-    this.router.navigate(['/donorDatabase']);
+    this.router.navigate(['/dashboard/donorDatabase']);
+  }
+
+  navigate() {
+    this.router.navigate(['/dashboard/donorDatabase']);
   }
 }
