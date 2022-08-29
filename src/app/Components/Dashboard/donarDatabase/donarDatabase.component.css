@@ -8,6 +8,14 @@ table {
 mat-card {
   border-radius: 15px;
 }
+
+.select {
+  height: 38px;
+}
+input {
+  border: none;
+}
+
 .example-chip-list {
   width: 500px !important;
   padding: 0;

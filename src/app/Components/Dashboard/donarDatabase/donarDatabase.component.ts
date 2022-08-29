@@ -73,8 +73,8 @@ export class DonarDatabaseComponent implements OnInit {
       if (data) {
         this.donorRepos = data.data.details;
         this.dataSource = new MatTableDataSource(this.donorRepos);
-        this.dataSource.filterPredicate = this.filterRequests();
-        // this.dataSource.filter = JSON.stringify(this.formValues);
+        // this.dataSource.filterPredicate = this.filterRequests();
+        this.dataSource.filter = JSON.stringify(this.formValues);
       }
     });
     this.donorDonationListSub = this.donorDonationList$.subscribe((data) => {
@@ -83,70 +83,48 @@ export class DonarDatabaseComponent implements OnInit {
         this.DonationdataSource = new MatTableDataSource(
           this.donorDonationList
         );
-        this.DonationdataSource.filterPredicate = this.filterRequests();
+        // this.DonationdataSource.filterPredicate = this.filterRequests();
       }
     });
   }
 
-  filterRequests(): (data: any, filter: string) => boolean {
-    const filterFunction = function (data, filter): boolean {
-      const searchTerms = JSON.parse(filter);
-      const arr = searchTerms.range.split(' ');
-      const range = arr[arr.length - 1];
-      console.log(
-        (searchTerms.bloodGroup
-          ? data.bldgrp
-            ? data.bldgrp
-                .toLowerCase()
-                .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1
-            : true
-          : true) &&
-          (searchTerms.gender
-            ? data.gender
-              ? data.gender
-                  .toLowerCase()
-                  .indexOf(searchTerms.gender.toLowerCase()) !== -1
-              : true
-            : true) &&
-          (searchTerms.location
-            ? data.city
-              ? data.city
-                  .toLowerCase()
-                  .indexOf(searchTerms.location.toLowerCase()) !== -1
-              : true
-            : true) &&
-          searchTerms.range
-          ? Number(data.age) < Number(range)
-          : true
-      );
+  // filterRequests(): (data: any, filter: string) => boolean {
+  //   const filterFunction = function (data, filter): boolean {
+  //     const searchTerms = JSON.parse(filter);
+  //     console.log(searchTerms);
+  //     console.log(data);
 
-      return (searchTerms.bloodGroup
-        ? data.bldgrp
-          ? data.bldgrp
-              .toLowerCase()
-              .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1
-          : true
-        : true) &&
-        (searchTerms.gender
-          ? data.gender
-            ? data.gender
-                .toLowerCase()
-                .indexOf(searchTerms.gender.toLowerCase()) !== -1
-            : true
-          : true) &&
-        (searchTerms.location
-          ? data.city
-            ? data.city
-                .toLowerCase()
-                .indexOf(searchTerms.location.toLowerCase()) !== -1
-            : true
-          : true) &&
-        searchTerms.range
-        ? Number(data.age) <= Number(range)
-        : true;
-    };
-    return filterFunction;
-  }
+  //     // const arr = searchTerms.range.split(' ');
+  //     // const range = arr[arr.length - 1];
+  //     console.log(
+  //       data.bldgrp
+  //         .toString()
+  //         .trim()
+  //         .toLowerCase()
+  //         .indexOf(searchTerms.bloodGrouop.toLowerCase()) !== -1 && data.gender
+  //         ? data.gender
+  //             .toString()
+  //             .trim()
+  //             .toLowerCase()
+  //             .indexOf(searchTerms.gender.toLowerCase()) !== -1
+  //         : true
+  //     );
+
+  //     return (
+  //       data.bldgrp
+  //         .toString()
+  //         .trim()
+  //         .toLowerCase()
+  //         .indexOf(searchTerms.bloodGrouop.toLowerCase()) !== -1 &&
+  //       data.gender
+  //         .toString()
+  //         .trim()
+  //         .toLowerCase()
+  //         .indexOf(searchTerms.gender.toLowerCase()) !== -1
+  //     );
+  //   };
+  //   return filterFunction;
+  // }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;

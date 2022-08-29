@@ -90,7 +90,7 @@ export class FilterComponent implements OnInit {
       gender: this.filterForm.value.gender,
       lastDonation: this.filterForm.value.lastDonation,
       location: this.filterForm.value.location,
-      range: range,
+      // range: range,
     };
     this.dialogRef.close(payload);
   }

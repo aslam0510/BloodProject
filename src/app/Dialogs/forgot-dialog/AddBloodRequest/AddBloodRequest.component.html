@@ -25,8 +25,9 @@
                   </button>
                 </mat-panel-title>
               </mat-expansion-panel-header>
+              <mat-divider class="px-5"></mat-divider>
               <div class="pl-4 mt-2">
-                <div class="d-flex justify-content-evenly">
+                <div class="d-flex justify-content-between">
                   <mat-form-field>
                     <mat-label>Patient's Name</mat-label>
                     <input matInput placeholder="Patient's Name" formControlName="patName">
@@ -51,7 +52,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="d-flex justify-content-evenly">
+                <div class="d-flex justify-content-between">
                   <mat-form-field>
                     <mat-label>Age</mat-label>
                     <input matInput placeholder="Age" formControlName="age" type="number">
@@ -80,7 +81,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="d-flex justify-content-evenly">
+                <div class="d-flex justify-content-between">
                   <mat-form-field>
                     <mat-label>Name of the Requester</mat-label>
                     <input matInput placeholder="Name of the Requester" formControlName="reqstrName">
@@ -96,7 +97,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="d-flex justify-content-evenly">
+                <div class="d-flex justify-content-between">
                   <mat-form-field class="example-full-width">
                     <mat-label>Choose a date</mat-label>
                     <input matInput [matDatepicker]="picker" placeholder="Date of Requirement" formControlName="reqDate">
@@ -112,7 +113,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="d-flex justify-content-evenly">
+                <div class="d-flex justify-content-between">
                   <mat-form-field>
                     <mat-label>Hospital Name</mat-label>
                     <input matInput placeholder="Hospital Name" formControlName="hospitalName">
@@ -128,7 +129,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="d-flex justify-content-evenly">
+                <div class="d-flex justify-content-between">
                   <mat-form-field>
                     <mat-label>Conatact No.</mat-label>
                     <input matInput placeholder="Conatact No." formControlName="contact">
@@ -141,7 +142,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="d-inline location">
+                <div class="d-flex justify-content-between">
                   <mat-form-field>
                     <mat-label>Location</mat-label>
                     <input matInput placeholder="Location" formControlName="location">
@@ -149,13 +150,20 @@
                       {{ "Location is required" }}
                     </mat-error>
                   </mat-form-field>
+                  <mat-form-field *ngIf="false">
+                    <mat-label>Location</mat-label>
+                    <input matInput placeholder="Location" formControlName="location">
+                    <mat-error *ngIf="bloodReqForm.controls['location'].invalid && bloodReqForm.controls['location'].errors.required">
+                      {{ "Location is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="d-flex justify-content-between pr-5 mt-2">
+                  <mat-checkbox formControlName="priority">{{ 'Mark as Emergency Request' }}</mat-checkbox>
+                  <button mat-raised-button matStepperNext class="appBtnBgColor">Next</button>
                 </div>
               </div>
 
-              <div class="d-flex justify-content-between pr-5 mt-2" style="padding: 0 3rem ;">
-                <mat-checkbox>{{ 'Mark as Emergency Request' }}</mat-checkbox>
-                <button mat-raised-button matStepperNext class="appBtnBgColor">Next</button>
-              </div>
             </mat-expansion-panel>
 
           </mat-accordion>
@@ -176,6 +184,7 @@
                   </button>
                 </mat-panel-title>
               </mat-expansion-panel-header>
+              <mat-divider class="px-5"></mat-divider>
               <div class="matstep2">
                 <h3>Blood Requirement</h3>
                 <div>

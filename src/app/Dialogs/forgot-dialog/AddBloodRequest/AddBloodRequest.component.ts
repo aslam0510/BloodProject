@@ -42,7 +42,7 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
     this.store.dispatch(new SideNavAction.GetBloodGroupList());
 
     this.bloodReqForm = new FormGroup({
-      priority: new FormControl('', [Validators.required]),
+      priority: new FormControl(''),
       patName: new FormControl('', [Validators.required]),
       bldgrp: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required]),
@@ -177,7 +177,12 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
       }
       let formData = new FormData();
       Object.keys(this.bloodReqForm.controls).forEach((key) => {
-        formData.append(key, formValues[key]);
+        if (key === 'priority') {
+          const val = formValues.priority ? 1 : 2;
+          formData.append(key, val.toString());
+        } else {
+          formData.append(key, formValues[key]);
+        }
       });
       formData.append('bldReqType', bldReqType);
       bloodComp.forEach((bldCom) => {
@@ -191,6 +196,7 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
       }
 
       this.store.dispatch(new DashboardActions.CreateBloodReq(formData));
+      this.router.navigate(['/dashboard']);
     }
   }
 

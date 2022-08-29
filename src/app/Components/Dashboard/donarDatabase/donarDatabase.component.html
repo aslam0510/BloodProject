@@ -21,14 +21,23 @@
             </mat-form-field>
           </div>
 
-          <div>
-            <button mat-raised-button class="sendMessage mr-2" (click)="onSendMessage()">
+          <div class="d-flex ">
+            <button mat-raised-button class="sendMessage mr-2" (click)="onSendMessage()" style="margin-right: 10px;">
               Send Message
             </button>
-            <!-- <mat-form-field appearance="outline" class="ml-2">
-              <mat-label>Search comman</mat-label>
-              <input type="text" matInput placeholder="Search comman">
-            </mat-form-field> -->
+            <div style=" border: 1px solid lightgray; border-radius: 10px; height: 41px;">
+              <mat-form-field class="ml-2 select" style="border-right: 1px solid lightgray">
+                <input type="text" matInput placeholder="Search command">
+              </mat-form-field>
+              <mat-form-field class="select" style="margin-left: 5px;">
+                <mat-label>{{ "Blood Group " }}</mat-label>
+                <mat-select placeholder="{{ 'Select' }}">
+                  <!-- <mat-option vlaue="ok">{{ 'group.type '}}
+                  </mat-option> -->
+                </mat-select>
+              </mat-form-field>
+            </div>
+
           </div>
         </div>
         <div class="mattable">

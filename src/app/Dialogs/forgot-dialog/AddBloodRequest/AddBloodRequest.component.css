@@ -125,9 +125,9 @@ a {
   color: black;
   text-decoration: none;
 }
-/* .orgForm {
-  padding: 0 1rem;
-} */
+.orgForm {
+  padding: 0 3rem;
+}
 
 mat-form-field {
   /* margin-top: 0.3rem; */
@@ -230,7 +230,8 @@ mat-vertical-stepper {
   margin: 0 4rem !important;
 }
 ::ng-deep .mat-vertical-content-container {
-  width: 80%;
+  width: 70%;
+  padding-left: 1.5rem;
   /* background-color: #f4f0ec !important; */
   /* margin-top: 1rem; */
 }

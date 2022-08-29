@@ -4,7 +4,10 @@ mat-card {
   min-height: 650px;
   border-radius: 15px;
 }
-
+mat-card,
+mat-form-field {
+  padding: 0 1.5rem;
+}
 button {
   margin-right: 4rem;
   margin-left: 4rem;
@@ -26,8 +29,8 @@ button {
 mat-form-field {
   margin-top: 1rem;
   /* padding-right: 1.5rem; */
-  padding-left: 1rem;
-  width: 380px;
+  /* padding-left: 1rem; */
+  width: 100%;
 }
 
 mat-card-subtitle {
