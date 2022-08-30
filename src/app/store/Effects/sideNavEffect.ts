@@ -296,6 +296,7 @@ export class SideNavEffect {
       })
     );
   });
+
   updateDonorByid$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.UPDATE_DONOR_REPO_BYID),
@@ -307,6 +308,23 @@ export class SideNavEffect {
             map(
               (data: any) => new SideNavAction.UpdateDonorRepoByIdSuccess(data)
             )
+          );
+      })
+    );
+  });
+
+  searchDonorParams$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.SEARCH_DONOR_BY_PARAMETER),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .get(
+            api.getAPI('SEARCH_DONOR_BY_PARAMS') +
+              `?page=1&size=1&${payload.searchParam}=${payload.searchTerm}`
+          )
+          .pipe(
+            map((data: any) => new SideNavAction.GetDonorRepoListSuccess(data))
           );
       })
     );

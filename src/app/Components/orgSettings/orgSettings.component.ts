@@ -69,7 +69,10 @@ export class OrgSettingsComponent implements OnInit {
     this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
       if (data) {
         if (data.code === 200) {
-          this.entityDetails = data.data;
+          this.entityDetails = data.data.details;
+          console.log(data);
+
+          console.log(this.entityDetails);
         }
       }
     });

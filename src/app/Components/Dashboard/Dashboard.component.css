@@ -45,7 +45,29 @@ mat-menu-panel {
   background-color: white;
   z-index: 100;
 }
-
+.matForm {
+  width: 60px;
+}
+.title {
+  padding-left: 1rem;
+}
+.activitybtn {
+  background-color: brown;
+  min-width: 45px !important;
+  border-radius: 10px !important;
+  padding: 0 !important;
+}
+.borders {
+  border-bottom: 1px solid #0000001f;
+}
+::ng-deep .matmenu {
+  min-width: 350px !important;
+  border-radius: 7px;
+  padding: 5px 13px;
+}
+.noti {
+  font-weight: bold;
+}
 .headers {
   width: 86%;
 }

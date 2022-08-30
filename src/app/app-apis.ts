@@ -147,6 +147,10 @@ const apis = {
     url: `/${bloodBank}/donor/getDonationDetails`,
     port: appPort.port,
   },
+  SEARCH_DONOR_BY_PARAMS: {
+    url: `/${bloodBank}/donor/searchDonationDetails`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {

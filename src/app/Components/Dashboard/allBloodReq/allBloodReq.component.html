@@ -68,7 +68,10 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editRequest(row)"></tr>
           </table>
+
         </div>
+        <mat-paginator [length]="length" [pageSize]="pageSize" class="pt-2">
+        </mat-paginator>
       </mat-tab>
       <mat-tab label="Closed Blood Request"> Closed Blood Request </mat-tab>
     </mat-tab-group>

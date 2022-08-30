@@ -1,9 +1,10 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SendMessageComponent } from './../../../Dialogs/send-message/send-message.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FilterComponent } from '../../filter/filter.component';
 import { AppState } from 'src/app/app.state';
@@ -11,6 +12,7 @@ import * as SideNavActions from '../../../store/Actions/sideNavAction';
 import { Observable, Subscription } from 'rxjs';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { timeStamp } from 'console';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-donarDatabase',
@@ -51,6 +53,22 @@ export class DonarDatabaseComponent implements OnInit {
   filterData = [];
   selection = new SelectionModel(true, []);
   formValues: any;
+  searchParameters = [
+    'Name',
+    "Donor's ID",
+    'UHID',
+    'Blood Request ID',
+    'Location',
+    'Contact Number',
+  ];
+  isSearch: boolean = false;
+  searchForm: FormGroup;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  // paging details
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [10, 50, 100];
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
@@ -63,6 +81,11 @@ export class DonarDatabaseComponent implements OnInit {
     this.donorDonationList$ = this.store.select(
       (state) => state.SidNavSlice.donorDonationHistory
     );
+
+    this.searchForm = new FormGroup({
+      searchTerm: new FormControl(''),
+      searchParams: new FormControl(''),
+    });
   }
 
   ngOnInit() {
@@ -73,8 +96,9 @@ export class DonarDatabaseComponent implements OnInit {
       if (data) {
         this.donorRepos = data.data.details;
         this.dataSource = new MatTableDataSource(this.donorRepos);
-        // this.dataSource.filterPredicate = this.filterRequests();
+        this.dataSource.filterPredicate = this.filterRequests();
         this.dataSource.filter = JSON.stringify(this.formValues);
+        this.length = this.dataSource.filteredData.length;
       }
     });
     this.donorDonationListSub = this.donorDonationList$.subscribe((data) => {
@@ -88,43 +112,61 @@ export class DonarDatabaseComponent implements OnInit {
     });
   }
 
-  // filterRequests(): (data: any, filter: string) => boolean {
-  //   const filterFunction = function (data, filter): boolean {
-  //     const searchTerms = JSON.parse(filter);
-  //     console.log(searchTerms);
-  //     console.log(data);
+  filterRequests(): (data: any, filter: string) => boolean {
+    const filterFunction = function (data, filter): boolean {
+      const searchTerms = JSON.parse(filter);
+      const arr = [];
+      arr.push(searchTerms);
+      console.log(
+        arr.filter((x) => {
+          x.bloodGroup
+            ? data.bldgrp
+              ? data.bldgrp
+                  .toLowerCase()
+                  .indexOf(x.bloodGroup.toLowerCase()) !== -1
+              : true
+            : true || x.gender
+            ? data.gender
+              ? data.gender.toLowerCase().indexOf(x.gender.toLowerCase()) !== -1
+              : true
+            : true;
+        })
+      );
+      return true;
+      // return arr.forEach((x) => {
+      //    x.bloodGroup
+      //     ? data.bldgrp
+      //       ? data.bldgrp.toLowerCase().indexOf(x.bloodGroup.toLowerCase()) !==
+      //         -1
+      //       : true
+      //     : true && x.gender
+      //     ? data.gender
+      //       ? data.gender.toLowerCase().indexOf(x.gender.toLowerCase()) !== -1
+      //       : true
+      //     : true;
+      // })
 
-  //     // const arr = searchTerms.range.split(' ');
-  //     // const range = arr[arr.length - 1];
-  //     console.log(
-  //       data.bldgrp
-  //         .toString()
-  //         .trim()
-  //         .toLowerCase()
-  //         .indexOf(searchTerms.bloodGrouop.toLowerCase()) !== -1 && data.gender
-  //         ? data.gender
-  //             .toString()
-  //             .trim()
-  //             .toLowerCase()
-  //             .indexOf(searchTerms.gender.toLowerCase()) !== -1
-  //         : true
-  //     );
+      // for (const key in searchTerms) {
+      //   console.log(searchTerms);
+      //   console.log(data);
 
-  //     return (
-  //       data.bldgrp
-  //         .toString()
-  //         .trim()
-  //         .toLowerCase()
-  //         .indexOf(searchTerms.bloodGrouop.toLowerCase()) !== -1 &&
-  //       data.gender
-  //         .toString()
-  //         .trim()
-  //         .toLowerCase()
-  //         .indexOf(searchTerms.gender.toLowerCase()) !== -1
-  //     );
-  //   };
-  //   return filterFunction;
-  // }
+      //   return searchTerms.bloodGroup
+      //     ? data.bldgrp
+      //       ? data.bldgrp
+      //           .toLowerCase()
+      //           .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1
+      //       : true
+      //     : true && searchTerms.gender
+      //     ? data.gender
+      //       ? data.gender
+      //           .toLowerCase()
+      //           .indexOf(searchTerms.gender.toLowerCase()) !== -1
+      //       : true
+      //     : true;
+      // }
+    };
+    return filterFunction;
+  }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -210,5 +252,24 @@ export class DonarDatabaseComponent implements OnInit {
       this.formValues = f;
       this.dataSource.filter = JSON.stringify(this.formValues);
     }
+  }
+
+  searchParameter(event) {
+    this.isSearch = true;
+  }
+  searchTerm(value) {
+    if (value !== '') {
+      const payload = {
+        searchTerm: this.searchForm.get('searchTerm').value,
+        searchParam: this.searchForm.get('searchParams').value,
+      };
+      this.store.dispatch(new SideNavActions.SearchDonorParam(payload));
+    } else {
+      this.searchForm.reset();
+      this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
+    }
+  }
+  getNext(event: PageEvent) {
+    console.log(event);
   }
 }

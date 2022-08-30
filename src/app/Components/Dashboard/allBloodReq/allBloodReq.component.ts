@@ -1,9 +1,10 @@
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { FilterComponent } from './../../filter/filter.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as SideNavAction from '../../../store/Actions/sideNavAction';
 import { AppState } from 'src/app/app.state';
@@ -36,7 +37,12 @@ export class AllBloodReqComponent implements OnInit {
   bloodCompList$: Observable<any>;
   bloodCompList: any;
   bloodCompListSub: Subscription;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  // paging details
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [10, 50, 100];
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -63,6 +69,7 @@ export class AllBloodReqComponent implements OnInit {
         this.bloodReqList = data.data;
         this.dataSource = new MatTableDataSource(this.bloodReqList.details);
         this.dataSource.filterPredicate = this.filterRequests();
+        this.length = this.dataSource.filteredData.length;
       }
     });
 

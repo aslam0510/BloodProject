@@ -2,7 +2,7 @@
   <h2>Donor Database</h2>
   <mat-card class="mat-elevation-z8">
     <mat-tab-group>
-      <mat-tab label="Donor's Repository">
+      <mat-tab label="Donor's Repository" class="mat">
         <div class="my-3 d-flex justify-content-between">
           <div>
             <button mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event)">
@@ -26,16 +26,20 @@
               Send Message
             </button>
             <div style=" border: 1px solid lightgray; border-radius: 10px; height: 41px;">
-              <mat-form-field class="ml-2 select" style="border-right: 1px solid lightgray">
-                <input type="text" matInput placeholder="Search command">
-              </mat-form-field>
-              <mat-form-field class="select" style="margin-left: 5px;">
-                <mat-label>{{ "Blood Group " }}</mat-label>
-                <mat-select placeholder="{{ 'Select' }}">
-                  <!-- <mat-option vlaue="ok">{{ 'group.type '}}
-                  </mat-option> -->
-                </mat-select>
-              </mat-form-field>
+              <form [formGroup]="searchForm">
+                <mat-form-field class="ml-2 select" style="border-right: 1px solid lightgray">
+                  <input type="text" formControlName="searchTerm" matInput placeholder="Search command" [disabled]="!isSearch" (change)="searchTerm($event.target.value)"
+                    (click)="searchTerm($event.target.value)">
+                </mat-form-field>
+                <mat-form-field class="select" style="margin-left: 5px;">
+                  <mat-select placeholder="{{ 'Select' }}" formControlName="searchParams">
+                    <mat-option [value]="search" *ngFor="let search of searchParameters">
+                      {{ search }}
+                      <mat-divider></mat-divider>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </form>
             </div>
 
           </div>
@@ -94,12 +98,14 @@
 
             <ng-container matColumnDef="location">
               <th mat-header-cell *matHeaderCellDef> Location </th>
-              <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.city}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editDonoRepo(row)">
             </tr>
           </table>
+          <mat-paginator [length]="length" [pageSize]="pageSize" class="pt-2">
+          </mat-paginator>
         </div>
       </mat-tab>
       <mat-tab label="Donation History">

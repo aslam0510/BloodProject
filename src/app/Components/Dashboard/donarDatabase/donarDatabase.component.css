@@ -51,3 +51,17 @@ mat-button-toggle-appearance-standard mat-button-toggle-label-content {
 .date {
   width: 85px;
 }
+::ng-depp .mat-tab-label-active {
+  border-bottom: 2px solid red;
+}
+th {
+  border-top: 1px solid black;
+  border-bottom: 3px solid black;
+  font-weight: bold;
+}
+
+td,
+th {
+  padding-left: 1rem !important;
+  border-left: 1px solid lightgray;
+}

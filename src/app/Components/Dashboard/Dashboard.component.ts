@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { NavigationEnd, Router } from '@angular/router';
 import { AddBloodRequestComponent } from './../../Dialogs/forgot-dialog/AddBloodRequest/AddBloodRequest.component';
@@ -79,20 +80,33 @@ export class DashboardComponent implements OnInit {
   public barChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40, 30] },
   ];
+  activityDetails$: Observable<any>;
+  activityDetails: any;
+  activityDetailsSub: any;
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private store: Store<AppState>
-  ) {}
+  ) {
+    this.activityDetails$ = this.store.select(
+      (state) => state.DashboardSlice.activityDetails
+    );
+  }
 
   ngOnInit() {
     this.store.dispatch(new SideNavActions.GetBloodGroupList());
     this.store.dispatch(new SideNavActions.GetBloodCompList());
-
+    this.store.dispatch(new DashboardActions.GetDashboardSummary());
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRouter = event.url;
         console.log(this.currentRouter);
+      }
+    });
+    this.activityDetailsSub = this.activityDetails$.subscribe((data) => {
+      if (data) {
+        // this.activityData = data?.activities;
+        this.activityDetails = data?.activities;
       }
     });
   }
