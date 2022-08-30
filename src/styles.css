@@ -32,10 +32,10 @@ body {
 }
 
 .appBgColor {
-  background-color: brown;
+  background-color: #aa182c;
 }
 
-mat-card {
+.app mat-card {
   border-radius: 1 5px !important;
 }
 
@@ -62,5 +62,5 @@ button {
 .appBtnBgColor {
   background-color: #ea0029;
   color: white;
-  border-radius: 15px;
+  border-radius: 10px;
 }
