@@ -10,21 +10,23 @@
             <mat-icon>filter_list</mat-icon> <span>{{'Filter'}}</span>
           </button> -->
           <div>
-            <mat-form-field>
-              <mat-select placeholder="{{ 'Blood Type' }}">
-                <mat-option [value]="type" *ngFor="let type of bloodGroupTypes?.types">
-                  {{ type }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-select placeholder="{{ 'Select Component' }}">
-                <mat-option [value]="type" *ngFor="let type of bloodCompList?.types">
-                  {{ type }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <input type="text" matInput placeholder="location" (keyup)="filterData($event.target.value)">
-            </mat-form-field>
+            <form [formGroup]="searchForm">
+              <mat-form-field>
+                <mat-select placeholder="{{ 'Blood Type' }}" (selectionChange)="filterData('bldType')" formControlName="bldType">
+                  <mat-option [value]="type" *ngFor="let type of bloodGroupTypes?.types">
+                    {{ type }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select formControlName="comp" placeholder="{{ 'Select Component' }}" (selectionChange)="filterData('comp')">
+                  <mat-option [value]="type" *ngFor="let type of bloodCompList?.types">
+                    {{ type }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="location" type="text" matInput placeholder="location" (keyup)="filterData('location')">
+              </mat-form-field>
+            </form>
           </div>
         </div>
         <div class="m-0 p-0 mattable">
@@ -47,11 +49,11 @@
             </ng-container>
             <ng-container matColumnDef="Date of request">
               <th mat-header-cell *matHeaderCellDef>Date of request </th>
-              <td mat-cell *matCellDef="let element"> {{element?.reqDate | date}} </td>
+              <td mat-cell *matCellDef="let element"> {{element?.crtDt | date}} </td>
             </ng-container>
             <ng-container matColumnDef="Required On">
               <th mat-header-cell *matHeaderCellDef> Required On </th>
-              <td mat-cell *matCellDef="let element"> {{element?.age}} </td>
+              <td mat-cell *matCellDef="let element"> {{element?.reqDate | date}} </td>
             </ng-container>
             <ng-container matColumnDef="Purpose">
               <th mat-header-cell *matHeaderCellDef> Purpose </th>

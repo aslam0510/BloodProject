@@ -1,3 +1,4 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
@@ -40,9 +41,15 @@ export class AllBloodReqComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   // paging details
-  length = 100;
+  length = 10;
   pageSize = 10;
   pageSizeOptions: number[] = [10, 50, 100];
+  searchFilter = {
+    bloodType: '',
+    comp: '',
+    location: '',
+  };
+  searchForm: FormGroup;
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -62,6 +69,11 @@ export class AllBloodReqComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.searchForm = new FormGroup({
+      bldType: new FormControl(''),
+      comp: new FormControl(''),
+      location: new FormControl(''),
+    });
     this.store.dispatch(new SideNavAction.GetBloodReqList());
 
     this.bloodReqListSub = this.bloodReqList$.subscribe((data) => {
@@ -107,10 +119,11 @@ export class AllBloodReqComponent implements OnInit {
     ]);
   }
 
-  filterData(filterValue: string) {
+  filterData(val: string) {
     const filter = {
-      value: filterValue.trim().toLocaleLowerCase(),
-      type: 'search',
+      bldType: val === 'bldType' ? this.searchForm.value.bldType : '',
+      comp: val === 'comp' ? this.searchForm.value.comp : '',
+      location: val === 'location' ? this.searchForm.value.location : '',
     };
 
     this.dataSource.filter = JSON.stringify(filter);
@@ -119,15 +132,25 @@ export class AllBloodReqComponent implements OnInit {
   filterRequests(): (data: any, filter: string) => boolean {
     const filterFunction = function (data, filter): boolean {
       const searchTerms = JSON.parse(filter);
-      if (searchTerms.type) {
-        return (
-          data.location
+      return searchTerms.location
+        ? data.location
             .toString()
             .trim()
             .toLowerCase()
-            .indexOf(searchTerms.value.toLowerCase()) !== -1
-        );
-      }
+            .indexOf(searchTerms.location.toLowerCase()) !== -1
+        : true && searchTerms.bldType
+        ? data.bldgrp
+            .toString()
+            .trim()
+            .toLowerCase()
+            .indexOf(searchTerms.bldType.toLowerCase()) !== -1
+        : true && searchTerms.comp
+        ? data.requirements
+            .toString()
+            .trim()
+            .toLowerCase()
+            .indexOf(searchTerms.comp.toLowerCase()) !== -1
+        : true;
     };
     return filterFunction;
   }
