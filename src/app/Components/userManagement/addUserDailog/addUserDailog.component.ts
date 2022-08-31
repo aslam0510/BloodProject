@@ -56,7 +56,7 @@ export class AddUserDailogComponent implements OnInit {
 
     this.entitiesSub = this.entities$.subscribe((data) => {
       if (data) {
-        this.entities = data.data;
+        this.entities = data.data.details;
       }
     });
 
