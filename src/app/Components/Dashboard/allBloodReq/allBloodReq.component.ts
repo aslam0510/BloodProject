@@ -42,7 +42,7 @@ export class AllBloodReqComponent implements OnInit {
 
   // paging details
   length = 10;
-  pageSize = 10;
+  pageSize = 100;
   pageSizeOptions: number[] = [10, 50, 100];
   searchFilter = {
     bloodType: '',
@@ -81,6 +81,7 @@ export class AllBloodReqComponent implements OnInit {
         this.bloodReqList = data.data;
         this.dataSource = new MatTableDataSource(this.bloodReqList.details);
         this.dataSource.filterPredicate = this.filterRequests();
+        this.dataSource.paginator = this.paginator;
         this.length = this.dataSource.filteredData.length;
       }
     });

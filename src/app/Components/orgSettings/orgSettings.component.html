@@ -11,13 +11,13 @@
       <h4 class="m-0 mt-3">All Entities</h4>
       <mat-list role="list" *ngFor="let entityDetail of entityDetails">
         <mat-list-item role="listitem" class="matList mb-1" (click)="onEntityInfo(entityDetail)">
-          {{entityDetail?.bldbnkName}}
+          {{entityDetail?.bldbnkName}} {{entityDetail?.apsts == 1 ? 'Approved' : 'Pending'}}
           <mat-icon>keyboard_arrow_right</mat-icon>
         </mat-list-item>
       </mat-list>
     </div>
 
-    <button mat-raised-button class="entityBtn d-block" type="button" (click)="onAddEntitty()">
+    <button mat-raised-button class="entityBtn btn-block" type="button" (click)="onAddEntitty()">
       Add Entity
     </button>
   </div>

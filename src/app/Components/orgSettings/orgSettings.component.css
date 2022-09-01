@@ -40,6 +40,8 @@ table {
   color: red;
   border-radius: 15px;
   margin: 10px 0 0 5px;
+  position: fixed;
+  bottom: 10px;
 }
 mat-list-item {
   cursor: pointer;

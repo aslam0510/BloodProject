@@ -11,7 +11,6 @@ import { AppState } from 'src/app/app.state';
 import * as SideNavActions from '../../../store/Actions/sideNavAction';
 import { Observable, Subscription } from 'rxjs';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { timeStamp } from 'console';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -41,7 +40,7 @@ export class DonarDatabaseComponent implements OnInit {
     'location',
   ];
   donorRepos$: Observable<any>;
-  donorRepos: any;
+  donorRepos = [];
   donorReposSub: Subscription;
   donorDonationList$: Observable<any>;
   donorDonationList: any;
@@ -67,7 +66,7 @@ export class DonarDatabaseComponent implements OnInit {
 
   // paging details
   length = 100;
-  pageSize = 10;
+  pageSize = 100;
   pageSizeOptions: number[] = [10, 50, 100];
   constructor(
     private dialog: MatDialog,
@@ -96,7 +95,8 @@ export class DonarDatabaseComponent implements OnInit {
       if (data) {
         this.donorRepos = data.data.details;
         this.dataSource = new MatTableDataSource(this.donorRepos);
-        this.dataSource.filterPredicate = this.filterRequests();
+        this.dataSource.paginator = this.paginator;
+        // this.dataSource.filterPredicate = this.filterRequests();
         this.dataSource.filter = JSON.stringify(this.formValues);
         this.length = this.dataSource.filteredData.length;
       }
@@ -112,61 +112,35 @@ export class DonarDatabaseComponent implements OnInit {
     });
   }
 
-  filterRequests(): (data: any, filter: string) => boolean {
-    const filterFunction = function (data, filter): boolean {
-      const searchTerms = JSON.parse(filter);
-      const arr = [];
-      arr.push(searchTerms);
-      console.log(
-        arr.filter((x) => {
-          x.bloodGroup
-            ? data.bldgrp
-              ? data.bldgrp
-                  .toLowerCase()
-                  .indexOf(x.bloodGroup.toLowerCase()) !== -1
-              : true
-            : true || x.gender
-            ? data.gender
-              ? data.gender.toLowerCase().indexOf(x.gender.toLowerCase()) !== -1
-              : true
-            : true;
-        })
-      );
-      return true;
-      // return arr.forEach((x) => {
-      //    x.bloodGroup
-      //     ? data.bldgrp
-      //       ? data.bldgrp.toLowerCase().indexOf(x.bloodGroup.toLowerCase()) !==
-      //         -1
-      //       : true
-      //     : true && x.gender
-      //     ? data.gender
-      //       ? data.gender.toLowerCase().indexOf(x.gender.toLowerCase()) !== -1
-      //       : true
-      //     : true;
-      // })
+  // filterRequests(): (data: any, filter: string) => boolean {
+  //   const filterFunction = function (data, filter): boolean {
+  //     const searchTerms = JSON.parse(filter);
+  //     console.log(searchTerms);
+  //     const arr = [];
+  //     arr.push(searchTerms);
 
-      // for (const key in searchTerms) {
-      //   console.log(searchTerms);
-      //   console.log(data);
-
-      //   return searchTerms.bloodGroup
-      //     ? data.bldgrp
-      //       ? data.bldgrp
-      //           .toLowerCase()
-      //           .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1
-      //       : true
-      //     : true && searchTerms.gender
-      //     ? data.gender
-      //       ? data.gender
-      //           .toLowerCase()
-      //           .indexOf(searchTerms.gender.toLowerCase()) !== -1
-      //       : true
-      //     : true;
-      // }
-    };
-    return filterFunction;
-  }
+  //     return searchTerms.location
+  //       ? data.city
+  //           .toString()
+  //           .trim()
+  //           .toLowerCase()
+  //           .indexOf(searchTerms.location.toLowerCase()) !== -1
+  //       : true || searchTerms.bloodGroup
+  //       ? data.bldgrp
+  //           .toString()
+  //           .trim()
+  //           .toLowerCase()
+  //           .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1
+  //       : true || searchTerms.gender
+  //       ? data.gender
+  //           .toString()
+  //           .trim()
+  //           .toLowerCase()
+  //           .indexOf(searchTerms.gender.toLowerCase()) !== -1
+  //       : true;
+  //   };
+  //   return filterFunction;
+  // }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -219,9 +193,27 @@ export class DonarDatabaseComponent implements OnInit {
       }
       this.formValues = formValues;
       this.dataSource.filter = JSON.stringify(this.formValues);
+      this.filteredData(JSON.stringify(this.formValues));
     });
   }
 
+  filteredData(filterJson) {
+    const filterData = JSON.parse(filterJson);
+
+    const data = this.donorRepos.filter((x) => {
+      return (
+        x.bldgrp.toString().trim().toLowerCase() ===
+          filterData.bloodGroup.toString().trim().toLowerCase() ||
+        x.gender.toString().trim().toLowerCase() ===
+          filterData.gender.toString().trim().toLowerCase() ||
+        x.city.toString().trim().toLowerCase() ===
+          filterData.location.trim().toLowerCase()
+      );
+    });
+
+    this.dataSource = new MatTableDataSource(data);
+    console.log(this.dataSource.data);
+  }
   editDonoRepo(row) {
     this.router.navigate(['/dashboard/editDonorRep', row._id]);
   }
@@ -248,9 +240,23 @@ export class DonarDatabaseComponent implements OnInit {
         if (f[key] == fruit) {
           delete f[key];
         }
+        // const data = this.donorRepos.filter((x) => {
+        //   return (
+        //     (f[key] &&
+        //       x.bldgrp.toString().trim().toLowerCase() !==
+        //         f[key]?.toString().trim().toLowerCase()) ||
+        //     (f[key] &&
+        //       x.gender.toString().trim().toLowerCase() !==
+        //         f[key]?.toString().trim().toLowerCase()) ||
+        //     (f[key] &&
+        //       x.city.toString().trim().toLowerCase() !==
+        //         f[key]?.trim().toLowerCase())
+        //   );
+        // });
+        this.dataSource = new MatTableDataSource(this.donorRepos);
       }
-      this.formValues = f;
-      this.dataSource.filter = JSON.stringify(this.formValues);
+
+      // this.dataSource.filter = JSON.stringify(this.formValues);
     }
   }
 

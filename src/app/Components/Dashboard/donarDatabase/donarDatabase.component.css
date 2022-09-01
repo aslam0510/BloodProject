@@ -51,8 +51,10 @@ mat-button-toggle-appearance-standard mat-button-toggle-label-content {
 .date {
   width: 85px;
 }
-::ng-depp .mat-tab-label-active {
-  border-bottom: 2px solid red;
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #aa182c;
+  border-bottom: 2px solid #aa182c;
 }
 th {
   border-top: 1px solid black;
