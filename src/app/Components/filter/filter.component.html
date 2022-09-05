@@ -2,8 +2,8 @@
   <h2 class="p-2 pl-5 appBgColor text-white">Filters</h2>
   <div>
     <form class="forms" [formGroup]="filterForm">
-      <mat-label>Blood Type</mat-label>
       <mat-form-field appearance="outline">
+        <mat-label>Blood Type</mat-label>
         <mat-select formControlName="bloodGroup" class="select">
           <mat-option [value]="type" *ngFor="let type of bloodGroupList?.types">{{type }} </mat-option>
         </mat-select>
