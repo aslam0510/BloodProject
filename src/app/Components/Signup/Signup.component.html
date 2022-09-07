@@ -72,7 +72,7 @@
                       </mat-error>
                     </mat-form-field>
                   </ng-container>
-                  <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
+                  <ng-container *ngIf="orgFormField.inputType === 'Dropdown' || orgFormField.inputType === 'DropDown'">
                     <mat-form-field *ngIf="
                         orgFormField.key !== 'state' &&
                         orgFormField.key !== 'typeOfEntity'

@@ -305,7 +305,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     // this.organizationForm.controls[control].setValue(event.checked);
   }
   ngOnDestroy() {
-    this.orgCateogoriesSub.unsubscribe();
+     this.orgCateogoriesSub.unsubscribe();
     this.orgFormSub.unsubscribe();
     localStorage.removeItem('orgForm');
   }
