@@ -96,4 +96,9 @@ mat-card {
 
 .title {
   padding-left: 1rem;
+  font-weight: bolder;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fafafa;
 }

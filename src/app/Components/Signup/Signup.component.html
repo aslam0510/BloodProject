@@ -3,10 +3,10 @@
     <img src="/assets/Images/logo.svg" alt="JioLogo" class="ml-2 pl-5 logo" width="130px" height="50px" />
   </div>
   <mat-list role="list" class="d-flex align-items-center" style="padding-top: 3.5rem;">
-    <mat-list-item role="listitem" routerLinkOptions="{exact: true}"> <a routerLinkActive="activeLink" routerLink="/login">Login </a>
+    <mat-list-item role="listitem" routerLinkOptions="{exact: true}"> <a routerLinkActive="activeLink" routerLink="/login">Login<div class="space"></div> </a>
     </mat-list-item>
     <mat-list-item role="listitem" routerLinkOptions="{exact: true}">
-      <a routerLink="/signup" routerLinkActive="activeLink">Register</a>
+      <a routerLink="/signup" routerLinkActive="activeLink">Register<div class="space"></div></a>
     </mat-list-item>
   </mat-list>
 </div>
@@ -34,23 +34,24 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <mat-divider class="px-5"></mat-divider>
-              <div class="mt-4">
-                <mat-form-field class="ml-3">
-                  <mat-label>{{ "Type of Organization" }}</mat-label>
-                  <mat-select formControlName="categoryName" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Type of Organization">
-                    <mat-option [value]="category.categoryName" *ngFor="let category of orgCategories">{{ category.categoryName }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="
-                      organizationForm.controls['categoryName'].invalid &&
-                      organizationForm.controls['categoryName'].errors.required
-                    ">
-                    {{ "organizationType is required" }}
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <ng-container>
-                <div class="d-inline" *ngFor="let orgFormField of orgFormFields">
+
+              <ng-container class=" d-flex justify-content-center align-items-center " style="margin-left : 1.5rem">
+                <div class="mt-4">
+                  <mat-form-field class="ml-3">
+                    <mat-label>{{ "Type of Organization" }}</mat-label>
+                    <mat-select formControlName="categoryName" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Type of Organization">
+                      <mat-option [value]="category.categoryName" *ngFor="let category of orgCategories">{{ category.categoryName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="
+                                      organizationForm.controls['categoryName'].invalid &&
+                                      organizationForm.controls['categoryName'].errors.required
+                                    ">
+                      {{ "organizationType is required" }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="d-inline" *ngFor=" let orgFormField of orgFormFields">
                   <ng-container *ngIf="orgFormField.inputType === 'TextBox'">
                     <mat-form-field
                       *ngIf="orgFormField.fieldName !== 'Address Line 1' && orgFormField.fieldName !== 'Address Line 2' && orgFormField.fieldName !== 'Country' &&   orgFormField.fieldName !== 'District' && orgFormField.fieldName !== 'PIN Code' && orgFormField.fieldName !== 'City'">

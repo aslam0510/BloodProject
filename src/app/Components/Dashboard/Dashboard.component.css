@@ -45,6 +45,10 @@ mat-menu-panel {
   background-color: white;
   z-index: 100;
 }
+
+.logo {
+  padding-left: 1rem;
+}
 .matForm {
   width: 60px;
 }

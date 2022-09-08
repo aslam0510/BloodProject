@@ -107,11 +107,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
 
     this.organizationForm = this.fb.group({
-      categoryName: new FormControl('', [Validators.required]),
+      categoryName: new FormControl('Blood Bank', [Validators.required]),
     });
   }
 
   ngOnInit() {
+    this.store.dispatch(new AuthAction.GetCategory('Blood Bank'));
     this.store.dispatch(new AuthAction.GetAllCategories());
     this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
@@ -305,7 +306,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     // this.organizationForm.controls[control].setValue(event.checked);
   }
   ngOnDestroy() {
-     this.orgCateogoriesSub.unsubscribe();
+    this.orgCateogoriesSub.unsubscribe();
     this.orgFormSub.unsubscribe();
     localStorage.removeItem('orgForm');
   }

@@ -1,7 +1,7 @@
 <div>
   <div class="d-flex align-items-center justify-content-between">
     <div class="flex-grow-1">
-      <h3 class="mb-0 title">Blood Availability Status</h3>
+      <h3 class="mb-0 title">Availability Status</h3>
       <span class="text-primary mt-0 title">Minimum level to maintained : 30 units</span>
     </div>
 
@@ -16,7 +16,7 @@
   </div>
   <div class="row mt-2 ">
     <mat-card class="mt-2 mx-0 my-2 mb-3">
-      <table class="table table-hover">
+      <table class="table table-hover table-striped">
         <thead>
           <tr>
             <th *ngFor='let head of displayedColumns'>{{head}}</th>
@@ -130,22 +130,22 @@
     <h3 class="title">Blood Request Status</h3>
     <mat-card class="d-flex mat-elevation-z8 ">
       <img src="/assets/Images/requestbloodicon.svg" alt="">
-      <div>
-        <h6>{{bldRequestStatus?.totalBloodRequest}}</h6>
+      <div class="pt-2">
+        <p style="font-size: 45px;">{{bldRequestStatus?.totalBloodRequest}}</p>
         <p>Total blood request</p>
       </div>
     </mat-card>
     <mat-card class="d-flex mat-elevation-z8 my-4">
       <img src="/assets/Images/requestbloodicon.svg" alt="">
-      <div>
-        <h6>{{bldRequestStatus?.totalClosedRequest}}</h6>
+      <div class="pt-2">
+        <p style="font-size: 45px;">{{bldRequestStatus?.totalClosedRequest}}</p>
         <p>Total Closed Request</p>
       </div>
     </mat-card>
     <mat-card class="d-flex mat-elevation-z8">
       <img src="/assets/Images/requestbloodicon.svg" alt="">
-      <div>
-        <h6>{{bldRequestStatus?.openRequest}}</h6>
+      <div class="pt-2">
+        <p style="font-size: 45px;">{{bldRequestStatus?.openRequest}}</p>
         <p>Total Open Request</p>
       </div>
     </mat-card>

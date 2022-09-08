@@ -1,6 +1,7 @@
 <mat-card class="mat-elevation-z8">
   <mat-card-title class="mt-3 pt-5 title" *ngIf="!showOtp">Log in <br> to Jio Boond Admin <br> Portal</mat-card-title>
-  <mat-card-title class="mt-3 pt-5 title" *ngIf="showOtp">Enter OTP <br>
+  <mat-card-title class="mt-3 pt-5 title" *ngIf="showOtp">
+    <div>Enter OTP</div>
     <mat-hint class="hint">An OTP has been sent for verification on your registered Email ID</mat-hint>
   </mat-card-title>
   <mat-card-content>
@@ -25,7 +26,7 @@
         <mat-label>Phone Number</mat-label>
         <input matInput placeholder="Phone Number" formControlName="phnNumber">
       </mat-form-field>
-      <mat-form-field class="d-block" *ngIf="!showPhnNumber && showOtp">
+      <mat-form-field class="d-block" *ngIf="!showPhnNumber && showOtp" style="margin-top: 2rem;">
         <mat-label>Enter OTP</mat-label>
         <input matInput placeholder="otp" formControlName="otp">
       </mat-form-field>

@@ -21,12 +21,17 @@ img {
   color: #aa182c;
   border-bottom: 3px solid #aa182c;
 }
+.space {
+  padding-bottom: 10px;
+}
 a {
   color: black;
   text-decoration: none;
 }
 .bloodpic {
-  background-color: #f4f0ec !important;
+  width: 550px;
+  height: 330px;
+  /* background-color: #f4f0ec !important; */
 }
 
 .blood {

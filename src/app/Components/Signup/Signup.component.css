@@ -44,6 +44,9 @@ mat-vertical-stepper {
   /* background-color: #f4f0ec !important; */
 }
 
+.space {
+  padding-bottom: 10px;
+}
 .mat-step-header :target {
   border-left: 2px solid red !important;
 }
