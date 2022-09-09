@@ -10,8 +10,8 @@
     </mat-list-item>
   </mat-list>
 </div>
-<div class="d-inline d-flex align-items-center" style=" margin-left: 4rem; background-color: #f4f0ec">
-  <h2 class="m-0 d-inline">Registration Form</h2>
+<div class="d-inline d-flex align-items-center" style=" margin-left: 4rem; ">
+  <h2 class=" m-0 d-inline">Registration Form</h2>
 </div>
 <span style="margin-left: 4rem;">Please enter you Organization information</span>
 
@@ -169,7 +169,7 @@
                 </div>
               </ng-container>
               <div class="d-flex justify-content-end pr-5">
-                <button mat-raised-button matStepperNext class="appBtnBgColor">Next</button>
+                <button mat-raised-button matStepperNext class="smallButtons">Next</button>
               </div>
             </mat-expansion-panel>
 
@@ -242,8 +242,8 @@
                 </div>
               </ng-container>
               <div class="d-flex justify-content-end">
-                <button mat-raised-button matStepperPrevious style="margin-right: 1rem;">Previous</button>
-                <button mat-raised-button matStepperNext class="appBtnBgColor">Next</button>
+                <button mat-raised-button matStepperPrevious style="margin-right: 1rem;" class="outlineButtons">Previous</button>
+                <button mat-raised-button matStepperNext class="smallButtons">Next</button>
               </div>
             </mat-expansion-panel>
           </mat-accordion>
@@ -291,9 +291,9 @@
             </div>
           </div>
         </div>
-        <div class="d-flex justify-content-end mt-2">
-          <button mat-raised-button matStepperPrevious style="margin-right: 1rem;">Back</button>
-          <button mat-raised-button class="btn-danger signup " [disabled]="!organizationForm.valid && organizationFiles.length < 0" (click)="onSubmit()" type="submit">
+        <div class="d-flex justify-content-end mt-3">
+          <button mat-raised-button matStepperPrevious style="margin-right: 1rem;" class="outlineButtons">Back</button>
+          <button mat-raised-button class="btn-danger signup smallButtons" [disabled]="!organizationForm.valid && organizationFiles.length < 0" (click)="onSubmit()" type="submit">
             Submit
           </button>
         </div>

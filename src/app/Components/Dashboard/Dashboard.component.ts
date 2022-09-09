@@ -21,29 +21,37 @@ export class DashboardComponent implements OnInit {
   sideMenus = [
     {
       menu: 'Dashboard',
-      icon: 'search',
+      icon: '/assets/Images/dashboardactive.svg',
       route: '/dashboard',
     },
     {
       menu: 'All Blood Availability',
-      icon: 'search',
+      icon: '/assets/Images/Bloodavailability.svg',
       route: '/dashboard/bloodAvailability',
     },
     {
       menu: 'All Bood Request',
-      icon: 'search',
+      icon: '/assets/Images/Bloodrequest.svg',
       route: '/dashboard/bloodRequest',
     },
-    { menu: 'All Messages', icon: 'email', route: '/dashboard/allMessages' },
+    {
+      menu: 'All Messages',
+      icon: '/assets/Images/Allmessages.svg',
+      route: '/dashboard/allMessages',
+    },
     {
       menu: 'Donor Database',
-      icon: 'folder_open',
+      icon: '/assets/Images/donordatabase.svg',
       route: '/dashboard/donorDatabase',
     },
-    { menu: 'Scan Donar', icon: 'search', route: 'scanDonar' },
+    {
+      menu: 'Scan Donar',
+      icon: '/assets/Images/scandonor.svg',
+      route: 'scanDonar',
+    },
     {
       menu: 'UserManagement',
-      icon: 'people',
+      icon: '/assets/Images/usermanagement.svg',
       route: '/dashboard/userManagement',
     },
   ];

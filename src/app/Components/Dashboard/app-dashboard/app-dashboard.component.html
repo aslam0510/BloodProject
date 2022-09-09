@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center justify-content-between">
     <div class="flex-grow-1">
       <h3 class="mb-0 title">Availability Status</h3>
-      <span class="text-primary mt-0 title">Minimum level to maintained : 30 units</span>
+      <span class="level"><em>Minimum level to maintained : 30 units</em></span>
     </div>
 
     <div>
@@ -16,7 +16,7 @@
   </div>
   <div class="row mt-2 ">
     <mat-card class="mt-2 mx-0 my-2 mb-3">
-      <table class="table table-hover table-striped">
+      <table class="table  table-striped">
         <thead>
           <tr>
             <th *ngFor='let head of displayedColumns'>{{head}}</th>
@@ -114,38 +114,41 @@
   </div>
   <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <h3 class="title">Activity</h3>
-    <mat-card class="mat-elevation-z8 card">
-      <div class="py-2 d-flex justify-content-between align-items-center borders" *ngFor="let activity of activityDetails">
-        <button mat-flat-button class="activitybtn">A+</button>
-        <div class="flex">
-          <p class="m-0">{{activity?.activity}}</p>
-          <span class="m-0">{{activity?.crtdt | date}}</span>
+    <mat-card class="mat-elevation-z8 ">
+      <div class="cards">
+        <div class="py-2  d-flex justify-content-between align-items-center borders" *ngFor="let activity of activityDetails">
+          <button mat-flat-button class="activitybtn">A+</button>
+          <div class="flex">
+            <p class="m-0">{{activity?.activity}}</p>
+            <span class="m-0">{{activity?.crtdt | date}}</span>
+          </div>
         </div>
       </div>
+
       <h5 class="viewAll m-0 text-center pt-4 pb-2 d-block" (click)="OnViewAllClick('more')" *ngIf="showMoreActivity">View All</h5>
       <h5 class="viewAll m-0 text-center pt-4 pb-2 d-block" (click)="OnViewAllClick('less')" *ngIf="!showMoreActivity">View Less</h5>
     </mat-card>
   </div>
   <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
     <h3 class="title">Blood Request Status</h3>
-    <mat-card class="d-flex mat-elevation-z8 ">
+    <mat-card class="d-flex mat-elevation-z8 mb-3">
       <img src="/assets/Images/requestbloodicon.svg" alt="">
-      <div class="pt-2">
-        <p style="font-size: 45px;">{{bldRequestStatus?.totalBloodRequest}}</p>
+      <div>
+        <p style="font-size: 40px;">{{bldRequestStatus?.totalBloodRequest}}</p>
         <p>Total blood request</p>
       </div>
     </mat-card>
     <mat-card class="d-flex mat-elevation-z8 my-4">
       <img src="/assets/Images/requestbloodicon.svg" alt="">
-      <div class="pt-2">
-        <p style="font-size: 45px;">{{bldRequestStatus?.totalClosedRequest}}</p>
+      <div>
+        <p style="font-size: 40px;">{{bldRequestStatus?.totalClosedRequest}}</p>
         <p>Total Closed Request</p>
       </div>
     </mat-card>
     <mat-card class="d-flex mat-elevation-z8">
       <img src="/assets/Images/requestbloodicon.svg" alt="">
-      <div class="pt-2">
-        <p style="font-size: 45px;">{{bldRequestStatus?.openRequest}}</p>
+      <div>
+        <p style="font-size: 40px;">{{bldRequestStatus?.openRequest}}</p>
         <p>Total Open Request</p>
       </div>
     </mat-card>

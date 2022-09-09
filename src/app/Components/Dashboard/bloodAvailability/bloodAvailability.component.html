@@ -32,8 +32,8 @@
 
     </div>
 
-    <div class="m-2 my-3 d-inline-block card" *ngFor="let blood of bloodAvailableStatus">
-      <mat-card class="mat-elevation-z8 p-1 ">
+    <div class="width">
+      <mat-card class="mat-elevation-z8 p-1 card m-2 my-3 d-inline-block " *ngFor="let blood of bloodAvailableStatus">
         <div class="d-flex align-items-center justify-content-around p-1">
           <button style="background-color: brown" class="d-block text-center appBgColor" mat-mini-fab aria-label="Example icon button with a heart icon">
             {{blood.bldgrp}}
@@ -47,6 +47,8 @@
         <p class="text-center mt-2 text-primary">{{blood.totalResorvedUnits + ' Units Reserved'}}</p>
         <p class="text-center text-success"> {{ '+' + blood.totalAddedUnits + ' units added'}}</p>
         <p class="text-center text-danger"> {{'-' + blood.totalIssuedUnits +' Units issued'}}</p>
+        <p class="text-center text-secondary"> {{ blood?.totalExpiredUnits
+          +' Units Expired'}}</p>
       </mat-card>
     </div>
 

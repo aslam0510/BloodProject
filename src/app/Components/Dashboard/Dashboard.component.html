@@ -5,9 +5,10 @@
 
     </div>
     <div class="menus">
-      <div *ngFor="let menu of sideMenus" class="d-flex  menuItem" routerLink="{{menu.route}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
-        <mat-icon class="mr-1">{{menu.icon}}</mat-icon>
-        <h5 class="menu m-0">{{menu.menu}}</h5>
+      <div *ngFor="let menu of sideMenus" class="d-flex align-items-center menuItem" routerLink="{{menu.route}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <img [src]="menu.icon" alt="">
+        <!-- <mat-icon class="mr-1">{{menu.icon}}</mat-icon> -->
+        <h5 class="menu m-0" style="margin-left: 1rem;">{{menu.menu}}</h5>
       </div>
     </div>
   </div>
@@ -46,6 +47,7 @@
             </div>
           </div>
         </mat-menu>
+        <div class="line"></div>
         <button mat-icon-button class="mb-2 headerIcons" [matMenuTriggerFor]="beforeMenu" aria-label="Example icon-button with a menu">
           <img src="/assets/Images/USERPROFILE.svg" alt="">
         </button>
@@ -69,8 +71,8 @@
     <div class="mt-4 mx-2 px-2">
       <router-outlet></router-outlet>
     </div>
-    <!-- <div class="mt-4 footer" *ngIf="currentRouter !=='/orgSettings' ">
+    <div class="mt-4 footer" *ngIf="currentRouter !=='dashboard/rgSettings' ">
       <app-footer></app-footer>
     </div>
-  </div> -->
   </div>
+</div>

@@ -7,11 +7,16 @@ img {
 }
 
 .expansion {
+  margin-top: 1rem;
   /* background-color: white; */
   /* margin: 0.1rem 1rem; */
 }
 .mat-step-label .mat-step-label-active .mat-step-label-selected {
   color: red !important;
+}
+
+mat-expansion-panel {
+  padding: 0 2.3rem;
 }
 
 .header {

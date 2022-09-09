@@ -1,7 +1,7 @@
 mat-card {
   /* width: 80%; */
   margin: 0 3rem;
-  min-height: 650px;
+  min-height: 570px;
   border-radius: 15px;
 }
 mat-card,

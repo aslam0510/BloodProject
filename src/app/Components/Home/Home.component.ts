@@ -16,20 +16,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HomeComponent implements OnInit {
   loginCards = [
     {
-      icon: '/assets/Images/usrMange.svg',
+      icon: '/assets/Images/homepage1.svg',
       content: 'User Management & Role based access control and security.',
     },
     {
-      icon: '/assets/Images/trackandmaintain.svg',
+      icon: '/assets/Images/homepage2.svg',
       content: 'Track and maintain all donor types.',
     },
     {
-      icon: '/assets/Images/registeredPatients.svg',
+      icon: '/assets/Images/homepage3.svg',
       content:
         'Requisition for manual as well as computer registered patients.',
     },
     {
-      icon: '/assets/Images/powerfullfacility.svg',
+      icon: '/assets/Images/homepage4.svg',
       content: 'Powerful search facility.',
     },
     {
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
       content: 'Stock transfer',
     },
     {
-      icon: '/assets/Images/edit.svg',
+      icon: '/assets/Images/homepage6.svg',
       content: 'Edit your profile from anywhere, effortlessly.',
     },
   ];

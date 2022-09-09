@@ -45,7 +45,12 @@ mat-menu-panel {
   background-color: white;
   z-index: 100;
 }
-
+.line {
+  border-right: 2px solid lightgray;
+  height: 29px;
+  margin-top: 6px;
+  margin-right: 0.5rem;
+}
 .logo {
   padding-left: 1rem;
 }

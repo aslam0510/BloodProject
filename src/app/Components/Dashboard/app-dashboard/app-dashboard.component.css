@@ -11,14 +11,23 @@
 th,
 td {
   border-right: 1px solid lightgray;
-  padding-left: 1rem;
+  padding-left: 1.5rem;
+  border-bottom: none;
+}
+
+th,
+td:last-child {
+  border-right: none;
+  border-bottom: none;
 }
 
 .mat-button-toggle-checked {
   background-color: brown;
   color: white;
 }
-
+.mat-button-toggle-label-content {
+  background-color: #e0e0e0;
+}
 .menuItem {
   cursor: pointer;
   color: white;
@@ -53,6 +62,7 @@ h6 {
 .headers {
   width: 86%;
 }
+
 .headerbuton {
   padding: 0 25px;
   border-radius: 20px;
@@ -70,7 +80,10 @@ mat-card {
   height: 340px;
   overflow: auto;
 }
-
+.cards {
+  height: 252px;
+  overflow: auto;
+}
 .activitybtn {
   background-color: brown;
   min-width: 45px !important;
@@ -98,7 +111,10 @@ mat-card {
   padding-left: 1rem;
   font-weight: bolder;
 }
-
+.level {
+  padding-left: 1rem;
+  color: #aa182c;
+}
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: #fafafa;
 }
