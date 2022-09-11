@@ -25,17 +25,17 @@ export class DashboardComponent implements OnInit {
       route: '/dashboard',
     },
     {
-      menu: 'All Blood Availability',
+      menu: 'Blood Availability',
       icon: '/assets/Images/Bloodavailability.svg',
       route: '/dashboard/bloodAvailability',
     },
     {
-      menu: 'All Bood Request',
+      menu: 'Bood Request',
       icon: '/assets/Images/Bloodrequest.svg',
       route: '/dashboard/bloodRequest',
     },
     {
-      menu: 'All Messages',
+      menu: 'Messages',
       icon: '/assets/Images/Allmessages.svg',
       route: '/dashboard/allMessages',
     },
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
       route: '/dashboard/donorDatabase',
     },
     {
-      menu: 'Scan Donar',
+      menu: 'Blood Donation',
       icon: '/assets/Images/scandonor.svg',
       route: 'scanDonar',
     },

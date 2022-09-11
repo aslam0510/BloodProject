@@ -1,17 +1,17 @@
 <div class="dialog d-flex flex-column">
   <div class="mb-3 d-flex justify-content-between align-items-center">
-    <h4 class="md-dialog-title m-0 text-bold">{{'Forgot Password'}}</h4>
+    <h4 class="md-dialog-title m-0 ">{{'Forgot Password'}}</h4>
     <mat-icon (click)="dialogRef.close()">
       <mat-icon>close</mat-icon>
     </mat-icon>
   </div>
   <mat-divider></mat-divider>
-  <div class="mt-3  md-dialog-content text-center">{{'Dont worry we are here help you to reset your password. Enter your registered email address to get link to reset password.'}}</div>
-  <form [formGroup]=" forgotPassForm">
+  <div class="pt-5  md-dialog-content text-center">{{'Dont worry we are here help you to reset your password. Enter your registered email address to get link to reset password.'}}</div>
+  <form [formGroup]=" forgotPassForm" class="pt-4">
     <mat-form-field class="d-block">
       <mat-label>Enter registered email Id</mat-label>
       <input matInput placeholder="Enter registered email Id" formControlName="emailAddress">
     </mat-form-field>
   </form>
-  <button (click)="onSend()" mat-raised-button color="accent" [disabled]="!forgotPassForm.valid">Send</button>
+  <button (click)="onSend()" mat-raised-button class="bgColor" [disabled]="!forgotPassForm.valid">Send</button>
 </div>

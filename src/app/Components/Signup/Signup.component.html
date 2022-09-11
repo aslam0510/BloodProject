@@ -35,8 +35,8 @@
               </mat-expansion-panel-header>
               <mat-divider class="px-5"></mat-divider>
 
-              <ng-container class=" d-flex justify-content-center align-items-center " style="margin-left : 1.5rem">
-                <div class="mt-4">
+              <ng-container class=" d-flex justify-content-center align-items-center ">
+                <div class="mt-4 field">
                   <mat-form-field class="ml-3">
                     <mat-label>{{ "Type of Organization" }}</mat-label>
                     <mat-select formControlName="categoryName" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Type of Organization">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="d-inline" *ngFor=" let orgFormField of orgFormFields">
                   <ng-container *ngIf="orgFormField.inputType === 'TextBox'">
-                    <mat-form-field
+                    <mat-form-field class=" field"
                       *ngIf="orgFormField.fieldName !== 'Address Line 1' && orgFormField.fieldName !== 'Address Line 2' && orgFormField.fieldName !== 'Country' &&   orgFormField.fieldName !== 'District' && orgFormField.fieldName !== 'PIN Code' && orgFormField.fieldName !== 'City'">
                       <mat-label>{{ orgFormField.fieldName }}</mat-label>
                       <input matInput [formControlName]="orgFormField.key" />
@@ -74,7 +74,7 @@
                     </mat-form-field>
                   </ng-container>
                   <ng-container *ngIf="orgFormField.inputType === 'Dropdown' || orgFormField.inputType === 'DropDown'">
-                    <mat-form-field *ngIf="
+                    <mat-form-field class=" field" *ngIf="
                         orgFormField.key !== 'state' &&
                         orgFormField.key !== 'typeOfEntity'
                       ">
@@ -101,7 +101,7 @@
                         {{ orgFormField.fieldName + " is required" }}
                       </mat-error>
                     </mat-form-field>
-                    <mat-form-field *ngIf="orgFormField.key === 'typeOfEntity'">
+                    <mat-form-field class=" field" *ngIf="orgFormField.key === 'typeOfEntity'">
                       <mat-label>{{ orgFormField.fieldName }}</mat-label>
                       <mat-select formControlName="{{ orgFormField.key }}">
                         <mat-option [value]="category.categoryName" *ngFor="
@@ -127,7 +127,7 @@
                     </mat-form-field>
                   </ng-container>
 
-                  <mat-form-field *ngIf="orgFormField.inputType === 'Number'">
+                  <mat-form-field class=" field" *ngIf="orgFormField.inputType === 'Number'">
                     <mat-label>{{ orgFormField.fieldName }}</mat-label>
                     <input type="number" min="1" max="9999" matInput [formControlName]="orgFormField.key" />
                     <mat-error *ngIf="
@@ -138,7 +138,7 @@
                       {{ orgFormField.fieldName + " is required" }}
                     </mat-error>
                   </mat-form-field>
-                  <div class="checkbox" *ngIf="orgFormField.inputType === 'CheckBox'">
+                  <div class="checkbox field" *ngIf="orgFormField.inputType === 'CheckBox'">
                     <mat-checkbox (change)="onCheckBox($event, orgFormField.key)" [formControlName]="orgFormField.key">{{ orgFormField.fieldName }}</mat-checkbox>
                     <mat-error *ngIf="
                         organizationForm.controls[orgFormField.key].touched &&
@@ -150,7 +150,7 @@
                     </mat-error>
                   </div>
 
-                  <div *ngIf="orgFormField.inputType === 'Radio'" class="radio">
+                  <div *ngIf="orgFormField.inputType === 'Radio'" class="radio field">
                     <mat-label>{{ orgFormField.fieldName }} *</mat-label>
                     <mat-radio-group [formControlName]="orgFormField.key" class="'radioTitle">
                       <mat-radio-button value="1" class="radioButton">Yes</mat-radio-button>
@@ -195,7 +195,7 @@
               <ng-container>
                 <div class="d-inline" *ngFor="let orgFormField of orgFormFields">
                   <ng-container *ngIf="orgFormField.inputType === 'TextBox'">
-                    <mat-form-field
+                    <mat-form-field class="field"
                       *ngIf="orgFormField.fieldName === 'Address Line 1' || orgFormField.fieldName === 'Address Line 2' || orgFormField.fieldName === 'Country' ||   orgFormField.fieldName === 'District' || orgFormField.fieldName === 'PIN Code' || orgFormField.fieldName == 'City'">
                       <mat-label>{{ orgFormField.fieldName }}</mat-label>
                       <input matInput [formControlName]="orgFormField.key" />
@@ -216,7 +216,7 @@
                     </mat-form-field>
                   </ng-container>
                   <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
-                    <mat-form-field *ngIf="orgFormField.key === 'state'">
+                    <mat-form-field class="field" *ngIf="orgFormField.key === 'state'">
                       <mat-label>{{ orgFormField.fieldName }}</mat-label>
                       <mat-select formControlName="{{ orgFormField.key }}">
                         <mat-option [value]="state" *ngFor="let state of states; let i = index">{{ state }}

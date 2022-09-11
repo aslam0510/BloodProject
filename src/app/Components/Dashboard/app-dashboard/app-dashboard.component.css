@@ -25,8 +25,10 @@ td:last-child {
   background-color: brown;
   color: white;
 }
-.mat-button-toggle-label-content {
+
+::ng-deep .mat-button-toggle {
   background-color: #e0e0e0;
+  color: black;
 }
 .menuItem {
   cursor: pointer;
@@ -85,12 +87,19 @@ mat-card {
   overflow: auto;
 }
 .activitybtn {
-  background-color: brown;
   min-width: 45px !important;
   border-radius: 10px !important;
   padding: 0 !important;
 }
 
+.blueColor {
+  color: #407bff;
+  background-color: #dde7fe;
+}
+.redColor {
+  color: white;
+  background-color: #ea0029;
+}
 .borders {
   border-bottom: 1px solid #0000001f;
 }
@@ -117,4 +126,9 @@ mat-card {
 }
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: #fafafa;
+}
+
+.tablecard {
+  padding-left: 0;
+  padding-right: 0;
 }

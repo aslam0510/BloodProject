@@ -3,7 +3,7 @@
     <div>
       <h4 class="m-0 mt-4">Organisation info</h4>
       <mat-list role="list" (click)="onOrgInfo(organizationDetails)">
-        <mat-list-item role="listitem">{{organizationDetails?.prnthsptlName}}<mat-icon>keyboard_arrow_right</mat-icon>
+        <mat-list-item role="listitem">{{organizationDetails?.categoryName}}<mat-icon>keyboard_arrow_right</mat-icon>
         </mat-list-item>
       </mat-list>
     </div>
@@ -17,8 +17,8 @@
       </mat-list>
     </div>
 
-    <button mat-raised-button class="entityBtn btn-block" type="button" (click)="onAddEntitty()">
-      Add Entity
+    <button mat-raised-button class="entityBtn outlineButtons btn-block" type="button" (click)="onAddEntitty()">
+      Add New Entity
     </button>
   </div>
   <div class="ml-1 mb-5 data col-10">
@@ -27,7 +27,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <h3 class="m-0">{{orgEnityObject?.bldbnkName ? orgEnityObject?.bldbnkName : orgEnityObject?.bldbnkName}}</h3>
           <div>
-            <button mat-raised-button class="appBgColor d-block text-white" *ngIf="isEdit" (click)="onEdit()">Edit</button>
+            <button mat-raised-button class="smallButtons d-block text-white" *ngIf="isEdit" (click)="onEdit()">Edit</button>
             <button mat-raised-button *ngIf="!isEdit" (click)="cancel()">Cancel</button>
             <button mat-raised-button class="appBgColor saveBtn text-white" *ngIf="!isEdit" (click)="save()">Save</button>
           </div>

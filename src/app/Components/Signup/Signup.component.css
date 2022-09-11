@@ -86,10 +86,14 @@ mat-form-field {
   /* margin-top: 0.3rem; */
   display: inline-block;
   width: 450px;
-  margin-right: 3rem;
-  margin-left: 0.7rem;
+  /* margin-right: 3rem; */
+
+  margin-right: 1rem;
 }
 
+.field {
+  margin-left: 3rem;
+}
 .width {
   width: 300px !important;
 }
@@ -155,8 +159,8 @@ h2 {
 }
 
 .radio {
-  margin-left: 1rem;
-  width: 493px;
+  margin-left: 3rem;
+  width: 463px;
   display: inline-block;
 }
 .radioButton {

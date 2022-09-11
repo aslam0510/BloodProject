@@ -82,6 +82,8 @@ export class OrgSettingsComponent implements OnInit {
             this.editForm = new FormGroup({});
             this.organizationDetails = data.data;
             this.orgEnityObject = data.data;
+            console.log(this.orgEnityObject);
+
             const form = data.data;
             this.docs.push(form.docs);
             for (let control in this.orgEnityObject) {

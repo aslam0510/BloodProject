@@ -177,8 +177,8 @@ export class LoginComponent implements OnInit {
   //click on forgort password link
   onForgotPass() {
     this.dialog.open(ForgotDialogComponent, {
-      width: '450px',
-      height: 'auto',
+      width: '564px',
+      height: '388px',
       panelClass: 'custom-dialog-container',
       data: {
         content:

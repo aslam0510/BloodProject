@@ -63,7 +63,8 @@
 
             <ng-container matColumnDef="Status">
               <th mat-header-cell *matHeaderCellDef> Status </th>
-              <td mat-cell *matCellDef="let element"> {{element?.reqStatusId}} </td>
+              <td mat-cell *matCellDef="let element"> {{element?.reqStatusId === 1 ? 'Open' : element?.reqStatusId === 2 ? 'In-Progress' : element?.reqStatusId === 3 ? 'Rejected' :
+                element?.reqStatusId === 4 ?'Closed' : '' }} </td>
             </ng-container>
 
 

@@ -34,7 +34,11 @@ body {
 .appBgColor {
   background-color: #aa182c;
 }
-
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #aa182c;
+  border-bottom: 2px solid #aa182c;
+}
 .app mat-card {
   border-radius: 1 5px !important;
 }
@@ -66,14 +70,22 @@ button {
 }
 
 .smallButtons {
-  background-color: #ea0029;
+  background-color: brown;
   width: 100px;
   line-height: 0 !important;
   height: 30px;
   border-radius: 20px !important;
   color: white;
 }
+.mat-button-toggle-checked {
+  background-color: brown;
+  color: white;
+}
 
+::ng-deep .mat-button-toggle {
+  background-color: #e0e0e0;
+  color: black;
+}
 .outlineButtons {
   background-color: #fff;
   border: 1px solid #ea0029 !important;
@@ -81,4 +93,9 @@ button {
   line-height: 0 !important;
   height: 30px;
   border-radius: 20px !important;
+}
+
+.mat-tab-label-content {
+  font-weight: bold;
+  color: black;
 }

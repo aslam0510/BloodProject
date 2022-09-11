@@ -17,6 +17,7 @@ button {
   font-size: 12px;
   font-weight: normal;
   color: lightgray;
+  margin-top: 0;
 }
 
 .title {
@@ -35,6 +36,10 @@ mat-form-field {
 
 mat-card-subtitle {
   padding: 0 1.5rem;
+}
+
+.bgColor {
+  background-color: #ea0029;
 }
 
 .buttons {

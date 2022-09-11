@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-between px-2 py-1">
       <div>
         <h3 class="m-0 text-bold">Blood Availability Status</h3>
-        <span class="m-0" class="text-primary">Minimum level to be maintained : 30 units</span>
+        <span class="m-0" class="text-primary">Minimum level to be maintained : 10 units</span>
       </div>
       <div class="pt-2">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup" [value]="bldAvailableSelectedVal" (change)="onBlodAvailableValChange(group.value)">
@@ -47,7 +47,7 @@
         <p class="text-center mt-2 text-primary">{{blood.totalResorvedUnits + ' Units Reserved'}}</p>
         <p class="text-center text-success"> {{ '+' + blood.totalAddedUnits + ' units added'}}</p>
         <p class="text-center text-danger"> {{'-' + blood.totalIssuedUnits +' Units issued'}}</p>
-        <p class="text-center text-secondary"> {{ blood?.totalExpiredUnits
+        <p class="text-center text-secondary" *ngIf="showOnlyYesterDay"> {{ blood?.totalExpiredUnits
           +' Units Expired'}}</p>
       </mat-card>
     </div>

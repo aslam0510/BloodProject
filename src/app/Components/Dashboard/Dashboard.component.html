@@ -6,8 +6,7 @@
     </div>
     <div class="menus">
       <div *ngFor="let menu of sideMenus" class="d-flex align-items-center menuItem" routerLink="{{menu.route}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
-        <img [src]="menu.icon" alt="">
-        <!-- <mat-icon class="mr-1">{{menu.icon}}</mat-icon> -->
+        <img [src]="menu.icon" alt="" width="30px">
         <h5 class="menu m-0" style="margin-left: 1rem;">{{menu.menu}}</h5>
       </div>
     </div>
