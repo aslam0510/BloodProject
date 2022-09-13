@@ -90,6 +90,7 @@ button {
   background-color: #fff;
   border: 1px solid #ea0029 !important;
   width: 100px;
+  color: #ea0029 !important;
   line-height: 0 !important;
   height: 30px;
   border-radius: 20px !important;

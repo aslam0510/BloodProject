@@ -36,6 +36,8 @@ export class OrgSettingsComponent implements OnInit {
   updateEntityInfo$: Observable<any>;
   updateEntityInfo: any;
   updateEntityInfoSub: Subscription;
+  organizationForm: FormGroup;
+  orgUploadDocuments = [];
 
   constructor(
     private router: Router,
@@ -66,10 +68,29 @@ export class OrgSettingsComponent implements OnInit {
 
   ngOnInit() {
     this.editForm = new FormGroup({});
+    this.organizationForm = new FormGroup({
+      orgType: new FormControl(''),
+      entityType: new FormControl(''),
+      companyName: new FormControl(''),
+      contactNumber: new FormControl(''),
+      regNumber: new FormControl(''),
+      regYear: new FormControl(''),
+      emailAddress: new FormControl(''),
+      website: new FormControl(''),
+      nameOfContact: new FormControl(''),
+      desgContact: new FormControl(''),
+      address1: new FormControl(''),
+      address2: new FormControl(''),
+      city: new FormControl(''),
+      district: new FormControl(''),
+      state: new FormControl(''),
+      pincode: new FormControl(''),
+    });
     this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
       if (data) {
         if (data.code === 200) {
           this.entityDetails = data.data;
+          this.orgUploadDocuments = this.entityDetails.docs;
         }
       }
     });
@@ -77,27 +98,8 @@ export class OrgSettingsComponent implements OnInit {
     this.organizationDetailsSub = this.organizationDetails$.subscribe(
       (data) => {
         if (data) {
-          if (data.code === 200) {
-            this.docs = [];
-            this.editForm = new FormGroup({});
-            this.organizationDetails = data.data;
-            this.orgEnityObject = data.data;
-            console.log(this.orgEnityObject);
-
-            const form = data.data;
-            this.docs.push(form.docs);
-            for (let control in this.orgEnityObject) {
-              if (control !== 'docs') {
-                this.editForm.addControl(
-                  control,
-                  new FormControl({
-                    value: `${form[control]}`,
-                    disabled: true,
-                  })
-                );
-              }
-            }
-          }
+          this.organizationDetails = data.data;
+          this.setOrgFormValues(this.organizationDetails);
         }
       }
     );
@@ -145,7 +147,27 @@ export class OrgSettingsComponent implements OnInit {
       }
     });
   }
-
+  setOrgFormValues(formValue) {
+    console.log(formValue);
+    this.organizationForm.patchValue({
+      orgType: formValue.categoryName,
+      entityType: formValue.bldbnkName,
+      companyName: formValue.prnthsptlName,
+      regNumber: formValue.licnsNmbr,
+      regYear: formValue.regYear,
+      contactNumber: formValue.contact,
+      emailAddress: formValue.email,
+      website: formValue.web,
+      nameOfContact: formValue.namePointCont,
+      desgContact: formValue.designPointCont,
+      address1: formValue.addLine1,
+      address2: formValue.addLine2,
+      city: formValue.city,
+      district: formValue.district,
+      state: formValue.state,
+      pincode: formValue.pinCode,
+    });
+  }
   //Adding new Entity
   onAddEntitty() {
     this.router.navigate(['/addEntity']);

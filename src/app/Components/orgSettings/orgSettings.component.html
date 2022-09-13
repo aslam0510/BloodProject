@@ -2,9 +2,11 @@
   <div class="col-2 sideBar">
     <div>
       <h4 class="m-0 mt-4">Organisation info</h4>
-      <mat-list role="list" (click)="onOrgInfo(organizationDetails)">
-        <mat-list-item role="listitem">{{organizationDetails?.categoryName}}<mat-icon>keyboard_arrow_right</mat-icon>
+      <mat-list role="list" (click)="onOrgInfo(organizationDetails)" class="d-flex justify-content-between align-items-center">
+        <mat-list-item role="listitem">{{organizationDetails?.categoryName}}
+          <mat-icon>keyboard_arrow_right</mat-icon>
         </mat-list-item>
+
       </mat-list>
     </div>
     <div>
@@ -22,36 +24,91 @@
     </button>
   </div>
   <div class="ml-1 mb-5 data col-10">
-    <mat-card class="mat-elevation-z8">
-      <form [formGroup]="editForm">
-        <div class="d-flex justify-content-between align-items-center">
-          <h3 class="m-0">{{orgEnityObject?.bldbnkName ? orgEnityObject?.bldbnkName : orgEnityObject?.bldbnkName}}</h3>
+    <mat-card class="mat-elevation-z8 px-3">
+      <form [formGroup]="organizationForm" class="px-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="m-0">{{'Organization Details'}}</h3>
           <div>
             <button mat-raised-button class="smallButtons d-block text-white" *ngIf="isEdit" (click)="onEdit()">Edit</button>
             <button mat-raised-button *ngIf="!isEdit" (click)="cancel()">Cancel</button>
             <button mat-raised-button class="appBgColor saveBtn text-white" *ngIf="!isEdit" (click)="save()">Save</button>
           </div>
         </div>
-
-        <div class="mt-2">
-          <table>
-            <tbody>
-              <tr *ngFor="let org of orgEnityObject | keyvalue">
-                <ng-container *ngIf="org.key !== 'docs'">
-                  <td>{{org.key}} </td>
-                  <th>
-                    <mat-form-field appearance="none">
-                      <input type="text" matInput [formControlName]="org.key">
-                    </mat-form-field>
-                  </th>
-                </ng-container>
-                <ng-container *ngIf="org.key === 'docs'">
-                  <td>{{org.key}} </td>
-                  <th *ngFor="let doc of org.value">{{doc.fileName}}</th>
-                </ng-container>
-              </tr>
-            </tbody>
-          </table>
+        <mat-divider class="px-5"></mat-divider>
+        <div class="mt-4">
+          <div class="mt-4 auto">
+            <mat-form-field>
+              <input type="text" matInput formControlName='orgType' placeholder="Type of Organization" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName='entityType' placeholder="Type of Entity" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName='companyName' placeholder="Company Name" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="contactNumber" placeholder="Contact Number" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName='regNumber' placeholder="Registration Number" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="regYear" placeholder="Registration Year" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="emailAddress" placeholder="Email Address" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Website" formControlName="website" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Name of the point of Contact" formControlName="nameOfContact" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="desgContact" placeholder="Designation of point of Contact" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h3 class="m-0  mb-3">{{'Address Details'}}</h3>
+          <mat-divider></mat-divider>
+          <div class="mt-4">
+            <mat-form-field>
+              <input type="text" matInput formControlName='address1' placeholder="Address Line 1" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName='address2' placeholder="Address Line 2" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName='city' placeholder="City" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="district" placeholder="District" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName='state' placeholder="State" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="pincode" placeholder="Pincode" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h3 class="m-0  mb-3">{{'Upload Document'}}</h3>
+          <mat-divider></mat-divider>
+          <div class="mt-4">
+            <ng-container *ngFor="let file of orgUploadDocuments; let i = index">
+              <div class="files d-flex my-2 align-items-center" *ngIf="orgUploadDocuments.length > 0">
+                <mat-icon class="icon pl-2 pr-4" color="accent">
+                  insert_drive_file</mat-icon>
+                <div class="d-flex flex-column flex-grow-1">
+                  <span clas="d-block">{{ file.name }}</span>
+                  <span>{{ file.size + " byte" }}</span>
+                </div>
+                <h2 class="m-0 " style="background-color: brown;">View File</h2>
+              </div>
+            </ng-container>
+          </div>
         </div>
       </form>
     </mat-card>

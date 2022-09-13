@@ -5,96 +5,57 @@
         <div class="d-flex justify-content-between align-items-center">
           <h3 class="m-0">My Profile</h3>
           <div>
-            <button mat-raised-button class="appBgColor" *ngIf="isEditBtn" (click)="onEdit()">Edit</button>
-            <button mat-raised-button class="appBgColor tex-white" *ngIf="!isEditBtn" (click)="cancel()">Cancel</button>
-            <button mat-raised-button class="appBgColor tex-white" *ngIf="!isEditBtn" (click)="save()">Save</button>
+            <button mat-raised-button class="smallButtons" *ngIf="isEditBtn" (click)="onEdit()">Edit Details</button>
+            <button mat-raised-button class="outlineButtons " *ngIf="!isEditBtn" (click)="cancel()">Cancel</button>
+            <button mat-raised-button class="smallButtons" *ngIf="!isEditBtn" (click)="save()">Save</button>
           </div>
         </div>
-        <div>
-
-          <table>
-            <tr>
-              <td>User Name</td>
-              <th style="padding: 0px 15px;">
-                <mat-form-field appearance="none">
-                  <input type="text" matInput formControlName="userName" />
-                </mat-form-field>
-              </th>
-            </tr>
-            <tr>
-              <td>Organization Name</td>
-              <th>{{userDetails?.orgName}}</th>
-            </tr>
-            <tr>
-              <td>Type of Entity</td>
-              <th>{{userDetails?.entId}}</th>
-            </tr>
-            <tr>
-              <td>Entity Name</td>
-              <th>{{userDetails?.entName}}</th>
-            </tr>
-            <tr>
-              <td>Role</td>
-              <th>{{userDetails?.role}}</th>
-            </tr>
-            <tr>
-              <td>Email</td>
-              <th style="padding: 0px 15px;">
-                <mat-form-field appearance="none">
-                  <input type="text" matInput formControlName="altemail" />
-                </mat-form-field>
-              </th>
-            </tr>
-            <tr>
-              <td>Contact No.</td>
-              <th style="padding: 0px 15px;">
-                <mat-form-field appearance="none">
-                  <input type="text" matInput formControlName="altcontact" />
-                </mat-form-field>
-              </th>
-            </tr>
-            <tr>
-              <td>Address</td>
-              <th style="padding: 0px 15px;">
-                <mat-form-field appearance="none">
-                  <input type="text" matInput formControlName="addr" />
-                </mat-form-field>
-              </th>
-            </tr>
-            <tr>
-              <td>City.</td>
-              <th style="padding: 0px 15px;">
-                <mat-form-field appearance="none">
-                  <input type="text" matInput formControlName="city" />
-                </mat-form-field>
-              </th>
-            </tr>
-            <tr>
-              <td>District</td>
-              <th style="padding: 0px 15px;">
-                <mat-form-field appearance="none">
-                  <input type="text" matInput formControlName="district" />
-                </mat-form-field>
-              </th>
-            </tr>
-            <tr>
-              <td>State</td>
-              <th style="padding: 0px 15px;">
-                <mat-form-field appearance="none">
-                  <input type="text" matInput formControlName="state" />
-                </mat-form-field>
-              </th>
-            </tr>
-            <tr>
-              <td>Pincode</td>
-              <th style="padding: 0px 15px;">
-                <mat-form-field appearance="none">
-                  <input type="text" matInput formControlName="pin" />
-                </mat-form-field>
-              </th>
-            </tr>
-          </table>
-
+        <hr>
+        <div class="my-4">
+          <div class="mt-4">
+            <mat-form-field>
+              <input type="text" matInput formControlName='firstName' placeholder="First Name" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName='lastName' placeholder="Last Name" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName='orgName' placeholder="Organziation Name" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="entName" placeholder="Entity Name" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="entType" placeholder="Entity Type" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName='role' placeholder="Role" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="altemail" placeholder="Email" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="pincode" placeholder="Age" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="weight" placeholder="Weight" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="altcontact" placeholder="Contact No." />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="addr" placeholder="Address" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="city" placeholder="City" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="pin" placeholder="Pincode" />
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput formControlName="state" placeholder="State" />
+            </mat-form-field>
+          </div>
         </div>
       </form>
     </mat-card>
@@ -103,20 +64,21 @@
     <mat-card class="mat-elevation-z8">
       <h3>Settings</h3>
       <hr>
-      <div class="d-flex justify-content-between align-items-center">
-        <h3 class="m-0">Show Notification</h3>
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-          <mat-button-toggle value="Today">Today</mat-button-toggle>
-          <mat-button-toggle value="All">All</mat-button-toggle>
-        </mat-button-toggle-group>
-
+      <div>
+        <h3 class="m-0 mb-2 pl-2">Notification</h3>
+        <mat-radio-group class="'radioTitle">
+          <mat-radio-button value="today" class="radioButton">Today</mat-radio-button>
+          <mat-radio-button value="all">All</mat-radio-button>
+        </mat-radio-group>
       </div>
       <hr>
-      <div class="d-flex justify-content-between align-content-center">
-        <h3 class="m-0">Minimum Blood units to be maintained</h3>
-        <mat-icon (click)="removeCount()">remove </mat-icon>
-        <span>{{count}}</span>
-        <mat-icon (click)="addCount()">add</mat-icon>
+      <div>
+        <h3 class="m-0 mb-2 ">Minimum Blood units to be maintained</h3>
+        <div class="d-flex align-items-center">
+          <mat-icon (click)="removeCount()">remove </mat-icon>
+          <span class="count">{{count}}</span>
+          <mat-icon (click)="addCount()">add</mat-icon>
+        </div>
       </div>
     </mat-card>
   </div>

@@ -22,8 +22,15 @@ td {
 .rows {
   padding: 0;
 }
-.mat-form-field-infix {
-  padding: 0;
+h3 {
+  font-weight: bold;
+}
+.auto {
+  margin: 0 auto;
+}
+.mat-form-field {
+  width: 430px;
+  margin: 0 1.5rem;
 }
 th {
   width: 500px;
@@ -44,10 +51,11 @@ table {
   bottom: 10px;
 }
 mat-list-item {
+  border: 1px solid #ea0029 !important;
   cursor: pointer;
   width: 170px;
-  border-radius: 15px;
-  background-color: #e9ecef;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .matList {
@@ -59,6 +67,13 @@ mat-list-item {
 }
 
 .data {
-  height: 86vh;
+  height: 80vh;
   overflow-y: scroll;
+}
+
+.files {
+  border: 1px dotted grey;
+  padding: 10px;
+  border-radius: 10px;
+  /* width: 450px; */
 }

@@ -23,7 +23,12 @@ export class ProfileComponent implements OnInit {
   pin = new FormControl('');
   altcontact = new FormControl('');
   altemail = new FormControl('');
-  userName = new FormControl('');
+  firstName = new FormControl('');
+  lastName = new FormControl('');
+  entName = new FormControl('');
+  entType = new FormControl('');
+  role = new FormControl('');
+  orgName = new FormControl('');
   isEditBtn: boolean = true;
   actionSubcription: Subscription;
   count: number = 0;
@@ -60,7 +65,12 @@ export class ProfileComponent implements OnInit {
       pin: this.pin,
       altcontact: this.altcontact,
       altemail: this.altemail,
-      userName: this.userName,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      entName: this.entName,
+      entType: this.entType,
+      orgName: this.orgName,
+      role: this.role,
     });
     this.userDetailsSub = this.userDetails$.subscribe((response) => {
       if (response) {
@@ -80,10 +90,10 @@ export class ProfileComponent implements OnInit {
       pin: this.userDetails?.pin,
       altcontact: this.userDetails?.contact,
       altemail: this.userDetails?.email,
-      userName: this.userDetails?.userName,
+      firstName: this.userDetails?.userName,
+      orgName: this.userDetails?.orgName,
+      role: this.userDetails?.role,
     });
-    console.log(this.userDetailsForm.value);
-
     this.userDetailsForm.disable();
   }
 
@@ -95,6 +105,7 @@ export class ProfileComponent implements OnInit {
     this.isEditBtn = true;
     this.userDetailsForm.reset();
     this.userDetailsForm.disable();
+    this.setFormValue();
   }
 
   save() {
@@ -107,7 +118,7 @@ export class ProfileComponent implements OnInit {
       pin: formValue.pin,
       altcontact: formValue.contact,
       altemail: formValue.email,
-      userName: formValue.userName,
+      userName: formValue.firstName,
       _2fa: true,
     };
     this.store.dispatch(new DashboardActions.UpdateUserDetails(payload));
