@@ -63,7 +63,7 @@ export class AppDashboardComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
   columnsToDisplay: string[] = [];
-  displayedColumns: string[] = ['Blood Component'];
+  displayedColumns: string[] = [];
   dashboardBloodAvailable$: Observable<any>;
   dashboardBloodAvailable: any;
   dashboardBloodAvaialbeSub: Subscription;
@@ -100,7 +100,13 @@ export class AppDashboardComponent implements OnInit {
     this.dashboardBloodAvaialbeSub = this.dashboardBloodAvailable$.subscribe(
       (data) => {
         if (data) {
+          this.dashboardBloodAvailable = [];
           this.dashboardBloodAvailable = data;
+          this.wholeBld = [];
+          this.plasma = [];
+          this.plattets = [];
+          this.prbc = [];
+          this.displayedColumns = [];
           this.dashboardBloodAvailable.forEach((x) => {
             this.wholeBld.push(
               ...x.availability.filter((y) => y.bldComponent === 'Whole Blood')
@@ -117,9 +123,10 @@ export class AppDashboardComponent implements OnInit {
               ...x.availability.filter((y) => y.bldComponent === 'PRBC')
             );
           });
-          this.dashboardBloodAvailable.forEach((x) => {
-            this.displayedColumns = this.displayedColumns.concat(x._id);
-          });
+          (this.displayedColumns = ['Blood Component']),
+            this.dashboardBloodAvailable.forEach((x) => {
+              this.displayedColumns = this.displayedColumns.concat(x._id);
+            });
         }
       }
     );
@@ -168,5 +175,9 @@ export class AppDashboardComponent implements OnInit {
       this.showOpenRequest = false;
       this.showRequiredUnit = false;
     }
+  }
+
+  ngDestroy() {
+    this.dashboardBloodAvaialbeSub.unsubscribe();
   }
 }
