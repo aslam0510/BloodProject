@@ -1,3 +1,4 @@
+import { ForgetPassword } from './../../store/Actions/auth.action';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -27,9 +28,7 @@ export class OrgSettingsComponent implements OnInit {
   entity$: Observable<any>;
   entity: any;
   entitySub: Subscription;
-  isControlDisable = true;
-  isOrgInfo: boolean;
-  docs = [];
+  entityDocs = [];
   updateOrgInfo$: Observable<any>;
   updateOrgInfo: any;
   updateOrgInfoSub: Subscription;
@@ -37,7 +36,10 @@ export class OrgSettingsComponent implements OnInit {
   updateEntityInfo: any;
   updateEntityInfoSub: Subscription;
   organizationForm: FormGroup;
+  entityDetailForm: FormGroup;
   orgUploadDocuments = [];
+  showOrg = true;
+  showEntity = false;
 
   constructor(
     private router: Router,
@@ -63,7 +65,6 @@ export class OrgSettingsComponent implements OnInit {
     this.store.dispatch(new DashboardAction.GetOrganizationDetails());
     this.store.dispatch(new DashboardAction.GetEntityDetails());
     this.isEdit = true;
-    this.isOrgInfo = true;
   }
 
   ngOnInit() {
@@ -86,11 +87,33 @@ export class OrgSettingsComponent implements OnInit {
       state: new FormControl(''),
       pincode: new FormControl(''),
     });
+    this.entityDetailForm = new FormGroup({
+      orgType: new FormControl(''),
+      bldBankName: new FormControl(''),
+      parentHptName: new FormControl(''),
+      category: new FormControl(''),
+      contactNumber: new FormControl(''),
+      regNumber: new FormControl(''),
+      regYear: new FormControl(''),
+      licenseNum: new FormControl(''),
+      licenseValid: new FormControl(''),
+      emailAddress: new FormControl(''),
+      website: new FormControl(''),
+      nameOfContact: new FormControl(''),
+      desgContact: new FormControl(''),
+      address1: new FormControl(''),
+      address2: new FormControl(''),
+      city: new FormControl(''),
+      district: new FormControl(''),
+      state: new FormControl(''),
+      pincode: new FormControl(''),
+      comFacility: new FormControl(''),
+      apFacility: new FormControl(''),
+    });
     this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
       if (data) {
         if (data.code === 200) {
-          this.entityDetails = data.data;
-          this.orgUploadDocuments = this.entityDetails.docs;
+          this.entityDetails = data.data.details;
         }
       }
     });
@@ -106,23 +129,9 @@ export class OrgSettingsComponent implements OnInit {
 
     this.entitySub = this.entity$.subscribe((data) => {
       if (data) {
-        if (data.code === 200) {
-          this.docs = [];
-          this.entity = data.data;
-          this.editForm = new FormGroup({});
-          this.orgEnityObject = data.data;
-          const form = data.data;
-          this.docs.push(form.docs);
-          for (let control in form) {
-            this.editForm.addControl(
-              control,
-              new FormControl({
-                value: `${form[control]}`,
-                disabled: true,
-              })
-            );
-          }
-        }
+        this.entityDocs = [];
+        this.entity = data.data;
+        this.entityFormSetValues(this.entity);
       }
     });
 
@@ -151,6 +160,31 @@ export class OrgSettingsComponent implements OnInit {
     console.log(formValue);
     this.organizationForm.patchValue({
       orgType: formValue.categoryName,
+      bldBankName: formValue.bldbnkName,
+      parentHptName: formValue.prnthsptlName,
+      regNumber: formValue.licnsNmbr,
+      regYear: formValue.regYear,
+      contactNumber: formValue.contact,
+      emailAddress: formValue.email,
+      licenseValid: formValue.licnsValid,
+      licenseNum: formValue.licnsNmbr,
+      website: formValue.web,
+      nameOfContact: formValue.namePointCont,
+      desgContact: formValue.designPointCont,
+      address1: formValue.addLine1,
+      address2: formValue.addLine2,
+      city: formValue.city,
+      district: formValue.district,
+      state: formValue.state,
+      pincode: formValue.pinCode,
+    });
+
+    this.organizationForm.disable();
+  }
+
+  entityFormSetValues(formValue) {
+    this.entityDetailForm.patchValue({
+      orgType: formValue.categoryName,
       entityType: formValue.bldbnkName,
       companyName: formValue.prnthsptlName,
       regNumber: formValue.licnsNmbr,
@@ -166,7 +200,11 @@ export class OrgSettingsComponent implements OnInit {
       district: formValue.district,
       state: formValue.state,
       pincode: formValue.pinCode,
+      apFacility: formValue.apFacility,
+      comFacility: formValue.compFacility,
     });
+    this.entityDocs = formValue.docs;
+    this.entityDetailForm.disable();
   }
   //Adding new Entity
   onAddEntitty() {
@@ -184,19 +222,22 @@ export class OrgSettingsComponent implements OnInit {
   }
 
   onEntityInfo(entity) {
-    this.isOrgInfo = false;
+    this.showEntity = true;
+    this.showOrg = false;
     this.cancel();
     this.store.dispatch(new DashboardAction.GetEntityById(entity.id));
   }
 
   onOrgInfo(orgInfo?: any) {
-    this.editForm = new FormGroup({});
-    this.isOrgInfo = true;
+    this.showEntity = false;
+    this.showOrg = true;
     this.store.dispatch(new DashboardAction.GetOrganizationDetails());
     this.cancel();
   }
 
   disableFields(control) {
+    console.log(control);
+
     if (
       control === 'compName' ||
       control === 'categoryName' ||
@@ -213,42 +254,51 @@ export class OrgSettingsComponent implements OnInit {
       control === 'licnsValid' ||
       control === 'regAuthority'
     ) {
-      this.editForm.get(control).disable();
+      this.showOrg
+        ? this.organizationForm.get(control).disable()
+        : this.entityDetailForm.get(control).disable();
     } else {
-      this.editForm.get(control).enable();
+      this.showOrg
+        ? this.organizationForm.get(control).enable()
+        : this.entityDetailForm.get(control).enable();
     }
   }
 
   onEdit() {
     this.isEdit = false;
-    this.isControlDisable = false;
-    Object.keys(this.editForm.controls).forEach((control) => {
-      this.disableFields(control);
-    });
+    if (this.showEntity) {
+      Object.keys(this.entityDetailForm.controls).forEach((control) => {
+        this.disableFields(control);
+      });
+    }
+    if (this.showOrg) {
+      Object.keys(this.organizationForm.controls).forEach((control) => {
+        this.disableFields(control);
+      });
+    }
   }
 
   cancel() {
     this.isEdit = true;
-    this.editForm.disable();
+    this.showOrg
+      ? this.organizationForm.disable()
+      : this.entityDetailForm.disable();
   }
 
   save() {
-    if (this.editForm.dirty && this.editForm.touched) {
-      this.editForm.enable();
-      const editFormValue = this.editForm.value;
-      editFormValue['docs'] = this.docs;
-
-      if (this.isOrgInfo) {
-        this.store.dispatch(new DashboardAction.UpdateOrgInfo(editFormValue));
-        this.editForm.disable();
-      } else {
-        this.store.dispatch(
-          new DashboardAction.UpdateEntityInfo(editFormValue)
-        );
-        this.editForm.disable();
-      }
-      this.cancel();
+    if (this.showOrg) {
+      const orgFormValues = this.organizationForm.value;
+      this.store.dispatch(new DashboardAction.UpdateOrgInfo(orgFormValues));
     }
+    if (this.showEntity) {
+      this.editForm.enable();
+      const entityFormValue = this.entityDetailForm.value;
+      this.store.dispatch(
+        new DashboardAction.UpdateEntityInfo(entityFormValue)
+      );
+    }
+    this.cancel();
+    this.router.navigate(['/dashboard']);
   }
 
   ngOnDestroy() {

@@ -65,9 +65,12 @@ mat-list-item {
 .saveBtn {
   margin-left: 1rem;
 }
-
+.datas {
+  height: 70vh;
+  overflow-y: scroll;
+}
 .data {
-  height: 80vh;
+  height: 70vh;
   overflow-y: scroll;
 }
 
