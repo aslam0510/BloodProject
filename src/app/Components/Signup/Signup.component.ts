@@ -140,7 +140,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.entityCategoriesSub = this.entityCateogries$.subscribe((data) => {
       if (data) {
         this.entityCategories = data.data;
-        console.log(this.entityCategories);
       }
     });
 

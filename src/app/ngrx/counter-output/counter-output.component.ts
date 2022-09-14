@@ -19,7 +19,6 @@ export class CounterOutputComponent implements OnInit {
     this.counter$.subscribe((data) => {
       if (data) {
         this.counter = data;
-        console.log(this.counter);
       }
     });
   }

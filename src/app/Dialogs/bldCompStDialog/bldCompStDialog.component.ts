@@ -27,7 +27,6 @@ export class BldCompStDialogComponent implements OnInit {
     private snackBar: MatSnackBar,
     private store: Store<AppState>
   ) {
-    console.log(data);
     this.bloodCompList = data.bloodComp;
     this.bloodGroupList = data.bloodGrop;
     this.bloodType = data.bloodType;

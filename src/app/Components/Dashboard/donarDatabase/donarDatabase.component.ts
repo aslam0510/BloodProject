@@ -212,7 +212,6 @@ export class DonarDatabaseComponent implements OnInit {
     });
 
     this.dataSource = new MatTableDataSource(data);
-    console.log(this.dataSource.data);
   }
   editDonoRepo(row) {
     this.router.navigate(['/dashboard/editDonorRep', row._id]);
@@ -275,7 +274,5 @@ export class DonarDatabaseComponent implements OnInit {
       this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
     }
   }
-  getNext(event: PageEvent) {
-    console.log(event);
-  }
+  getNext(event: PageEvent) {}
 }

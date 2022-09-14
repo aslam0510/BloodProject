@@ -151,9 +151,15 @@ const apis = {
     url: `/${bloodBank}/donor/searchDonationDetails`,
     port: appPort.port,
   },
+  GET_ACTIVITIES_BY_DATE: {
+    url: `/dashboard/getAllActivities`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {
   const apiURL = apis[url_const] || '';
+  console.log(apiURL.port + apiURL.url);
+
   return apiURL.port + apiURL.url;
 }

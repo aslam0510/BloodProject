@@ -57,8 +57,6 @@ export class LoginComponent implements OnInit {
     this.showVerify = true;
   }
   handleActionSubscription(data: any) {
-    console.log(data);
-
     switch (data.type) {
       case AuthAction.GENERATE_OTP_SUCCESS:
         if (data.payload.code === 200) {

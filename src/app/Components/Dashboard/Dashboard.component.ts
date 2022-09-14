@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { NavigationEnd, Router } from '@angular/router';
 import { AddBloodRequestComponent } from './../../Dialogs/forgot-dialog/AddBloodRequest/AddBloodRequest.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { BroadcastMsgDialogComponent } from './../../Dialogs/broadcastMsgDialog/broadcastMsgDialog.component';
@@ -11,6 +11,8 @@ import { AppState } from 'src/app/app.state';
 import * as SideNavActions from '../../store/Actions/sideNavAction';
 import * as DashboardActions from '../../store/Actions/dashboardActions';
 import * as AuthActions from '../../store/Actions/auth.action';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import * as moment from 'moment';
 @Component({
   selector: 'app-Dashboard',
   templateUrl: './Dashboard.component.html',
@@ -84,7 +86,7 @@ export class DashboardComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
-
+  today: any;
   public barChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40, 30] },
   ];
@@ -102,6 +104,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.today = moment();
+
     this.store.dispatch(new SideNavActions.GetBloodGroupList());
     this.store.dispatch(new SideNavActions.GetBloodCompList());
     this.store.dispatch(new DashboardActions.GetDashboardSummary());
@@ -158,5 +162,9 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userName');
     this.router.navigate(['/login']);
+  }
+
+  orgValueChange(date) {
+    this.store.dispatch(new DashboardActions.GetActivitiesByDate(date));
   }
 }

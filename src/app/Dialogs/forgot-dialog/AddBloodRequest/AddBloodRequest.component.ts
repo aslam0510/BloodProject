@@ -139,7 +139,6 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
 
   onBlodComCardClick(blodCom, index) {
     this.bloodCompList[index].select = !blodCom.select;
-    console.log(this.bloodCompList[index]);
     this.selectedBldCom = this.bloodCompList.filter((x) => x.select === true);
     if (!this.bloodCompList[index].select) {
       this.bloodCompList[index].count = 0;

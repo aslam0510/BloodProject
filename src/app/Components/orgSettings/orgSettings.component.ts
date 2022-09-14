@@ -157,7 +157,6 @@ export class OrgSettingsComponent implements OnInit {
     });
   }
   setOrgFormValues(formValue) {
-    console.log(formValue);
     this.organizationForm.patchValue({
       orgType: formValue.categoryName,
       bldBankName: formValue.bldbnkName,
@@ -236,8 +235,6 @@ export class OrgSettingsComponent implements OnInit {
   }
 
   disableFields(control) {
-    console.log(control);
-
     if (
       control === 'compName' ||
       control === 'categoryName' ||

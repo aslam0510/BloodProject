@@ -186,4 +186,19 @@ export class DashboardEffect {
       })
     );
   });
+
+  getActivitesBydate$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(dashboardActions.GET_ACTIVITIES_BY_DATE),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        console.log(api.getAPI('GET_ACTIVITIES_BY_DATE') + `?start=${payload}`);
+        return this.http
+          .get(api.getAPI('GET_ACTIVITIES_BY_DATE') + `?start=${payload}`)
+          .pipe(
+            map((data) => new dashboardActions.GetActivitiesByDateSuccess(data))
+          );
+      })
+    );
+  });
 }

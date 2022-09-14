@@ -121,7 +121,6 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.entityCateogoriesSub = this.entityCategories$.subscribe((data) => {
       if (data) {
         this.entityCategories = data.data;
-        console.log(this.entityCategories);
       }
     });
 

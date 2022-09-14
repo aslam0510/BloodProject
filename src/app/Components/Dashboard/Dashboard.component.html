@@ -22,21 +22,20 @@
           <img src="/assets/Images/NOTIFICATION.svg" alt="">
         </button>
         <mat-menu #notiMenu="matMenu" xPosition="before" class="matmenu" (click)="$event.stopPropagation()">
-          <div class="d-flex justify-content-between align-item-center">
+          <div class="d-flex justify-content-between align-items-center">
             <h3 class="noti m-0" (click)="$event.stopPropagation()">Notification</h3>
-            <!-- <mat-form-field class="matForm">
-              <input matInput [matDatepicker]="picker" (click)="$event.stopPropagation()">
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field> -->
-            <mat-datepicker #picker></mat-datepicker>
-            <span class="appBtnColor">Date <mat-icon (click)="$event.stopPropagation()" (click)="picker.open()">
-                date_range
-              </mat-icon></span>
 
-
+            <mat-form-field class="date" class="matForm">
+              <input #dates matInput [matDatepicker]="datepicker" (dateChange)="orgValueChange(dates.value)">
+              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+              </mat-datepicker>
+            </mat-form-field>
           </div>
+
           <mat-divider></mat-divider>
           <div style="max-height: 300px; overflow-y: auto;">
+            <!-- <h3 *ngIf="activityDetails.length ==0" style="font-weight: bold; text-align: center;">No Data Available</h3> -->
             <div class="py-2 d-flex justify-content-between align-items-center borders" *ngFor="let activity of activityDetails">
               <img src="/assets/Images/NOTIFICATION.svg" alt="" height="30px" width="40px">
               <div class="flex">

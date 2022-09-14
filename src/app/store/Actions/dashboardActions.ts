@@ -27,6 +27,8 @@ export const UPDATE_USER_DETAILS = 'UPDATE_USER_DETAILS';
 export const UPDATE_USER_DETAILS_SUCCESS = 'UPDATE_USER_DETAILS_SUCCESS';
 export const GET_DASHBOARD_SUMMARY = 'GET_DASHBOARD_SUMMARY';
 export const GET_DASHBOARD_SUMMARY_SUCCESS = 'GET_DASHBOARD_SUMMARY_SUCCESS';
+export const GET_ACTIVITIES_BY_DATE = 'GET_ACTIVITIES_BY_DATE';
+export const GET_ACTIVITIES_BY_DATE_SUCCESS = 'GET_ACTIVITIES_BY_DATE_SUCCESS';
 export class GetOrganizationTypes {
   readonly type = GET_ORGANIZATION_TYPES;
   constructor() {}
@@ -154,6 +156,16 @@ export class GetDashboardSummarySuccess {
   readonly type = GET_DASHBOARD_SUMMARY_SUCCESS;
   constructor(public payload: any) {}
 }
+
+export class GetActivitiesByDate {
+  readonly type = GET_ACTIVITIES_BY_DATE;
+  constructor(public payload: any) {}
+}
+
+export class GetActivitiesByDateSuccess {
+  readonly type = GET_ACTIVITIES_BY_DATE_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Actions =
   | GetOrganizationTypes
   | GetOrganizationTypesSuccess
@@ -182,4 +194,6 @@ export type Actions =
   | UpdateUserDetails
   | UpdateUserDetailsSuccess
   | GetDashboardSummary
-  | GetDashboardSummarySuccess;
+  | GetDashboardSummarySuccess
+  | GetActivitiesByDate
+  | GetActivitiesByDateSuccess;

@@ -55,30 +55,23 @@ export class BldReqViewComponent implements OnInit {
             reservedUnits: Number(0),
           });
         });
-
-        console.log(this.requirementUnits);
       }
     });
 
     this.bloodReqStatusSub = this.bloodReqStatus$.subscribe((data) => {
       if (data) {
         this.bloodReqStatus = data.data;
-        console.log(this.bloodReqStatus);
       }
     });
   }
 
-  onSelectReqType(type) {
-    console.log(type);
-  }
+  onSelectReqType(type) {}
 
   onResrveUnits(unit, i) {
     this.requirementUnits[i].reservedUnits = unit;
-    console.log(this.requirementUnits);
   }
   onIssueUnits(unit, i) {
     this.requirementUnits[i].issuedUnits = unit;
-    console.log(this.requirementUnits);
   }
   save() {
     const payload = {

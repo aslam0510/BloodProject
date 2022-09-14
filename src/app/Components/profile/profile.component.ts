@@ -81,7 +81,6 @@ export class ProfileComponent implements OnInit {
   }
 
   setFormValue() {
-    console.log(this.userDetails);
     this.userDetailsForm.patchValue({
       addr: this.userDetails?.addr,
       city: this.userDetails?.city,

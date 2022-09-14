@@ -55,8 +55,6 @@ export class SideNavEffect {
       ofType(SideNavAction.DELETE_USER),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload);
-
         return this.http
           .delete(api.getAPI('DELETE_USER') + `?_id=${payload}`)
           .pipe(map((data: any) => new SideNavAction.DeleteUserSuccess(data)));
