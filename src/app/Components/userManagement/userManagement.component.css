@@ -7,7 +7,7 @@ th {
 }
 th,
 td {
-  border-right: 1px solid #e9ecef;
+  border-left: 1px solid #e9ecef;
   padding-left: 15px !important;
   /* border-bottom: 1px solid #e9ecef;
   border-collapse: collapse; */
@@ -16,6 +16,18 @@ th,
 td {
   /* padding-left: 25px; */
   /* text-align: left; */
+}
+
+.smallButton {
+  background-color: brown;
+  line-height: 0 !important;
+  height: 30px;
+  border-radius: 20px !important;
+  color: white;
+}
+th {
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
 }
 
 .field {

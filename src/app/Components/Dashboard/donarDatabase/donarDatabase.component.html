@@ -4,7 +4,7 @@
     <mat-tab-group>
       <mat-tab label="Donor's Repository" class="mat">
         <div class="my-3 d-flex justify-content-between">
-          <div>
+          <div style="color: brown;">
             <button mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event)">
               <mat-icon>filter_list</mat-icon> <span>{{'Filter'}}</span>
             </button>
@@ -22,7 +22,7 @@
           </div>
 
           <div class="d-flex">
-            <button mat-raised-button class="sendMessage mr-2" (click)="onSendMessage()" style="margin-right: 10px;">
+            <button mat-raised-button class="sendMessage mr-2" (click)="onSendMessage()" style="margin-right: 1.5rem;">
               Send Message
             </button>
             <div style=" border: 1px solid lightgray; border-radius: 10px; height: 41px;">

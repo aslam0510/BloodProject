@@ -1,6 +1,6 @@
 import { ForgetPassword } from './../../store/Actions/auth.action';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AddEntityComponent } from '../addEntity/addEntity.component';
 import { Observable, Subscription } from 'rxjs';
@@ -40,7 +40,7 @@ export class OrgSettingsComponent implements OnInit {
   orgUploadDocuments = [];
   showOrg = true;
   showEntity = false;
-
+  currentRouter: any;
   constructor(
     private router: Router,
     private dialog: MatDialog,
@@ -65,6 +65,12 @@ export class OrgSettingsComponent implements OnInit {
     this.store.dispatch(new DashboardAction.GetOrganizationDetails());
     this.store.dispatch(new DashboardAction.GetEntityDetails());
     this.isEdit = true;
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRouter = event.url;
+        console.log(this.currentRouter);
+      }
+    });
   }
 
   ngOnInit() {

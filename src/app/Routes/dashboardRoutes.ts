@@ -56,6 +56,10 @@ export const dashboardRoutes: Routes = [
         path: 'orgSettings',
         component: OrgSettingsComponent,
       },
+      {
+        path: 'addEntity',
+        component: AddEntityComponent,
+      },
     ],
   },
 ];

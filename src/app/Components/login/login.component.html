@@ -36,7 +36,7 @@
         </h5>
       </div>
       <div class="d-flex flex-column buttons">
-        <button class="d-block my-3 mt-5 text-white bgColor" type="submit" mat-raised-button style=" margin-top: 9rem;"
+        <button class="d-block my-3 mt-5 text-white bgColor" type="submit" mat-raised-button style=" margin-top: 12rem;"
           [disabled]="(loginForm.value.userid === '' || loginForm.value.pwd === '') && loginForm.value.phnNumber === '' && loginForm.value.otp === ''">{{showOtp ?
           'Verify': 'Log in' }}</button>
         <button mat-raised-button type="button" class="mt-2" style="border: 1px solid#EA0029; color: #EA0029;" (click)="onLoginViaOtp()" *ngIf="!showOtp">{{showPhnNumber ? 'Log in with Username' :

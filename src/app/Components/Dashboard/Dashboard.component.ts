@@ -113,6 +113,7 @@ export class DashboardComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.currentRouter = event.url;
         console.log(this.currentRouter);
+        console.log(this.currentRouter !== '/dashboard/orgSettings');
       }
     });
     this.activityDetailsSub = this.activityDetails$.subscribe((data) => {

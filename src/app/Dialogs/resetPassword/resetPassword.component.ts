@@ -34,13 +34,11 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   save() {
-    if (this.resetPasswordForm.valid) {
-      const payload = {
-        token: this.token,
-        pwd: this.resetPasswordForm.value.password,
-        confPwd: this.resetPasswordForm.value.confirmPassword,
-      };
-      this.store.dispatch(new AuthAction.ForgetPassword(payload));
-    }
+    const payload = {
+      token: this.token,
+      pwd: this.resetPasswordForm.value.password,
+      confPwd: this.resetPasswordForm.value.confirmPassword,
+    };
+    this.store.dispatch(new AuthAction.ForgetPassword(payload));
   }
 }

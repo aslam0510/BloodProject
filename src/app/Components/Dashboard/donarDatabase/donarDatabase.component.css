@@ -61,7 +61,9 @@ th {
   border-bottom: 3px solid black;
   font-weight: bold;
 }
-
+tr:nth-child(even) {
+  background-color: #fafafa !important;
+}
 td,
 th {
   padding-left: 1rem !important;

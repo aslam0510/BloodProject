@@ -124,10 +124,13 @@ mat-card {
   padding-left: 1rem;
   color: #aa182c;
 }
-.table-striped tbody tr:nth-of-type(odd) {
+/* .table-striped tbody tr:nth-of-type(odd) {
   background-color: #fafafa;
-}
+} */
 
+tr:nth-child(even) {
+  background-color: #fafafa !important;
+}
 .tablecard {
   padding-left: 0;
   padding-right: 0;

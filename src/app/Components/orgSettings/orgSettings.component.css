@@ -1,4 +1,4 @@
-.sideBar {
+.sideBars {
   background-color: gainsboro;
   /* height: 92.5vh; */
   margin-left: -1rem;
@@ -66,11 +66,11 @@ mat-list-item {
   margin-left: 1rem;
 }
 .datas {
-  height: 70vh;
+  height: 600px;
   overflow-y: scroll;
 }
 .data {
-  height: 70vh;
+  height: 80vh;
   overflow-y: scroll;
 }
 
