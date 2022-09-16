@@ -278,15 +278,16 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   showDialog() {
     const dialogRef = this.dialog.open(AppDialogComponent, {
-      width: '350px',
+      width: '600px',
       height: 'auto',
       data: {
         title: 'Application Submitted Successfully !',
         content:
           'we have received your application. We are currently reviewing your application. After Successful verificatio you will receive Username and Password through email. We will get back to you with the status within 2-3 days',
+        image: '/assets/Images/logo.svg',
         ok: true,
         cancel: false,
-        button: 'Done',
+        button: '',
       },
     });
   }

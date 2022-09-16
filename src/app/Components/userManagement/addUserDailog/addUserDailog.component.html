@@ -1,132 +1,182 @@
 <mat-card>
-  <div class="p-2 appBgColor d-flex align-items-center">
-    <h2 class="m-0 text-white d-inline header">{{isEdit ? 'Edit User' : 'Add User'}}</h2>
-    <mat-icon class="text-white" (click)="dialogRef.close()">close</mat-icon>
+  <div class="p-2  d-flex align-items-center justify-content-between">
+    <h2 class="m-0  d-inline header">{{isEdit ? 'Edit User' : 'Add New User'}}</h2>
+    <mat-icon (click)="dialogRef.close()">close</mat-icon>
   </div>
-  <div class="appBgColor px-2 py-1">
-    <h3 class="text-white select">Select</h3>
+  <div class="py-1">
+    <h3 class="select">Select</h3>
     <mat-radio-group aria-label="Select an option" class="my-2 mx-2">
-      <mat-radio-button checked="isOrg" *ngIf="editUserData?.userType === 2 || editUserData === null" (change)="radioChnage($event)" value="org" class="text-white mx-2">Organization</mat-radio-button>
-      <mat-radio-button [checked]="this.isEdit" *ngIf="editUserData?.userType === 3 || editUserData === null" (change)="radioChnage($event)" value="entity" class="text-white">Entity</mat-radio-button>
+      <mat-radio-button checked="isOrg" *ngIf="editUserData?.userType === 2 || editUserData === null" (change)="radioChnage($event)" value="org" class="mx-2">Organization</mat-radio-button>
+      <mat-radio-button [checked]="this.isEdit" *ngIf="editUserData?.userType === 3 || editUserData === null" (change)="radioChnage($event)" value="entity">Entity</mat-radio-button>
     </mat-radio-group>
   </div>
   <form class="p-4" [formGroup]="orgForm" *ngIf="isOrg || editUserData?.userType === 2">
-    <p>
-      <mat-form-field>
-        <mat-label>User name</mat-label>
-        <input matInput placeholder="userName" formControlName="userName">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="email" formControlName="email">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput placeholder="Address" formControlName="address">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Contact No.</mat-label>
-        <input matInput placeholder="Contact No." formControlName="contactNo">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Role</mat-label>
-        <mat-select placeholder="Role" formControlName="role">
-          <mat-option [value]="role.name" *ngFor="let role of userRole">{{ role.name }}
-          </mat-option>
-        </mat-select>
+    <div class="d-flex justify-content-around align-items-center">
+      <p>
+        <mat-form-field>
+          <mat-label>User name</mat-label>
+          <input matInput placeholder="userName" formControlName="Full name">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="email" formControlName="email">
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="d-flex justify-content-around align-items-center">
+      <p>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput placeholder="Address" formControlName="address">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Contact No.</mat-label>
+          <input matInput placeholder="Contact No." formControlName="contactNo">
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="d-flex justify-content-around align-items-center">
+      <p>
+        <mat-form-field>
+          <mat-label>Role</mat-label>
+          <mat-select placeholder="Role" formControlName="role">
+            <mat-option [value]="role.name" *ngFor="let role of userRole">{{ role.name }}
+            </mat-option>
+          </mat-select>
 
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Stauts</mat-label>
-        <mat-select placeholder="Stauts" formControlName="status">
-          <mat-option value="1">{{ "Active" }}
-          </mat-option>
-          <mat-option value="0">{{ "InActive" }}
-          </mat-option>
-        </mat-select>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Stauts</mat-label>
+          <mat-select placeholder="Stauts" formControlName="status">
+            <mat-option value="1">{{ "Active" }}
+            </mat-option>
+            <mat-option value="0">{{ "InActive" }}
+            </mat-option>
+          </mat-select>
 
-      </mat-form-field>
-    </p>
-    <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
-      <button mat-raised-button (click)="dialogRef.close()">Clear</button>
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="d-flex justify-content-around align-items-center">
+      <p>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input matInput placeholder="City" formControlName="city">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Pincode</mat-label>
+          <input matInput placeholder="Pincode" formControlName="pincode">
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="d-flex  align-items-center">
+      <p>
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <input matInput placeholder="State" formControlName="state">
+        </mat-form-field>
+      </p>
+
+    </div>
+    <div class="mt-1 pb-1 d-flex align-items-center justify-content-end">
       <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()" [disabled]="!orgForm.valid">{{!isEdit ? 'Submit' : "Update"}}</button>
     </div>
   </form>
   <form class="p-4" [formGroup]="entityForm" *ngIf="isEntity || editUserData?.userType === 3">
-    <p>
-      <mat-form-field appearance="outline" class="ml-3">
-        <mat-label>{{ "Select Entity" }}</mat-label>
-        <mat-select placeholder="Select Entity" formControlName="entity">
-          <mat-option (click)="onSelectEntity(entity)" [value]="entity.bldbnkName" *ngFor="let entity of entities">{{ entity.bldbnkName }}
-          </mat-option>
-        </mat-select>
-        <!-- <mat-error *ngIf="
-                        organizationForm.controls['categoryName'].invalid &&
-                        organizationForm.controls['categoryName'].errors.required
-                      ">
-          {{ "organizationType is required" }}
-        </mat-error> -->
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>User name</mat-label>
-        <input matInput placeholder="userName" formControlName="userName">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="email" formControlName="email">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Contact No.</mat-label>
-        <input matInput placeholder="Contact No." formControlName="contactNo">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput placeholder="Address" formControlName="address">
-      </mat-form-field>
-    </p>
+    <div class="d-flex justify-content-around align-items-center">
+      <p>
+        <mat-form-field class="ml-3">
+          <mat-label>{{ "Select Entity" }}</mat-label>
+          <mat-select placeholder="Select Entity" formControlName="entity">
+            <mat-option (click)="onSelectEntity(entity)" [value]="entity.bldbnkName" *ngFor="let entity of entities">{{ entity.bldbnkName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Full Name</mat-label>
+          <input matInput placeholder="Full Name" formControlName="userName">
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="d-flex justify-content-around align-items-center">
+      <p>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="email" formControlName="email">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Contact No.</mat-label>
+          <input matInput placeholder="Contact No." formControlName="contactNo">
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="d-flex justify-content-around align-items-center">
+      <p>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput placeholder="Address" formControlName="address">
+        </mat-form-field>
+      </p>
 
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Role</mat-label>
-        <mat-select placeholder="Role" formControlName="role">
-          <mat-option [value]="role.name" *ngFor="let role of userRole">{{ role.name }}
-          </mat-option>
-        </mat-select>
+      <p>
+        <mat-form-field>
+          <mat-label>Role</mat-label>
+          <mat-select placeholder="Role" formControlName="role">
+            <mat-option [value]="role.name" *ngFor="let role of userRole">{{ role.name }}
+            </mat-option>
+          </mat-select>
 
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Stauts</mat-label>
-        <mat-select placeholder="Stauts" formControlName="status">
-          <mat-option value="1">{{ "Active" }}
-          </mat-option>
-          <mat-option value="0">{{ "InActive" }}
-          </mat-option>
-        </mat-select>
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="d-flex justify-content-around align-items-center">
+      <p>
+        <mat-form-field>
+          <mat-label>Stauts</mat-label>
+          <mat-select placeholder="Stauts" formControlName="status">
+            <mat-option value="1">{{ "Active" }}
+            </mat-option>
+            <mat-option value="0">{{ "InActive" }}
+            </mat-option>
+          </mat-select>
 
-      </mat-form-field>
-    </p>
-    <div class="mt-1 pb-1 d-flex align-items-center justify-content-evenly">
-      <button mat-raised-button (click)="dialogRef.close()">Clear</button>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input matInput placeholder="City" formControlName="city">
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="d-flex justify-content-around align-items-center">
+      <p>
+        <mat-form-field>
+          <mat-label>Pincode</mat-label>
+          <input matInput placeholder="Pincode" formControlName="pincode">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <input matInput placeholder="State" formControlName="state">
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="mt-1 pb-1 d-flex align-items-center justify-content-end">
+
       <button mat-raised-button [disabled]="!entityForm.valid" class="appBgColor text-white" (click)="onEntityFormSave()">{{!isEdit ? 'Submit' : "Update"}}</button>
     </div>
   </form>

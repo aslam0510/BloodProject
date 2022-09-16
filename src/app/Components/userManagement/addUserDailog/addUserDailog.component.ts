@@ -106,6 +106,18 @@ export class AddUserDailogComponent implements OnInit {
           : '',
         [Validators.required]
       ),
+      city: new FormControl(
+        this.editUserData?.userType === 2 ? this.editUserData.city : '',
+        [Validators.required]
+      ),
+      state: new FormControl(
+        this.editUserData?.userType === 2 ? this.editUserData.state : '',
+        [Validators.required]
+      ),
+      pincode: new FormControl(
+        this.editUserData?.userType === 2 ? this.editUserData.pincode : '',
+        [Validators.required]
+      ),
     });
 
     this.entityForm = new FormGroup({
@@ -141,6 +153,18 @@ export class AddUserDailogComponent implements OnInit {
           : '',
         [Validators.required]
       ),
+      city: new FormControl(
+        this.editUserData?.userType === 3 ? this.editUserData.city : '',
+        [Validators.required]
+      ),
+      state: new FormControl(
+        this.editUserData?.userType === 3 ? this.editUserData.state : '',
+        [Validators.required]
+      ),
+      pincode: new FormControl(
+        this.editUserData?.userType === 3 ? this.editUserData.pincode : '',
+        [Validators.required]
+      ),
     });
   }
 
@@ -159,6 +183,9 @@ export class AddUserDailogComponent implements OnInit {
       contact: orgFormValues.contactNo,
       addr: orgFormValues.address,
       sts: orgFormValues.status,
+      city: orgFormValues.city,
+      state: orgFormValues.state,
+      pincode: orgFormValues.pincode,
       userType: 2,
       role: role,
     };
@@ -186,6 +213,9 @@ export class AddUserDailogComponent implements OnInit {
       sts: Number(entityFormValues.status),
       userType: 3,
       role: role,
+      city: entityFormValues.city,
+      state: entityFormValues.state,
+      pincode: entityFormValues.pincode,
     };
     if (this.isEdit) {
       payload['userId'] = this.editUserData?.userId;

@@ -1,6 +1,12 @@
 table {
   width: 100%;
 }
+.mattable {
+  height: 50vh;
+}
+mat-card {
+  height: 70vh;
+}
 th {
   font-weight: bold;
   color: black;

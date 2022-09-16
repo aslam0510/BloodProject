@@ -13,6 +13,7 @@ export class AppDialogComponent implements OnInit {
   ok: boolean = false;
   cancel: boolean = false;
   button = '';
+  image = '';
   constructor(
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -21,6 +22,7 @@ export class AppDialogComponent implements OnInit {
     this.title = data.title;
     this.content = data.content;
     this.ok = data.ok;
+    this.image = data.image;
     this.cancel = data.cancel;
     this.button = data.button;
   }

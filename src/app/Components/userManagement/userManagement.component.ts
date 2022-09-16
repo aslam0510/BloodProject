@@ -94,7 +94,7 @@ export class UserManagementComponent implements OnInit {
 
   onAddUser() {
     const dialogRef = this.dialog.open(AddUserDailogComponent, {
-      width: '480px',
+      width: '800px',
       height: 'auto',
       panelClass: 'custom-dialog-container',
       data: {
@@ -127,7 +127,7 @@ export class UserManagementComponent implements OnInit {
 
   onEdit(user) {
     const dialogRef = this.dialog.open(AddUserDailogComponent, {
-      width: '480px',
+      width: '1000px',
       height: 'auto',
       data: {
         formData: user,

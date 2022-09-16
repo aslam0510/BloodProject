@@ -196,7 +196,7 @@
                 <div class="d-inline" *ngFor="let orgFormField of orgFormFields">
                   <ng-container *ngIf="orgFormField.inputType === 'TextBox'">
                     <mat-form-field class="field"
-                      *ngIf="orgFormField.fieldName === 'Address Line 1' || orgFormField.fieldName === 'Address Line 2' || orgFormField.fieldName === 'Country' ||   orgFormField.fieldName === 'District' || orgFormField.fieldName === 'PIN Code' || orgFormField.fieldName == 'City'">
+                      *ngIf="orgFormField.fieldName === 'Address Line 1' || orgFormField.fieldName === 'Address Line 2' ||   orgFormField.fieldName === 'District' || orgFormField.fieldName === 'PIN Code' || orgFormField.fieldName == 'City'">
                       <mat-label>{{ orgFormField.fieldName }}</mat-label>
                       <input matInput [formControlName]="orgFormField.key" />
                       <mat-error *ngIf="
