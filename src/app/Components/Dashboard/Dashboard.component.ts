@@ -118,8 +118,7 @@ export class DashboardComponent implements OnInit {
     });
     this.activityDetailsSub = this.activityDetails$.subscribe((data) => {
       if (data) {
-        // this.activityData = data?.activities;
-        this.activityDetails = data;
+        this.activityDetails = data.data.details;
       }
     });
   }

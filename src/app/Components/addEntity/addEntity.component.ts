@@ -99,11 +99,12 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     }
 
     this.addNewEntityForm = this.fb.group({
-      categoryName: new FormControl('', [Validators.required]),
+      categoryName: new FormControl('Blood Bank', [Validators.required]),
     });
   }
 
   ngOnInit() {
+    this.store.dispatch(new AuthAction.GetCategory('Blood Bank'));
     this.store.dispatch(new dashboardActions.GetEntityCategories());
     this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
@@ -168,25 +169,24 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   }
 
   //RESETING THE ORGANIZATION FORM
-  onResetOrgForm() {
+  onResetOrgForm(event) {
+    event.stopPropagation();
     this.addNewEntityForm.reset();
   }
 
   //SUBMITING THE FORM
   onSubmit() {
-    if (this.addNewEntityForm.valid) {
-      const formValues = this.addNewEntityForm.value;
-      let formData = new FormData();
-      Object.keys(this.addNewEntityForm.controls).forEach((key) => {
-        if (key !== 'docs' && key !== 'organizationType') {
-          formData.append(key, formValues[key]);
-        }
-      });
-      for (var i = 0; i < this.organizationFiles.length; i++) {
-        formData.append('docs', this.organizationFiles[i]);
+    const formValues = this.addNewEntityForm.value;
+    let formData = new FormData();
+    Object.keys(this.addNewEntityForm.controls).forEach((key) => {
+      if (key !== 'docs' && key !== 'organizationType') {
+        formData.append(key, formValues[key]);
       }
-      this.store.dispatch(new dashboardActions.AddNewEntity(formData));
+    });
+    for (var i = 0; i < this.organizationFiles.length; i++) {
+      formData.append('docs', this.organizationFiles[i]);
     }
+    this.store.dispatch(new dashboardActions.AddNewEntity(formData));
   }
 
   //On Organisation Type select

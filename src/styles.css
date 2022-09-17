@@ -16,6 +16,11 @@ body {
   padding: 0;
 }
 
+.mat-calendar-body-selected {
+  background-color: #ea0029 !important;
+  color: white !important;
+}
+
 .spinner_container {
   border-radius: 10px;
   left: 45%;

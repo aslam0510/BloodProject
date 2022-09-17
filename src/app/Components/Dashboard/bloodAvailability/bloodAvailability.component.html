@@ -15,8 +15,8 @@
               <input #dates matInput [matDatepicker]="datepicker">
               <mat-datepicker-toggle matSuffix [for]="datepicker" (click)="onBlodAvailableValChange('Pick Date')"></mat-datepicker-toggle>
               <mat-datepicker #datepicker>
-                <mat-datepicker-actions>
-                  <button mat-raised-button color="primary" matDatepickerApply (click)="onBloodAvailableDatePick(dates)">Apply</button>
+                <mat-datepicker-actions class="d-flex justify-content-center align-items-center">
+                  <button mat-raised-button style="background-color: brown; color: white; text-align: center;" matDatepickerApply (click)="onBloodAvailableDatePick(dates)">Apply</button>
                 </mat-datepicker-actions>
               </mat-datepicker>
             </mat-form-field>
@@ -68,8 +68,8 @@
               <input matInput #date [matDatepicker]="datepickers">
               <mat-datepicker-toggle matSuffix [for]="datepickers" (click)="onBlodComValChange('Pick Date')"></mat-datepicker-toggle>
               <mat-datepicker #datepickers>
-                <mat-datepicker-actions>
-                  <button mat-raised-button color="primary" matDatepickerApply (click)="onBloodCompDatePicker(date)">Apply</button>
+                <mat-datepicker-actions class="d-flex justify-content-center">
+                  <button mat-raised-button style="background-color: brown; color: white; text-align: center;" matDatepickerApply (click)="onBloodCompDatePicker(date)">Apply</button>
                 </mat-datepicker-actions>
               </mat-datepicker>
             </mat-form-field>
