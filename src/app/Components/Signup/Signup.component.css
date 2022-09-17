@@ -115,12 +115,15 @@ h2 {
 }
 
 .upload {
+  width: 500px;
   border: 1px dotted grey;
   padding: 0.7rem 1rem;
   border-radius: 10px;
-  margin: 0 1.5rem;
+  margin: 0 auto;
 }
-
+.resetButton {
+  color: #ea0029;
+}
 .icon {
   height: 31px;
   width: 42px;

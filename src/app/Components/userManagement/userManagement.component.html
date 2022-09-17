@@ -4,8 +4,9 @@
     <mat-tab label="User Management">
       <div class="mt-2 px-3 d-flex justify-content-between align-items-center">
         <button mat-raised-button class="smallButton text-white" (click)="onAddUser()">Add New User</button>
-        <div class="d-flex align-items-center">
-          <mat-form-field class="field">
+        <div>
+          <mat-form-field class="field  d-flex justify-content-between align-items-center" appearance="outline">
+            <!-- <mat-icon>search</mat-icon> -->
             <input type="text" matInput placeholder="Search User" (keyup)="filterData($event)" />
           </mat-form-field>
         </div>

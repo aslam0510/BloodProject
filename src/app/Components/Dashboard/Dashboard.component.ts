@@ -99,13 +99,13 @@ export class DashboardComponent implements OnInit {
     private store: Store<AppState>
   ) {
     this.activityDetails$ = this.store.select(
-      (state) => state.DashboardSlice.activityDetails
+      (state) => state.DashboardSlice.activityDetailsByDate
     );
   }
 
   ngOnInit() {
     this.today = moment();
-
+    this.store.dispatch(new DashboardActions.GetActivitiesByDate(''));
     this.store.dispatch(new SideNavActions.GetBloodGroupList());
     this.store.dispatch(new SideNavActions.GetBloodCompList());
     this.store.dispatch(new DashboardActions.GetDashboardSummary());
@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
     this.activityDetailsSub = this.activityDetails$.subscribe((data) => {
       if (data) {
         // this.activityData = data?.activities;
-        this.activityDetails = data?.activities;
+        this.activityDetails = data;
       }
     });
   }

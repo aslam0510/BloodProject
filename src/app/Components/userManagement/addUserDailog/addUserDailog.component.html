@@ -1,11 +1,11 @@
 <mat-card>
-  <div class="p-2  d-flex align-items-center justify-content-between">
+  <div class="py-1 d-flex align-items-center justify-content-between">
     <h2 class="m-0  d-inline header">{{isEdit ? 'Edit User' : 'Add New User'}}</h2>
     <mat-icon (click)="dialogRef.close()">close</mat-icon>
   </div>
-  <div class="py-1">
+  <div style="margin-left: 2rem;">
     <h3 class="select">Select</h3>
-    <mat-radio-group aria-label="Select an option" class="my-2 mx-2">
+    <mat-radio-group aria-label="Select an option" class="my-2">
       <mat-radio-button checked="isOrg" *ngIf="editUserData?.userType === 2 || editUserData === null" (change)="radioChnage($event)" value="org" class="mx-2">Organization</mat-radio-button>
       <mat-radio-button [checked]="this.isEdit" *ngIf="editUserData?.userType === 3 || editUserData === null" (change)="radioChnage($event)" value="entity">Entity</mat-radio-button>
     </mat-radio-group>
@@ -14,8 +14,8 @@
     <div class="d-flex justify-content-around align-items-center">
       <p>
         <mat-form-field>
-          <mat-label>User name</mat-label>
-          <input matInput placeholder="userName" formControlName="Full name">
+          <mat-label>Full name</mat-label>
+          <input matInput placeholder="Full name" formControlName="userName">
         </mat-form-field>
       </p>
       <p>
@@ -77,7 +77,7 @@
         </mat-form-field>
       </p>
     </div>
-    <div class="d-flex  align-items-center">
+    <div class="d-flex justify-content-start align-items-center" style="margin-right: 1rem;">
       <p>
         <mat-form-field>
           <mat-label>State</mat-label>

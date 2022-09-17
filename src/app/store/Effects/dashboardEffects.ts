@@ -192,9 +192,12 @@ export class DashboardEffect {
       ofType(dashboardActions.GET_ACTIVITIES_BY_DATE),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(api.getAPI('GET_ACTIVITIES_BY_DATE') + `?start=${payload}`);
         return this.http
-          .get(api.getAPI('GET_ACTIVITIES_BY_DATE') + `?start=${payload}`)
+          .get(
+            payload
+              ? api.getAPI('GET_ACTIVITIES_BY_DATE') + `?start=${payload}`
+              : api.getAPI('GET_ACTIVITIES_BY_DATE')
+          )
           .pipe(
             map((data) => new dashboardActions.GetActivitiesByDateSuccess(data))
           );

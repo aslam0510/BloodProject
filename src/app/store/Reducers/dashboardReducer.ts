@@ -43,7 +43,7 @@ export function dashboardReducer(
       return { ...state, userDetails: action.payload };
     }
     case dashboardActions.GET_ACTIVITIES_BY_DATE_SUCCESS: {
-      return { ...state, activityDetails: action.payload };
+      return { ...state, activityDetailsByDate: action.payload };
     }
     case dashboardActions.GET_DASHBOARD_SUMMARY_SUCCESS: {
       const data = action.payload.data;

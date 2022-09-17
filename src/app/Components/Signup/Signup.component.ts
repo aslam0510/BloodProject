@@ -255,7 +255,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   //RESETING THE ORGANIZATION FORM
-  onResetOrgForm() {
+  onResetOrgForm(event) {
+    event.stopPropagation();
     this.organizationForm.reset();
   }
 

@@ -28,8 +28,8 @@
                 <mat-panel-title class="d-flex justify-content-between align-items-center">
                   <strong>Organization Info</strong>
 
-                  <button color="accent" mat-button (click)="onResetOrgForm()">
-                    <mat-icon color="accent">refresh</mat-icon> Reset
+                  <button class="resetButton" mat-button (click)="onResetOrgForm($event)" [disabled]="!organizationForm.dirty">
+                    <mat-icon>refresh</mat-icon> Reset
                   </button>
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -185,9 +185,8 @@
               <mat-expansion-panel-header>
                 <mat-panel-title class="d-flex justify-content-between align-items-center">
                   <strong>Address Info</strong>
-
-                  <button color="accent" mat-button (click)="onResetOrgForm()">
-                    <mat-icon color="accent">refresh</mat-icon> Reset
+                  <button class="resetButton" mat-button (click)="onResetOrgForm($event)" [disabled]="!organizationForm.dirty">
+                    <mat-icon>refresh</mat-icon> Reset
                   </button>
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -252,51 +251,59 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Upload Document</ng-template>
-        <div class="d-inline" *ngFor="let orgFormField of orgFormFields">
-          <div *ngIf="orgFormField.inputType === 'File'">
-            <div class="d-flex justify-content-between mt-2 px-4">
-              <h3>Upload License of Blood Bank</h3>
-              <p class="mat-body-1">
-                *File size should be less than 1 MB
-              </p>
-            </div>
-            <mat-error *ngIf="acceptOnlyPDF" class="fileErr">{{
-              acceptOnlyPDF
-              }}</mat-error>
-            <div class="upload">
-              <div class="d-flex justify-content-between">
-                <p class="pt-2">
-                  Please upload your medical registration and document
-                  of state medical council proof.
-                </p>
-                <input [formControlName]="orgFormField.key" #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event)"
-                  (click)="fileInput.value = null" />
-                <button color="accent" (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-between" type="button">
-                  <mat-icon color="accent">upload</mat-icon>
-                  <span>Upload</span>
+        <div class=" expansion">
+          <mat-accordion>
+            <mat-expansion-panel expanded=" open">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="d-flex justify-content-between align-items-center">
+                  <strong>Upload Document</strong>
+                  <button class="resetButton" mat-button (click)="onResetOrgForm($event)" [disabled]="!organizationForm.dirty">
+                    <mat-icon>refresh</mat-icon> Reset
+                  </button>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-divider class="px-5"></mat-divider>
+              <h5 class="text-center mt-2">Upload Organisation License issued by medical authorities</h5>
+              <div class="d-inline" *ngFor="let orgFormField of orgFormFields">
+                <div *ngIf="orgFormField.inputType === 'File'">
+                  <mat-error *ngIf="acceptOnlyPDF" class="fileErr">{{
+                    acceptOnlyPDF
+                    }}</mat-error>
+                  <div class="upload ">
+                    <div class="d-flex flex-column align-items-center justify-content-center">
+                      <img src="/assets/Images/upload.svg" alt="" width="100px" height="100px">
+                      <input [formControlName]="orgFormField.key" #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event)"
+                        (click)="fileInput.value = null" />
+                      <button (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-center" type="button">
+                        <p>Drag & Drop or <span style="color: #ea0029;">Browse</span> your file to upload</p>
+                      </button>
+                      <mat-hint>Please upload in PDF format only and the size should be less than 2 </mat-hint>
+                    </div>
+
+                    <ng-container *ngFor="let file of organizationFiles; let i = index">
+                      <div class="files d-flex my-2 align-items-center" *ngIf="organizationFiles.length > 0">
+                        <mat-icon class="icon pl-2 pr-4" color="accent">
+                          insert_drive_file</mat-icon>
+                        <div class="d-flex flex-column flex-grow-1">
+                          <span clas="d-block">{{ file.name }}</span>
+                          <span>{{ file.size + " byte" }}</span>
+                        </div>
+                        <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)">close</mat-icon>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end mt-3">
+                <button mat-raised-button matStepperPrevious style="margin-right: 1rem;" class="outlineButtons">Back</button>
+                <button mat-raised-button class="btn-danger signup smallButtons" [disabled]="!organizationForm.valid && organizationFiles.length < 0" (click)="onSubmit()" type="submit">
+                  Submit
                 </button>
               </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
 
-              <ng-container *ngFor="let file of organizationFiles; let i = index">
-                <div class="files d-flex my-2 align-items-center" *ngIf="organizationFiles.length > 0">
-                  <mat-icon class="icon pl-2 pr-4" color="accent">
-                    insert_drive_file</mat-icon>
-                  <div class="d-flex flex-column flex-grow-1">
-                    <span clas="d-block">{{ file.name }}</span>
-                    <span>{{ file.size + " byte" }}</span>
-                  </div>
-                  <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)">close</mat-icon>
-                </div>
-              </ng-container>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-end mt-3">
-          <button mat-raised-button matStepperPrevious style="margin-right: 1rem;" class="outlineButtons">Back</button>
-          <button mat-raised-button class="btn-danger signup smallButtons" [disabled]="!organizationForm.valid && organizationFiles.length < 0" (click)="onSubmit()" type="submit">
-            Submit
-          </button>
-        </div>
 
       </mat-step>
     </form>
@@ -313,8 +320,8 @@
                 <span>Delete</span>
               </button>
               <strong class="flex-grow-1 text-center">New Entity Info</strong>
-              <mat-icon color="accent">refresh</mat-icon>
-              <button color="accent" mat-button>Reset</button>
+              <mat-icon>refresh</mat-icon>
+              <button [disabled]="!newEntityForm.valid" mat-button>Reset</button>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <form class="orgForm" [formGroupName]="i">

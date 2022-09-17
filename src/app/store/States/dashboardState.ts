@@ -13,5 +13,6 @@ export class DashboardState {
   bloodAvailable: any;
   bldRequestStatus: any;
   activityDetails: any;
+  activityDetailsByDate: any;
   constructor() {}
 }
