@@ -108,6 +108,9 @@ export class UserManagementComponent implements OnInit {
   }
 
   onDeleteUser(user) {
+    if (user.role.name === 'Organization Admin') {
+      return true;
+    }
     const dailogRef = this.dialog.open(SharedDialogComponent, {
       width: '300px',
       height: 'auto',
@@ -126,18 +129,22 @@ export class UserManagementComponent implements OnInit {
   }
 
   onEdit(user) {
-    const dialogRef = this.dialog.open(AddUserDailogComponent, {
-      width: '1000px',
-      height: 'auto',
-      data: {
-        formData: user,
-        isEdit: true,
-      },
-      panelClass: 'custom-dialog-container',
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.store.dispatch(new SideNavAction.GetUsersList());
-    });
+    if (user.role.name === 'Organization Admin') {
+      return true;
+    } else {
+      const dialogRef = this.dialog.open(AddUserDailogComponent, {
+        width: '800px',
+        height: 'auto',
+        data: {
+          formData: user,
+          isEdit: true,
+        },
+        panelClass: 'custom-dialog-container',
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        this.store.dispatch(new SideNavAction.GetUsersList());
+      });
+    }
   }
 
   filterData(event) {

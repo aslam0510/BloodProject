@@ -67,7 +67,7 @@
                     </mat-form-field>
                   </ng-container>
                   <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
-                    <mat-form-field appearance="outline" *ngIf="
+                    <mat-form-field *ngIf="
                         orgFormField.key !== 'state' &&
                         orgFormField.key !== 'typeOfEntity'
                       ">
@@ -94,7 +94,7 @@
                         {{ orgFormField.fieldName + " is required" }}
                       </mat-error>
                     </mat-form-field>
-                    <mat-form-field appearance="outline" *ngIf="orgFormField.key === 'typeOfEntity'">
+                    <mat-form-field *ngIf="orgFormField.key === 'typeOfEntity'">
                       <mat-label>{{ orgFormField.fieldName }}</mat-label>
                       <mat-select formControlName="{{ orgFormField.key }}">
                         <mat-option [value]="category.categoryName" *ngFor="
@@ -209,7 +209,7 @@
                     </mat-form-field>
                   </ng-container>
                   <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
-                    <mat-form-field appearance="outline" *ngIf="orgFormField.key === 'state'">
+                    <mat-form-field *ngIf="orgFormField.key === 'state'">
                       <mat-label>{{ orgFormField.fieldName }}</mat-label>
                       <mat-select formControlName="{{ orgFormField.key }}">
                         <mat-option [value]="state" *ngFor="let state of states; let i = index">{{ state }}

@@ -30,3 +30,9 @@ button {
   color: red;
   border: 1px solid red;
 }
+
+.bldCom {
+  border: 1px solid lightgray !important;
+  border-radius: 22px;
+  padding: 10px 15px !important;
+}

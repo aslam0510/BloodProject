@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
       route: 'scanDonar',
     },
     {
-      menu: 'UserManagement',
+      menu: 'User Management',
       icon: '/assets/Images/usermanagement.svg',
       route: '/dashboard/userManagement',
     },

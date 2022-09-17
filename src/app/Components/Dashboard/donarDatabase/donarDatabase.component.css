@@ -7,11 +7,10 @@ table {
 }
 mat-card {
   border-radius: 15px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-.select {
-  height: 38px;
-}
 input {
   border: none;
 }

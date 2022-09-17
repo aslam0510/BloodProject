@@ -12,7 +12,7 @@
           <mat-button-toggle value="Yesterday" (click)="onBldAvailableDaySelect('yesterday')">Yesterday</mat-button-toggle>
           <mat-button-toggle value="Pick Date">
             <mat-form-field class="date" *ngIf="bloodAvailableDate === ''">
-              <input #dates matInput [matDatepicker]="datepicker">
+              <input #dates matInput [matDatepicker]="datepicker" placeholder="Pick Date">
               <mat-datepicker-toggle matSuffix [for]="datepicker" (click)="onBlodAvailableValChange('Pick Date')"></mat-datepicker-toggle>
               <mat-datepicker #datepicker>
                 <mat-datepicker-actions class="d-flex justify-content-center align-items-center">
@@ -44,10 +44,10 @@
           </div>
         </div>
         <mat-divider class="px-1"></mat-divider>
-        <p class="text-center mt-2 text-primary">{{blood.totalResorvedUnits + ' Units Reserved'}}</p>
-        <p class="text-center text-success"> {{ '+' + blood.totalAddedUnits + ' units added'}}</p>
-        <p class="text-center text-danger"> {{'-' + blood.totalIssuedUnits +' Units issued'}}</p>
-        <p class="text-center text-secondary" *ngIf="showOnlyYesterDay"> {{ blood?.totalExpiredUnits
+        <p class="text-center mt-2 " style="color: #002D93;">{{blood.totalResorvedUnits + ' Units Reserved'}}</p>
+        <p class="text-center" style="color: #1EAD2D;"> {{ '+' + blood.totalAddedUnits + ' units added'}}</p>
+        <p class="text-center " style="color: #EA0029;"> {{'-' + blood.totalIssuedUnits +' Units issued'}}</p>
+        <p class="text-center " *ngIf="showOnlyYesterDay" style="color:#666666"> {{ blood?.totalExpiredUnits
           +' Units Expired'}}</p>
       </mat-card>
     </div>
@@ -65,7 +65,7 @@
           <mat-button-toggle value="Yesterday" (click)="onBlodCompDaySelect('yesterday')">Yesterday</mat-button-toggle>
           <mat-button-toggle value="Pick Date">
             <mat-form-field class="date" *ngIf="bloodCompDate === ''">
-              <input matInput #date [matDatepicker]="datepickers">
+              <input matInput #date [matDatepicker]="datepickers" placeholder="Pick Date">
               <mat-datepicker-toggle matSuffix [for]="datepickers" (click)="onBlodComValChange('Pick Date')"></mat-datepicker-toggle>
               <mat-datepicker #datepickers>
                 <mat-datepicker-actions class="d-flex justify-content-center">
@@ -101,17 +101,21 @@
 
           </tr>
           <tr>
-            <td scope="row" class="text-primary">Reserved Unit</td>
+            <td scope="row" style="color :#002D93">Reserved Unit</td>
             <td *ngFor="let group of bloodComp.availability">{{group.totalResorvedUnits}}</td>
 
           </tr>
           <tr>
-            <td scope="row" class="text-success">Added Unit</td>
+            <td scope="row" style="color :#1EAD2D">Added Unit</td>
             <td *ngFor="let group of bloodComp.availability">{{group.totalAddedUnits}}</td>
           </tr>
           <tr>
-            <td class="text-danger">Issued Unit</td>
+            <td style="color :#EA0029">Issued Unit</td>
             <td *ngFor="let group of bloodComp.availability">{{group.totalIssuedUnits}}</td>
+          </tr>
+          <tr *ngIf="showOnlyYesterDayCmp">
+            <td style="color :#666666">Expired Unit</td>
+            <td *ngFor="let group of bloodComp.availability">{{group.totalExpiredUnits}}</td>
           </tr>
         </tbody>
       </table>

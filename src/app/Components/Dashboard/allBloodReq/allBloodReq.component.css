@@ -45,16 +45,29 @@ tr:hover {
 
 .open {
   color: #666666;
-  /* background-color: #b5b5b5; */
+  background-color: #b5b5b5;
 }
 .progress {
   color: #1e7b74;
-  /* background-color: #e8f2f1; */
+  background-color: #e8f2f1;
 }
 .rejected {
   color: #be9700;
-  /* background-color: FFD430; */
+  background-color: FFD430;
 }
 .closed {
   color: #044b7f;
+}
+tr:nth-child(even) {
+  background-color: #fafafa !important;
+}
+
+.tablecard {
+  padding-left: 0;
+  padding-right: 0;
+}
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #aa182c;
+  border-bottom: 2px solid #aa182c;
 }

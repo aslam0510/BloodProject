@@ -15,7 +15,12 @@ body {
   margin: 0;
   padding: 0;
 }
-
+.mat-calendar-body-today {
+  background-color: #ea0029 !important;
+}
+.mat-calendar-body-cell-content:hover {
+  background-color: #ea0029 !important;
+}
 .mat-calendar-body-selected {
   background-color: #ea0029 !important;
   color: white !important;
@@ -88,8 +93,8 @@ button {
 }
 
 ::ng-deep .mat-button-toggle {
-  background-color: #e0e0e0;
-  color: black;
+  background-color: #e0e0e0 !important;
+  color: black !important;
 }
 .outlineButtons {
   background-color: #fff;
@@ -104,4 +109,8 @@ button {
 .mat-tab-label-content {
   font-weight: bold;
   color: black;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #aa182c !important;
 }

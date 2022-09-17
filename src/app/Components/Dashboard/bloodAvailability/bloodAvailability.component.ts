@@ -35,6 +35,7 @@ export class BloodAvailabilityComponent implements OnInit {
   public bldCompSelectedVal: string;
   actionSubcription: Subscription;
   showOnlyYesterDay = false;
+  showOnlyYesterDayCmp = false;
   calenderDate: any;
   constructor(
     private dialog: MatDialog,
@@ -116,7 +117,7 @@ export class BloodAvailabilityComponent implements OnInit {
   onEditBldStatus(value) {
     if (value === 'bldCompStatus') {
       const dialogRef = this.dialog.open(BldCompStDialogComponent, {
-        width: '400px',
+        width: '571px',
         height: 'auto',
         data: {
           page: 'bloodComp',
@@ -200,10 +201,12 @@ export class BloodAvailabilityComponent implements OnInit {
     const today = moment();
     const yesterday = moment().add(-1, 'days');
     if (day === 'today') {
+      this.showOnlyYesterDayCmp = false;
       this.store.dispatch(
         new SideNavAction.GetBloodCompStatus(today.format('MM-DD-YYYY'))
       );
     } else if (day === 'yesterday') {
+      this.showOnlyYesterDayCmp = true;
       this.store.dispatch(
         new SideNavAction.GetBloodCompStatus(yesterday.format('MM-DD-YYYY'))
       );

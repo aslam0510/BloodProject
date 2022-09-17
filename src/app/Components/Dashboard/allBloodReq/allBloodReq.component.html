@@ -1,6 +1,6 @@
 <div class="px-2">
   <h2>All Blood Request</h2>
-  <mat-card class="mat-elevation-z8">
+  <mat-card class="mat-elevation-z8 tablecard">
     <mat-tab-group>
       <mat-tab label="Hight-Priority Request"> Hight-Priority Request </mat-tab>
       <mat-tab label="Open Blood Request">
@@ -63,9 +63,13 @@
 
             <ng-container matColumnDef="Status">
               <th mat-header-cell *matHeaderCellDef> Status </th>
-              <td mat-cell *matCellDef="let element" [ngClass]="element?.reqStatusId === 1 ? 'open': element?.reqStatusId === 2 ? 'progress' :  element?.reqStatusId === 3 ? 'rejected' :
-                element?.reqStatusId === 4 ?'closed' : ''"> {{element?.reqStatusId === 1 ? 'Open' : element?.reqStatusId === 2 ? 'In-Progress' : element?.reqStatusId === 3 ? 'Rejected' :
-                element?.reqStatusId === 4 ?'Closed' : '' }} </td>
+              <td mat-cell *matCellDef="let element">
+                <p style="border-radius: 10px; padding: 2px 4px ; text-align: center; margin-top: 5px;" [ngClass]="element?.reqStatusId === 1 ? 'open': element?.reqStatusId === 2 ? 'progress' :  element?.reqStatusId === 3 ? 'rejected' :
+                element?.reqStatusId === 4 ?'closed' : ''">
+                  {{element?.reqStatusId === 1 ? 'Open' : element?.reqStatusId === 2 ? 'In-Progress' : element?.reqStatusId === 3 ? 'Rejected' :
+                  element?.reqStatusId === 4 ?'Closed' : '' }}
+                </p>
+              </td>
             </ng-container>
 
 

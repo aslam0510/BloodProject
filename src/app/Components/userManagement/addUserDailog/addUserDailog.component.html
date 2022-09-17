@@ -3,15 +3,15 @@
     <h2 class="m-0  d-inline header">{{isEdit ? 'Edit User' : 'Add New User'}}</h2>
     <mat-icon (click)="dialogRef.close()">close</mat-icon>
   </div>
-  <div style="margin-left: 2rem;">
+  <div style="margin-left: 1rem;">
     <h3 class="select">Select</h3>
     <mat-radio-group aria-label="Select an option" class="my-2">
       <mat-radio-button checked="isOrg" *ngIf="editUserData?.userType === 2 || editUserData === null" (change)="radioChnage($event)" value="org" class="mx-2">Organization</mat-radio-button>
       <mat-radio-button [checked]="this.isEdit" *ngIf="editUserData?.userType === 3 || editUserData === null" (change)="radioChnage($event)" value="entity">Entity</mat-radio-button>
     </mat-radio-group>
   </div>
-  <form class="p-4" [formGroup]="orgForm" *ngIf="isOrg || editUserData?.userType === 2">
-    <div class="d-flex justify-content-around align-items-center">
+  <form [formGroup]="orgForm" *ngIf="isOrg || editUserData?.userType === 2">
+    <div class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field>
           <mat-label>Full name</mat-label>
@@ -25,7 +25,7 @@
         </mat-form-field>
       </p>
     </div>
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field>
           <mat-label>Address</mat-label>
@@ -39,7 +39,7 @@
         </mat-form-field>
       </p>
     </div>
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field>
           <mat-label>Role</mat-label>
@@ -63,7 +63,7 @@
         </mat-form-field>
       </p>
     </div>
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field>
           <mat-label>City</mat-label>
@@ -90,8 +90,8 @@
       <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()" [disabled]="!orgForm.valid">{{!isEdit ? 'Submit' : "Update"}}</button>
     </div>
   </form>
-  <form class="p-4" [formGroup]="entityForm" *ngIf="isEntity || editUserData?.userType === 3">
-    <div class="d-flex justify-content-around align-items-center">
+  <form [formGroup]="entityForm" *ngIf="isEntity || editUserData?.userType === 3">
+    <div mt-2 class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field class="ml-3">
           <mat-label>{{ "Select Entity" }}</mat-label>
@@ -108,7 +108,7 @@
         </mat-form-field>
       </p>
     </div>
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field>
           <mat-label>Email</mat-label>
@@ -122,7 +122,7 @@
         </mat-form-field>
       </p>
     </div>
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field>
           <mat-label>Address</mat-label>
@@ -141,7 +141,7 @@
         </mat-form-field>
       </p>
     </div>
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field>
           <mat-label>Stauts</mat-label>
@@ -161,7 +161,7 @@
         </mat-form-field>
       </p>
     </div>
-    <div class="d-flex justify-content-around align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field>
           <mat-label>Pincode</mat-label>

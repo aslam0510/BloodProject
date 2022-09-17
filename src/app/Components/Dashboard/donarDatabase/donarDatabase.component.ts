@@ -20,7 +20,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class DonarDatabaseComponent implements OnInit {
   displayedColumns: string[] = [
-    'select',
     'donorName',
     'donorId',
     'UHID',
@@ -275,4 +274,12 @@ export class DonarDatabaseComponent implements OnInit {
     }
   }
   getNext(event: PageEvent) {}
+
+  onTab(value) {
+    console.log(value);
+
+    if (value == 'repo') {
+    } else {
+    }
+  }
 }

@@ -1,11 +1,11 @@
 <div>
-  <h3 routerLink="/dashboard/bloodRequest"> {{'<'}} Blood Component Request</h3>
+  <h3 routerLink="/dashboard/bloodRequest" style="font-weight: bold;"> {{'<'}} Blood Component Request</h3>
 </div>
 <div class="row mb-5">
-  <div class="col-6 mb-3">
+  <div class="col-lg-6 mb-3 col-md-12">
     <mat-card class="mat-elevation-z8">
       <div class="p-3 px-4 d-flex align-items-center justify-content-between header">
-        <h3 class="m-0">Request Detail's</h3>
+        <h3 class="m-0" style="font-weight: bold;">Request Detail's</h3>
         <button mat-raised-button class="appBgColor text-white">Emergency Request</button>
       </div>
       <div>
@@ -74,7 +74,7 @@
       </div>
     </mat-card>
   </div>
-  <div class="col-6 mb-3">
+  <div class="col-lg-6 col-md-12 mb-3">
     <mat-card class="mat-elevation-z8">
       <div class="p-3 px-4 header">
         <h3 class="m-0">Requirements</h3>
@@ -88,18 +88,18 @@
             <th>Issue</th>
             <th>Reserve</th>
           </thead>
-          <tbody>
+          <tbody style="overflow: hidden;">
             <tr *ngFor="let item of bloodReqDetail?.requirements; let i = index">
               <td>{{item.bldComponent}}</td>
               <td>{{item.requiredUnit}}</td>
               <td>{{item.available}}</td>
               <td>
-                <mat-form-field>
+                <mat-form-field style="overflow: hidden;">
                   <input type="number" matInput placeholder="Issue Units" (keyup)="onIssueUnits($event.target.value,i)">
                 </mat-form-field>
               </td>
               <td>
-                <mat-form-field>
+                <mat-form-field style="overflow: hidden;">
                   <input type="number" matInput placeholder="Reserve Units" (keyup)="onResrveUnits($event.target.value,i)">
                 </mat-form-field>
               </td>

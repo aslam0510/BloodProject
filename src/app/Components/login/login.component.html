@@ -26,7 +26,7 @@
         <mat-label>Phone Number</mat-label>
         <input matInput placeholder="Phone Number" formControlName="phnNumber">
       </mat-form-field>
-      <mat-form-field class="d-block" *ngIf="!showPhnNumber && showOtp" style="margin-top: 4.6rem; margin-bottom: 12rem">
+      <mat-form-field class="d-block" *ngIf="!showPhnNumber && showOtp" style="margin-top: 7.6rem; margin-bottom: 12rem">
         <mat-label>Enter OTP</mat-label>
         <input matInput placeholder="otp" formControlName="otp">
       </mat-form-field>
@@ -36,7 +36,7 @@
         </h5>
       </div>
       <div class="d-flex flex-column buttons">
-        <button class="d-block my-3 mt-5 text-white bgColor" type="submit" mat-raised-button style=" margin-top: 12rem;"
+        <button class="d-block my-3 mt-5 text-white bgColor" type="submit" mat-raised-button style=" margin-top: 10rem;"
           [disabled]="(loginForm.value.userid === '' || loginForm.value.pwd === '') && loginForm.value.phnNumber === '' && loginForm.value.otp === ''">{{showOtp ?
           'Verify': 'Log in' }}</button>
         <button mat-raised-button type="button" class="mt-2" style="border: 1px solid#EA0029; color: #EA0029;" (click)="onLoginViaOtp()" *ngIf="!showOtp">{{showPhnNumber ? 'Log in with Username' :

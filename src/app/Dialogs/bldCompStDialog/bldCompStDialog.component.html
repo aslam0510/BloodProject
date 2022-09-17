@@ -1,15 +1,15 @@
-<div>
+<div style="border-radius: 20px;">
   <div class="d-flex justify-content-around align-items-center">
-    <h3 class="m-0 text-bold">{{data.page === 'bloodComp' ? 'Update Blood Component Status' : 'Update Blood Status'}}</h3>
+    <h3 class="m-0 text-bold" style="padding-left: 7rem;">{{data.page === 'bloodComp' ? 'Update Blood Component Status' : 'Update Blood Status'}}</h3>
     <mat-icon (click)="dialogRef.close()">close</mat-icon>
   </div>
 
   <form [formGroup]="updateBloodForm" class="mt-2">
     <div *ngIf="data.page === 'bloodComp'">
       <p class="text-secondary">Select Blood Component</p>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="none">
         <mat-label>{{ "Select Blood Component" }}</mat-label>
-        <mat-select formControlName="bloodComp" placeholder="Select Blood Component" (selectionChange)="onBloodComp($event.value)">
+        <mat-select formControlName="bloodComp" placeholder="Select Blood Component" (selectionChange)="onBloodComp($event.value)" class="bldCom">
           <mat-option [value]="list" *ngFor="let list of bloodCompList?.types">{{ list}}
           </mat-option>
         </mat-select>
@@ -21,7 +21,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <p>Select Blood Type</p>
+    <p class="mt-2">Select Blood Type</p>
     <p>
       <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="mb-2" (click)="onBloodGroup($event.target.innerText)" formControlName="bloodGroup">
         <mat-button-toggle [value]="group" *ngFor="let group of bloodGroupList?.types">{{group}}

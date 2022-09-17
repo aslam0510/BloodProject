@@ -40,4 +40,9 @@ button {
 
 .formField {
   width: 350px;
+  overflow: hidden;
+}
+
+tr:nth-child(even) {
+  background-color: #fafafa !important;
 }

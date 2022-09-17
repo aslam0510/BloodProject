@@ -57,7 +57,12 @@ export class LoginComponent implements OnInit {
     this.showVerify = true;
   }
   handleActionSubscription(data: any) {
+    console.log(data);
+    console.log(AuthAction);
+
     switch (data.type) {
+      case AuthAction.LOGOUT_SUCCESS:
+        break;
       case AuthAction.GENERATE_OTP_SUCCESS:
         if (data.payload.code === 200) {
           this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
