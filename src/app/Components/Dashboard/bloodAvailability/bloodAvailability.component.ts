@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BloodAvailabilityComponent implements OnInit {
   bloodCompStatus$: Observable<any>;
-  bloodCompStatus: [] = [];
+  bloodCompStatus: any;
   bloodCompStatusSub: Subscription;
   bloodCompList$: Observable<any>;
   bloodCompList: any;
@@ -37,6 +37,8 @@ export class BloodAvailabilityComponent implements OnInit {
   showOnlyYesterDay = false;
   showOnlyYesterDayCmp = false;
   calenderDate: any;
+  prbcComp: any;
+  plasmaComp = [];
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
@@ -88,6 +90,10 @@ export class BloodAvailabilityComponent implements OnInit {
     this.bloodCompStatusSub = this.bloodCompStatus$.subscribe((response) => {
       if (response) {
         this.bloodCompStatus = response.data;
+        this.prbcComp = this.bloodCompStatus.filter((x) => x._id === 'PRBC');
+        this.plasmaComp = this.bloodCompStatus.filter(
+          (x) => x._id === 'Plasma'
+        );
       }
     });
 

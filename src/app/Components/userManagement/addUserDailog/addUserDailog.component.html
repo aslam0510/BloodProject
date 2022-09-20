@@ -1,15 +1,17 @@
 <mat-card>
-  <div class="py-1 d-flex align-items-center justify-content-between">
+  <div class="py-1 pb-2 d-flex align-items-center justify-content-between">
     <h2 class="m-0  d-inline header">{{isEdit ? 'Edit User' : 'Add New User'}}</h2>
     <mat-icon (click)="dialogRef.close()">close</mat-icon>
   </div>
-  <div style="margin-left: 1rem;">
-    <h3 class="select">Select</h3>
-    <mat-radio-group aria-label="Select an option" class="my-2">
-      <mat-radio-button checked="isOrg" *ngIf="editUserData?.userType === 2 || editUserData === null" (change)="radioChnage($event)" value="org" class="mx-2">Organization</mat-radio-button>
-      <mat-radio-button [checked]="this.isEdit" *ngIf="editUserData?.userType === 3 || editUserData === null" (change)="radioChnage($event)" value="entity">Entity</mat-radio-button>
+  <div style="margin-top: 1rem;">
+    <mat-radio-group aria-label="Select an option" class="my-2" style="margin-top: 1rem;">
+      <mat-radio-button style="margin-right: 1rem;" checked="isOrg" *ngIf="editUserData?.userType === 2 || editUserData === null" (change)="radioChnage($event)" value="org">Organization
+      </mat-radio-button>
+      <mat-radio-button [checked]="this.isEdit" *ngIf="editUserData?.userType === 3 || editUserData === null" (change)="radioChnage($event)" value="entity">Entity
+      </mat-radio-button>
     </mat-radio-group>
   </div>
+  <hr>
   <form [formGroup]="orgForm" *ngIf="isOrg || editUserData?.userType === 2">
     <div class="d-flex justify-content-between align-items-center">
       <p>
@@ -87,7 +89,8 @@
 
     </div>
     <div class="mt-1 pb-1 d-flex align-items-center justify-content-end">
-      <button mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()" [disabled]="!orgForm.valid">{{!isEdit ? 'Submit' : "Update"}}</button>
+      <button style="width: 200px; border-radius: 25px;" mat-raised-button class="appBgColor text-white" (click)="onOrgFormSave()" [disabled]="!orgForm.valid">{{!isEdit ? 'Submit' :
+        "Update"}}</button>
     </div>
   </form>
   <form [formGroup]="entityForm" *ngIf="isEntity || editUserData?.userType === 3">
@@ -177,7 +180,8 @@
     </div>
     <div class="mt-1 pb-1 d-flex align-items-center justify-content-end">
 
-      <button mat-raised-button [disabled]="!entityForm.valid" class="appBgColor text-white" (click)="onEntityFormSave()">{{!isEdit ? 'Submit' : "Update"}}</button>
+      <button mat-raised-button style="width: 200px; border-radius: 25px;" [disabled]="!entityForm.valid" class="appBgColor text-white" (click)="onEntityFormSave()">{{!isEdit ? 'Submit' :
+        "Update"}}</button>
     </div>
   </form>
 

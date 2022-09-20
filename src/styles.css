@@ -114,3 +114,6 @@ button {
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
   border-color: #aa182c !important;
 }
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #aa182c !important;
+}

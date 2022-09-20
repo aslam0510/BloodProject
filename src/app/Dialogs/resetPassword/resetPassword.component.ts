@@ -39,6 +39,7 @@ export class ResetPasswordComponent implements OnInit {
       pwd: this.resetPasswordForm.value.password,
       confPwd: this.resetPasswordForm.value.confirmPassword,
     };
-    this.store.dispatch(new AuthAction.ForgetPassword(payload));
+    this.store.dispatch(new AuthAction.ResetPassword(payload));
+    this.dialog.closeAll();
   }
 }

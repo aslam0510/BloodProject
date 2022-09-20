@@ -63,12 +63,15 @@ export class HomeComponent implements OnInit {
     });
 
     if (this.urlToken) {
-      this.dialog.open(ResetPasswordComponent, {
+      const dailogRef = this.dialog.open(ResetPasswordComponent, {
         width: '500px',
         height: 'auto',
         data: {
           token: this.urlToken,
         },
+      });
+      dailogRef.afterClosed().subscribe((result) => {
+        console.log(result);
       });
     }
     this.generateOtpSub = this.generateOtp$.subscribe((data) => {

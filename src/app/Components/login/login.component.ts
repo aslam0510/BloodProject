@@ -24,6 +24,7 @@ import { publicKey, privateKey } from 'src/app/config';
 })
 export class LoginComponent implements OnInit {
   loginSuccess$: Observable<any>;
+  loginSub: Subscription;
   loginSuccess: any;
   loginForm: FormGroup;
   loginErrors$: Observable<any>;
@@ -62,6 +63,10 @@ export class LoginComponent implements OnInit {
 
     switch (data.type) {
       case AuthAction.LOGOUT_SUCCESS:
+        if (data.payload.data.message) {
+          this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
+          this.router.navigate(['/login']);
+        }
         break;
       case AuthAction.GENERATE_OTP_SUCCESS:
         if (data.payload.code === 200) {
@@ -90,7 +95,7 @@ export class LoginComponent implements OnInit {
       otp: new FormControl('', Validators.required),
     });
 
-    this.loginSuccess$.subscribe((data) => {
+    this.loginSub = this.loginSuccess$.subscribe((data) => {
       if (data) {
         this.loginSuccess = data;
         if (
@@ -250,6 +255,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngDestroy() {
+    this.loginSub.unsubscribe();
     this.showOtp = false;
     this.showPhnNumber = false;
   }

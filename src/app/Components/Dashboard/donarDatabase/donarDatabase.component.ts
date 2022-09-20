@@ -276,8 +276,6 @@ export class DonarDatabaseComponent implements OnInit {
   getNext(event: PageEvent) {}
 
   onTab(value) {
-    console.log(value);
-
     if (value == 'repo') {
     } else {
     }

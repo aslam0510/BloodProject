@@ -26,7 +26,13 @@ export function AuthReducer(
     }
     case authActions.LOGOUT_SUCCESS: {
       localStorage.setItem('accessToken', '');
-      return { ...state, logout: action.payload };
+      localStorage.setItem('refreshToken', '');
+      return {
+        ...state,
+        logout: action.payload,
+        auth: null,
+        verifyOTPSuccess: null,
+      };
     }
     default:
       return state;

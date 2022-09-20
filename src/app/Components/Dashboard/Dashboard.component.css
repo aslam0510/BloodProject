@@ -1,8 +1,8 @@
 .page {
-  height: 90%;
+  height: 100%;
 }
 
-.sidenav {
+.sidenavs {
   z-index: 999;
   width: 14%;
   /* height: 100%; */
