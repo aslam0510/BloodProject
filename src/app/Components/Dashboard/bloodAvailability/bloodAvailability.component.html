@@ -32,18 +32,20 @@
 
     </div>
 
-    <div class="width">
-      <mat-card class="mat-elevation-z8 p-1 card m-2 my-3 d-inline-block " *ngFor="let blood of bloodAvailableStatus">
+    <div>
+      <mat-card class="mat-elevation-z8 p-1 card m-2 my-3 d-inline-block pt-2" *ngFor="let blood of bloodAvailableStatus">
         <div class="d-flex align-items-center justify-content-around p-1">
-          <button style="background-color: brown" class="d-block text-center appBgColor" mat-mini-fab aria-label="Example icon button with a heart icon">
+          <button style="background-color: brown" class="mt-1 d-block text-center appBgColor" mat-mini-fab aria-label="Example icon button with a heart icon">
             {{blood.bldgrp}}
           </button>
           <div class="content">
-            <h5 class="m-0 text-right ">{{blood.totalAvailable}}</h5>
+            <h5 class="m-0 " style="text-align: end; font-weight: bold; font-size: 20px;">{{blood.totalAvailable}}</h5>
             <span class="avaliableUnits">Available Unit</span>
           </div>
         </div>
-        <mat-divider class="px-1"></mat-divider>
+        <div class="px-3">
+          <hr>
+        </div>
         <p class="text-center mt-2 " style="color: #002D93;">{{blood.totalResorvedUnits + ' Units Reserved'}}</p>
         <p class="text-center" style="color: #1EAD2D;"> {{ '+' + blood.totalAddedUnits + ' units added'}}</p>
         <p class="text-center " style="color: #EA0029;"> {{'-' + blood.totalIssuedUnits +' Units issued'}}</p>
@@ -85,43 +87,79 @@
     </div>
 
 
+    <div *ngFor="let bloodComp of bloodCompStatus; let i = index">
 
-    <mat-card class="mt-2 mx-0 my-2 mb-3" *ngFor="let bloodComp of bloodCompStatus; let i = index">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">{{bloodComp._id}}</th>
-            <th *ngFor="let group of bloodComp.availability">{{group.bldgrp}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td scope="row" class="text-secondary">Available Unit</td>
-            <td *ngFor="let group of bloodComp.availability">{{group.totalAvailable}}</td>
+      <mat-card class="mt-2 mx-0 my-2 mb-3" *ngIf="bloodComp._id === 'PRBC'">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">{{bloodComp._id}}</th>
+              <th *ngFor="let group of bloodComp.availability">{{group.bldgrp}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row" class="text-secondary">Available Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalAvailable}}</td>
 
-          </tr>
-          <tr>
-            <td scope="row" style="color :#002D93">Reserved Unit</td>
-            <td *ngFor="let group of bloodComp.availability">{{group.totalResorvedUnits}}</td>
+            </tr>
+            <tr>
+              <td scope="row" style="color :#002D93">Reserved Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalResorvedUnits}}</td>
 
-          </tr>
-          <tr>
-            <td scope="row" style="color :#1EAD2D">Added Unit</td>
-            <td *ngFor="let group of bloodComp.availability">{{group.totalAddedUnits}}</td>
-          </tr>
-          <tr>
-            <td style="color :#EA0029">Issued Unit</td>
-            <td *ngFor="let group of bloodComp.availability">{{group.totalIssuedUnits}}</td>
-          </tr>
-          <tr *ngIf="showOnlyYesterDayCmp">
-            <td style="color :#666666">Expired Unit</td>
-            <td *ngFor="let group of bloodComp.availability">{{group.totalExpiredUnits}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </mat-card>
+            </tr>
+            <tr>
+              <td scope="row" style="color :#1EAD2D">Added Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalAddedUnits}}</td>
+            </tr>
+            <tr>
+              <td style="color :#EA0029">Issued Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalIssuedUnits}}</td>
+            </tr>
+            <tr *ngIf="showOnlyYesterDayCmp">
+              <td style="color :#666666">Expired Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalExpiredUnits}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card>
 
+      <mat-card class="mt-2 mx-0 my-2 mb-3" *ngIf="bloodComp._id === 'Plasma'">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">{{bloodComp._id}}</th>
+              <th *ngFor="let group of bloodComp.availability">{{group.bldgrp}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row" class="text-secondary">Available Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalAvailable}}</td>
 
+            </tr>
+            <tr>
+              <td scope="row" style="color :#002D93">Reserved Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalResorvedUnits}}</td>
+
+            </tr>
+            <tr>
+              <td scope="row" style="color :#1EAD2D">Added Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalAddedUnits}}</td>
+            </tr>
+            <tr>
+              <td style="color :#EA0029">Issued Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalIssuedUnits}}</td>
+            </tr>
+            <tr *ngIf="showOnlyYesterDayCmp">
+              <td style="color :#666666">Expired Unit</td>
+              <td *ngFor="let group of bloodComp.availability">{{group.totalExpiredUnits}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card>
+
+    </div>
   </div>
 
 

@@ -41,6 +41,8 @@ export class AddUserDailogComponent implements OnInit {
       (state) => state.DashboardSlice.entityById
     );
     this.editUserData = data.formData;
+    console.log(this.editUserData);
+
     this.isEdit = data.isEdit;
 
     if (this.isEdit) {
@@ -97,7 +99,7 @@ export class AddUserDailogComponent implements OnInit {
         this.editUserData?.userType === 2 ? this.editUserData.addr : ''
       ),
       role: new FormControl(
-        this.editUserData?.userType === 2 ? this.editUserData.role : '',
+        this.editUserData?.userType === 2 ? this.editUserData.role.name : '',
         [Validators.required]
       ),
       status: new FormControl(

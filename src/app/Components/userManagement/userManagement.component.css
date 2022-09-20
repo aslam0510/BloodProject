@@ -6,6 +6,8 @@ table {
   height: 50vh;
 }
 mat-card {
+  padding-left: 0;
+  padding-right: 0;
   height: 70vh;
 }
 th {
@@ -39,10 +41,20 @@ th {
 
 .field {
   padding: 0;
+  padding-left: 1rem;
 }
 
 .border {
   border: 1px solid lightgray;
   border-radius: 20px;
   height: 32px;
+}
+tr:nth-child(even) {
+  background-color: #fafafa !important;
+}
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #aa182c !important;
+  border-bottom: 2px solid #aa182c !important;
 }

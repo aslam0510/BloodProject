@@ -2,10 +2,10 @@
 <mat-card>
   <mat-tab-group>
     <mat-tab label="User Management">
-      <div class="mt-3 px-3 d-flex justify-content-between align-items-center">
+      <div class="my-3 px-3 d-flex justify-content-between align-items-center">
         <button mat-raised-button class="smallButton text-white" (click)="onAddUser()">Add New User</button>
-        <div class="border  d-flex justify-content-between align-items-center">
-          <mat-icon>search</mat-icon>
+        <div class="border  d-flex justify-content-around align-items-center">
+          <mat-icon style="padding-left: 0.5rem;">search</mat-icon>
           <mat-form-field appearance="none" class="field ">
             <input type="text" class="pt-1 pl-2" matInput placeholder="Search User" (keyup)="filterData($event)" />
           </mat-form-field>
@@ -56,6 +56,8 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <mat-paginator [length]="length" [pageSize]="pageSize" class="pt-2">
+        </mat-paginator>
       </div>
     </mat-tab>
     <mat-tab label="Roles & Permission">

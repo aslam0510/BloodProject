@@ -1,9 +1,10 @@
 import { AddUserDailogComponent } from './addUserDailog/addUserDailog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { AppState } from './../../app.state';
 import { Observable, Subscription } from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
 
 import * as SideNavAction from '../../store/Actions/sideNavAction';
 import { MatTableDataSource } from '@angular/material/table';
@@ -35,12 +36,17 @@ export class UserManagementComponent implements OnInit {
     'doctor',
     'labTechnician',
   ];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   userListDataSource: MatTableDataSource<any>;
   userPermissiondataSource = '';
   usersList$: Observable<any>;
   usersList: any;
   userListSub: Subscription;
   actionSubcription: Subscription;
+  // paging details
+  length = 10;
+  pageSize = 100;
+  pageSizeOptions: number[] = [10, 50, 100];
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
@@ -88,6 +94,15 @@ export class UserManagementComponent implements OnInit {
         this.userListDataSource = new MatTableDataSource(
           this.usersList.details
         );
+        this.userListDataSource.paginator = this.paginator;
+        this.userListDataSource.filterPredicate = function (data, filter) {
+          return (
+            data.userName
+              .trim()
+              .toLowerCase()
+              .indexOf(filter.trim().toLowerCase()) != -1
+          );
+        };
       }
     });
   }
@@ -148,7 +163,8 @@ export class UserManagementComponent implements OnInit {
   }
 
   filterData(event) {
-    this.userListDataSource.filter = event.target.value;
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.userListDataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnDestory() {

@@ -46,8 +46,8 @@ body {
 }
 ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
 .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-  background-color: #aa182c;
-  border-bottom: 2px solid #aa182c;
+  background-color: #aa182c !important;
+  border-bottom: 2px solid #aa182c !important;
 }
 .app mat-card {
   border-radius: 1 5px !important;
