@@ -117,3 +117,11 @@ button {
 .mat-radio-button.mat-accent .mat-radio-inner-circle {
   background-color: #aa182c !important;
 }
+
+.mat-datepicker-toggle {
+  color: #aa182c !important;
+}
+.mat-datepicker-toggle {
+  height: 40px !important;
+  width: 40px !important;
+}

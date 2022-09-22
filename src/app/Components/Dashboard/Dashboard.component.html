@@ -25,19 +25,23 @@
           <div class="d-flex justify-content-between align-items-center">
             <h3 class="noti m-0" (click)="$event.stopPropagation()">Notification</h3>
 
-            <mat-form-field class="date" class="matForm">
-              <input #dates matInput [matDatepicker]="datepicker" (dateChange)="orgValueChange(dates.value)">
+            <mat-form-field class="date" class="matForm" appearance="none" *ngIf="!showDate">
+              <input #dates matInput [matDatepicker]="datepicker" (dateChange)="orgValueChange(dates.value)" style="margin-right: 2rem;">
               <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
               <mat-datepicker #datepicker>
               </mat-datepicker>
             </mat-form-field>
+            <div *ngIf="showDate" class=" d-flex align-items-center justify-content-around ">
+              <p>{{showDate}}</p>
+              <mat-icon (click)="onRemoveBloodComDate();">close</mat-icon>
+            </div>
           </div>
 
           <mat-divider></mat-divider>
           <div style="max-height: 300px; overflow-y: auto;">
             <!-- <h3 *ngIf="activityDetails.length ==0" style="font-weight: bold; text-align: center;">No Data Available</h3> -->
             <div class="py-2 d-flex justify-content-between align-items-center borders" *ngFor="let activity of activityDetails">
-              <img src="/assets/Images/NOTIFICATION.svg" alt="" height="30px" width="40px">
+              <img src="/assets/Images/noti.svg" alt="" height="35px" width="45px" style="background-color: #FBD1D8; padding: 5px; border-radius: 5px;">
               <div class="flex">
                 <p class="m-0">{{activity?.activity}}</p>
                 <span class="m-0">{{activity?.crtdt | date}}</span>

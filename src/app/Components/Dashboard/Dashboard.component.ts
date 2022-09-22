@@ -87,6 +87,7 @@ export class DashboardComponent implements OnInit {
   public barChartLegend = true;
   public barChartPlugins = [];
   today: any;
+  showDate = '';
   public barChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40, 30] },
   ];
@@ -163,6 +164,7 @@ export class DashboardComponent implements OnInit {
   }
 
   orgValueChange(date) {
+    this.showDate = date;
     this.store.dispatch(new DashboardActions.GetActivitiesByDate(date));
   }
 }

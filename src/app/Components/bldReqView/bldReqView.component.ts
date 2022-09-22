@@ -23,6 +23,7 @@ export class BldReqViewComponent implements OnInit {
   bldReqForm: FormGroup;
   bldRequirementsForm: FormGroup;
   isEditBtn: boolean = true;
+  bloodReqType = '';
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>,
@@ -109,7 +110,9 @@ export class BldReqViewComponent implements OnInit {
 
     this.bldReqForm.disable();
   }
-  onSelectReqType(type) {}
+  onSelectReqType(type) {
+    this.bloodReqType = type;
+  }
 
   onResrveUnits(unit, i) {
     this.requirementUnits[i].reservedUnits = unit;
@@ -129,9 +132,9 @@ export class BldReqViewComponent implements OnInit {
   }
   save() {
     const payload = {
-      bldReqId: '62cf02dfbd768eeaccae5a92',
+      bldReqId: this.bloodReqDetail.bldreqId,
       reqSts: this.bloodReqDetail.reqSts,
-      subSts: 1,
+      subSts: this.bloodReqType,
       requirements: this.requirementUnits,
     };
     this.store.dispatch(new SideNavAction.UpdateBloodRequestReq(payload));
