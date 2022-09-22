@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from 'src/app/app.state';
 import * as SideNavAction from '../../store/Actions/sideNavAction';
+import { FormGroup, FormControl } from '@angular/forms';
+import * as moment from 'moment';
 @Component({
   selector: 'app-bldReqView',
   templateUrl: './bldReqView.component.html',
@@ -18,7 +20,9 @@ export class BldReqViewComponent implements OnInit {
   bloodReqStatus$: Observable<any>;
   bloodReqStatus: any;
   bloodReqStatusSub: Subscription;
-
+  bldReqForm: FormGroup;
+  bldRequirementsForm: FormGroup;
+  isEditBtn: boolean = true;
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>,
@@ -34,6 +38,23 @@ export class BldReqViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.bldReqForm = new FormGroup({
+      bldReqId: new FormControl(''),
+      patName: new FormControl(''),
+      age: new FormControl(''),
+      gender: new FormControl(''),
+      location: new FormControl(''),
+      patAddr: new FormControl(''),
+      hospitalName: new FormControl(''),
+      hospitalAddr: new FormControl(''),
+      reqDate: new FormControl(''),
+      reqstrName: new FormControl(''),
+      reqstrRel: new FormControl(''),
+      contact: new FormControl(''),
+      purpose: new FormControl(''),
+      priority: new FormControl(''),
+      bldgrp: new FormControl(''),
+    });
     this.route.params.subscribe((param) => {
       this.urlId = param.id;
     });
@@ -45,6 +66,8 @@ export class BldReqViewComponent implements OnInit {
     this.bloodReqDetailSub = this.bloodReqDetail$.subscribe((response) => {
       if (response) {
         this.bloodReqDetail = response.data;
+        console.log(this.bloodReqDetail);
+        this.setBldReqFormValues();
         this.bloodReqDetail?.requirements.forEach((x) => {
           this.requirementUnits.push({
             available: x.available,
@@ -64,7 +87,28 @@ export class BldReqViewComponent implements OnInit {
       }
     });
   }
+  setBldReqFormValues() {
+    const data = this.bloodReqDetail;
+    this.bldReqForm.patchValue({
+      bldReqId: data.bldreqId,
+      patName: data.patName,
+      age: data.age,
+      gender: data.gender,
+      location: data.location,
+      patAddr: data.patAddr,
+      hospitalName: data.hospitalName,
+      hospitalAddr: data.hospitalAddr,
+      reqDate: moment(data.reqDate).format('MM-DD-YYYY'),
+      reqstrName: data.reqstrName,
+      reqstrRel: data.reqstrRel,
+      contact: data.contact,
+      purpose: data.purpose,
+      priority: data.priority,
+      bldgrp: data.bldgrp,
+    });
 
+    this.bldReqForm.disable();
+  }
   onSelectReqType(type) {}
 
   onResrveUnits(unit, i) {
@@ -73,6 +117,16 @@ export class BldReqViewComponent implements OnInit {
   onIssueUnits(unit, i) {
     this.requirementUnits[i].issuedUnits = unit;
   }
+  cancel() {
+    this.isEditBtn = true;
+    this.bldReqForm.reset();
+    this.bldReqForm.disable();
+    this.setBldReqFormValues();
+  }
+  onEdit() {
+    this.isEditBtn = false;
+    this.bldReqForm.enable();
+  }
   save() {
     const payload = {
       bldReqId: '62cf02dfbd768eeaccae5a92',
@@ -80,6 +134,33 @@ export class BldReqViewComponent implements OnInit {
       subSts: 1,
       requirements: this.requirementUnits,
     };
+    this.store.dispatch(new SideNavAction.UpdateBloodRequestReq(payload));
+  }
+
+  saveBlodRq() {
+    const formValue = this.bldReqForm.value;
+    console.log(formValue);
+    console.log(moment(formValue.reqDate).format('MM-DD-YYYY'));
+
+    const payload = {
+      bldReqId: this.bloodReqDetail.bldreqId,
+      patName: formValue.patName,
+      age: formValue.age,
+      gender: formValue.gender,
+      location: formValue.location,
+      patAddr: formValue.patAddr,
+      hospitalName: formValue.hospitalName,
+      hospitalAddr: formValue.hospitalAddr,
+      reqDate: moment(formValue.reqDate).format('MM-DD-YYYY'),
+      reqstrName: formValue.reqstrName,
+      reqstrRel: formValue.reqstrRel,
+      contact: formValue.contact,
+      purpose: formValue.purpose,
+      priority: formValue.priority,
+      bldgrp: formValue.bldgrp,
+      requirements: this.bloodReqDetail.requirements,
+    };
+
     this.store.dispatch(new SideNavAction.UpdateBloodRequest(payload));
   }
 }

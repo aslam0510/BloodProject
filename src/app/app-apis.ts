@@ -105,8 +105,12 @@ const apis = {
     url: `/${bloodBank}/donor/getDonationDetails/`,
     port: appPort.port,
   },
-  UPDATE_BLOOD_REQUEST: {
+  UPDATE_BLOOD_REQUEST_REQ: {
     url: `/${bloodBank}/request/updateRequirements`,
+    port: appPort.port,
+  },
+  UPDATE_BLOOD_REQUEST: {
+    url: `/${bloodBank}/request/updateBloodRequest`,
     port: appPort.port,
   },
   GET_USER_DETAILS: {

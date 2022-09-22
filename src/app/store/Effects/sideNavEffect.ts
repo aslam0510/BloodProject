@@ -218,6 +218,23 @@ export class SideNavEffect {
 
   updateBldReq$ = createEffect(() => {
     return this.action$.pipe(
+      ofType(SideNavAction.UPDATE_BLOOD_REQUEST_REQ),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .put(api.getAPI('UPDATE_BLOOD_REQUEST_REQ'), payload)
+          .pipe(
+            map(
+              (data: any) =>
+                new SideNavAction.UpdateBloodRequestReqSuccess(data)
+            )
+          );
+      })
+    );
+  });
+
+  updateBldRequest$ = createEffect(() => {
+    return this.action$.pipe(
       ofType(SideNavAction.UPDATE_BLOOD_REQUEST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {

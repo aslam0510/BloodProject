@@ -6,71 +6,140 @@
     <mat-card class="mat-elevation-z8">
       <div class="p-3 px-4 d-flex align-items-center justify-content-between header">
         <h3 class="m-0" style="font-weight: bold;">Request Detail's</h3>
-        <button mat-raised-button class="appBgColor text-white">Emergency Request</button>
+        <div>
+          <button mat-raised-button class="smallButtons" *ngIf="isEditBtn" (click)="onEdit()">Edit Details</button>
+          <button mat-raised-button class="outlineButtons " *ngIf="!isEditBtn" (click)="cancel()">Cancel</button>
+          <button mat-raised-button class="smallButtons" *ngIf="!isEditBtn" (click)="saveBlodRq()" style="margin-left: 1rem;">Save</button>
+          <button mat-raised-button class="appBgColor text-white" style="margin-left: 1rem;">Emergency Request</button>
+        </div>
       </div>
       <div>
-        <table>
-          <tr>
-            <td>Patient's Name</td>
-            <th>{{bloodReqDetail?.patName}}</th>
-          </tr>
-          <tr>
-            <td>Blood Group</td>
-            <th>{{bloodReqDetail?.bldgrp}}</th>
-          </tr>
-          <tr>
-            <td>Age</td>
-            <th>{{bloodReqDetail?.age}}</th>
-          </tr>
-          <tr>
-            <td>Gender</td>
-            <th>{{bloodReqDetail?.gender}}</th>
-          </tr>
-          <tr>
-            <td>Purpose</td>
-            <th>{{bloodReqDetail?.purpose}}</th>
-          </tr>
-          <tr>
-            <td>Name Of Requester</td>
-            <th>{{bloodReqDetail?.reqstrName}}</th>
-          </tr>
-          <tr>
-            <td>Relation with Patient</td>
-            <th>{{bloodReqDetail?.reqstrRel}}</th>
-          </tr>
-          <tr>
-            <td>Contact No.</td>
-            <th>{{bloodReqDetail?.contact}}</th>
-          </tr>
-          <tr>
-            <td>Blood Requirement Type</td>
-            <th>{{bloodReqDetail?.bldReqType}}</th>
-          </tr>
-          <tr>
-            <td>Date of Request</td>
-            <th>{{bloodReqDetail?.reqDate | date}}</th>
-          </tr>
-          <tr>
-            <td>Date of Requirement</td>
-            <th>{{bloodReqDetail?.reqDate | date}}</th>
-          </tr>
-          <tr>
-            <td>Hospital Name</td>
-            <th>{{bloodReqDetail?.hospitalName}}</th>
-          </tr>
-          <tr>
-            <td>Hospital Address</td>
-            <th>{{bloodReqDetail?.hospitalAddr}}</th>
-          </tr>
-          <tr>
-            <td>patient's Address</td>
-            <th>{{bloodReqDetail?.patAddr}}</th>
-          </tr>
-          <tr>
-            <td>Location</td>
-            <th>{{bloodReqDetail?.location}}</th>
-          </tr>
-        </table>
+        <form [formGroup]="bldReqForm">
+          <table>
+
+            <tr>
+              <td>Patient's Name</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="patName">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Blood Group</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="bldgrp">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Age</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="age">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Gender</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="gender">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Purpose</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="purpose">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Name Of Requester</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="reqstrName">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Relation with Patient</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="reqstrRel">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Contact No.</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="contact">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Blood Requirement Type</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="bldgrp">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Date of Request</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="reqDate">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Date of Requirement</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="reqDate">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Hospital Name</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="hospitalName">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Hospital Address</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="hospitalAddr">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>patient's Address</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="patAddr">
+                </mat-form-field>
+              </th>
+            </tr>
+            <tr>
+              <td>Location</td>
+              <th>
+                <mat-form-field appearance="none" class="matform">
+                  <input type="text" matInput formControlName="location">
+                </mat-form-field>
+              </th>
+            </tr>
+
+          </table>
+        </form>
       </div>
     </mat-card>
   </div>
