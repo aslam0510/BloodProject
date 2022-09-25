@@ -3,302 +3,207 @@
     <img src="/assets/Images/logo.svg" alt="JioLogo" class="ml-2 pl-5 logo" width="130px" height="50px" />
   </div>
 </div>
-<div class="d-inline d-flex align-items-center" style=" margin-left: 4rem; ">
-  <mat-icon (click)="navigate()" style="cursor: pointer;">keyboard_arrow_left</mat-icon>
-  <h2 class="m-0 d-inline">New EntityForm</h2><br>
-</div>
-<span style="margin-left: 5rem;">Please enter you Organization information</span>
+<div class="expansion" *ngIf="orgType">
+  <mat-accordion class="example-headers-align">
+    <form [formGroup]="addNewEntityForm">
+      <mat-expansion-panel expanded=" open">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="d-flex justify-content-between align-items-center">
+            <div>
+              <h3 class="title">Entity Form</h3>
+              <span style="font-size: 12px; font-style: italic; ">Please enter your Entity information required for registration</span>
+            </div>
+            <button class="resetButton" mat-button (click)="onResetOrgForm($event)" [disabled]="!addNewEntityForm.dirty">
+              <mat-icon>refresh</mat-icon> Reset
+            </button>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-<div class="accordion">
+        <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
+          <mat-tab label="Entity Details">
 
-  <mat-vertical-stepper linear>
-    <form class="orgForm" [formGroup]="addNewEntityForm">
-      <mat-step>
-        <ng-template matStepLabel>Entities Details</ng-template>
-        <div class="expansion">
-          <mat-accordion>
-            <mat-expansion-panel expanded=" open">
-              <mat-expansion-panel-header>
-                <mat-panel-title class="d-flex justify-content-between ign-items-center">
-                  <strong class="flex-grow-1 text-center">Organization Info</strong>
+            <div class="content flex">
 
-                  <button class="resetButton" mat-button (click)="onResetOrgForm($event)" [disabled]="!addNewEntityForm.dirty">
-                    <mat-icon>refresh</mat-icon> Reset
-                  </button>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <mat-divider class="px-5"></mat-divider>
-              <div class="mt-2">
-                <mat-form-field class="ml-3">
-                  <mat-label>{{ "Category Name" }}</mat-label>
-                  <mat-select formControlName="categoryName" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Category Name">
-                    <mat-option [value]="category.categoryName" *ngFor="let category of entityCategories">{{ category.categoryName }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="
-                                addNewEntityForm.controls['categoryName'].invalid &&
-                                addNewEntityForm.controls['categoryName'].errors.required
-                              ">
-                    {{ "organizationType is required" }}
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <ng-container>
-                <div class="d-inline" *ngFor="let orgFormField of orgFormFields">
-                  <ng-container *ngIf="orgFormField.inputType === 'TextBox'">
-                    <mat-form-field
-                      *ngIf="orgFormField.fieldName !== 'Address Line 1' && orgFormField.fieldName !== 'Address Line 2'  &&   orgFormField.fieldName !== 'District' && orgFormField.fieldName !== 'PIN Code' && orgFormField.fieldName !== 'City'">
-                      <mat-label>{{ orgFormField.fieldName }}</mat-label>
-                      <input matInput [formControlName]="orgFormField.key" />
-                      <mat-error *ngIf="
-                        addNewEntityForm.controls[orgFormField.key].invalid &&
-                        addNewEntityForm.controls[orgFormField.key].errors
-                          .required
-                      ">
-                        {{ orgFormField.fieldName + " is required" }}
-                      </mat-error>
-                      <mat-error *ngIf="
-                        addNewEntityForm.controls[orgFormField.key].invalid &&
-                        addNewEntityForm.controls[orgFormField.key].errors
-                          .pattern
-                      ">
-                        {{ "invalid " + orgFormField.fieldName }}
-                      </mat-error>
-                    </mat-form-field>
-                  </ng-container>
-                  <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
-                    <mat-form-field *ngIf="
-                        orgFormField.key !== 'state' &&
-                        orgFormField.key !== 'typeOfEntity'
-                      ">
-                      <mat-label>{{ orgFormField.fieldName }}</mat-label>
-                      <mat-select formControlName="{{ orgFormField.key }}">
-                        <mat-option [value]="i" *ngFor="
-                            let value of orgFormField.values;
-                            let i = index
-                          ">{{ orgFormField.values[i] }}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="
-                          addNewEntityForm.controls[orgFormField.key].invalid &&
-                          addNewEntityForm.controls[orgFormField.key].errors
-                            .pattern
-                        ">
-                        {{ "invalid " + orgFormField.fieldName }}
-                      </mat-error>
-                      <mat-error *ngIf="
-                          addNewEntityForm.controls[orgFormField.key].invalid &&
-                          addNewEntityForm.controls[orgFormField.key].errors
-                            .required
-                        ">
-                        {{ orgFormField.fieldName + " is required" }}
-                      </mat-error>
-                    </mat-form-field>
-                    <mat-form-field *ngIf="orgFormField.key === 'typeOfEntity'">
-                      <mat-label>{{ orgFormField.fieldName }}</mat-label>
-                      <mat-select formControlName="{{ orgFormField.key }}">
-                        <mat-option [value]="category.categoryName" *ngFor="
-                            let category of entityCategories;
-                            let i = index
-                          ">{{ category.categoryName }}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="
-                          addNewEntityForm.controls[orgFormField.key].invalid &&
-                          addNewEntityForm.controls[orgFormField.key].errors
-                            .pattern
-                        ">
-                        {{ "invalid " + orgFormField.fieldName }}
-                      </mat-error>
-                      <mat-error *ngIf="
-                          addNewEntityForm.controls[orgFormField.key].invalid &&
-                          addNewEntityForm.controls[orgFormField.key].errors
-                            .required
-                        ">
-                        {{ orgFormField.fieldName + " is required" }}
-                      </mat-error>
-                    </mat-form-field>
-                  </ng-container>
+              <mat-form-field>
+                <mat-label>{{ "Category Name" }}</mat-label>
+                <mat-select formControlName="categoryName" (selectionChange)="onOrgTypSelect($event.value)" placeholder="Category Name">
+                  <mat-option [value]="category.categoryName" *ngFor="let category of entityCategories">{{ category.categoryName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field *ngIf="orgType === 'Multiple Services'">
+                <mat-label>{{ "Type of Entity" }}</mat-label>
+                <mat-select formControlName="typeOfEntity" placeholder="Type of Entity">
+                  <mat-option [value]="category.categoryName" *ngFor="
+                                                let category of entityCategories;
+                                                let i = index
+                                              ">{{ category.categoryName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field *ngIf="orgType == 'Blood Bank'">
+                <mat-label>Blood Bank Name</mat-label>
+                <input type="text" matInput placeholder="Company Name" formControlName="bldbnkName" />
+              </mat-form-field>
 
-                  <mat-form-field *ngIf="orgFormField.inputType === 'Number'">
-                    <mat-label>{{ orgFormField.fieldName }}</mat-label>
-                    <input type="number" min="1" max="9999" matInput [formControlName]="orgFormField.key" />
-                    <mat-error *ngIf="
-                        addNewEntityForm.controls[orgFormField.key].invalid &&
-                        addNewEntityForm.controls[orgFormField.key].errors
-                          .required
-                      ">
-                      {{ orgFormField.fieldName + " is required" }}
-                    </mat-error>
-                  </mat-form-field>
-                  <div class="checkbox" *ngIf="orgFormField.inputType === 'CheckBox'">
-                    <mat-checkbox (change)="onCheckBox($event, orgFormField.key)" [formControlName]="orgFormField.key">{{ orgFormField.fieldName }}</mat-checkbox>
-                    <mat-error *ngIf="
-                        addNewEntityForm.controls[orgFormField.key].touched &&
-                        addNewEntityForm.controls[orgFormField.key].invalid &&
-                        addNewEntityForm.controls[orgFormField.key].errors
-                          .required
-                      ">
-                      {{ orgFormField.fieldName + " is required" }}
-                    </mat-error>
-                  </div>
 
-                  <div *ngIf="orgFormField.inputType === 'Radio'" class="radio">
-                    <mat-label>{{ orgFormField.fieldName }} *</mat-label>
-                    <mat-radio-group [formControlName]="orgFormField.key" class="'radioTitle">
-                      <mat-radio-button value="1" class="radioButton">Yes</mat-radio-button>
-                      <mat-radio-button value="2">No</mat-radio-button>
-                      <mat-error *ngIf="
-                          addNewEntityForm.controls[orgFormField.key].touched &&
-                          addNewEntityForm.controls[orgFormField.key].invalid &&
-                          addNewEntityForm.controls[orgFormField.key].errors
-                            .required
-                        ">
-                        {{ orgFormField.fieldName + " is required" }}
-                      </mat-error>
-                    </mat-radio-group>
-                  </div>
+              <mat-form-field *ngIf="orgType == 'Blood Bank'">
+                <mat-label>Parent Hospital Name</mat-label>
+                <input type="text" matInput placeholder="Parent Hospital Name" formControlName="prnthsptlName" />
+              </mat-form-field>
+              <mat-form-field *ngIf="orgType == 'Blood Bank'">
+                <mat-label>Category</mat-label>
+                <input matInput placeholder="Category" formControlName="catgry" />
+              </mat-form-field>
 
+
+              <mat-form-field *ngIf="orgType === 'Multiple Services'">
+                <mat-label>Company Name</mat-label>
+                <input type="text" matInput placeholder="Company Name" formControlName="compName" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Contact Number</mat-label>
+                <input matInput placeholder="Contact Number" formControlName="contact" />
+              </mat-form-field>
+
+              <mat-form-field *ngIf="orgType == 'Blood Bank'">
+                <mat-label>License Number</mat-label>
+                <input type="text" matInput placeholder="License Number" formControlName="licnsNmbr" />
+              </mat-form-field>
+              <mat-form-field *ngIf="orgType == 'Blood Bank'">
+                <mat-label>License Valid Till</mat-label>
+                <input matInput placeholder="License Valid Till" formControlName="licnsValid" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Registration Number</mat-label>
+                <input type="text" matInput placeholder="Registration Number" formControlName="regNumber" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Registration Year</mat-label>
+                <input matInput placeholder="Registration Year" formControlName="regYear" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Email Address</mat-label>
+                <input type="text" matInput placeholder="Email Address" formControlName="email" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Website (Optional)</mat-label>
+                <input matInput placeholder="Website (Optional)" formControlName="web" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Name Of Point Of Contact</mat-label>
+                <input type="text" matInput placeholder="Name Of Point Of Contact" formControlName="namePointCont" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Designation Of Point Of Contact</mat-label>
+                <input matInput placeholder="Designation Of Point Of Contact" formControlName="designPointCont" />
+              </mat-form-field>
+              <div *ngIf="orgType !== 'Multiple Services'" class="d-flex align-items-center" style="width: 520px;  ">
+                <div>
+                  <p>Component Facility</p>
+                  <mat-radio-group class="radioTitle" formControlName="comFacility">
+                    <mat-radio-button value="yes" class="radioButton">Yes</mat-radio-button>
+                    <mat-radio-button value="no">No</mat-radio-button>
+                  </mat-radio-group>
                 </div>
-              </ng-container>
-              <div class="d-flex justify-content-end pr-5">
-                <button mat-raised-button matStepperNext class="appBtnBgColor">Next</button>
-              </div>
-            </mat-expansion-panel>
-
-          </mat-accordion>
-        </div>
-
-      </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Address Details</ng-template>
-        <div class=" expansion">
-          <mat-accordion>
-            <mat-expansion-panel expanded=" open">
-              <mat-expansion-panel-header>
-                <mat-panel-title class="d-flex justify-content-between align-items-center">
-                  <strong class="flex-grow-1 text-center">Address Info</strong>
-
-                  <button class="resetButton" mat-button (click)="onResetOrgForm($event)" [disabled]="!addNewEntityForm.dirty">
-                    <mat-icon>refresh</mat-icon> Reset
-                  </button>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <mat-divider class="px-5"></mat-divider>
-              <ng-container class="mt-3">
-                <div class="d-inline" *ngFor="let orgFormField of orgFormFields">
-                  <ng-container *ngIf="orgFormField.inputType === 'TextBox'">
-                    <mat-form-field
-                      *ngIf="orgFormField.fieldName === 'Address Line 1' || orgFormField.fieldName === 'Address Line 2' ||   orgFormField.fieldName === 'District' || orgFormField.fieldName === 'PIN Code' || orgFormField.fieldName == 'City'">
-                      <mat-label>{{ orgFormField.fieldName }}</mat-label>
-                      <input matInput [formControlName]="orgFormField.key" />
-                      <mat-error *ngIf="
-                        addNewEntityForm.controls[orgFormField.key].invalid &&
-                        addNewEntityForm.controls[orgFormField.key].errors
-                          .required
-                      ">
-                        {{ orgFormField.fieldName + " is required" }}
-                      </mat-error>
-                      <mat-error *ngIf="
-                        addNewEntityForm.controls[orgFormField.key].invalid &&
-                        addNewEntityForm.controls[orgFormField.key].errors
-                          .pattern
-                      ">
-                        {{ "invalid " + orgFormField.fieldName }}
-                      </mat-error>
-                    </mat-form-field>
-                  </ng-container>
-                  <ng-container *ngIf="orgFormField.inputType === 'Dropdown'">
-                    <mat-form-field *ngIf="orgFormField.key === 'state'">
-                      <mat-label>{{ orgFormField.fieldName }}</mat-label>
-                      <mat-select formControlName="{{ orgFormField.key }}">
-                        <mat-option [value]="state" *ngFor="let state of states; let i = index">{{ state }}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="
-                          addNewEntityForm.controls[orgFormField.key].invalid &&
-                          addNewEntityForm.controls[orgFormField.key].errors
-                            .pattern
-                        ">
-                        {{ "invalid " + orgFormField.fieldName }}
-                      </mat-error>
-                      <mat-error *ngIf="
-                          addNewEntityForm.controls[orgFormField.key].invalid &&
-                          addNewEntityForm.controls[orgFormField.key].errors
-                            .required
-                        ">
-                        {{ orgFormField.fieldName + " is required" }}
-                      </mat-error>
-                    </mat-form-field>
-                  </ng-container>
-
+                <div style="margin-left: 4.5rem;">
+                  <p>Arphersis Facility</p>
+                  <mat-radio-group class="' radioTitle" formControlName="apFacility">
+                    <mat-radio-button value="yes" class="radioButton">Yes</mat-radio-button>
+                    <mat-radio-button value="no">No</mat-radio-button>
+                  </mat-radio-group>
                 </div>
-              </ng-container>
-              <div class="d-flex justify-content-end">
-                <button mat-raised-button matStepperPrevious style="margin-right: 1rem;">Previous</button>
-                <button mat-raised-button matStepperNext class="appBtnBgColor">Next</button>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </div>
 
-      </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Upload Documents</ng-template>
-        <div class=" expansion">
-          <mat-accordion>
-            <mat-expansion-panel expanded=" open">
-              <mat-expansion-panel-header>
-                <mat-panel-title class="d-flex justify-content-between align-items-center">
-                  <strong>Upload Document</strong>
-                  <button class="resetButton" mat-button (click)="onResetOrgForm($event)" [disabled]="!addNewEntityForm.dirty">
-                    <mat-icon>refresh</mat-icon> Reset
+              </div>
+            </div>
+            <div class="d-flex justify-content-end pr-5 mt-4">
+
+              <button mat-raised-button (click)="nextStep()" type="button" class="smallButtons ">Next</button>
+            </div>
+          </mat-tab>
+          <mat-tab label="Address Details">
+            <div class="content flex">
+
+              <mat-form-field>
+                <mat-label>Addresss Line 1</mat-label>
+                <input type="text" matInput placeholder="Addresss Line 1" formControlName="addLine1" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Address Line 2</mat-label>
+                <input matInput placeholder="Address Line 2" formControlName="addLine2" />
+              </mat-form-field>
+
+
+              <mat-form-field>
+                <mat-label>City</mat-label>
+                <input type="text" matInput placeholder="City" formControlName="city" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>District</mat-label>
+                <input matInput placeholder="District" formControlName="district" />
+              </mat-form-field>
+
+
+              <mat-form-field>
+                <mat-label>State</mat-label>
+                <mat-select formControlName="State">
+                  <mat-option [value]="state" *ngFor="let state of states; let i = index">{{ state }}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Pincode</mat-label>
+                <input matInput placeholder="Pincode" formControlName="pinCode" />
+              </mat-form-field>
+
+            </div>
+            <div class="d-flex justify-content-end pr-5 mt-4">
+              <button mat-button type="button" (click)="previousStep()" mat-raised-button class="outlineButtons">Previous</button>
+              <button mat-raised-button (click)="nextStep()" type="button" class="smallButtons" style="margin-left: 1rem;">Next</button>
+            </div>
+          </mat-tab>
+          <mat-tab label="Upload Documents">
+            <h3 class="text-center my-4">Upload Organization License issued by medical authories.</h3>
+            <div class="mb-3">
+              <mat-error *ngIf="acceptOnlyPDF" class="fileErr">{{
+                acceptOnlyPDF
+                }}</mat-error>
+              <div class="upload ">
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                  <img src="/assets/Images/upload.svg" alt="" width="100px" height="100px">
+                  <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event)" (click)="fileInput.value = null" />
+                  <button (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-center" type="button">
+                    <p>Drag & Drop <br> or <span style="color: #ea0029;">Browse</span> your file to upload</p>
                   </button>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <mat-divider class="px-5"></mat-divider>
-              <h5 class="text-center mt-2">Upload Organisation License issued by medical authorities</h5>
-              <div class="d-inline" *ngFor="let orgFormField of orgFormFields">
-                <div *ngIf="orgFormField.inputType === 'File'">
-                  <mat-error *ngIf="acceptOnlyPDF" class="fileErr">{{
-                    acceptOnlyPDF
-                    }}</mat-error>
-                  <div class="upload ">
-                    <div class="d-flex flex-column align-items-center justify-content-center">
-                      <img src="/assets/Images/upload.svg" alt="" width="100px" height="100px">
-                      <input [formControlName]="orgFormField.key" #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event)"
-                        (click)="fileInput.value = null" />
-                      <button (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-center" type="button">
-                        <p>Drag & Drop or <span style="color: #ea0029;">Browse</span> your file to upload</p>
-                      </button>
-                      <mat-hint>Please upload in PDF format only and the size should be less than 2 </mat-hint>
+                  <mat-hint style="font-size: 10px;">Please upload in PDF format only and the size should be less than 2 </mat-hint>
+                </div>
+
+                <ng-container *ngFor="let file of organizationFiles; let i = index">
+                  <div class="files d-flex my-2 align-items-center" *ngIf="organizationFiles.length > 0">
+                    <mat-icon class="icon pl-2 pr-4" color="accent">
+                      insert_drive_file</mat-icon>
+                    <div class="d-flex flex-column flex-grow-1">
+                      <span clas="d-block">{{ file.name }}</span>
+                      <span>{{ file.size + " byte" }}</span>
                     </div>
-
-                    <ng-container *ngFor="let file of organizationFiles; let i = index">
-                      <div class="files d-flex my-2 align-items-center" *ngIf="organizationFiles.length > 0">
-                        <mat-icon class="icon pl-2 pr-4" color="accent">
-                          insert_drive_file</mat-icon>
-                        <div class="d-flex flex-column flex-grow-1">
-                          <span clas="d-block">{{ file.name }}</span>
-                          <span>{{ file.size + " byte" }}</span>
-                        </div>
-                        <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)">close</mat-icon>
-                      </div>
-                    </ng-container>
+                    <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)">close</mat-icon>
                   </div>
-                </div>
+                </ng-container>
               </div>
               <div class="d-flex justify-content-end mt-3">
-                <button mat-raised-button matStepperPrevious style="margin-right: 1rem;" class="outlineButtons">Back</button>
-                <button mat-raised-button class="btn-danger signup smallButtons" [disabled]="!addNewEntityForm.valid && organizationFiles.length <= 0" (click)="onSubmit()" type="submit">
+                <button mat-button type="button" (click)="previousStep()" style="margin-right: 1rem;" mat-raised-button class="outlineButtons">Previous</button>
+                <button mat-raised-button class="smallButtons" [disabled]="!addNewEntityForm.valid && organizationFiles.length <= 0" (click)="onSubmit()" type="submit">
                   Submit
                 </button>
               </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
 
-      </mat-step>
+      </mat-expansion-panel>
     </form>
-  </mat-vertical-stepper>
+  </mat-accordion>
 </div>

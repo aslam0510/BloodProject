@@ -106,7 +106,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.today = moment();
-    this.store.dispatch(new DashboardActions.GetActivitiesByDate(''));
+    this.store.dispatch(
+      new DashboardActions.GetActivitiesByDate(this.today.format('MM-DD-YYYY'))
+    );
     this.store.dispatch(new SideNavActions.GetBloodGroupList());
     this.store.dispatch(new SideNavActions.GetBloodCompList());
     this.store.dispatch(new DashboardActions.GetDashboardSummary());
@@ -148,6 +150,13 @@ export class DashboardComponent implements OnInit {
     };
 
     this.dialog.open(BroadcastMsgDialogComponent, dialogConfig);
+  }
+
+  //remove date from blood component status
+  onRemoveBloodComDate(event) {
+    event.stopPropagation();
+
+    this.showDate = '';
   }
 
   onOrgsetting() {}

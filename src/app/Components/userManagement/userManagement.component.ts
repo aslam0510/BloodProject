@@ -144,9 +144,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   onEdit(user) {
-    if (user.role.name === 'Organization Admin') {
-      return true;
-    } else {
+ 
       const dialogRef = this.dialog.open(AddUserDailogComponent, {
         width: '800px',
         height: 'auto',
@@ -159,7 +157,7 @@ export class UserManagementComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result) => {
         this.store.dispatch(new SideNavAction.GetUsersList());
       });
-    }
+    
   }
 
   filterData(event) {

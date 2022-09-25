@@ -78,7 +78,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     'Uttarakhand',
     'West Bengal',
   ];
-
+  orgType = '';
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -98,8 +98,37 @@ export class AddEntityComponent implements OnInit, OnDestroy {
       this.years.push(year);
     }
 
-    this.addNewEntityForm = this.fb.group({
+    this.addNewEntityForm = new FormGroup({
       categoryName: new FormControl('Blood Bank', [Validators.required]),
+      catgry: new FormControl('', [Validators.required]),
+      prnthsptlName: new FormControl('', [Validators.required]),
+      bldbnkName: new FormControl('', [Validators.required]),
+      compName: new FormControl('', [Validators.required]),
+      typeOfEntity: new FormControl('', [Validators.required]),
+      regNumber: new FormControl('', [Validators.required]),
+      addLine1: new FormControl('', [Validators.required]),
+      licnsValid: new FormControl('', [Validators.required]),
+      licnsNmbr: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      state: new FormControl('', [Validators.required]),
+      pinCode: new FormControl('', [Validators.required]),
+      regYear: new FormControl('', [Validators.required]),
+      district: new FormControl('', [Validators.required]),
+      addLine2: new FormControl(''),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+      ]),
+      contact: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+      ]),
+      namePointCont: new FormControl(''),
+      designPointCont: new FormControl(''),
+      web: new FormControl('', [Validators.required]),
+      compFacility: new FormControl('', [Validators.required]),
+      apFacility: new FormControl('', [Validators.required]),
+      googleMapCrd: new FormControl('', [Validators.required]),
     });
   }
 
@@ -109,14 +138,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
         this.categoryDetails = data.data;
-        const controls = this.categoryDetails.fields;
-        for (const formField of controls) {
-          this.addNewEntityForm.addControl(
-            formField.key,
-            new FormControl('', this.getValidators(formField))
-          );
-        }
-        this.orgFormFields = controls;
+        this.orgType = data.data.categoryName;
       }
     });
     this.entityCateogoriesSub = this.entityCategories$.subscribe((data) => {

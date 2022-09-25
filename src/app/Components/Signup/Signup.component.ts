@@ -25,6 +25,7 @@ import { getOrgTypes } from './../../store/Selectors/dashboardSelector';
 import { OrgFormField, OrgFormModel } from './../../models/orgFormModel';
 import { MatDialog } from '@angular/material/dialog';
 import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-Signup',
@@ -84,7 +85,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     'Uttarakhand',
     'West Bengal',
   ];
-
+  orgType = '';
+  selectedIndex: number = 0;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -106,31 +108,63 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.years.push(year);
     }
 
-    this.organizationForm = this.fb.group({
-      categoryName: new FormControl('Blood Bank', [Validators.required]),
-    });
-  }
-
-  ngOnInit() {
     this.store.dispatch(new AuthAction.GetCategory('Blood Bank'));
     this.store.dispatch(new AuthAction.GetAllCategories());
     this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
-        this.categoryDetails = data.data;
-        const controls = this.categoryDetails.fields;
-        for (const formField of controls) {
-          this.organizationForm.addControl(
-            formField.key,
-            new FormControl(
-              '',
-
-              this.getValidators(formField)
-            )
-          );
-        }
-        this.orgFormFields = controls;
+        this.categoryDetails = data.data.fields;
+        this.orgType = data.data.categoryName;
       }
     });
+  }
+
+  public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    this.selectedIndex = tabChangeEvent.index;
+  }
+
+  public nextStep() {
+    this.selectedIndex += 1;
+  }
+
+  public previousStep() {
+    this.selectedIndex -= 1;
+  }
+
+  ngOnInit() {
+    // ORGANIZATION FORM
+    this.organizationForm = new FormGroup({
+      categoryName: new FormControl('Blood Bank', [Validators.required]),
+      catgry: new FormControl('', [Validators.required]),
+      prnthsptlName: new FormControl('', [Validators.required]),
+      bldbnkName: new FormControl('', [Validators.required]),
+      compName: new FormControl('', [Validators.required]),
+      typeOfEntity: new FormControl('', [Validators.required]),
+      regNumber: new FormControl('', [Validators.required]),
+      addLine1: new FormControl('', [Validators.required]),
+      licnsValid: new FormControl('', [Validators.required]),
+      licnsNmbr: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      state: new FormControl('', [Validators.required]),
+      pinCode: new FormControl('', [Validators.required]),
+      regYear: new FormControl('', [Validators.required]),
+      district: new FormControl('', [Validators.required]),
+      addLine2: new FormControl(''),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+      ]),
+      contact: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+      ]),
+      namePointCont: new FormControl(''),
+      designPointCont: new FormControl(''),
+      web: new FormControl('', [Validators.required]),
+      compFacility: new FormControl('', [Validators.required]),
+      apFacility: new FormControl('', [Validators.required]),
+      googleMapCrd: new FormControl('', [Validators.required]),
+    });
+
     this.orgCateogoriesSub = this.orgCategories$.subscribe((data) => {
       if (data) {
         this.orgCategories = data.data;
@@ -153,28 +187,6 @@ export class SignupComponent implements OnInit, OnDestroy {
         }
       }
     });
-
-    //ORGANIZATION FORM
-    // this.organizationForm = new FormGroup({
-    //   organizationType: new FormControl('', [Validators.required]),
-    //   organizationName: new FormControl('', [Validators.required]),
-    //   email: new FormControl('', [
-    //     Validators.required,
-    //     Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-    //   ]),
-    //   orgAddress: new FormControl(''),
-    //   orgContact: new FormControl('', [
-    //     Validators.required,
-    //     Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
-    //   ]),
-    //   orgRegNum: new FormControl('', [Validators.required]),
-    //   orgRegCouncil: new FormControl('', [Validators.required]),
-    //   orgRegYear: new FormControl('', [Validators.required]),
-    //   orgCity: new FormControl(''),
-    //   orgPincode: new FormControl(''),
-    //   orgLocation: new FormControl(''),
-    //   orgFileUpload: new FormControl('', [Validators.required]),
-    // });
 
     //ENTITY FORM
     this.newEntityForm = this.fb.group({

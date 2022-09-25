@@ -5,11 +5,27 @@ img {
 .logo {
   margin-left: 3rem;
 }
-
+.title {
+  font-weight: bold !important;
+  margin: 0 !important;
+  font-size: 22px !important;
+  letter-spacing: 1.5 !important;
+}
+.content {
+  margin: 1rem 3rem !important;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
 .expansion {
-  margin-top: 1rem;
-  /* background-color: white; */
-  /* margin: 0.1rem 1rem; */
+  padding: 2rem 17rem;
+}
+.mat-expansion-panel-header {
+  height: 80px !important;
 }
 .mat-step-label .mat-step-label-active .mat-step-label-selected {
   color: red !important;
@@ -85,7 +101,7 @@ a {
 mat-form-field {
   /* margin-top: 0.3rem; */
   display: inline-block;
-  width: 450px;
+  width: 520px;
   /* margin-right: 3rem; */
 
   margin-right: 1rem;
@@ -115,7 +131,7 @@ h2 {
 }
 
 .upload {
-  width: 500px;
+  width: 400px;
   border: 1px dotted grey;
   padding: 0.7rem 1rem;
   border-radius: 10px;
@@ -168,11 +184,11 @@ h2 {
 }
 .radioButton {
   margin-right: 1rem;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
 }
-.radioTitle {
+/* .radioTitle {
   margin-left: 1rem;
-}
+} */
 .checkbox {
   display: inline-block;
   margin-left: 1rem;

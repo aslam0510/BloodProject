@@ -7,8 +7,7 @@ img {
 }
 
 .expansion {
-  /* background-color: white; */
-  /* margin: 0.1rem 1rem; */
+  padding: 2rem 17rem;
 }
 .mat-step-label .mat-step-label-active .mat-step-label-selected {
   color: red !important;
@@ -41,7 +40,7 @@ a {
 mat-form-field {
   /* margin-top: 0.3rem; */
   display: inline-block;
-  width: 450px;
+  width: 520px;
   margin-right: 3rem;
   margin-left: 0.7rem;
 }
@@ -65,12 +64,22 @@ h2 {
   width: 100%;
   background-color: white;
 }
+.content {
+  margin: 1rem 3rem !important;
+}
 .upload {
-  width: 500px;
+  width: 400px;
   border: 1px dotted grey;
   padding: 0.7rem 1rem;
   border-radius: 10px;
   margin: 0 auto;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1rem 0;
 }
 .resetButton {
   color: #ea0029;
@@ -102,6 +111,12 @@ h2 {
 .mat-checkbox-layout {
   margin-left: 16rem;
 }
+.title {
+  font-weight: bold !important;
+  margin: 0 !important;
+  font-size: 22px !important;
+  letter-spacing: 1.5 !important;
+}
 
 @media only screen and (max-width: 1400px) {
   .expansion {
@@ -113,18 +128,18 @@ h2 {
   padding-left: 3rem;
 }
 
-.radio {
+/* .radio {
   margin-left: 1rem;
   width: 493px;
   display: inline-block;
-}
+} */
 .radioButton {
   margin-right: 1rem;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
 }
-.radioTitle {
+/* .radioTitle {
   margin-left: 1rem;
-}
+} */
 .checkbox {
   display: inline-block;
   margin-left: 1rem;

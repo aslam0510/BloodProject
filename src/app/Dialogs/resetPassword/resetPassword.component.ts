@@ -20,7 +20,7 @@ export class ResetPasswordComponent implements OnInit {
   token = '';
   constructor(
     private store: Store<AppState>,
-    private dialog: MatDialog,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.token = data.token;
