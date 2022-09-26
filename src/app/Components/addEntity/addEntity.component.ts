@@ -28,6 +28,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 @Component({
   selector: 'app-addEntity',
   templateUrl: './addEntity.component.html',
@@ -49,6 +50,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   selectedYear: number;
   years: number[] = [];
   orgFormFields: OrgFormField[] = [];
+  selectedIndex: number = 0;
   states = [
     'Arunachal Pradesh',
     'Assam',
@@ -78,6 +80,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     'Uttarakhand',
     'West Bengal',
   ];
+  categories: any;
   orgType = '';
   constructor(
     private fb: FormBuilder,
@@ -137,8 +140,11 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.store.dispatch(new dashboardActions.GetEntityCategories());
     this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
-        this.categoryDetails = data.data;
+        this.categoryDetails = data.data.fields;
         this.orgType = data.data.categoryName;
+        this.categories = this.categoryDetails.filter(
+          (x) => x.key === 'catgry'
+        )[0].values;
       }
     });
     this.entityCateogoriesSub = this.entityCategories$.subscribe((data) => {
@@ -181,6 +187,18 @@ export class AddEntityComponent implements OnInit, OnDestroy {
         this.acceptOnlyPDF = 'Accept only PDF File';
       }
     }
+  }
+
+  public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    this.selectedIndex = tabChangeEvent.index;
+  }
+
+  public nextStep() {
+    this.selectedIndex += 1;
+  }
+
+  public previousStep() {
+    this.selectedIndex -= 1;
   }
 
   //REMOVING ORGANIZATION FILE

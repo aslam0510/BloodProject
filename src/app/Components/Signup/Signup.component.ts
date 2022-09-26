@@ -87,6 +87,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   ];
   orgType = '';
   selectedIndex: number = 0;
+  categories: any;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -114,6 +115,9 @@ export class SignupComponent implements OnInit, OnDestroy {
       if (data) {
         this.categoryDetails = data.data.fields;
         this.orgType = data.data.categoryName;
+        this.categories = this.categoryDetails.filter(
+          (x) => x.key === 'catgry'
+        )[0].values;
       }
     });
   }

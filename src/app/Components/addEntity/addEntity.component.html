@@ -53,7 +53,13 @@
               </mat-form-field>
               <mat-form-field *ngIf="orgType == 'Blood Bank'">
                 <mat-label>Category</mat-label>
-                <input matInput placeholder="Category" formControlName="catgry" />
+                <mat-select formControlName="catgry" placeholder="Category">
+                  <mat-option [value]="cat" *ngFor="
+                                                                  let cat of categories;
+                                                                  let i = index
+                                                                ">{{ cat }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
 
 
@@ -74,7 +80,7 @@
                 <mat-label>License Valid Till</mat-label>
                 <input matInput placeholder="License Valid Till" formControlName="licnsValid" />
               </mat-form-field>
-              <mat-form-field>
+              <mat-form-field *ngIf="orgType === 'Multiple Services'">
                 <mat-label>Registration Number</mat-label>
                 <input type="text" matInput placeholder="Registration Number" formControlName="regNumber" />
               </mat-form-field>
@@ -100,7 +106,7 @@
                 <mat-label>Designation Of Point Of Contact</mat-label>
                 <input matInput placeholder="Designation Of Point Of Contact" formControlName="designPointCont" />
               </mat-form-field>
-              <div *ngIf="orgType !== 'Multiple Services'" class="d-flex align-items-center" style="width: 520px;  ">
+              <div *ngIf="orgType !== 'Multiple Services'" class="d-flex align-items-center" style="width: 520px; margin-left: 1rem; ">
                 <div>
                   <p>Component Facility</p>
                   <mat-radio-group class="radioTitle" formControlName="comFacility">
