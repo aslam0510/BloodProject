@@ -115,6 +115,9 @@ button {
   font-weight: bold;
   color: black;
 }
+.mat-tab-label {
+  min-width: 200px !important;
+}
 .mat-tab-label-active {
   font-weight: bold !important;
 }

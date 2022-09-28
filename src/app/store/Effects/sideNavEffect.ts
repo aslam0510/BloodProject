@@ -192,8 +192,7 @@ export class SideNavEffect {
       exhaustMap((payload) => {
         return this.http
           .get(
-            api.getAPI('GET_BLOOD_REQUEST_LIST') +
-              `?page=1&size=100&priority=1&reqSts=1`
+            api.getAPI('GET_BLOOD_REQUEST_LIST') + `?page=1&size=100&reqSts=1`
           )
           .pipe(
             map((data: any) => new SideNavAction.GetBloodReqListSuccess(data))

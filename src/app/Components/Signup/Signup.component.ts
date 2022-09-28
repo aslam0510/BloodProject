@@ -88,6 +88,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   orgType = '';
   selectedIndex: number = 0;
   categories: any;
+  callAPi = true;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -109,7 +110,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.years.push(year);
     }
 
-    this.store.dispatch(new AuthAction.GetCategory('Blood Bank'));
     this.store.dispatch(new AuthAction.GetAllCategories());
     this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
@@ -137,7 +137,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // ORGANIZATION FORM
     this.organizationForm = new FormGroup({
-      categoryName: new FormControl('Blood Bank', [Validators.required]),
+      categoryName: new FormControl('', [Validators.required]),
       catgry: new FormControl('', [Validators.required]),
       prnthsptlName: new FormControl('', [Validators.required]),
       bldbnkName: new FormControl('', [Validators.required]),
@@ -311,6 +311,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   //On Organisation Type select
   onOrgTypSelect(category) {
+    this.callAPi = false;
     if (category) {
       this.store.dispatch(new AuthAction.GetCategory(category));
     }

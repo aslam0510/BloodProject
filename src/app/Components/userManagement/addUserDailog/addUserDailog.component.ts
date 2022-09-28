@@ -117,7 +117,7 @@ export class AddUserDailogComponent implements OnInit {
         [Validators.required]
       ),
       pincode: new FormControl(
-        this.editUserData?.userType === 2 ? this.editUserData.pincode : '',
+        this.editUserData?.userType === 2 ? this.editUserData.pin : '',
         [Validators.required]
       ),
     });
@@ -164,7 +164,7 @@ export class AddUserDailogComponent implements OnInit {
         [Validators.required]
       ),
       pincode: new FormControl(
-        this.editUserData?.userType === 3 ? this.editUserData.pincode : '',
+        this.editUserData?.userType === 3 ? this.editUserData.pin : '',
         [Validators.required]
       ),
     });
@@ -187,7 +187,7 @@ export class AddUserDailogComponent implements OnInit {
       sts: orgFormValues.status,
       city: orgFormValues.city,
       state: orgFormValues.state,
-      pincode: orgFormValues.pincode,
+      pin: orgFormValues.pincode,
       userType: 2,
       role: role,
     };
@@ -217,7 +217,7 @@ export class AddUserDailogComponent implements OnInit {
       role: role,
       city: entityFormValues.city,
       state: entityFormValues.state,
-      pincode: entityFormValues.pincode,
+      pin: entityFormValues.pincode,
     };
     if (this.isEdit) {
       payload['userId'] = this.editUserData?.userId;
