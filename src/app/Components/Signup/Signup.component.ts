@@ -110,16 +110,10 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.years.push(year);
     }
 
+    if (this.callAPi) {
+      this.store.dispatch(new AuthAction.GetCategory('Blood Bank'));
+    }
     this.store.dispatch(new AuthAction.GetAllCategories());
-    this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
-      if (data) {
-        this.categoryDetails = data.data.fields;
-        this.orgType = data.data.categoryName;
-        this.categories = this.categoryDetails.filter(
-          (x) => x.key === 'catgry'
-        )[0].values;
-      }
-    });
   }
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
@@ -135,6 +129,20 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
+      if (data) {
+        this.categoryDetails = data.data.fields;
+        console.log(data);
+
+        this.orgType = data.data.categoryName;
+        this.organizationForm.get('categoryName').setValue(this.orgType);
+        console.log(this.orgType);
+
+        this.categories = this.categoryDetails.filter(
+          (x) => x.key === 'catgry'
+        )[0].values;
+      }
+    });
     // ORGANIZATION FORM
     this.organizationForm = new FormGroup({
       categoryName: new FormControl('', [Validators.required]),
@@ -312,6 +320,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   //On Organisation Type select
   onOrgTypSelect(category) {
     this.callAPi = false;
+    this.orgType = category;
     if (category) {
       this.store.dispatch(new AuthAction.GetCategory(category));
     }

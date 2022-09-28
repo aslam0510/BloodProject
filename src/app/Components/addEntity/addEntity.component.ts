@@ -231,6 +231,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
   //On Organisation Type select
   onOrgTypSelect(category) {
+    this.orgType = category;
     if (category) {
       this.store.dispatch(new AuthAction.GetCategory(category));
     }
