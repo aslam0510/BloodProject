@@ -5,7 +5,7 @@
       <mat-tab label="Donor's Repository" class="mat" (click)="onTab('repo')">
         <div class="my-3 d-flex justify-content-between">
           <div style="color: brown;">
-            <button mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event)">
+            <button style="margin-left: 1rem;" mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event)">
               <mat-icon>filter_list</mat-icon> <span>{{'Filter'}}</span>
             </button>
             <mat-form-field class="example-chip-list" *ngIf="filterData.length > 0">

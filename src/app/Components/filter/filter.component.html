@@ -2,7 +2,7 @@
   <h2 class="p-2 pl-5 appBgColor text-white">Filters</h2>
   <div>
     <form class="forms" [formGroup]="filterForm">
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Blood Type </mat-label>
         <mat-select formControlName="bloodGroup" class="select">
           <mat-option [value]="type" *ngFor="let type of bloodGroupList?.types">{{type }} </mat-option>
@@ -10,13 +10,13 @@
       </mat-form-field>
       <!-- <hr /> -->
       <div class="d-flex justify-content-between align-items-center">
-        <mat-form-field>
+        <mat-form-field appearance="none">
           <mat-label>Gender</mat-label>
           <mat-select formControlName="gender">
             <mat-option [value]="type" *ngFor="let type of  ['Male','Female','Others'] ">{{ type }} </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="none">
           <mat-label>Location</mat-label>
           <input type="text" matInput formControlName="location">
         </mat-form-field>

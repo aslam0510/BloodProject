@@ -12,7 +12,7 @@
           <mat-button-toggle value="Yesterday" (click)="onBldAvailableDaySelect('yesterday')">Yesterday</mat-button-toggle>
           <mat-button-toggle value="Pick Date">
             <mat-form-field class="date mt-4" *ngIf="bloodAvailableDate === ''" appearance="none">
-              <input #dates matInput [matDatepicker]="datepicker" placeholder="Pick Date" style="padding-bottom: 6px;">
+              <input #dates matInput [matDatepicker]="datepicker" placeholder="Pick Date" style="padding-bottom: 10px;">
               <mat-datepicker-toggle matSuffix [for]="datepicker" (click)="onBlodAvailableValChange('Pick Date')"></mat-datepicker-toggle>
               <mat-datepicker #datepicker>
                 <mat-datepicker-actions class="d-flex justify-content-center align-items-center">
