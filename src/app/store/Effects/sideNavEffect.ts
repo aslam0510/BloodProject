@@ -190,9 +190,15 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_BLOOD_REQUEST_LIST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
+        console.log(payload.priortiy, payload.reqSts);
         return this.http
           .get(
-            api.getAPI('GET_BLOOD_REQUEST_LIST') + `?page=1&size=100&reqSts=1`
+            api.getAPI('GET_BLOOD_REQUEST_LIST') +
+              `?page=1&size=100& ${
+                payload.priority
+                  ? 'priority=' + payload.priority
+                  : 'reqSts=' + payload.reqSts
+              }`
           )
           .pipe(
             map((data: any) => new SideNavAction.GetBloodReqListSuccess(data))

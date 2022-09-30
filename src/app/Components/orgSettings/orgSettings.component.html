@@ -112,7 +112,7 @@
               </div>
             </div>
           </div>
-          <div class="mt-4">
+          <div class="mt-4" *ngIf=" orgUploadDocuments.length> 0">
             <h3 class="m-0  mb-3">{{'Upload Document'}}</h3>
             <hr>
             <div class="mt-4">
@@ -124,7 +124,7 @@
                     <span clas="d-block">{{ file.name }}</span>
                     <span>{{ file.size + " byte" }}</span>
                   </div>
-                  <h2 class="m-0 " style="background-color: brown;">View File</h2>
+                  <h2 class="m-0 " style="background-color: brown; padding: 5px;">View File</h2>
                 </div>
               </ng-container>
             </div>
@@ -239,7 +239,7 @@
               </div>
             </div>
           </div>
-          <div class="mt-4">
+          <div class="mt-4" *ngIf="entityDocs.length > 0">
             <h3 class="m-0  mb-3">{{'Upload Document'}}</h3>
             <hr>
             <div class="mt-4">
@@ -250,7 +250,7 @@
                   <div class="d-flex flex-column flex-grow-1">
                     <span clas="d-block">{{ file.fileName }}</span>
                   </div>
-                  <h4 class="m-0 " style="color: brown;">View File</h4>
+                  <h4 class="m-0 " style="color: brown; padding: 5px;">View File</h4>
                 </div>
               </ng-container>
             </div>

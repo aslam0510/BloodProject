@@ -127,6 +127,7 @@ export class OrgSettingsComponent implements OnInit {
       (data) => {
         if (data) {
           this.organizationDetails = data.data;
+          this.orgUploadDocuments = data.data.docs;
           this.setOrgFormValues(this.organizationDetails);
         }
       }
@@ -136,6 +137,7 @@ export class OrgSettingsComponent implements OnInit {
       if (data) {
         this.entityDocs = [];
         this.entity = data.data;
+        this.entityDocs = data.data.docs
         this.entityFormSetValues(this.entity);
       }
     });
@@ -164,14 +166,13 @@ export class OrgSettingsComponent implements OnInit {
   setOrgFormValues(formValue) {
     this.organizationForm.patchValue({
       orgType: formValue.categoryName,
-      bldBankName: formValue.bldbnkName,
-      parentHptName: formValue.prnthsptlName,
-      regNumber: formValue.licnsNmbr,
+      entityType: formValue.typeOfEntity,
+      companyName: formValue.compName,
+      regNumber: formValue.regNumber,
       regYear: formValue.regYear,
       contactNumber: formValue.contact,
       emailAddress: formValue.email,
-      licenseValid: formValue.licnsValid,
-      licenseNum: formValue.licnsNmbr,
+
       website: formValue.web,
       nameOfContact: formValue.namePointCont,
       desgContact: formValue.designPointCont,
@@ -189,9 +190,9 @@ export class OrgSettingsComponent implements OnInit {
   entityFormSetValues(formValue) {
     this.entityDetailForm.patchValue({
       orgType: formValue.categoryName,
-      entityType: formValue.bldbnkName,
-      companyName: formValue.prnthsptlName,
-      regNumber: formValue.licnsNmbr,
+      bldBankName: formValue.bldbnkName,
+      parentHptName: formValue.prnthsptlName,
+      regNumber: formValue.regNumber,
       regYear: formValue.regYear,
       contactNumber: formValue.contact,
       emailAddress: formValue.email,
@@ -200,6 +201,8 @@ export class OrgSettingsComponent implements OnInit {
       desgContact: formValue.designPointCont,
       address1: formValue.addLine1,
       address2: formValue.addLine2,
+      licenseValid: formValue.licnsValid,
+      licenseNum: formValue.licnsNmbr,
       city: formValue.city,
       district: formValue.district,
       state: formValue.state,

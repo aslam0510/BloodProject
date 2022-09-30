@@ -48,12 +48,12 @@ tr:hover {
   background-color: #b5b5b5;
 }
 .progress {
-  color: #1e7b74;
-  background-color: #e8f2f1;
+  color: #1e7b74 !important;
+  background-color: #e8f2f1 !important;
 }
 .rejected {
   color: #be9700;
-  background-color: FFD430;
+  background-color: #ffd430;
 }
 .closed {
   color: #044b7f;

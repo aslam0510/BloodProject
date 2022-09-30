@@ -165,6 +165,7 @@ export class GetBloodReqStatusListSuccess {
 
 export class GetBloodReqList {
   readonly type = GET_BLOOD_REQUEST_LIST;
+  constructor(public payload: any) {}
 }
 
 export class GetBloodReqListSuccess {

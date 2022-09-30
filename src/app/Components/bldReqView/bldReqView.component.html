@@ -10,7 +10,7 @@
           <button mat-raised-button class="smallButtons" *ngIf="isEditBtn" (click)="onEdit()">Edit Details</button>
           <button mat-raised-button class="outlineButtons " *ngIf="!isEditBtn" (click)="cancel()">Cancel</button>
           <button mat-raised-button class="smallButtons" *ngIf="!isEditBtn" (click)="saveBlodRq()" style="margin-left: 1rem;">Save</button>
-          <button mat-raised-button class="appBgColor text-white" style="margin-left: 1rem;">Emergency Request</button>
+          <button mat-raised-button class="appBgColor text-white" style="margin-left: 1rem;" *ngIf="bloodReqDetail.priority == 1">Emergency Request</button>
         </div>
       </div>
       <div>
@@ -164,12 +164,12 @@
               <td>{{item.available}}</td>
               <td>
                 <mat-form-field style="overflow: hidden;">
-                  <input type="number" matInput placeholder="Issue Units" (keyup)="onIssueUnits($event.target.value,i)">
+                  <input type="number" min="0" [max]="item.available || item.reservedUnits" matInput placeholder="Issue Units" (keyup)="onIssueUnits($event.target.value,i)">
                 </mat-form-field>
               </td>
               <td>
                 <mat-form-field style="overflow: hidden;">
-                  <input type="number" matInput placeholder="Reserve Units" (keyup)="onResrveUnits($event.target.value,i)">
+                  <input type="number" min="0" matInput placeholder="Reserve Units" (keyup)="onResrveUnits($event.target.value,i)">
                 </mat-form-field>
               </td>
             </tr>
@@ -185,7 +185,7 @@
                 {{ type.reqStatus }}</mat-option>
             </mat-select>
           </mat-form-field>
-          <button mat-raised-button class="appBgColor text-white" (click)="save()">Save</button>
+          <button mat-raised-button class="appBgColor text-white" (click)="save()" [disabled]="disableSave">Save</button>
         </div>
 
       </div>

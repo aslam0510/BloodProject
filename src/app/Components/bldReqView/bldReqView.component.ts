@@ -1,11 +1,13 @@
+import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from 'src/app/app.state';
 import * as SideNavAction from '../../store/Actions/sideNavAction';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { SharedDialogComponent } from 'src/app/Dialogs/sharedDialog/sharedDialog.component';
 @Component({
   selector: 'app-bldReqView',
   templateUrl: './bldReqView.component.html',
@@ -24,10 +26,12 @@ export class BldReqViewComponent implements OnInit {
   bldRequirementsForm: FormGroup;
   isEditBtn: boolean = true;
   bloodReqType = '';
+  disableSave = true;
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     this.bloodReqDetail$ = this.store.select(
       (state) => state.SidNavSlice.bloodReqDetail
@@ -112,13 +116,46 @@ export class BldReqViewComponent implements OnInit {
   }
   onSelectReqType(type) {
     this.bloodReqType = type;
+    if (type === 3 || type === 4) {
+      const dailogRef = this.dialog.open(SharedDialogComponent, {
+        width: '300px',
+        height: 'auto',
+        data: {
+          content: `Do you want to ${
+            type == 3 ? 'Reject' : 'Close'
+          } the request`,
+          cancelButton: 'Cancel',
+          okButton: 'Ok',
+        },
+      });
+      dailogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.disableSave = false;
+        } else {
+          this.disableSave = true;
+        }
+      });
+    } else {
+      this.disableSave = false;
+    }
   }
 
   onResrveUnits(unit, i) {
-    this.requirementUnits[i].reservedUnits = unit;
+    this.requirementUnits[i].reservedUnits = Number(unit);
   }
   onIssueUnits(unit, i) {
-    this.requirementUnits[i].issuedUnits = unit;
+    // console.log(
+    //   this.requirementUnits[i].issuedUnits,
+    //   this.requirementUnits[i].reservedUnits,
+    //   this.requirementUnits[i].available
+    // );
+    // if (
+    //   this.requirementUnits[i].issuedUnits >=
+    //   this.requirementUnits[i].reservedUnits
+    // ) {
+    //   this.requirementUnits[i].issuedUnits = this.requirementUnits[i].available;
+    // }
+    this.requirementUnits[i].issuedUnits = Number(unit);
   }
   cancel() {
     this.isEditBtn = true;
@@ -133,8 +170,8 @@ export class BldReqViewComponent implements OnInit {
   save() {
     const payload = {
       bldReqId: this.bloodReqDetail.bldreqId,
-      reqSts: this.bloodReqDetail.reqSts,
-      subSts: this.bloodReqType,
+      reqSts: this.bloodReqType,
+      // subSts: 1,
       requirements: this.requirementUnits,
     };
     this.store.dispatch(new SideNavAction.UpdateBloodRequestReq(payload));

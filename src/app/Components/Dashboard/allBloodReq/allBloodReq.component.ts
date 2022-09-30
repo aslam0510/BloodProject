@@ -74,7 +74,11 @@ export class AllBloodReqComponent implements OnInit {
       comp: new FormControl(''),
       location: new FormControl(''),
     });
-    this.store.dispatch(new SideNavAction.GetBloodReqList());
+    const payload = {
+      priority: 1,
+      reqSts: '',
+    };
+    this.store.dispatch(new SideNavAction.GetBloodReqList(payload));
 
     this.bloodReqListSub = this.bloodReqList$.subscribe((data) => {
       if (data) {
@@ -154,5 +158,26 @@ export class AllBloodReqComponent implements OnInit {
         : true;
     };
     return filterFunction;
+  }
+
+  onTabChange(event) {
+    let payload;
+    if (event.tab.textLabel === 'Open Blood Request') {
+      payload = {
+        priority: '',
+        reqSts: 1,
+      };
+    } else if (event.tab.textLabel === 'Hight-Priority Request') {
+      payload = {
+        priority: 1,
+        reqSts: '',
+      };
+    } else if (event.tab.textLabel === 'Closed Blood Request') {
+      payload = {
+        priority: '',
+        reqSts: 3,
+      };
+    }
+    this.store.dispatch(new SideNavAction.GetBloodReqList(payload));
   }
 }
