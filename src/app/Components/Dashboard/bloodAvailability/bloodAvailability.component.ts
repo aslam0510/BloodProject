@@ -154,7 +154,7 @@ export class BloodAvailabilityComponent implements OnInit {
       });
     } else {
       const dialogRef = this.dialog.open(BldCompStDialogComponent, {
-        width: 'auto',
+        width: '450px',
         height: 'auto',
         data: {
           page: 'BloodAvailable',
@@ -241,6 +241,7 @@ export class BloodAvailabilityComponent implements OnInit {
 
   //on blood component status date select
   onBloodCompDatePicker(date) {
+    const today = moment();
     this.calenderDate = date;
     this.bloodCompDate = moment(date.value).format('MM-DD-YYYY');
     this.store.dispatch(
@@ -248,10 +249,14 @@ export class BloodAvailabilityComponent implements OnInit {
         moment(date.value).format('MM-DD-YYYY')
       )
     );
+    if (moment(date.value).format('MM-DD-YYYY') < today.format('MM-DD-YYYY')) {
+      this.showOnlyYesterDayCmp = true;
+    }
   }
 
   //on blood available status date select
   onBloodAvailableDatePick(date) {
+    const today = moment();
     this.calenderDate = date;
     this.showOnlyYesterDay = false;
     this.bloodAvailableDate = moment(date.value).format('MM-DD-YYYY');
@@ -260,6 +265,10 @@ export class BloodAvailabilityComponent implements OnInit {
         moment(date.value).format('MM-DD-YYYY')
       )
     );
+
+    if (moment(date.value).format('MM-DD-YYYY') < today.format('MM-DD-YYYY')) {
+      this.showOnlyYesterDay = true;
+    }
   }
 
   //remove date from blood component status

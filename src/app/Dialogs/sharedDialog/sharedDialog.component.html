@@ -2,7 +2,7 @@
   <h3>{{data.title ? data.title : ''}}</h3>
   <p>{{data.content ? data.content : ''}}</p>
 </div>
-<div mat-dialog-actions style="float: right;">
+<div mat-dialog-actions class="d-flex justify-content-end align-items-center">
   <button mat-button (click)="cancel()">{{data.cancelButton}}</button>
-  <button mat-raised-button (click)="done()">{{data.okButton}}</button>
+  <button mat-raised-button (click)="done()" style="margin-left: 1.5rem;">{{data.okButton}}</button>
 </div>

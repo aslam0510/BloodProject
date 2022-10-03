@@ -1,6 +1,6 @@
 <div style="border-radius: 20px;">
   <div class="d-flex justify-content-around align-items-center">
-    <h3 class="m-0 text-bold" style="padding-left: 7rem;">{{data.page === 'bloodComp' ? 'Update Blood Component Status' : 'Update Blood Status'}}</h3>
+    <h3 class="m-0 text-bold flex-grow-1 text-center ">{{data.page === 'bloodComp' ? 'Update Blood Component Status' : 'Update Blood Status'}}</h3>
     <mat-icon (click)="dialogRef.close()">close</mat-icon>
   </div>
 
@@ -39,8 +39,8 @@
         </mat-form-field>
       </p>
       <p class="d-flex justify-content-around">
-        <button mat-raised-button (click)="totalSum('add')" class="smallButtons">Add</button>
-        <button mat-raised-button (click)="totalSum('minus')" class="outlineButtons">Minus</button>
+        <button mat-raised-button (click)="totalSum('add')" class="smallButtons" style="background-color: lightpink ; border: 2px solid #ea0029; color: #ea0029;">Add</button>
+        <button mat-raised-button (click)="totalSum('minus')" class="outlineButtons" style="color: #ea0029 ; background-color: white;">Minus</button>
       </p>
 
       <p class="mt-4">

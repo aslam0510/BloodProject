@@ -127,7 +127,7 @@ export class UserManagementComponent implements OnInit {
       return true;
     }
     const dailogRef = this.dialog.open(SharedDialogComponent, {
-      width: '300px',
+      width: '500px',
       height: 'auto',
       data: {
         content: 'Are you want to delete this User?',
@@ -144,20 +144,18 @@ export class UserManagementComponent implements OnInit {
   }
 
   onEdit(user) {
- 
-      const dialogRef = this.dialog.open(AddUserDailogComponent, {
-        width: '800px',
-        height: 'auto',
-        data: {
-          formData: user,
-          isEdit: true,
-        },
-        panelClass: 'custom-dialog-container',
-      });
-      dialogRef.afterClosed().subscribe((result) => {
-        this.store.dispatch(new SideNavAction.GetUsersList());
-      });
-    
+    const dialogRef = this.dialog.open(AddUserDailogComponent, {
+      width: '800px',
+      height: 'auto',
+      data: {
+        formData: user,
+        isEdit: true,
+      },
+      panelClass: 'custom-dialog-container',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.store.dispatch(new SideNavAction.GetUsersList());
+    });
   }
 
   filterData(event) {

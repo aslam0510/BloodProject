@@ -49,7 +49,7 @@
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element">
               <mat-icon class="mr-2" style="cursor: pointer; margin-right: 2rem;" (click)="onEdit(element)">edit</mat-icon>
-              <mat-icon (click)="onDeleteUser(element)" style="cursor: pointer;">delete</mat-icon>
+              <mat-icon *ngIf="element.role.name !== 'Organization Admin'" (click)="onDeleteUser(element)" style="cursor: pointer;">delete</mat-icon>
             </td>
           </ng-container>
 
