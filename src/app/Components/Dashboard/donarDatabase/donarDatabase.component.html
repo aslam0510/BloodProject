@@ -1,7 +1,7 @@
 <div class="px-2">
   <h2>Donor Database</h2>
   <mat-card class="mat-elevation-z8">
-    <mat-tab-group>
+    <mat-tab-group (selectedTabChange)="onTabChange($event)">
       <mat-tab label="Donor's Repository" class="mat" (click)="onTab('repo')">
         <div class="my-3 d-flex justify-content-between">
           <div style="color: brown;">
@@ -25,24 +25,23 @@
             <button mat-raised-button class="sendMessage mr-2" (click)="onSendMessage()" style="margin-right: 1.5rem;">
               Send Message
             </button>
-            <div style=" border: 1px solid lightgray; border-radius: 22px; height: 35px;">
 
-              <form [formGroup]="searchForm">
-                <mat-icon>search</mat-icon>
-                <mat-form-field appearance="none" class="ml-2 select" style="height: 35px;border-right: 1px solid lightgray; padding-left: 2rem;">
-                  <input type="text" formControlName="searchTerm" matInput placeholder="Search command" [disabled]="!isSearch" (change)="searchTerm($event.target.value)"
-                    (click)="searchTerm($event.target.value)">
-                </mat-form-field>
-                <mat-form-field appearance="none" class="select" style="margin-left: 5px;">
-                  <mat-select placeholder="{{ 'Select' }}" formControlName="searchParams">
-                    <mat-option [value]="search" *ngFor="let search of searchParameters">
-                      {{ search }}
-                      <mat-divider></mat-divider>
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </form>
+            <div class="select d-flex align-items-center justify-content-around">
+              <mat-icon style="padding-top: 5px; padding-left: 2px;">search</mat-icon>
+              <mat-form-field appearance="none" style="padding-left: 7px; border-right : 2px solid lightgray;">
+                <input type="text" formControlName="searchTerm" matInput placeholder="Search command" (change)="searchTerm($event.target.value)" (click)="searchTerm($event.target.value)">
+              </mat-form-field>
+              <div style="border-right:3px solid lightgray"></div>
+              <mat-form-field appearance="none" style="margin-left: 5px;">
+                <mat-select placeholder="{{ 'Select' }}" formControlName="searchParams">
+                  <mat-option [value]="search" *ngFor="let search of searchParameters">
+                    {{ search }}
+                    <mat-divider></mat-divider>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
+
 
           </div>
         </div>
@@ -118,7 +117,7 @@
       </mat-tab>
       <mat-tab label="Donation History" (click)="onTab('history')">
         <div class="my-3 d-flex justify-content-between">
-          <div style="color: brown;">
+          <div style="color: brown; margin-left: 1rem;">
             <button mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event)">
               <mat-icon>filter_list</mat-icon> <span>{{'Filter'}}</span>
             </button>
@@ -134,8 +133,8 @@
               </mat-chip-list>
             </mat-form-field>
           </div>
-          <div>
-            <button mat-raised-button class="sendMessage mr-2" (click)="onSendMessage()">
+          <div style="margin-right:1rem">
+            <button mat-raised-button class="sendMessage mr-2" style="margin-right:1rem" (click)="onSendMessage()">
               Send Message
             </button>
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup">

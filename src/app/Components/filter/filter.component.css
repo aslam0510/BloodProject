@@ -1,27 +1,30 @@
-.forms {
-  padding: 0.7rem 1.5rem;
-}
-
-::ng-deep .mat-form-field-appearance-outline {
-  border-radius: 50px;
-}
-p {
-  font-weight: bold;
-  font-size: 12px;
-  margin: 0;
-}
-
 mat-form-field {
-  width: 130px !important;
+  width: 140px;
+  height: 40px;
+  padding: 0 10px;
+}
+
+.select {
+  border-radius: 20px !important;
+  border: 2px solid lightgray !important;
+  width: 140px;
   margin: 0;
+  padding-bottom: 5px;
+}
+
+span {
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+
+hr {
   padding: 0;
 }
-
-mat-form-field-wrapper {
-  margin: 0 !important;
-  padding: 0 !important;
+::ng-deep .ng5-slider .ng5-slider-selection {
+  background-color: #ea0029 !important;
 }
 
-.radio {
-  margin-left: 15px;
+::ng-deep .ng5-slider .ng5-slider-pointer {
+  background-color: #ea0029 !important;
 }

@@ -1,42 +1,56 @@
 <div>
-  <h2 class="p-2 pl-5 appBgColor text-white">Filters</h2>
-  <div>
-    <form class="forms" [formGroup]="filterForm">
-      <mat-form-field appearance="outline">
-        <mat-label>Blood Type </mat-label>
-        <mat-select formControlName="bloodGroup" class="select">
-          <mat-option [value]="type" *ngFor="let type of bloodGroupList?.types">{{type }} </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <!-- <hr /> -->
-      <div class="d-flex justify-content-between align-items-center">
+  <h2 class="appBgColor p-2  text-white" style="padding-left: 2rem;">Filters</h2>
+</div>
+<form class="forms" [formGroup]="filterForm">
+  <div style="padding: 0 1rem; margin-bottom: 1rem;">
+    <div class="d-flex flex-column ">
+      <span>Blood Type</span>
+      <p class="select ">
         <mat-form-field appearance="none">
-          <mat-label>Gender</mat-label>
-          <mat-select formControlName="gender">
-            <mat-option [value]="type" *ngFor="let type of  ['Male','Female','Others'] ">{{ type }} </mat-option>
+          <mat-select formControlName="bloodGroup" placeholder="Blood Type">
+            <mat-option [value]="type" *ngFor="let type of bloodGroupList?.types">{{type }} </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="none">
-          <mat-label>Location</mat-label>
-          <input type="text" matInput formControlName="location">
-        </mat-form-field>
+      </p>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex flex-column ">
+        <span>Gender</span>
+        <p class="select ">
+          <mat-form-field appearance="none">
+            <mat-select formControlName="gender" placeholder="Gender">
+              <mat-option [value]="type" *ngFor="let type of  ['Male','Female','Others'] ">{{ type }} </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
       </div>
-      <!-- <ng5-slider formControlName="range" [(value)]="sliderMinRange" [(highValue)]="sliderMaxRange" [options]="sliderOptions"></ng5-slider> -->
-      <br>
-      <div class="my-2">
-        <br>
-        <mat-label class="mt-2 mb-1">Last donated 3 Months ago</mat-label><br>
-        <mat-radio-group class="mt-1" formControlName="lastDonation">
-          <mat-radio-button value="yes">Yes</mat-radio-button>
-          <mat-radio-button value="no" class="radio">No</mat-radio-button>
-        </mat-radio-group>
+      <div class="d-flex flex-column ">
+        <span>Location</span>
+        <p class="select ">
+          <mat-form-field appearance="none">
+            <input type="text" matInput formControlName="location" placeholder="set Location">
+          </mat-form-field>
+        </p>
       </div>
-    </form>
-    <mat-divider>
-    </mat-divider>
-    <div class="d-flex justify-content-evenly align-items-center my-2">
-      <button mat-raised-button>Secondary</button>
-      <button mat-raised-button class="appBtnBgColor text-white" (click)="OnUpload()">Upload</button>
+    </div>
+    <hr>
+    <div class="d-flex flex-column ">
+      <span>Age</span>
+      <ng5-slider formControlName="range" [(value)]="sliderMinRange" [(highValue)]="sliderMaxRange" [options]="sliderOptions"></ng5-slider>
+    </div>
+    <hr>
+    <div class="mt-2">
+      <span class="mt-2 mb-1">Last donated 3 Months ago</span>
+      <mat-radio-group class="mt-1" formControlName="lastDonation">
+        <mat-radio-button value="yes">Yes</mat-radio-button>
+        <mat-radio-button value="no" style="margin-left: 1rem;">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-evenly align-items-center ">
+      <button mat-raised-button class="outlineButtons">Secondary</button>
+      <button mat-raised-button class="smallButtons text-white" (click)="OnUpload()">Upload</button>
     </div>
   </div>
-</div>
+</form>

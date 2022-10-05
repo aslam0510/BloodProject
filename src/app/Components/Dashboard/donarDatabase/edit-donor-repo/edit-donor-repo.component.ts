@@ -68,14 +68,13 @@ export class EditDonorRepoComponent implements OnInit {
     });
     if (this.urlId) {
       this.store.dispatch(new SideNavActions.GetDonorRepoById(this.urlId));
+      this.store.dispatch(new SideNavActions.GetDonorDonationById(this.urlId));
     }
 
     this.donorRepoSub = this.donorRepo$.subscribe((data) => {
       if (data) {
         this.donorRepo = data.data;
-        this.store.dispatch(
-          new SideNavActions.GetDonorDonationById(this.donorRepo?.did)
-        );
+
         this.setFormValue(this.donorRepo);
       }
     });

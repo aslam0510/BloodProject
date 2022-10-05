@@ -125,6 +125,7 @@ export class BloodAvailabilityComponent implements OnInit {
       const dialogRef = this.dialog.open(BldCompStDialogComponent, {
         width: '571px',
         height: 'auto',
+
         data: {
           page: 'bloodComp',
           bloodComp: this.bloodCompList,
@@ -154,7 +155,7 @@ export class BloodAvailabilityComponent implements OnInit {
       });
     } else {
       const dialogRef = this.dialog.open(BldCompStDialogComponent, {
-        width: '450px',
+        width: '480px',
         height: 'auto',
         data: {
           page: 'BloodAvailable',

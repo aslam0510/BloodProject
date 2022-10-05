@@ -15,6 +15,21 @@ input {
   border: none;
 }
 
+.select {
+  border-radius: 20px !important;
+  border: 2px solid lightgray !important;
+  /* width: 140px; */
+  margin: 0;
+  padding-bottom: 5px;
+  display: inline-block;
+  height: 35px;
+  margin-right: 1.5rem;
+  overflow: hidden;
+}
+.mat-button-toggle-checked {
+  background-color: brown;
+  color: white;
+}
 .example-chip-list {
   width: 500px !important;
   padding: 0;
@@ -67,4 +82,12 @@ td,
 th {
   padding-left: 1rem !important;
   border-left: 1px solid lightgray;
+}
+
+mat-form-field {
+  padding-top: 15px;
+}
+
+::ng-deep .mat-form-field-infix {
+  width: 150px !important;
 }

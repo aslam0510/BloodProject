@@ -106,6 +106,10 @@ export class DonarDatabaseComponent implements OnInit {
         this.DonationdataSource = new MatTableDataSource(
           this.donorDonationList
         );
+        this.DonationdataSource.paginator = this.paginator;
+        // this.DonationdataSource.filterPredicate = this.filterRequests();
+        this.DonationdataSource.filter = JSON.stringify(this.formValues);
+        this.length = this.DonationdataSource.filteredData.length;
         // this.DonationdataSource.filterPredicate = this.filterRequests();
       }
     });
@@ -185,6 +189,8 @@ export class DonarDatabaseComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       this.filterData = [];
       const formValues = result;
+      console.log(result);
+
       for (const key in result) {
         if (result[key] !== '') {
           this.filterData.push(result[key]);
@@ -209,7 +215,17 @@ export class DonarDatabaseComponent implements OnInit {
           filterData.location.trim().toLowerCase()
       );
     });
-
+    const datas = this.donorDonationList.filter((x) => {
+      return (
+        x.bldgrp.toString().trim().toLowerCase() ===
+          filterData.bloodGroup.toString().trim().toLowerCase() ||
+        x.gender.toString().trim().toLowerCase() ===
+          filterData.gender.toString().trim().toLowerCase() ||
+        x.city.toString().trim().toLowerCase() ===
+          filterData.location.trim().toLowerCase()
+      );
+    });
+    this.DonationdataSource = new MatTableDataSource(datas);
     this.dataSource = new MatTableDataSource(data);
   }
   editDonoRepo(row) {
@@ -252,6 +268,9 @@ export class DonarDatabaseComponent implements OnInit {
         //   );
         // });
         this.dataSource = new MatTableDataSource(this.donorRepos);
+        this.DonationdataSource = new MatTableDataSource(
+          this.donorDonationList
+        );
       }
 
       // this.dataSource.filter = JSON.stringify(this.formValues);
@@ -278,6 +297,16 @@ export class DonarDatabaseComponent implements OnInit {
   onTab(value) {
     if (value == 'repo') {
     } else {
+    }
+  }
+
+  onTabChange(event) {
+    if (event.tab.textLabel === "Donor's Repository'") {
+      this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
+    }
+
+    if (event.tab.textLabel === 'Donation History') {
+      this.store.dispatch(new SideNavActions.GetDonorDonationList());
     }
   }
 }
