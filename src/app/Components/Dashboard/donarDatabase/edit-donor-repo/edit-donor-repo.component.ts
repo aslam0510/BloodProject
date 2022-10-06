@@ -82,7 +82,7 @@ export class EditDonorRepoComponent implements OnInit {
     this.donationDetailsSub = this.donationDetails$.subscribe((data) => {
       if (data) {
         this.donationDetails = data.data;
-        this.setDonationFormValue(this.donationDetails?.details[0]);
+        this.setDonationFormValue(this.donationDetails?.data);
       }
     });
   }

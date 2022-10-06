@@ -194,7 +194,7 @@ export class GetDonorRepoListSuccess {
 
 export class GetDonorDonationList {
   readonly type = GET_DONOR_DONATION_HISTORY_LIST;
-  constructor() {}
+  constructor(public payload: any) {}
 }
 
 export class GetDonorDonationListSuccess {

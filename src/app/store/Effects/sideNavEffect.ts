@@ -260,7 +260,7 @@ export class SideNavEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_DONOR_REPO_LIST') + `?page=${payload}`)
+          .get(api.getAPI('GET_DONOR_REPO_LIST') + `?page=${payload}&size=100`)
           .pipe(
             map((data: any) => new SideNavAction.GetDonorRepoListSuccess(data))
           );
@@ -273,8 +273,12 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_DONOR_DONATION_HISTORY_LIST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
+        let date = payload.date;
         return this.http
-          .get(api.getAPI('GET_DONOR_DONATION_LIST') + `?isDonorRepo=true`)
+          .get(
+            api.getAPI('GET_DONOR_DONATION_LIST') +
+              `?${date && 'date=' + date}&isDonorRepo=false&page=1&size=100`
+          )
           .pipe(
             map(
               (data: any) => new SideNavAction.GetDonorDonationListSuccess(data)
@@ -304,10 +308,7 @@ export class SideNavEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(
-            api.getAPI('GET_DONOR_DONATION_LIST') +
-              `?isDonorRepo=true&did=${payload}`
-          )
+          .get(api.getAPI('GET_DONOR_DONATION_BYID') + `?_id=${payload}`)
           .pipe(
             map(
               (data: any) => new SideNavAction.GetDonorDonationByIdSucess(data)

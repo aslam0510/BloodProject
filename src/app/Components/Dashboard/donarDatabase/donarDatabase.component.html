@@ -138,15 +138,15 @@
               Send Message
             </button>
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup">
-              <mat-button-toggle value="Today">Today</mat-button-toggle>
-              <mat-button-toggle value="Yesterday">Yesterday</mat-button-toggle>
+              <mat-button-toggle value="Today" (click)="onDaySelect('today')">Today</mat-button-toggle>
+              <mat-button-toggle value="Yesterday" (click)="onDaySelect('yesterday')">Yesterday</mat-button-toggle>
               <mat-button-toggle value="Pick Date">
                 <mat-form-field class="date">
                   <input #dates matInput [matDatepicker]="datepicker" placeholder="Pick Date">
                   <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
                   <mat-datepicker #datepicker>
                     <mat-datepicker-actions>
-                      <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                      <button mat-raised-button style="background-color: brown; color: white; text-align: center;" matDatepickerApply (click)="onDatePicker(dates)">Apply</button>
                     </mat-datepicker-actions>
                   </mat-datepicker>
                 </mat-form-field>

@@ -12,6 +12,7 @@ import * as SideNavActions from '../../../store/Actions/sideNavAction';
 import { Observable, Subscription } from 'rxjs';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-donarDatabase',
@@ -88,7 +89,7 @@ export class DonarDatabaseComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
-    this.store.dispatch(new SideNavActions.GetDonorDonationList());
+    this.store.dispatch(new SideNavActions.GetDonorDonationList(''));
 
     this.donorReposSub = this.donorRepos$.subscribe((data) => {
       if (data) {
@@ -171,6 +172,34 @@ export class DonarDatabaseComponent implements OnInit {
       height: 'auto',
       panelClass: 'custom-dialog-container',
     });
+  }
+
+  onDaySelect(day) {
+    const today = moment();
+    const yesterday = moment().add(-1, 'days');
+    if (day === 'today') {
+      const payload = {
+        date: today.format('MM-DD-YYYY'),
+      };
+      this.store.dispatch(new SideNavActions.GetDonorDonationList(payload));
+    } else if (day === 'yesterday') {
+      const payload = {
+        date: yesterday.format('MM-DD-YYYY'),
+      };
+      this.store.dispatch(new SideNavActions.GetDonorDonationList(payload));
+      // this.store.dispatch(
+      //   new SideNavAction.GetBloodCompStatus(yesterday.format('MM-DD-YYYY'))
+      // );
+    }
+  }
+
+  onDatePicker(date) {
+    const today = moment();
+
+    const payload = {
+      date: moment(date.value).format('MM-DD-YYYY'),
+    };
+    this.store.dispatch(new SideNavActions.GetDonorDonationList(payload));
   }
 
   onFilter(event) {
@@ -301,12 +330,11 @@ export class DonarDatabaseComponent implements OnInit {
   }
 
   onTabChange(event) {
-    if (event.tab.textLabel === "Donor's Repository'") {
-      this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
-    }
-
-    if (event.tab.textLabel === 'Donation History') {
-      this.store.dispatch(new SideNavActions.GetDonorDonationList());
-    }
+    // if (event.tab.textLabel === "Donor's Repository'") {
+    //   this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
+    // }
+    // if (event.tab.textLabel === 'Donation History') {
+    //   this.store.dispatch(new SideNavActions.GetDonorDonationList(''));
+    // }
   }
 }
