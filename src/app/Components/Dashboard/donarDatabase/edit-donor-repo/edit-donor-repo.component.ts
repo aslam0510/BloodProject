@@ -20,6 +20,7 @@ export class EditDonorRepoComponent implements OnInit {
   donationDetailsSub: Subscription;
   donorRepoForm: FormGroup;
   donationForm: FormGroup;
+  isRepo: string;
   isEditBtn: boolean = true;
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,10 @@ export class EditDonorRepoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe((params) => {
+      this.isRepo = params.get('isRepo');
+    });
+
     this.donorRepoForm = new FormGroup({
       dName: new FormControl(''),
       did: new FormControl(''),
@@ -66,23 +71,26 @@ export class EditDonorRepoComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.urlId = param.id;
     });
-    if (this.urlId) {
+
+    if (this.isRepo == 'true') {
       this.store.dispatch(new SideNavActions.GetDonorRepoById(this.urlId));
+    } else {
       this.store.dispatch(new SideNavActions.GetDonorDonationById(this.urlId));
     }
 
     this.donorRepoSub = this.donorRepo$.subscribe((data) => {
       if (data) {
         this.donorRepo = data.data;
-
         this.setFormValue(this.donorRepo);
+        this.setDonationFormValue(this.donorRepo);
       }
     });
 
     this.donationDetailsSub = this.donationDetails$.subscribe((data) => {
       if (data) {
         this.donationDetails = data.data;
-        this.setDonationFormValue(this.donationDetails?.data);
+        this.setFormValue(this.donationDetails);
+        this.setDonationFormValue(this.donationDetails);
       }
     });
   }
@@ -99,16 +107,18 @@ export class EditDonorRepoComponent implements OnInit {
       email: data?.email,
       district: data?.district,
       city: data?.city,
-      pincode: data?.pincode,
+      pincode: data?.pinCode,
       uhid: data?.uhid,
       aadharNo: data?.aadharNo,
       dob: new Date(data?.dob).toDateString(),
       fitForDonate: data?.fitForDonate,
       donatedDate: data?.donateDate,
-      weight: data?.weight,
-      height: data?.height,
-      address: data?.adddress,
+      weight: data?.wt,
+      height: data?.ht,
+      address: data?.addr,
       contact: data?.contact,
+      donationType: data?.donationType,
+      isDonorRepo: data?.isDonorRepo,
     });
     this.donorRepoForm.disable();
   }
@@ -118,7 +128,7 @@ export class EditDonorRepoComponent implements OnInit {
       did: data?.did,
       bldReqId: data?.bldReqId,
       donationType: data?.donationType,
-      collectionDate: data?.donatedDate,
+      collectionDate: new Date(data?.donatedDate).toDateString(),
       fitforDonation: data?.fitForDonate,
     });
   }
@@ -148,19 +158,32 @@ export class EditDonorRepoComponent implements OnInit {
       district: formValues.district,
       location: formValues.city,
       city: formValues.city,
-      pincode: formValues.pincode,
+      pinCode: formValues.pincode,
       uhid: formValues.uhid,
       aadharNo: formValues.aadharNo,
       dob: new Date(formValues.dob).toDateString(),
       fitForDonate: formValues.fitForDonate,
-      donatedDate: formValues.donateDate,
-      weight: formValues.weight,
-      height: formValues.height,
-      address: formValues.adddress,
+      // donatedDate: formValues.donateDate,
+      wt: formValues.weight,
+      ht: formValues.height,
+      address: formValues.address,
       contact: formValues.contact,
+      donationType: this.donationDetails.donationType
+        ? this.donationDetails.donationType
+        : this.donorRepo.donationType,
+      isDonorRepo: this.donationDetails.isDonorRepo
+        ? this.donationDetails.isDonorRepo
+        : this.donorRepo.isDonorRepo,
+      donatedDate: this.donationDetails.donatedDate
+        ? this.donationDetails.donatedDate
+        : this.donorRepo.donatedDate,
     };
 
-    this.store.dispatch(new SideNavActions.UpdateDonorRepoById(payload));
+    if (this.isRepo == 'true') {
+      this.store.dispatch(new SideNavActions.UpdateDonorRepoById(payload));
+    } else {
+      this.store.dispatch(new SideNavActions.UpdateDonationById(payload));
+    }
     this.router.navigate(['/dashboard/donorDatabase']);
   }
 

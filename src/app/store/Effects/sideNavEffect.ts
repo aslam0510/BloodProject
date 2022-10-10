@@ -302,11 +302,13 @@ export class SideNavEffect {
     );
   });
 
-  getDonorDoantionByid$ = createEffect(() => {
+  getDoantionByid$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_DONOR_DONATION_BYID),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
+        console.log(payload, 'donation');
+
         return this.http
           .get(api.getAPI('GET_DONOR_DONATION_BYID') + `?_id=${payload}`)
           .pipe(
@@ -334,6 +336,21 @@ export class SideNavEffect {
     );
   });
 
+  updateDonationrByid$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.UPDATE_DONATION_BYID),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .put(api.getAPI('UPDATE_DONATION_BYID'), payload)
+          .pipe(
+            map(
+              (data: any) => new SideNavAction.UpdateDonationByIdSuccess(data)
+            )
+          );
+      })
+    );
+  });
   searchDonorParams$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.SEARCH_DONOR_BY_PARAMETER),

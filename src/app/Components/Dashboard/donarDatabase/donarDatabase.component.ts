@@ -62,6 +62,7 @@ export class DonarDatabaseComponent implements OnInit {
   ];
   isSearch: boolean = false;
   searchForm: FormGroup;
+  isRepo: boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   // paging details
@@ -258,7 +259,9 @@ export class DonarDatabaseComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
   }
   editDonoRepo(row) {
-    this.router.navigate(['/dashboard/editDonorRep', row._id]);
+    this.router.navigate(['/dashboard/editDonorRep', row._id], {
+      queryParams: { isRepo: this.isRepo },
+    });
   }
 
   add(event: MatChipInputEvent): void {
@@ -330,11 +333,13 @@ export class DonarDatabaseComponent implements OnInit {
   }
 
   onTabChange(event) {
-    // if (event.tab.textLabel === "Donor's Repository'") {
-    //   this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
-    // }
-    // if (event.tab.textLabel === 'Donation History') {
-    //   this.store.dispatch(new SideNavActions.GetDonorDonationList(''));
-    // }
+    if (event.tab.textLabel === "Donor's Repository") {
+      this.isRepo = true;
+      this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
+    }
+    if (event.tab.textLabel === 'Donation History') {
+      this.isRepo = false;
+      this.store.dispatch(new SideNavActions.GetDonorDonationList(''));
+    }
   }
 }

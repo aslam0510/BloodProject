@@ -39,6 +39,8 @@ export const GET_DONOR_DONATION_BYID_SUCCESS =
   'GET_DONOR_DONATION_BYID_SUCCESS';
 export const UPDATE_DONOR_REPO_BYID = 'UPDATE_DONOR_REPO_BYID';
 export const UPDATE_DONOR_REPO_BYID_SUCCESS = 'UPDATE_DONOR_REPO_BYID_SUCCESS';
+export const UPDATE_DONATION_BYID = 'UPDATE_DONATION_BYID';
+export const UPDATE_DONATION_BYID_SUCCESS = 'UPDATE_DONATION_BYID_SUCCESS';
 export const GET_DONOR_DONATION_HISTORY_LIST =
   'GET_DONOR_DONATION_HISTORY_LIST';
 export const GET_DONOR_DONATION_HISTORY_LIST_SUCCESS =
@@ -249,6 +251,15 @@ export class UpdateDonorRepoByIdSuccess {
   constructor(public payload: any) {}
 }
 
+export class UpdateDonationById {
+  readonly type = UPDATE_DONATION_BYID;
+  constructor(public payload: any) {}
+}
+
+export class UpdateDonationByIdSuccess {
+  readonly type = UPDATE_DONATION_BYID_SUCCESS;
+  constructor(public payload: any) {}
+}
 export class SearchDonorParam {
   readonly type = SEARCH_DONOR_BY_PARAMETER;
   constructor(public payload: any) {}
@@ -301,4 +312,6 @@ export type Action =
   | GetDonorDonationById
   | GetDonorDonationByIdSucess
   | SearchDonorParam
-  | SearchDonorParamSuccess;
+  | SearchDonorParamSuccess
+  | UpdateDonationByIdSuccess
+  | UpdateDonationById;

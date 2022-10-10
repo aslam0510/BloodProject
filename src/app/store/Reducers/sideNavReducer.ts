@@ -52,10 +52,10 @@ export function SideNavReducer(
       return { ...state, donorRepoList: action.payload };
     }
     case SideNavActions.GET_DONOR_REPO_BYID_SUCCESS: {
-      return { ...state, donorById: action.payload };
+      return { ...state, donorById: action.payload, donorDonationById: null };
     }
     case SideNavActions.GET_DONOR_DONATION_BYID_SUCCESS: {
-      return { ...state, donorDonationById: action.payload };
+      return { ...state, donorDonationById: action.payload, donorById: null };
     }
     default: {
       return state;
