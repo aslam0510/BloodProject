@@ -21,6 +21,11 @@ td:last-child {
   border-bottom: none;
 }
 
+td:nth-child(1),
+th:nth-child(1) {
+  width: 255px;
+}
+
 .mat-button-toggle-checked {
   background-color: brown;
   color: white;
@@ -89,7 +94,7 @@ mat-card {
 .activitybtn {
   min-width: 45px !important;
   border-radius: 10px !important;
-  padding: 0 !important;
+  padding: 0 10px !important;
 }
 
 .blueColor {

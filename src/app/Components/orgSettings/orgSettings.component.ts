@@ -137,7 +137,7 @@ export class OrgSettingsComponent implements OnInit {
       if (data) {
         this.entityDocs = [];
         this.entity = data.data;
-        this.entityDocs = data.data.docs
+        this.entityDocs = data.data.docs;
         this.entityFormSetValues(this.entity);
       }
     });
@@ -192,6 +192,7 @@ export class OrgSettingsComponent implements OnInit {
       orgType: formValue.categoryName,
       bldBankName: formValue.bldbnkName,
       parentHptName: formValue.prnthsptlName,
+      category: formValue.catgry,
       regNumber: formValue.regNumber,
       regYear: formValue.regYear,
       contactNumber: formValue.contact,
