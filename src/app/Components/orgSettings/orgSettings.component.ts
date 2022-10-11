@@ -307,6 +307,17 @@ export class OrgSettingsComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
+  downloadOrgFile(data: any) {
+    const url: any = window.URL.createObjectURL(new Blob([data]));
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.setAttribute('style', 'display: none');
+    a.href = url;
+    a.download = data.fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
+  }
   ngOnDestroy() {
     this.entitySub.unsubscribe();
     this.updateOrgInfoSub.unsubscribe();

@@ -128,8 +128,8 @@ export class AddEntityComponent implements OnInit, OnDestroy {
       ]),
       namePointCont: new FormControl(''),
       designPointCont: new FormControl(''),
-      web: new FormControl('', [Validators.required]),
-      compFacility: new FormControl('', [Validators.required]),
+      web: new FormControl(''),
+      comFacility: new FormControl('', [Validators.required]),
       apFacility: new FormControl('', [Validators.required]),
       googleMapCrd: new FormControl('', [Validators.required]),
     });

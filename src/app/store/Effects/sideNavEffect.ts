@@ -260,7 +260,10 @@ export class SideNavEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_DONOR_REPO_LIST') + `?page=${payload}&size=100`)
+          .get(
+            api.getAPI('GET_DONOR_REPO_LIST') +
+              `?page=${payload}&size=100&isDonorRepo=true`
+          )
           .pipe(
             map((data: any) => new SideNavAction.GetDonorRepoListSuccess(data))
           );
@@ -356,6 +359,8 @@ export class SideNavEffect {
       ofType(SideNavAction.SEARCH_DONOR_BY_PARAMETER),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
+        console.log(payload);
+
         return this.http
           .get(
             api.getAPI('SEARCH_DONOR_BY_PARAMS') +

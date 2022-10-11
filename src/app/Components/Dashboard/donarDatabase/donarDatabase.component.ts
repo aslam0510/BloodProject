@@ -313,7 +313,7 @@ export class DonarDatabaseComponent implements OnInit {
     this.isSearch = true;
   }
   searchTerm(value) {
-    if (value !== '') {
+    if (this.searchForm.get('searchTerm').value) {
       const payload = {
         searchTerm: this.searchForm.get('searchTerm').value,
         searchParam: this.searchForm.get('searchParams').value,
