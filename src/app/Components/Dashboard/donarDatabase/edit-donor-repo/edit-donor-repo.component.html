@@ -108,20 +108,21 @@
             <mat-label>Donation Id</mat-label>
             <input matInput formControlName="did">
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field *ngIf="isRepo != 'true'">
             <mat-label>Blood Request Id</mat-label>
             <input matInput formControlName="bldReqId">
-          </mat-form-field>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-          <mat-form-field>
-            <mat-label>Donation Type</mat-label>
-            <input matInput formControlName="donationType">
           </mat-form-field>
           <mat-form-field>
             <mat-label>Collection date</mat-label>
             <input matInput formControlName="collectionDate">
           </mat-form-field>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <mat-form-field *ngIf="isRepo != 'true'">
+            <mat-label>Donation Type</mat-label>
+            <input matInput formControlName="donationType">
+          </mat-form-field>
+
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <mat-form-field>

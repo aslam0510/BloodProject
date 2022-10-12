@@ -194,7 +194,7 @@ export class SideNavEffect {
         return this.http
           .get(
             api.getAPI('GET_BLOOD_REQUEST_LIST') +
-              `?page=1&size=100& ${
+              `?page=1&size=100&${
                 payload.priority
                   ? 'priority=' + payload.priority
                   : 'reqSts=' + payload.reqSts

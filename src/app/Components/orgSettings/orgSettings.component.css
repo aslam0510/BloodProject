@@ -73,7 +73,9 @@ mat-list-item {
   height: 80vh;
   overflow-y: scroll;
 }
-
+.mat-input-element:disabled {
+  color: black !important;
+}
 .files {
   border: 1px dotted grey;
   padding: 10px;

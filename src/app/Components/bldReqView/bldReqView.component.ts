@@ -25,7 +25,7 @@ export class BldReqViewComponent implements OnInit {
   bldReqForm: FormGroup;
   bldRequirementsForm: FormGroup;
   isEditBtn: boolean = true;
-  bloodReqType = '';
+  bloodReqType = 0;
   disableSave = true;
   constructor(
     private route: ActivatedRoute,
@@ -144,6 +144,8 @@ export class BldReqViewComponent implements OnInit {
     this.requirementUnits[i].reservedUnits = Number(unit);
   }
   onIssueUnits(unit, i) {
+    console.log(unit);
+
     // console.log(
     //   this.requirementUnits[i].issuedUnits,
     //   this.requirementUnits[i].reservedUnits,
@@ -155,7 +157,12 @@ export class BldReqViewComponent implements OnInit {
     // ) {
     //   this.requirementUnits[i].issuedUnits = this.requirementUnits[i].available;
     // }
+    if (this.bloodReqType == 2 || this.bloodReqType == 4) {
+      this.requirementUnits[i].requiredUnit =
+        this.requirementUnits[i].requiredUnit - Number(unit);
+    }
     this.requirementUnits[i].issuedUnits = Number(unit);
+    console.log(this.requirementUnits[i]);
   }
   cancel() {
     this.isEditBtn = true;
@@ -168,6 +175,8 @@ export class BldReqViewComponent implements OnInit {
     this.bldReqForm.enable();
   }
   save() {
+    console.log(this.requirementUnits);
+
     const payload = {
       bldReqId: this.bloodReqDetail.bldreqId,
       reqSts: this.bloodReqType,
@@ -179,9 +188,6 @@ export class BldReqViewComponent implements OnInit {
 
   saveBlodRq() {
     const formValue = this.bldReqForm.value;
-    console.log(formValue);
-    console.log(moment(formValue.reqDate).format('MM-DD-YYYY'));
-
     const payload = {
       bldReqId: this.bloodReqDetail.bldreqId,
       patName: formValue.patName,
