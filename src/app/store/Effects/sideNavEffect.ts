@@ -354,6 +354,7 @@ export class SideNavEffect {
       })
     );
   });
+
   searchDonorParams$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.SEARCH_DONOR_BY_PARAMETER),
@@ -368,6 +369,38 @@ export class SideNavEffect {
           )
           .pipe(
             map((data: any) => new SideNavAction.GetDonorRepoListSuccess(data))
+          );
+      })
+    );
+  });
+
+  deleteRepoById$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.DELETE_DONOR_BYID),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        console.log(payload);
+
+        return this.http
+          .delete(api.getAPI('DELETE_DONOR_REPO_BYID') + `?_id=${payload}`)
+          .pipe(
+            map((data: any) => new SideNavAction.DeleteDonorByIdSuccess(data))
+          );
+      })
+    );
+  });
+
+  deleteDonationByID$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(SideNavAction.DELETE_DONATION_BYID),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .delete(api.getAPI('DELETE_DONATION_BYID') + `?_id=${payload}`)
+          .pipe(
+            map(
+              (data: any) => new SideNavAction.DeleteDonationByIdSuccess(data)
+            )
           );
       })
     );

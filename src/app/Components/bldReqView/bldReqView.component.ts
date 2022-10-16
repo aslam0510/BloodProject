@@ -78,9 +78,9 @@ export class BldReqViewComponent implements OnInit {
             available: x.available,
             bldComponent: x.bldComponent,
             id: x.id,
-            issuedUnits: Number(0),
+            issued: Number(0),
             requiredUnit: x.requiredUnit,
-            reservedUnits: Number(0),
+            reserved: Number(0),
           });
         });
       }

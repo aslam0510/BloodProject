@@ -163,6 +163,14 @@ const apis = {
     url: `/dashboard/getAllActivities`,
     port: appPort.port,
   },
+  DELETE_DONOR_REPO_BYID: {
+    url: `/${bloodBank}/donor/deleteDonor`,
+    port: appPort.port,
+  },
+  DELETE_DONATION_BYID: {
+    url: `/${bloodBank}/donor/deleteDonationDetail`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {

@@ -53,6 +53,10 @@ export const UPDATE_BLOOD_REQUEST_SUCCESS = 'UPDATE_BLOOD_REQUEST_SUUCESS';
 export const SEARCH_DONOR_BY_PARAMETER = 'SEARCH_DONOR_BY_PARAMETER';
 export const SEARCH_DONOR_BY_PARAMETER_SUCCESS =
   'SEARCH_DONOR_BY_PARAMETER_SUCCESS';
+export const DELETE_DONOR_BYID = 'DELETE_DONOR_BYID';
+export const DELETE_DONOR_BYID_SUCCESS = 'DELETE_DONOR_BYID_SUCCESS';
+export const DELETE_DONATION_BYID = 'DELETE_DONATION_BYID';
+export const DELETE_DONATION_BYID_SUCCESS = 'DELETE_DONATION_BYID_SUCCESS';
 export class GetUsersList {
   readonly type = GET_USERS_LIST;
 }
@@ -268,6 +272,24 @@ export class SearchDonorParamSuccess {
   readonly type = SEARCH_DONOR_BY_PARAMETER_SUCCESS;
   constructor(public payload: any) {}
 }
+
+export class DeleteDonorById {
+  readonly type = DELETE_DONOR_BYID;
+  constructor(public payload: any) {}
+}
+
+export class DeleteDonorByIdSuccess {
+  readonly type = DELETE_DONOR_BYID_SUCCESS;
+  constructor(public payload: any) {}
+}
+export class DeleteDonationById {
+  readonly type = DELETE_DONATION_BYID;
+  constructor(public payload: any) {}
+}
+export class DeleteDonationByIdSuccess {
+  readonly type = DELETE_DONOR_BYID_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Action =
   | GetUsersList
   | GetUsersListSuccess
@@ -314,4 +336,8 @@ export type Action =
   | SearchDonorParam
   | SearchDonorParamSuccess
   | UpdateDonationByIdSuccess
-  | UpdateDonationById;
+  | UpdateDonationById
+  | DeleteDonationById
+  | DeleteDonationByIdSuccess
+  | DeleteDonorById
+  | DeleteDonorByIdSuccess;

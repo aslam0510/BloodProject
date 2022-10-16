@@ -7,9 +7,11 @@
   <div class="d-flex justify-content-between align-items-center">
     <h3>Donors Details</h3>
     <div>
-      <button mat-raised-button class="appBtnBgColor" (click)="onEdit()" *ngIf="isEditBtn">Edit</button>
-      <button mat-raised-button *ngIf="!isEditBtn" (click)=" cancel()" style="margin-right: 1rem;">Discard</button>
-      <button mat-raised-button class="appBtnBgColor" *ngIf="!isEditBtn" (click)="update()">Save</button>
+      <button mat-raised-button class="smallButtons" (click)="onEdit()" *ngIf="isEditBtn">Edit</button>
+      <button mat-raised-button *ngIf="!isEditBtn" class="outlineButtons" (click)=" cancel()" style="margin-right: 1rem;">Discard</button>
+      <button mat-raised-button class="smallButtons" *ngIf="!isEditBtn" (click)="update()">Save</button>
+      <button mat-raised-button class="smallButtons" style="margin-left:1rem" (click)="onRepoDelete()" *ngIf="isRepo == 'true'">Delete</button>
+      <button mat-raised-button class="smallButtons" style="margin-left:1rem" (click)="onDonationDelete()" *ngIf="isRepo != 'true'">Delete</button>
     </div>
 
   </div>

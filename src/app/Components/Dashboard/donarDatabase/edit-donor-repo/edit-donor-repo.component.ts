@@ -1,6 +1,7 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Store, ActionsSubject } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/app.state';
@@ -22,17 +23,38 @@ export class EditDonorRepoComponent implements OnInit {
   donationForm: FormGroup;
   isRepo: string;
   isEditBtn: boolean = true;
+  actionSubcription: Subscription;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private actionsSubj: ActionsSubject,
+    private snackBar: MatSnackBar
   ) {
     this.donorRepo$ = this.store.select((state) => state.SidNavSlice.donorById);
     this.donationDetails$ = this.store.select(
       (state) => state.SidNavSlice.donorDonationById
     );
+    this.actionSubcription = this.actionsSubj.subscribe((data) => {
+      this.handleActionSubscription(data);
+    });
   }
-
+  handleActionSubscription(data: any) {
+    switch (data.type) {
+      case SideNavActions.DELETE_DONOR_BYID_SUCCESS:
+        if (data.payload.code === 200) {
+          this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
+          this.router.navigate(['/dashboard/donorDatabase']);
+        }
+        break;
+      case SideNavActions.DELETE_DONATION_BYID_SUCCESS:
+        if (data.payload.code === 200) {
+          this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
+          this.router.navigate(['/dashboard/donorDatabase']);
+        }
+        break;
+    }
+  }
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.isRepo = params.get('isRepo');
@@ -168,15 +190,15 @@ export class EditDonorRepoComponent implements OnInit {
       ht: formValues.height,
       address: formValues.address,
       contact: formValues.contact,
-      donationType: this.donationDetails.donationType
-        ? this.donationDetails.donationType
-        : this.donorRepo.donationType,
-      isDonorRepo: this.donationDetails.isDonorRepo
-        ? this.donationDetails.isDonorRepo
-        : this.donorRepo.isDonorRepo,
-      donatedDate: this.donationDetails.donatedDate
-        ? this.donationDetails.donatedDate
-        : this.donorRepo.donatedDate,
+      donationType: this.donationDetails?.donationType
+        ? this.donationDetails?.donationType
+        : this.donorRepo?.donationType,
+      isDonorRepo: this.donationDetails?.isDonorRepo
+        ? this.donationDetails?.isDonorRepo
+        : this.donorRepo?.isDonorRepo,
+      donatedDate: this.donationDetails?.donatedDate
+        ? this.donationDetails?.donatedDate
+        : this.donorRepo?.donatedDate,
     };
 
     if (this.isRepo == 'true') {
@@ -189,5 +211,17 @@ export class EditDonorRepoComponent implements OnInit {
 
   navigate() {
     this.router.navigate(['/dashboard/donorDatabase']);
+  }
+
+  onRepoDelete() {
+    console.log(this.donorRepo);
+
+    this.store.dispatch(new SideNavActions.DeleteDonorById(this.donorRepo._id));
+  }
+
+  onDonationDelete() {
+    this.store.dispatch(
+      new SideNavActions.DeleteDonationById(this.donationDetails._id)
+    );
   }
 }

@@ -13,8 +13,12 @@ td {
   border-right: 1px solid lightgray;
   padding-left: 1.5rem;
   border-bottom: none;
+  padding-top: 0.7rem;
+  padding-bottom: 0.9rem;
 }
-
+th {
+  border-right: 1px solid lightgray !important;
+}
 th,
 td:last-child {
   border-right: none;
@@ -139,4 +143,5 @@ tr:nth-child(even) {
 .tablecard {
   padding-left: 0;
   padding-right: 0;
+  /* height: 300px; */
 }
