@@ -11,7 +11,7 @@
       <button mat-raised-button *ngIf="!isEditBtn" class="outlineButtons" (click)=" cancel()" style="margin-right: 1rem;">Discard</button>
       <button mat-raised-button class="smallButtons" *ngIf="!isEditBtn" (click)="update()">Save</button>
       <button mat-raised-button class="smallButtons" style="margin-left:1rem" (click)="onRepoDelete()" *ngIf="isRepo == 'true'">Delete</button>
-      <button mat-raised-button class="smallButtons" style="margin-left:1rem" (click)="onDonationDelete()" *ngIf="isRepo != 'true'">Delete</button>
+      <!-- <button mat-raised-button class="smallButtons" style="margin-left:1rem" (click)="onDonationDelete()" *ngIf="isRepo != 'true'">Delete</button> -->
     </div>
 
   </div>
@@ -53,8 +53,11 @@
         <input matInput formControlName="gender">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Date of Birth</mat-label>
-        <input matInput formControlName="dob">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="picker" placeholder="Date of Requirement" formControlName="dob">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
     <div class="d-flex justify-content-between align-items-center">

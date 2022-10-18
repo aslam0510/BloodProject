@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
       route: '/dashboard/bloodAvailability',
     },
     {
-      menu: 'Bood Request',
+      menu: 'Blood Request',
       icon: '/assets/Images/Bloodrequest.svg',
       route: '/dashboard/bloodRequest',
     },

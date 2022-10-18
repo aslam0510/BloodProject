@@ -360,8 +360,6 @@ export class SideNavEffect {
       ofType(SideNavAction.SEARCH_DONOR_BY_PARAMETER),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload);
-
         return this.http
           .get(
             api.getAPI('SEARCH_DONOR_BY_PARAMS') +

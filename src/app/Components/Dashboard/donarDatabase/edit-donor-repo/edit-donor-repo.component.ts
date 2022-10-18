@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/app.state';
 import * as SideNavActions from '../../../../store/Actions/sideNavAction';
+import * as moment from 'moment';
 @Component({
   selector: 'app-edit-donor-repo',
   templateUrl: './edit-donor-repo.component.html',
@@ -119,6 +120,8 @@ export class EditDonorRepoComponent implements OnInit {
 
   setFormValue(formValues) {
     const data = formValues;
+    console.log(new Date(data.dob).toISOString());
+
     this.donorRepoForm.patchValue({
       dName: data?.dName,
       did: data?.did,
@@ -132,7 +135,7 @@ export class EditDonorRepoComponent implements OnInit {
       pincode: data?.pinCode,
       uhid: data?.uhid,
       aadharNo: data?.aadharNo,
-      dob: new Date(data?.dob).toDateString(),
+      dob: new Date(data.dob).toISOString,
       fitForDonate: data?.fitForDonate,
       donatedDate: data?.donateDate,
       weight: data?.wt,

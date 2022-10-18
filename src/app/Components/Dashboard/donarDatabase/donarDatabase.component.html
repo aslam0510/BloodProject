@@ -33,7 +33,7 @@
                 </mat-form-field>
                 <div style="border-right:3px solid lightgray"></div>
                 <mat-form-field appearance="none" style="margin-left: 5px;">
-                  <mat-select placeholder="{{ 'Select' }}" formControlName="searchParams">
+                  <mat-select placeholder="{{ 'Select' }}" formControlName="searchParams" (selectionChange)="onParams($event)">
                     <mat-option [value]="search" *ngFor="let search of searchParameters">
                       {{ search }}
                       <mat-divider></mat-divider>

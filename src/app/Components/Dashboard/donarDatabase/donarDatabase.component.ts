@@ -52,6 +52,7 @@ export class DonarDatabaseComponent implements OnInit {
   filterData = [];
   selection = new SelectionModel(true, []);
   formValues: any;
+  paramValue = '';
   searchParameters = [
     'Name',
     "Donor's ID",
@@ -312,12 +313,16 @@ export class DonarDatabaseComponent implements OnInit {
   searchParameter(event) {
     this.isSearch = true;
   }
+  onParams(event) {
+    this.paramValue = event.value;
+  }
   searchTerm(value) {
     if (this.searchForm.get('searchTerm').value) {
       const payload = {
         searchTerm: this.searchForm.get('searchTerm').value,
-        searchParam: this.searchForm.get('searchParams').value,
+        searchParam: this.paramValue,
       };
+
       this.store.dispatch(new SideNavActions.SearchDonorParam(payload));
     } else {
       this.searchForm.reset();

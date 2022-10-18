@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./orgSettings.component.css'],
 })
 export class OrgSettingsComponent implements OnInit {
+  acceptOnlyPDF = '';
   organizationDetails$: Observable<any>;
   organizationDetails: any;
   organizationDetailsSub: Subscription;
@@ -114,6 +115,7 @@ export class OrgSettingsComponent implements OnInit {
       pincode: new FormControl(''),
       comFacility: new FormControl(''),
       apFacility: new FormControl(''),
+      entId: new FormControl(''),
     });
     this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
       if (data) {
@@ -299,12 +301,37 @@ export class OrgSettingsComponent implements OnInit {
     if (this.showEntity) {
       this.editForm.enable();
       const entityFormValue = this.entityDetailForm.value;
+      entityFormValue['docs'] = this.entityDocs;
+      entityFormValue['entId'] = this.entity.entId;
       this.store.dispatch(
         new DashboardAction.UpdateEntityInfo(entityFormValue)
       );
     }
     this.cancel();
     this.router.navigate(['/dashboard']);
+  }
+
+  onDeleteFile(index, type) {
+    if (type === 'entity') {
+      this.entityDocs = this.entityDocs.filter((x, i) => i !== index);
+    } else {
+      this.orgUploadDocuments = this.entityDocs.filter((x, i) => i !== index);
+    }
+  }
+
+  onOrgFileUpload(event, type) {
+    this.acceptOnlyPDF = '';
+    for (var i = 0; i < event.target.files.length; i++) {
+      if (event.target.files[i].type == 'application/pdf') {
+        if (type === 'entity') {
+          this.entityDocs.push(event.target.files[i]);
+        } else {
+          this.orgUploadDocuments.push(event.target.files[i]);
+        }
+      } else {
+        this.acceptOnlyPDF = 'Accept only PDF File';
+      }
+    }
   }
 
   downloadOrgFile(data: any) {

@@ -112,9 +112,17 @@
               </div>
             </div>
           </div>
-          <div class="mt-4" *ngIf=" orgUploadDocuments.length> 0">
+          <div class="mt-4">
             <h3 class="m-0  mb-3">{{'Upload Document'}}</h3>
             <hr>
+            <div class="d-flex flex-column align-items-center justify-content-center">
+              <img src="/assets/Images/upload.svg" alt="" width="35px" height="35px">
+              <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event, 'org')" (click)="fileInput.value = null" />
+              <button (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-center" type="button" [disabled]="isEdit">
+                <p style="color: #ea0029; padding: 0; margin:0">Upload</p>
+              </button>
+              <mat-hint style="font-size: 10px;">Please upload in PDF format only and the size should be less than 2 </mat-hint>
+            </div>
             <div class="mt-4">
               <ng-container *ngFor="let file of orgUploadDocuments; let i = index">
                 <div class="files d-flex my-2 align-items-center" *ngIf="orgUploadDocuments.length > 0">
@@ -125,6 +133,7 @@
                     <span>{{ file.size + " byte" }}</span>
                   </div>
                   <h4 class="m-0 " style="color: brown; padding: 5px; cursor: pointer;" (click)="downloadOrgFile(file)">View File</h4>
+                  <mat-icon class="icon" color="accent" (click)="onDeleteFile(i, 'org')" [hidden]="isEdit">close</mat-icon>
                 </div>
               </ng-container>
             </div>
@@ -239,9 +248,17 @@
               </div>
             </div>
           </div>
-          <div class="mt-4" *ngIf="entityDocs.length > 0">
+          <div class="mt-4">
             <h3 class="m-0  mb-3">{{'Upload Document'}}</h3>
             <hr>
+            <div class="d-flex flex-column align-items-center justify-content-center">
+              <img src="/assets/Images/upload.svg" alt="" width="35px" height="35px">
+              <input #fileInput [hidden]="true" id="input-file-id" multiple type="file" accept="application/pdf" (change)="onOrgFileUpload($event, 'entity')" (click)="fileInput.value = null" />
+              <button (click)="fileInput.click()" mat-button class="upload-button d-flex justify-content-center" type="button" [disabled]="isEdit">
+                <p style="color: #ea0029; padding: 0; margin:0">Upload</p>
+              </button>
+              <mat-hint style="font-size: 10px;">Please upload in PDF format only and the size should be less than 2 </mat-hint>
+            </div>
             <div class="mt-4">
               <ng-container *ngFor="let file of entityDocs; let i = index">
                 <div class="files d-flex my-2 align-items-center" *ngIf="entityDocs.length > 0">
@@ -251,6 +268,7 @@
                     <span clas="d-block">{{ file.fileName }}</span>
                   </div>
                   <h4 class="m-0 " style="color: brown; padding: 5px; cursor: pointer;" (click)="downloadOrgFile(file)">View File</h4>
+                  <mat-icon class="icon" color="accent" (click)="onDeleteFile(i)" [hidden]="isEdit">close</mat-icon>
                 </div>
               </ng-container>
             </div>
