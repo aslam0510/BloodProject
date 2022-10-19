@@ -11,19 +11,19 @@
           <div>
             <form [formGroup]="searchForm">
               <mat-form-field>
-                <mat-select placeholder="{{ 'Blood Type' }}" (selectionChange)="filterData('bldType')" formControlName="bldType">
+                <mat-select placeholder="{{ 'Blood Type' }}" formControlName="bldType">
                   <mat-option [value]="type" *ngFor="let type of bloodGroupTypes?.types">
                     {{ type }}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field>
-                <mat-select formControlName="comp" placeholder="{{ 'Select Component' }}" (selectionChange)="filterData('comp')">
+                <mat-select formControlName="comp" placeholder="{{ 'Select Component' }}">
                   <mat-option [value]="type" *ngFor="let type of bloodCompList?.types">
                     {{ type }}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field>
-                <input formControlName="location" type="text" matInput placeholder="location" (keyup)="filterData('location')">
+                <input formControlName="location" type="text" matInput placeholder="location">
               </mat-form-field>
             </form>
           </div>

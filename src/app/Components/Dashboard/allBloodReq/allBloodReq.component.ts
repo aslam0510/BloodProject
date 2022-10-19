@@ -50,6 +50,11 @@ export class AllBloodReqComponent implements OnInit {
     location: '',
   };
   searchForm: FormGroup;
+  filteredValues = {
+    bloodType: '',
+    comp: '',
+    location: '',
+  };
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -90,6 +95,19 @@ export class AllBloodReqComponent implements OnInit {
       }
     });
 
+    this.searchForm.get('bldType').valueChanges.subscribe((type) => {
+      this.filteredValues['bloodType'] = type;
+      this.dataSource.filter = JSON.stringify(this.filteredValues);
+    });
+    this.searchForm.get('comp').valueChanges.subscribe((comp) => {
+      this.filteredValues['comp'] = comp;
+      this.dataSource.filter = JSON.stringify(this.filteredValues);
+    });
+    this.searchForm.get('location').valueChanges.subscribe((location) => {
+      this.filteredValues['location'] = location;
+      this.dataSource.filter = JSON.stringify(this.filteredValues);
+    });
+
     this.bloodGroupTypesSub = this.bloodGroupTypes$.subscribe((data) => {
       if (data) {
         this.bloodGroupTypes = data.data;
@@ -124,38 +142,32 @@ export class AllBloodReqComponent implements OnInit {
     ]);
   }
 
-  filterData(val: string) {
-    const filter = {
-      bldType: val === 'bldType' ? this.searchForm.value.bldType : '',
-      comp: val === 'comp' ? this.searchForm.value.comp : '',
-      location: val === 'location' ? this.searchForm.value.location : '',
-    };
+  // filterData(val: string) {
+  //   const filter = {
+  //     bldType: val === 'bldType' ? this.searchForm.value.bldType : '',
+  //     comp: val === 'comp' ? this.searchForm.value.comp : '',
+  //     location: val === 'location' ? this.searchForm.value.location : '',
+  //   };
 
-    this.dataSource.filter = JSON.stringify(filter);
-  }
+  //   this.dataSource.filter = JSON.stringify(filter);
+  // }
 
   filterRequests(): (data: any, filter: string) => boolean {
     const filterFunction = function (data, filter): boolean {
       const searchTerms = JSON.parse(filter);
-      return searchTerms.location
-        ? data.location
-            .toString()
-            .trim()
-            .toLowerCase()
-            .indexOf(searchTerms.location.toLowerCase()) !== -1
-        : true && searchTerms.bldType
-        ? data.bldgrp
-            .toString()
-            .trim()
-            .toLowerCase()
-            .indexOf(searchTerms.bldType.toLowerCase()) !== -1
-        : true && searchTerms.comp
-        ? data.requirements
-            .toString()
-            .trim()
-            .toLowerCase()
-            .indexOf(searchTerms.comp.toLowerCase()) !== -1
-        : true;
+      return (
+        data.location.toString().trim().indexOf(searchTerms.location) !== -1 &&
+        data.bldgrp
+          .toString()
+          .trim()
+          .toLowerCase()
+          .indexOf(searchTerms.bloodType.toLowerCase()) !== -1 &&
+        data.requirements
+          .toString()
+          .trim()
+          .toLowerCase()
+          .indexOf(searchTerms.comp.toLowerCase()) !== -1
+      );
     };
     return filterFunction;
   }
