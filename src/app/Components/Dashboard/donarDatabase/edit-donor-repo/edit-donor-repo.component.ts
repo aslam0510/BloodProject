@@ -186,7 +186,7 @@ export class EditDonorRepoComponent implements OnInit {
       pinCode: formValues.pincode,
       uhid: formValues.uhid,
       aadharNo: formValues.aadharNo,
-      dob: new Date(formValues.dob).toDateString(),
+      dob: moment(formValues.dob).format('MM-DD-YYYY'),
       fitForDonate: formValues.fitForDonate,
       // donatedDate: formValues.donateDate,
       wt: formValues.weight,
@@ -196,13 +196,19 @@ export class EditDonorRepoComponent implements OnInit {
       donationType: this.donationDetails?.donationType
         ? this.donationDetails?.donationType
         : this.donorRepo?.donationType,
-      isDonorRepo: this.donationDetails?.isDonorRepo
-        ? this.donationDetails?.isDonorRepo
-        : this.donorRepo?.isDonorRepo,
+      isDonorRepo:
+        this.isRepo == 'true'
+          ? this.donorRepo?.isDonorRepo
+            ? this.donorRepo?.isDonorRepo
+            : false
+          : this.donationDetails?.isDonorRepo
+          ? this.donationDetails?.isDonorRepo
+          : false,
       donatedDate: this.donationDetails?.donatedDate
         ? this.donationDetails?.donatedDate
         : this.donorRepo?.donatedDate,
     };
+    console.log(payload);
 
     if (this.isRepo == 'true') {
       this.store.dispatch(new SideNavActions.UpdateDonorRepoById(payload));
