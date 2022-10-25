@@ -5,12 +5,12 @@
       <mat-tab label="Donor's Repository" class="mat" (click)="onTab('repo')">
         <div class="my-3 d-flex justify-content-between">
           <div style="color: brown;">
-            <button style="margin-left: 1rem;" mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event)">
+            <button style="margin-left: 1rem;" mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event, 'repo')">
               <mat-icon>filter_list</mat-icon> <span>{{'Filter'}}</span>
             </button>
             <mat-form-field class="example-chip-list" *ngIf="filterData.length > 0">
               <mat-chip-list #chipList aria-label="Fruit selection">
-                <mat-chip *ngFor="let fruit of filterData" (removed)="remove(fruit)">
+                <mat-chip *ngFor="let fruit of filterData" (removed)="remove(fruit, 'repo')">
                   {{fruit}}
                   <button matChipRemove>
                     <mat-icon>cancel</mat-icon>
@@ -119,12 +119,12 @@
       <mat-tab label="Donation History" (click)="onTab('history')">
         <div class="my-3 d-flex justify-content-between">
           <div style="color: brown; margin-left: 1rem;">
-            <button mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event)">
+            <button mat-icon-button matTooltip="{{'Filter'}}" class="tool-bar-icon " (click)="onFilter($event, 'donation')">
               <mat-icon>filter_list</mat-icon> <span>{{'Filter'}}</span>
             </button>
             <mat-form-field class="example-chip-list" *ngIf="filterData.length > 0">
               <mat-chip-list #chipList aria-label="Fruit selection">
-                <mat-chip *ngFor="let fruit of filterData" (removed)="remove(fruit)">
+                <mat-chip *ngFor="let fruit of filterData" (removed)="remove(fruit,'donation')">
                   {{fruit}}
                   <button matChipRemove>
                     <mat-icon>cancel</mat-icon>

@@ -91,6 +91,7 @@ export class FilterComponent implements OnInit {
       lastDonation: this.filterForm.value.lastDonation,
       location: this.filterForm.value.location,
       // range: range,
+      data: this.data.data,
     };
     this.dialogRef.close(payload);
   }

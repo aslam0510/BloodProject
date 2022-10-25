@@ -91,18 +91,19 @@ export class DonarDatabaseComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
-    this.store.dispatch(new SideNavActions.GetDonorDonationList(''));
+    // this.store.dispatch(new SideNavActions.GetDonorDonationList(''));
 
     this.donorReposSub = this.donorRepos$.subscribe((data) => {
       if (data) {
         this.donorRepos = data.data.details;
         this.dataSource = new MatTableDataSource(this.donorRepos);
-        this.dataSource.paginator = this.paginator;
-        // this.dataSource.filterPredicate = this.filterRequests();
+        this.dataSource.filterPredicate = this.filterRequests();
         this.dataSource.filter = JSON.stringify(this.formValues);
+        this.dataSource.paginator = this.paginator;
         this.length = this.dataSource.filteredData.length;
       }
     });
+
     this.donorDonationListSub = this.donorDonationList$.subscribe((data) => {
       if (data) {
         this.donorDonationList = data.data.details;
@@ -110,43 +111,36 @@ export class DonarDatabaseComponent implements OnInit {
           this.donorDonationList
         );
         this.DonationdataSource.paginator = this.paginator;
-        // this.DonationdataSource.filterPredicate = this.filterRequests();
-        this.DonationdataSource.filter = JSON.stringify(this.formValues);
         this.length = this.DonationdataSource.filteredData.length;
-        // this.DonationdataSource.filterPredicate = this.filterRequests();
+        this.DonationdataSource.filterPredicate = this.filterRequests();
+        this.DonationdataSource.filter = JSON.stringify(this.formValues);
       }
     });
   }
 
-  // filterRequests(): (data: any, filter: string) => boolean {
-  //   const filterFunction = function (data, filter): boolean {
-  //     const searchTerms = JSON.parse(filter);
-  //     console.log(searchTerms);
-  //     const arr = [];
-  //     arr.push(searchTerms);
-
-  //     return searchTerms.location
-  //       ? data.city
-  //           .toString()
-  //           .trim()
-  //           .toLowerCase()
-  //           .indexOf(searchTerms.location.toLowerCase()) !== -1
-  //       : true || searchTerms.bloodGroup
-  //       ? data.bldgrp
-  //           .toString()
-  //           .trim()
-  //           .toLowerCase()
-  //           .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1
-  //       : true || searchTerms.gender
-  //       ? data.gender
-  //           .toString()
-  //           .trim()
-  //           .toLowerCase()
-  //           .indexOf(searchTerms.gender.toLowerCase()) !== -1
-  //       : true;
-  //   };
-  //   return filterFunction;
-  // }
+  filterRequests(): (data: any, filter: string) => boolean {
+    const filterFunction = function (data, filter): boolean {
+      const searchTerms = JSON.parse(filter);
+      return (
+        data.city
+          .toString()
+          .trim()
+          .toLowerCase()
+          .indexOf(searchTerms.location.toLowerCase()) !== -1 &&
+        data.bldgrp
+          .toString()
+          .trim()
+          .toLowerCase()
+          .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1 &&
+        data.gender
+          .toString()
+          .trim()
+          .toLowerCase()
+          .indexOf(searchTerms.gender.toLowerCase()) !== -1
+      );
+    };
+    return filterFunction;
+  }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -204,13 +198,16 @@ export class DonarDatabaseComponent implements OnInit {
     this.store.dispatch(new SideNavActions.GetDonorDonationList(payload));
   }
 
-  onFilter(event) {
+  onFilter(event, type) {
     const dialogConfig = new MatDialogConfig();
     let targetAttr = event.target.getBoundingClientRect();
 
     dialogConfig.height = 'auto';
     dialogConfig.width = '350px';
     dialogConfig.panelClass = 'custom-dialog-container';
+    dialogConfig.data = {
+      data: type,
+    };
     dialogConfig.position = {
       top: targetAttr.y + targetAttr.height - 7 + 'px',
       left: targetAttr.x + targetAttr.width - 5 + 'px',
@@ -220,45 +217,20 @@ export class DonarDatabaseComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       this.filterData = [];
       const formValues = result;
-      console.log(result);
-
-      for (const key in result) {
-        if (result[key] !== '') {
-          this.filterData.push(result[key]);
+      for (const key in formValues) {
+        if (formValues[key] !== '') {
+          this.filterData.push(formValues[key]);
         }
       }
       this.formValues = formValues;
-      this.dataSource.filter = JSON.stringify(this.formValues);
-      this.filteredData(JSON.stringify(this.formValues));
+      if (formValues.type === 'repo') {
+        this.dataSource.filter = JSON.stringify(this.formValues);
+      } else {
+        this.DonationdataSource.filter = JSON.stringify(this.formValues);
+      }
     });
   }
 
-  filteredData(filterJson) {
-    const filterData = JSON.parse(filterJson);
-
-    const data = this.donorRepos.filter((x) => {
-      return (
-        x.bldgrp.toString().trim().toLowerCase() ===
-          filterData.bloodGroup.toString().trim().toLowerCase() ||
-        x.gender.toString().trim().toLowerCase() ===
-          filterData.gender.toString().trim().toLowerCase() ||
-        x.city.toString().trim().toLowerCase() ===
-          filterData.location.trim().toLowerCase()
-      );
-    });
-    const datas = this.donorDonationList.filter((x) => {
-      return (
-        x.bldgrp.toString().trim().toLowerCase() ===
-          filterData.bloodGroup.toString().trim().toLowerCase() ||
-        x.gender.toString().trim().toLowerCase() ===
-          filterData.gender.toString().trim().toLowerCase() ||
-        x.city.toString().trim().toLowerCase() ===
-          filterData.location.trim().toLowerCase()
-      );
-    });
-    this.DonationdataSource = new MatTableDataSource(datas);
-    this.dataSource = new MatTableDataSource(data);
-  }
   editDonoRepo(row) {
     this.router.navigate(['/dashboard/editDonorRep', row._id], {
       queryParams: { isRepo: this.isRepo },
@@ -277,36 +249,21 @@ export class DonarDatabaseComponent implements OnInit {
     event.chipInput!.clear();
   }
 
-  remove(fruit): void {
+  remove(fruit, type): void {
     const index = this.filterData.indexOf(fruit);
-
     if (index >= 0) {
       this.filterData.splice(index, 1);
       const f = this.formValues;
       for (const key in f) {
         if (f[key] == fruit) {
-          delete f[key];
+          f[key] = '';
         }
-        // const data = this.donorRepos.filter((x) => {
-        //   return (
-        //     (f[key] &&
-        //       x.bldgrp.toString().trim().toLowerCase() !==
-        //         f[key]?.toString().trim().toLowerCase()) ||
-        //     (f[key] &&
-        //       x.gender.toString().trim().toLowerCase() !==
-        //         f[key]?.toString().trim().toLowerCase()) ||
-        //     (f[key] &&
-        //       x.city.toString().trim().toLowerCase() !==
-        //         f[key]?.trim().toLowerCase())
-        //   );
-        // });
-        this.dataSource = new MatTableDataSource(this.donorRepos);
-        this.DonationdataSource = new MatTableDataSource(
-          this.donorDonationList
-        );
       }
-
-      // this.dataSource.filter = JSON.stringify(this.formValues);
+      if (type === 'repo') {
+        this.dataSource.filter = JSON.stringify(this.formValues);
+      } else {
+        this.DonationdataSource.filter = JSON.stringify(this.formValues);
+      }
     }
   }
 
@@ -340,10 +297,12 @@ export class DonarDatabaseComponent implements OnInit {
   onTabChange(event) {
     if (event.tab.textLabel === "Donor's Repository") {
       this.isRepo = true;
+      this.filterData = [];
       this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
     }
     if (event.tab.textLabel === 'Donation History') {
       this.isRepo = false;
+      this.filterData = [];
       this.store.dispatch(new SideNavActions.GetDonorDonationList(''));
     }
   }
