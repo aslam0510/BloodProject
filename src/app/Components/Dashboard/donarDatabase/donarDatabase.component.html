@@ -29,7 +29,7 @@
               <div class="select d-flex align-items-center justify-content-around">
                 <mat-icon style="padding-top: 5px; padding-left: 2px;">search</mat-icon>
                 <mat-form-field appearance="none" style="padding-left: 7px; border-right : 2px solid lightgray;">
-                  <input type="text" formControlName="searchTerm" matInput placeholder="Search command" (change)="searchTerm($event.target.value)" (click)="searchTerm($event.target.value)">
+                  <input type="text" formControlName="searchTerm" matInput placeholder="Search command" (change)="searchTerm($event.target.value)" [disabled]="paramValue == ''">
                 </mat-form-field>
                 <div style="border-right:3px solid lightgray"></div>
                 <mat-form-field appearance="none" style="margin-left: 5px;">

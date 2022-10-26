@@ -121,6 +121,7 @@ export class DonarDatabaseComponent implements OnInit {
   filterRequests(): (data: any, filter: string) => boolean {
     const filterFunction = function (data, filter): boolean {
       const searchTerms = JSON.parse(filter);
+      console.log(searchTerms);
       const arr = searchTerms.range.split(' ');
       const minAge = Number(arr[1]);
       const maxAge = Number(arr[arr.length - 1]);
@@ -137,11 +138,7 @@ export class DonarDatabaseComponent implements OnInit {
               .trim()
               .toLowerCase()
               .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1 &&
-            data.gender
-              .toString()
-              .trim()
-              .toLowerCase()
-              .indexOf(searchTerms.gender.toLowerCase()) !== -1;
+            data.gender.toString().trim().indexOf(searchTerms.gender) !== -1;
     };
     return filterFunction;
   }
@@ -280,12 +277,11 @@ export class DonarDatabaseComponent implements OnInit {
     this.paramValue = event.value;
   }
   searchTerm(value) {
-    if (this.searchForm.get('searchTerm').value) {
+    if (this.searchForm.get('searchTerm').value && this.paramValue) {
       const payload = {
         searchTerm: this.searchForm.get('searchTerm').value,
         searchParam: this.paramValue,
       };
-
       this.store.dispatch(new SideNavActions.SearchDonorParam(payload));
     } else {
       this.searchForm.reset();

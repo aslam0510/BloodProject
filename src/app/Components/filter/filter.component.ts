@@ -53,6 +53,7 @@ export class FilterComponent implements OnInit {
   bloodGroupList$: Observable<any>;
   bloodGroupList: any;
   bloodGroupListSub: Subscription;
+  isRange = false;
   constructor(
     private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -80,8 +81,12 @@ export class FilterComponent implements OnInit {
       }
     });
   }
-
+  onRange() {
+    this.isRange = true;
+  }
   OnUpload() {
+    console.log(this.filterForm.get('range'));
+
     const range1 = this.filterForm.value.range[0];
     const range2 = this.filterForm.value.range[1];
     const range = `Age ${range1} - ${range2}`;
@@ -90,11 +95,7 @@ export class FilterComponent implements OnInit {
       gender: this.filterForm.value.gender,
       lastDonation: this.filterForm.value.lastDonation,
       location: this.filterForm.value.location,
-      range: this.filterForm.get('range').touched
-        ? this.data.data === 'repo'
-          ? range
-          : ''
-        : '',
+      range: this.isRange ? (this.data.data === 'repo' ? range : '') : '',
       data: this.data.data,
     };
     this.dialogRef.close(payload);

@@ -37,7 +37,7 @@
     <hr>
     <div class="d-flex flex-column ">
       <span>Age</span>
-      <ng5-slider formControlName="range" [(value)]="sliderMinRange" [(highValue)]="sliderMaxRange" [options]="sliderOptions"></ng5-slider>
+      <ng5-slider formControlName="range" [(value)]="sliderMinRange" [(highValue)]="sliderMaxRange" [options]="sliderOptions" (click)="onRange()"></ng5-slider>
     </div>
     <hr>
     <div class="mt-2">
