@@ -121,23 +121,27 @@ export class DonarDatabaseComponent implements OnInit {
   filterRequests(): (data: any, filter: string) => boolean {
     const filterFunction = function (data, filter): boolean {
       const searchTerms = JSON.parse(filter);
-      return (
-        data.city
-          .toString()
-          .trim()
-          .toLowerCase()
-          .indexOf(searchTerms.location.toLowerCase()) !== -1 &&
-        data.bldgrp
-          .toString()
-          .trim()
-          .toLowerCase()
-          .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1 &&
-        data.gender
-          .toString()
-          .trim()
-          .toLowerCase()
-          .indexOf(searchTerms.gender.toLowerCase()) !== -1
-      );
+      const arr = searchTerms.range.split(' ');
+      const minAge = Number(arr[1]);
+      const maxAge = Number(arr[arr.length - 1]);
+      return searchTerms.range
+        ? minAge <= data.age && maxAge >= data.age
+        : true &&
+            data.city
+              .toString()
+              .trim()
+              .toLowerCase()
+              .indexOf(searchTerms.location.toLowerCase()) !== -1 &&
+            data.bldgrp
+              .toString()
+              .trim()
+              .toLowerCase()
+              .indexOf(searchTerms.bloodGroup.toLowerCase()) !== -1 &&
+            data.gender
+              .toString()
+              .trim()
+              .toLowerCase()
+              .indexOf(searchTerms.gender.toLowerCase()) !== -1;
     };
     return filterFunction;
   }
@@ -217,13 +221,15 @@ export class DonarDatabaseComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       this.filterData = [];
       const formValues = result;
+      const type = formValues['data'];
+      delete formValues['data'];
       for (const key in formValues) {
         if (formValues[key] !== '') {
           this.filterData.push(formValues[key]);
         }
       }
       this.formValues = formValues;
-      if (formValues.type === 'repo') {
+      if (type === 'repo') {
         this.dataSource.filter = JSON.stringify(this.formValues);
       } else {
         this.DonationdataSource.filter = JSON.stringify(this.formValues);
@@ -249,20 +255,20 @@ export class DonarDatabaseComponent implements OnInit {
     event.chipInput!.clear();
   }
 
-  remove(fruit, type): void {
-    const index = this.filterData.indexOf(fruit);
+  remove(data: string, type): void {
+    const index = this.filterData.indexOf(data);
     if (index >= 0) {
       this.filterData.splice(index, 1);
       const f = this.formValues;
       for (const key in f) {
-        if (f[key] == fruit) {
+        if (f[key] == data) {
           f[key] = '';
         }
       }
       if (type === 'repo') {
-        this.dataSource.filter = JSON.stringify(this.formValues);
+        this.dataSource.filter = JSON.stringify(f);
       } else {
-        this.DonationdataSource.filter = JSON.stringify(this.formValues);
+        this.DonationdataSource.filter = JSON.stringify(f);
       }
     }
   }
