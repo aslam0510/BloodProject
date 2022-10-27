@@ -7,13 +7,13 @@ export function AuthReducer(
 ) {
   switch (action.type) {
     case authActions.GET_LOGIN_SUCCESS: {
-      return { ...state, auth: action.payload };
+      return { ...state, auth: action.payload, domain: null };
     }
     case authActions.GENERATE_OTP_SUCCESS: {
-      return { ...state, generateOtp: action.payload };
+      return { ...state, generateOtp: action.payload, domain: null };
     }
     case authActions.VERIFY_OTP_SUCCESS: {
-      return { ...state, verifyOTPSuccess: action.payload };
+      return { ...state, verifyOTPSuccess: action.payload, domain: null };
     }
     case authActions.SET_PASSWORD_SUCCESS: {
       return { ...state, setPasswordSuccess: action.payload };
@@ -23,6 +23,9 @@ export function AuthReducer(
     }
     case authActions.GET_CATEGORY_SUCCESS: {
       return { ...state, categoryDetails: action.payload };
+    }
+    case authActions.GET_DOMAIN_SUCCESS: {
+      return { ...state, domain: action.payload };
     }
     case authActions.LOGOUT_SUCCESS: {
       localStorage.setItem('accessToken', '');

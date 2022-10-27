@@ -91,6 +91,11 @@ export class AppInterceptor implements HttpInterceptor {
         .toString()
         .trim()
         .toLowerCase()
+        .indexOf('/thirdpartusers/getMyDomains'.toLowerCase()) !== -1 &&
+      req.url
+        .toString()
+        .trim()
+        .toLowerCase()
         .indexOf('/register/organization'.toLowerCase()) !== -1 &&
       req.url
         .toString()

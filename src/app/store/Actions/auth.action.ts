@@ -16,6 +16,8 @@ export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const GET_DOMAIN = 'GET_DOMAIN';
+export const GET_DOMAIN_SUCCESS = 'GET_DOMAIN_SUCCESS';
 
 export class GetLogin {
   readonly type = GET_LOGIN;
@@ -104,6 +106,14 @@ export class LogoutSuccess {
   readonly type = LOGOUT_SUCCESS;
   constructor(public payload: any) {}
 }
+export class GetDomain {
+  readonly type = GET_DOMAIN;
+  constructor(public payload: any) {}
+}
+export class GetDomainSuccess {
+  readonly type = GET_DOMAIN_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Actions =
   | GetLogin
   | GetLoginSuccess
@@ -122,4 +132,6 @@ export type Actions =
   | ResetPassword
   | ResetPasswordSuccess
   | Logout
-  | LogoutSuccess;
+  | LogoutSuccess
+  | GetDomain
+  | GetDomainSuccess;

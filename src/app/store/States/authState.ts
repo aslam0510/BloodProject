@@ -6,6 +6,7 @@ export class AuthState {
   categories: any;
   categoryDetails: any;
   isEditMode: boolean;
+  domain: any;
   constructor(isEditMode) {
     this.isEditMode = isEditMode;
     this.auth = {};

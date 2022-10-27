@@ -14,8 +14,15 @@ export class AuthEffect {
       ofType(auth.GET_LOGIN),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
+        let domainId = localStorage.getItem('domainId');
+        let acckey = localStorage.getItem('acckey');
         return this.http
-          .post(api.getAPI('GET_LOGIN'), payload)
+          .post(api.getAPI('GET_LOGIN'), payload, {
+            headers: {
+              domainId,
+              acckey,
+            },
+          })
           .pipe(map((data: any) => new auth.GetLoginSuccess(data)));
       })
     );
@@ -112,6 +119,18 @@ export class AuthEffect {
         return this.http
           .post(api.getAPI('LOGOUT'), payload)
           .pipe(map((data: any) => new auth.LogoutSuccess(data)));
+      })
+    );
+  });
+
+  domain$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.GET_DOMAIN),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('GET_DOMAIN'), payload)
+          .pipe(map((data: any) => new auth.GetDomainSuccess(data)));
       })
     );
   });

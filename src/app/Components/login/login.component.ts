@@ -32,6 +32,9 @@ export class LoginComponent implements OnInit {
   verifyOTPSuccess$: Observable<any>;
   verfiyOTPSuccess: any;
   verifyOTPSuccessSub: Subscription;
+  domain$: Observable<any>;
+  domain: any;
+  domianSub: Subscription;
   ref = '';
   showVerify: boolean;
   hide = true;
@@ -53,14 +56,13 @@ export class LoginComponent implements OnInit {
     this.verifyOTPSuccess$ = this.store.select(
       (state) => state.AuthSlice.verifyOTPSuccess
     );
+    this.domain$ = this.store.select((state) => state.AuthSlice.domain);
 
     this.loginErrors = [];
     this.showVerify = true;
   }
   handleActionSubscription(data: any) {
     console.log(data);
-    console.log(AuthAction);
-
     switch (data.type) {
       case AuthAction.LOGOUT_SUCCESS:
         if (data.payload.data.message) {
@@ -94,7 +96,14 @@ export class LoginComponent implements OnInit {
       phnNumber: new FormControl('', Validators.required),
       otp: new FormControl('', Validators.required),
     });
-
+    this.domianSub = this.domain$.subscribe((data) => {
+      if (data) {
+        this.domain = data.data[0];
+        localStorage.setItem('domainId', this.domain.domainId);
+        localStorage.setItem('acckey', this.domain.acckey);
+        this.loginProcess(this.domain);
+      }
+    });
     this.loginSub = this.loginSuccess$.subscribe((data) => {
       if (data) {
         this.loginSuccess = data;
@@ -158,9 +167,8 @@ export class LoginComponent implements OnInit {
     // console.log(pubPem.encrypt("Test",'RSA-OAEP'));
     return Forge.util.encode64(pubPem.encrypt(pwd, 'RSA-OAEP'));
   }
-  //Submitting login form
-  onLoginForm() {
-    this.loginErrors = [];
+
+  loginProcess(domain) {
     if (!this.showOtp && !this.showPhnNumber) {
       const payload = {
         userId: this.loginForm.value.userid,
@@ -179,6 +187,15 @@ export class LoginComponent implements OnInit {
         otp: +this.loginForm.value.otp,
       };
       this.store.dispatch(new AuthAction.VerifyOtp(payload));
+    }
+  }
+  //Submitting login form
+  onLoginForm() {
+    this.loginErrors = [];
+    if (this.loginForm.value.userid) {
+      this.store.dispatch(
+        new AuthAction.GetDomain({ userId: this.loginForm.value.userid })
+      );
     }
   }
 

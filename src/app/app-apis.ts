@@ -1,5 +1,6 @@
 const appPort = {
-  port: 'http://apigateway-jiohealth-iomt.apps.dev-jh-iomt.ocp.bss.jio.com',
+  // port: 'http://apigateway-jiohealth-iomt.apps.dev-jh-iomt.ocp.bss.jio.com',
+  port: 'http://apigateway-test-jiohealth-iomt.apps.dev-jh-iomt.ocp.bss.jio.com',
 };
 
 const register = 'register';
@@ -169,6 +170,10 @@ const apis = {
   },
   DELETE_DONATION_BYID: {
     url: `/${bloodBank}/donor/deleteDonationDetail`,
+    port: appPort.port,
+  },
+  GET_DOMAIN: {
+    url: `/thirdpartyuser/getMyDomains`,
     port: appPort.port,
   },
 };
