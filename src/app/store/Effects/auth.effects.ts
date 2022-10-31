@@ -14,8 +14,12 @@ export class AuthEffect {
       ofType(auth.GET_LOGIN),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        let domainId = localStorage.getItem('domainId');
-        let acckey = localStorage.getItem('acckey');
+        let domainId = localStorage.getItem('domainId')
+          ? localStorage.getItem('domainId')
+          : '';
+        let acckey = localStorage.getItem('acckey')
+          ? localStorage.getItem('acckey')
+          : '';
         return this.http
           .post(api.getAPI('GET_LOGIN'), payload, {
             headers: {

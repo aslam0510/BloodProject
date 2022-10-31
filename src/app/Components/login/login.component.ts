@@ -1,4 +1,5 @@
 import * as AuthAction from './../../store/Actions/auth.action';
+import * as DashboardActions from './../../store/Actions/dashboardActions';
 import { Store, ActionsSubject } from '@ngrx/store';
 import { ForgotDialogComponent } from './../../Dialogs/forgot-dialog/forgot-dialog.component';
 import { AuthService } from './../../services/auth.service';
@@ -8,7 +9,6 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AppState } from 'src/app/app.state';
 import { Observable, Subscription } from 'rxjs';
-import * as bcrypt from 'bcryptjs';
 import * as Forge from 'node-forge';
 import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
 import { OrgFormModel } from './../../models/orgFormModel';
@@ -41,6 +41,15 @@ export class LoginComponent implements OnInit {
   actionSubcription: Subscription;
   showPhnNumber: boolean = false;
   showOtp: boolean = false;
+  userDetails$: Observable<any>;
+  userDetail: any;
+  userDetailSub: Subscription;
+  orgDetails$: Observable<any>;
+  orgDetails: any;
+  orgDetailsSub: Subscription;
+  entities$: Observable<any>;
+  entities: any;
+  entitiesSub: Subscription;
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
@@ -57,12 +66,19 @@ export class LoginComponent implements OnInit {
       (state) => state.AuthSlice.verifyOTPSuccess
     );
     this.domain$ = this.store.select((state) => state.AuthSlice.domain);
-
+    this.userDetails$ = this.store.select(
+      (state) => state.DashboardSlice.userDetails
+    );
+    this.orgDetails$ = this.store.select(
+      (state) => state.DashboardSlice.organizationDetails
+    );
+    this.entities$ = this.store.select(
+      (state) => state.DashboardSlice.entititiesDetails
+    );
     this.loginErrors = [];
     this.showVerify = true;
   }
   handleActionSubscription(data: any) {
-    console.log(data);
     switch (data.type) {
       case AuthAction.LOGOUT_SUCCESS:
         if (data.payload.data.message) {
@@ -98,10 +114,14 @@ export class LoginComponent implements OnInit {
     });
     this.domianSub = this.domain$.subscribe((data) => {
       if (data) {
-        this.domain = data.data[0];
-        localStorage.setItem('domainId', this.domain.domainId);
-        localStorage.setItem('acckey', this.domain.acckey);
-        this.loginProcess(this.domain);
+        if (data?.message) {
+          this.loginProcess(this.domain);
+        } else {
+          this.domain = data.data[0];
+          localStorage.setItem('domainId', this.domain.domainId);
+          localStorage.setItem('acckey', this.domain.acckey);
+          this.loginProcess(this.domain);
+        }
       }
     });
     this.loginSub = this.loginSuccess$.subscribe((data) => {
@@ -156,7 +176,41 @@ export class LoginComponent implements OnInit {
             'refreshToken',
             this.verfiyOTPSuccess.data.refreshToken
           );
+          // this.router.navigate(['/dashboard']);
+          this.store.dispatch(new DashboardActions.GetUserDetails());
+        }
+      }
+    });
+
+    this.userDetailSub = this.userDetails$.subscribe((data) => {
+      if (data) {
+        this.userDetail = data.data;
+        if (this.userDetail.role === 'Organization Admin') {
+          this.store.dispatch(new DashboardActions.GetOrganizationDetails());
+        } else if (this.userDetail.role === 'Entity Admin') {
           this.router.navigate(['/dashboard']);
+        }
+      }
+    });
+
+    this.orgDetailsSub = this.orgDetails$.subscribe((data) => {
+      if (data) {
+        this.orgDetails = data.data;
+        if (this.orgDetails.categoryName === 'Blood Bank') {
+          this.store.dispatch(new DashboardActions.GetEntityDetails());
+        } else {
+          //add data
+          this.router.navigate(['/dashboard']);
+        }
+      }
+    });
+
+    this.entitiesSub = this.entities$.subscribe((data) => {
+      if (data) {
+        this.entities = data.data;
+        console.log(data);
+        if (this.entities.length === 1) {
+        } else if (this.entities.length > 1) {
         }
       }
     });
