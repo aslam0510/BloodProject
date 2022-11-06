@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   FormGroup,
   FormControl,
@@ -82,10 +82,12 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   ];
   categories: any;
   orgType = '';
+  routerUrl = 0;
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private route: ActivatedRoute
   ) {
     this.entityCategories$ = this.store.select(
       (state) => state.DashboardSlice.entityCategories
@@ -136,6 +138,9 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe((param) => {
+      this.routerUrl = +param.get('id');
+    });
     this.store.dispatch(new AuthAction.GetCategory('Blood Bank'));
     this.store.dispatch(new dashboardActions.GetEntityCategories());
     this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
@@ -247,6 +252,8 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     localStorage.removeItem('orgForm');
   }
   navigate() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard'], {
+      queryParams: { id: this.routerUrl },
+    });
   }
 }

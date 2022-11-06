@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { UpdateBldStsDialogComponent } from './../../../Dialogs/updateBldStsDialog/updateBldStsDialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -39,11 +40,13 @@ export class BloodAvailabilityComponent implements OnInit {
   calenderDate: any;
   prbcComp: any;
   plasmaComp = [];
+  routerUrl = 0;
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
     private actionsSubj: ActionsSubject,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     this.actionSubcription = this.actionsSubj.subscribe((data) => {
       this.handleActionSubscription(data);
@@ -75,17 +78,28 @@ export class BloodAvailabilityComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.route.queryParamMap.subscribe((param) => {
+      this.routerUrl = +param.get('id');
+    });
     this.bldAvailableSelectedVal = 'Today';
     this.bldCompSelectedVal = 'Today';
     const today = moment();
-    this.store.dispatch(
-      new SideNavAction.GetBloodCompStatus(today.format('MM-DD-YYYY'))
-    );
-    this.store.dispatch(
-      new SideNavAction.GetBloodAvailabilityStatus(today.format('MM-DD-YYYY'))
-    );
-    this.store.dispatch(new SideNavAction.GetBloodGroupList());
-    this.store.dispatch(new SideNavAction.GetBloodCompList());
+    if (this.routerUrl) {
+      this.store.dispatch(
+        new SideNavAction.GetBloodCompStatus({
+          date: today.format('MM-DD-YYYY'),
+          id: this.routerUrl,
+        })
+      );
+      this.store.dispatch(
+        new SideNavAction.GetBloodAvailabilityStatus({
+          date: today.format('MM-DD-YYYY'),
+          id: this.routerUrl,
+        })
+      );
+      this.store.dispatch(new SideNavAction.GetBloodGroupList(this.routerUrl));
+      this.store.dispatch(new SideNavAction.GetBloodCompList(this.routerUrl));
+    }
 
     this.bloodCompStatusSub = this.bloodCompStatus$.subscribe((response) => {
       if (response) {
@@ -138,18 +152,25 @@ export class BloodAvailabilityComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result) => {
         if (result === 'Today') {
           this.store.dispatch(
-            new SideNavAction.GetBloodCompStatus(moment().format('MM-DD-YYYY'))
+            new SideNavAction.GetBloodCompStatus({
+              date: moment().format('MM-DD-YYYY'),
+              id: this.routerUrl,
+            })
           );
         } else if (result === 'Yesterday') {
           const yesterday = moment().add(-1, 'days');
           this.store.dispatch(
-            new SideNavAction.GetBloodCompStatus(yesterday.format('MM-DD-YYYY'))
+            new SideNavAction.GetBloodCompStatus({
+              date: yesterday.format('MM-DD-YYYY'),
+              id: this.routerUrl,
+            })
           );
         } else {
           this.store.dispatch(
-            new SideNavAction.GetBloodCompStatus(
-              moment(this.calenderDate.value).format('MM-DD-YYYY')
-            )
+            new SideNavAction.GetBloodCompStatus({
+              date: moment(this.calenderDate.value).format('MM-DD-YYYY'),
+              id: this.routerUrl,
+            })
           );
         }
       });
@@ -170,22 +191,25 @@ export class BloodAvailabilityComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result) => {
         if (result === 'Today') {
           this.store.dispatch(
-            new SideNavAction.GetBloodAvailabilityStatus(
-              moment().format('MM-DD-YYYY')
-            )
+            new SideNavAction.GetBloodAvailabilityStatus({
+              date: moment().format('MM-DD-YYYY'),
+              id: this.routerUrl,
+            })
           );
         } else if (result === 'Yesterday') {
           const yesterday = moment().add(-1, 'days');
           this.store.dispatch(
-            new SideNavAction.GetBloodAvailabilityStatus(
-              yesterday.format('MM-DD-YYYY')
-            )
+            new SideNavAction.GetBloodAvailabilityStatus({
+              date: yesterday.format('MM-DD-YYYY'),
+              id: this.routerUrl,
+            })
           );
         } else {
           this.store.dispatch(
-            new SideNavAction.GetBloodAvailabilityStatus(
-              moment(this.calenderDate.value).format('MM-DD-YYYY')
-            )
+            new SideNavAction.GetBloodAvailabilityStatus({
+              date: moment(this.calenderDate.value).format('MM-DD-YYYY'),
+              id: this.routerUrl,
+            })
           );
         }
       });
@@ -210,12 +234,18 @@ export class BloodAvailabilityComponent implements OnInit {
     if (day === 'today') {
       this.showOnlyYesterDayCmp = false;
       this.store.dispatch(
-        new SideNavAction.GetBloodCompStatus(today.format('MM-DD-YYYY'))
+        new SideNavAction.GetBloodCompStatus({
+          date: today.format('MM-DD-YYYY'),
+          id: this.routerUrl,
+        })
       );
     } else if (day === 'yesterday') {
       this.showOnlyYesterDayCmp = true;
       this.store.dispatch(
-        new SideNavAction.GetBloodCompStatus(yesterday.format('MM-DD-YYYY'))
+        new SideNavAction.GetBloodCompStatus({
+          date: yesterday.format('MM-DD-YYYY'),
+          id: this.routerUrl,
+        })
       );
     }
   }
@@ -228,14 +258,18 @@ export class BloodAvailabilityComponent implements OnInit {
     if (day === 'today') {
       this.showOnlyYesterDay = false;
       this.store.dispatch(
-        new SideNavAction.GetBloodAvailabilityStatus(today.format('MM-DD-YYYY'))
+        new SideNavAction.GetBloodAvailabilityStatus({
+          date: today.format('MM-DD-YYYY'),
+          id: this.routerUrl,
+        })
       );
     } else if (day === 'yesterday') {
       this.showOnlyYesterDay = true;
       this.store.dispatch(
-        new SideNavAction.GetBloodAvailabilityStatus(
-          yesterday.format('MM-DD-YYYY')
-        )
+        new SideNavAction.GetBloodAvailabilityStatus({
+          date: yesterday.format('MM-DD-YYYY'),
+          id: this.routerUrl,
+        })
       );
     }
   }
@@ -246,9 +280,10 @@ export class BloodAvailabilityComponent implements OnInit {
     this.calenderDate = date;
     this.bloodCompDate = moment(date.value).format('MM-DD-YYYY');
     this.store.dispatch(
-      new SideNavAction.GetBloodCompStatus(
-        moment(date.value).format('MM-DD-YYYY')
-      )
+      new SideNavAction.GetBloodCompStatus({
+        date: moment(date.value).format('MM-DD-YYYY'),
+        id: this.routerUrl,
+      })
     );
     if (moment(date.value).format('MM-DD-YYYY') < today.format('MM-DD-YYYY')) {
       this.showOnlyYesterDayCmp = true;
@@ -262,9 +297,10 @@ export class BloodAvailabilityComponent implements OnInit {
     this.showOnlyYesterDay = false;
     this.bloodAvailableDate = moment(date.value).format('MM-DD-YYYY');
     this.store.dispatch(
-      new SideNavAction.GetBloodAvailabilityStatus(
-        moment(date.value).format('MM-DD-YYYY')
-      )
+      new SideNavAction.GetBloodAvailabilityStatus({
+        date: moment(date.value).format('MM-DD-YYYY'),
+        id: this.routerUrl,
+      })
     );
 
     if (moment(date.value).format('MM-DD-YYYY') < today.format('MM-DD-YYYY')) {

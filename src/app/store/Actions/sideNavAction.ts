@@ -59,6 +59,7 @@ export const DELETE_DONATION_BYID = 'DELETE_DONATION_BYID';
 export const DELETE_DONATION_BYID_SUCCESS = 'DELETE_DONATION_BYID_SUCCESS';
 export class GetUsersList {
   readonly type = GET_USERS_LIST;
+  constructor(public payload: any) {}
 }
 
 export class GetUsersListSuccess {
@@ -126,6 +127,7 @@ export class GetBloodCompStatusSuccess {
 
 export class GetBloodCompList {
   readonly type = GET_BLOOD_COMP_LIST;
+  constructor(public payload: any) {}
 }
 export class GetBloodCompListSuccess {
   readonly type = GET_BLOOD_COMP_LIST_SUCCESS;
@@ -134,6 +136,7 @@ export class GetBloodCompListSuccess {
 
 export class GetBloodGroupList {
   readonly type = GET_BLOOD_GROUP_LIST;
+  constructor(public payload: any) {}
 }
 
 export class GetBloodGroupListSuccess {

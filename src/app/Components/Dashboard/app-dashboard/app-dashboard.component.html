@@ -6,20 +6,38 @@
     </div>
 
     <div>
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup" [value]="bldAvailableSelectedVal" (change)="onBlodAvailableValChange(group.value)">
-        <mat-button-toggle value="availableUnit" (click)="onBldAvailableDaySelect('availableUnit')">Available Unit</mat-button-toggle>
-        <mat-button-toggle value="openRequest" (click)="onBldAvailableDaySelect('openRequest')">Open Request</mat-button-toggle>
-        <mat-button-toggle value="requiredUnit" (click)="onBldAvailableDaySelect('requiredUnit')">Required Unit</mat-button-toggle>
+      <mat-button-toggle-group
+        name="fontStyle"
+        aria-label="Font Style"
+        #group="matButtonToggleGroup"
+        [value]="bldAvailableSelectedVal"
+        (change)="onBlodAvailableValChange(group.value)"
+      >
+        <mat-button-toggle
+          value="availableUnit"
+          (click)="onBldAvailableDaySelect('availableUnit')"
+          >Available Unit</mat-button-toggle
+        >
+        <mat-button-toggle
+          value="openRequest"
+          (click)="onBldAvailableDaySelect('openRequest')"
+          >Open Request</mat-button-toggle
+        >
+        <mat-button-toggle
+          value="requiredUnit"
+          (click)="onBldAvailableDaySelect('requiredUnit')"
+          >Required Unit</mat-button-toggle
+        >
       </mat-button-toggle-group>
     </div>
-    <h5 class="viewAll m-0" routerLink="/dashboard/bloodAvailability">View All</h5>
+    <h5 class="viewAll m-0" (click)="onViewAll()">View All</h5>
   </div>
-  <div class="row mt-2 ">
+  <div class="row mt-2">
     <mat-card class="mt-2 mx-0 my-2 mb-3 tablecard">
       <table class="table">
         <thead>
           <tr>
-            <th *ngFor='let head of displayedColumns'>{{head}}</th>
+            <th *ngFor="let head of displayedColumns">{{ head }}</th>
           </tr>
         </thead>
         <tbody>
@@ -27,17 +45,17 @@
             <th>Whole Blood</th>
             <ng-container *ngIf="showAvailableUnit">
               <td *ngFor="let b of wholeBld">
-                {{b.totalAvailable}}
+                {{ b.totalAvailable }}
               </td>
             </ng-container>
             <ng-container *ngIf="showOpenRequest">
               <td *ngFor="let b of wholeBld">
-                {{b.openRequestCount}}
+                {{ b.openRequestCount }}
               </td>
             </ng-container>
             <ng-container *ngIf="showRequiredUnit">
               <td *ngFor="let b of wholeBld">
-                {{b.requiredUnit}}
+                {{ b.requiredUnit }}
               </td>
             </ng-container>
           </tr>
@@ -45,17 +63,17 @@
             <th>PRBC/Packed Cell</th>
             <ng-container *ngIf="showAvailableUnit">
               <td *ngFor="let b of prbc">
-                {{b.totalAvailable}}
+                {{ b.totalAvailable }}
               </td>
             </ng-container>
             <ng-container *ngIf="showOpenRequest">
               <td *ngFor="let b of prbc">
-                {{b.openRequestCount}}
+                {{ b.openRequestCount }}
               </td>
             </ng-container>
             <ng-container *ngIf="showRequiredUnit">
               <td *ngFor="let b of prbc">
-                {{b.requiredUnit}}
+                {{ b.requiredUnit }}
               </td>
             </ng-container>
           </tr>
@@ -63,17 +81,17 @@
             <th>Plasma</th>
             <ng-container *ngIf="showAvailableUnit">
               <td *ngFor="let b of plasma">
-                {{b.totalAvailable}}
+                {{ b.totalAvailable }}
               </td>
             </ng-container>
             <ng-container *ngIf="showOpenRequest">
               <td *ngFor="let b of plasma">
-                {{b.openRequestCount}}
+                {{ b.openRequestCount }}
               </td>
             </ng-container>
             <ng-container *ngIf="showRequiredUnit">
               <td *ngFor="let b of plasma">
-                {{b.requiredUnit}}
+                {{ b.requiredUnit }}
               </td>
             </ng-container>
           </tr>
@@ -81,16 +99,16 @@
             <th>Plattets</th>
             <ng-container *ngIf="showAvailableUnit">
               <td *ngFor="let b of plattets">
-                {{b.totalAvailable}}
+                {{ b.totalAvailable }}
               </td>
               <ng-container *ngIf="showOpenRequest">
                 <td *ngFor="let b of plattets">
-                  {{b.openRequestCount}}
+                  {{ b.openRequestCount }}
                 </td>
               </ng-container>
               <ng-container *ngIf="showRequiredUnit">
                 <td *ngFor="let b of plattets">
-                  {{b.requiredUnit}}
+                  {{ b.requiredUnit }}
                 </td>
               </ng-container>
             </ng-container>
@@ -98,59 +116,89 @@
         </tbody>
       </table>
     </mat-card>
-
   </div>
 </div>
-<div class=" row mt-3">
+<div class="row mt-3">
   <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12">
     <h3 class="title">No. of Donations</h3>
-    <mat-card class="d-flex mat-elevation-z8 card ">
+    <mat-card class="d-flex mat-elevation-z8 card">
       <h3 class="flex-end">Total donations : 180</h3>
-      <div style="display: block;">
-        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+      <div style="display: block">
+        <canvas
+          baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+        >
         </canvas>
       </div>
     </mat-card>
   </div>
   <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <h3 class="title">Activity</h3>
-    <mat-card class="mat-elevation-z8 ">
+    <mat-card class="mat-elevation-z8">
       <div class="cards">
-        <div class="py-2  d-flex justify-content-between align-items-center borders" *ngFor="let activity of activityDetails">
-          <button mat-flat-button class="activitybtn" [ngClass]="activity?.actType
-            === 'request' ? 'blueColor' : 'redColor'">{{activity?.actType
-            === 'request' ? 'R' : activity?.actType}}</button>
+        <div
+          class="py-2 d-flex justify-content-between align-items-center borders"
+          *ngFor="let activity of activityDetails"
+        >
+          <button
+            mat-flat-button
+            class="activitybtn"
+            [ngClass]="
+              activity?.actType === 'request' ? 'blueColor' : 'redColor'
+            "
+          >
+            {{ activity?.actType === "request" ? "R" : activity?.actType }}
+          </button>
           <div class="flex">
-            <p class="m-0">{{activity?.activity}}</p>
-            <span class="m-0">{{activity?.crtdt | date}}</span>
+            <p class="m-0">{{ activity?.activity }}</p>
+            <span class="m-0">{{ activity?.crtdt | date }}</span>
           </div>
         </div>
       </div>
 
-      <h5 class="viewAll m-0 text-center pt-4 pb-2 d-block" (click)="OnViewAllClick('more')" *ngIf="showMoreActivity">View All</h5>
-      <h5 class="viewAll m-0 text-center pt-4 pb-2 d-block" (click)="OnViewAllClick('less')" *ngIf="!showMoreActivity">View Less</h5>
+      <h5
+        class="viewAll m-0 text-center pt-4 pb-2 d-block"
+        (click)="OnViewAllClick('more')"
+        *ngIf="showMoreActivity"
+      >
+        View All
+      </h5>
+      <h5
+        class="viewAll m-0 text-center pt-4 pb-2 d-block"
+        (click)="OnViewAllClick('less')"
+        *ngIf="!showMoreActivity"
+      >
+        View Less
+      </h5>
     </mat-card>
   </div>
   <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
     <h3 class="title">Blood Request Status</h3>
     <mat-card class="d-flex mat-elevation-z8 mb-3">
-      <img src="/assets/Images/requestbloodicon.svg" alt="">
+      <img src="/assets/Images/requestbloodicon.svg" alt="" />
       <div>
-        <p style="font-size: 40px;">{{bldRequestStatus?.totalBloodRequest}}</p>
+        <p style="font-size: 40px">{{ bldRequestStatus?.totalBloodRequest }}</p>
         <p>Total blood request</p>
       </div>
     </mat-card>
     <mat-card class="d-flex mat-elevation-z8 my-4">
-      <img src="/assets/Images/requestbloodicon.svg" alt="">
+      <img src="/assets/Images/requestbloodicon.svg" alt="" />
       <div>
-        <p style="font-size: 40px;">{{bldRequestStatus?.totalClosedRequest}}</p>
+        <p style="font-size: 40px">
+          {{ bldRequestStatus?.totalClosedRequest }}
+        </p>
         <p>Total Closed Request</p>
       </div>
     </mat-card>
     <mat-card class="d-flex mat-elevation-z8">
-      <img src="/assets/Images/requestbloodicon.svg" alt="">
+      <img src="/assets/Images/requestbloodicon.svg" alt="" />
       <div>
-        <p style="font-size: 40px;">{{bldRequestStatus?.openRequest}}</p>
+        <p style="font-size: 40px">{{ bldRequestStatus?.openRequest }}</p>
         <p>Total Open Request</p>
       </div>
     </mat-card>

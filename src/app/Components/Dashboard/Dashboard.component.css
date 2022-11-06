@@ -134,3 +134,7 @@ mat-card {
 .headerIcons {
   margin-right: 10px;
 }
+.hide{
+   cursor: default;
+   color: #dee2e6;;
+}

@@ -82,7 +82,10 @@ export class DashboardEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_ENTITY_BYID') + `?entId=${payload}`)
+          .get(
+            api.getAPI('GET_ENTITY_BYID') +
+              `/${payload.id}?entId=${payload.entId}`
+          )
           .pipe(map((data) => new dashboardActions.GetEntityByIdSuccess(data)));
       })
     );
@@ -180,7 +183,7 @@ export class DashboardEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_DASHBOARD_SUMMARY'))
+          .get(api.getAPI('GET_DASHBOARD_SUMMARY') + `/${payload}`)
           .pipe(
             map((data) => new dashboardActions.GetDashboardSummarySuccess(data))
           );
@@ -196,7 +199,8 @@ export class DashboardEffect {
         return this.http
           .get(
             payload
-              ? api.getAPI('GET_ACTIVITIES_BY_DATE') + `?start=${payload}`
+              ? api.getAPI('GET_ACTIVITIES_BY_DATE') +
+                  `/${payload.id}?start=${payload.date}`
               : api.getAPI('GET_ACTIVITIES_BY_DATE')
           )
           .pipe(

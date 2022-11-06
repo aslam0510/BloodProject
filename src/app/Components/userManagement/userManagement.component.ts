@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { AddUserDailogComponent } from './addUserDailog/addUserDailog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -47,11 +48,13 @@ export class UserManagementComponent implements OnInit {
   length = 10;
   pageSize = 100;
   pageSizeOptions: number[] = [10, 50, 100];
+  routerUrl = 0;
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
     private actionsSubj: ActionsSubject,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     this.usersList$ = this.store.select((state) => state.SidNavSlice.usersList);
     this.actionSubcription = this.actionsSubj.subscribe((data) => {
@@ -86,7 +89,10 @@ export class UserManagementComponent implements OnInit {
     }
   }
   ngOnInit() {
-    this.store.dispatch(new SideNavAction.GetUsersList());
+    this.route.queryParamMap.subscribe((param) => {
+      this.routerUrl = +param.get('id');
+    });
+    this.store.dispatch(new SideNavAction.GetUsersList(this.routerUrl));
 
     this.userListSub = this.usersList$.subscribe((data) => {
       if (data) {
@@ -118,7 +124,7 @@ export class UserManagementComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.store.dispatch(new SideNavAction.GetUsersList());
+      this.store.dispatch(new SideNavAction.GetUsersList(this.routerUrl));
     });
   }
 
@@ -138,7 +144,7 @@ export class UserManagementComponent implements OnInit {
     dailogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.store.dispatch(new SideNavAction.DeleteUser(user.userId));
-        this.store.dispatch(new SideNavAction.GetUsersList());
+        this.store.dispatch(new SideNavAction.GetUsersList(this.routerUrl));
       }
     });
   }
@@ -154,7 +160,7 @@ export class UserManagementComponent implements OnInit {
       panelClass: 'custom-dialog-container',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.store.dispatch(new SideNavAction.GetUsersList());
+      this.store.dispatch(new SideNavAction.GetUsersList(this.routerUrl));
     });
   }
 

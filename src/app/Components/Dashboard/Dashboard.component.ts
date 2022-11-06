@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { AddBloodRequestComponent } from './../../Dialogs/forgot-dialog/AddBloodRequest/AddBloodRequest.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
@@ -94,10 +94,13 @@ export class DashboardComponent implements OnInit {
   activityDetails$: Observable<any>;
   activityDetails: any;
   activityDetailsSub: any;
+  showSideBar = 'show';
+  routerUrl = 0;
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private route: ActivatedRoute
   ) {
     this.activityDetails$ = this.store.select(
       (state) => state.DashboardSlice.activityDetailsByDate
@@ -105,13 +108,23 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe((param) => {
+      this.showSideBar = param.get('display');
+      this.routerUrl = +param.get('id');
+    });
+
     this.today = moment();
     this.store.dispatch(
-      new DashboardActions.GetActivitiesByDate(this.today.format('MM-DD-YYYY'))
+      new DashboardActions.GetActivitiesByDate({
+        date: this.today.format('MM-DD-YYYY'),
+        id: this.routerUrl,
+      })
     );
-    this.store.dispatch(new SideNavActions.GetBloodGroupList());
-    this.store.dispatch(new SideNavActions.GetBloodCompList());
-    this.store.dispatch(new DashboardActions.GetDashboardSummary());
+    this.store.dispatch(new SideNavActions.GetBloodGroupList(this.routerUrl));
+    this.store.dispatch(new SideNavActions.GetBloodCompList(this.routerUrl));
+    this.store.dispatch(
+      new DashboardActions.GetDashboardSummary(this.routerUrl)
+    );
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRouter = event.url;
@@ -125,7 +138,9 @@ export class DashboardComponent implements OnInit {
   }
 
   onAddBloodReq() {
-    this.router.navigate(['/addBldRequest']);
+    this.router.navigate(['/addBldRequest'], {
+      queryParams: { id: this.routerUrl },
+    });
     // const dailogRef = this.dialog.open(AddBloodRequestComponent, {
     //   width: '850px',
     //   height: 'auto',
@@ -159,8 +174,16 @@ export class DashboardComponent implements OnInit {
     this.showDate = '';
   }
 
-  onOrgsetting() {}
-
+  onOrgsetting() {
+    this.router.navigate(['/dashboard/orgSettings'], {
+      queryParams: { id: this.routerUrl },
+    });
+  }
+  onProfile() {
+    this.router.navigate(['/dashboard/profile'], {
+      queryParams: { id: this.routerUrl },
+    });
+  }
   onLogOut() {
     const payload = {
       refreshToken: localStorage.getItem('refreshToken'),
@@ -174,6 +197,16 @@ export class DashboardComponent implements OnInit {
 
   orgValueChange(date) {
     this.showDate = date;
-    this.store.dispatch(new DashboardActions.GetActivitiesByDate(date));
+    // this.store.dispatch(new DashboardActions.GetActivitiesByDate(date));
+  }
+
+  onMenu(route) {
+    if (this.showSideBar === 'hide') {
+      return false;
+    } else {
+      this.router.navigate([`${route}`], {
+        queryParams: { id: this.routerUrl },
+      });
+    }
   }
 }

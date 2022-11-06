@@ -207,10 +207,13 @@ export class LoginComponent implements OnInit {
 
     this.entitiesSub = this.entities$.subscribe((data) => {
       if (data) {
-        this.entities = data.data;
-        console.log(data);
+        this.entities = data.data.details;
         if (this.entities.length === 1) {
+          this.router.navigate(['/dashboard/dashboardCards']);
         } else if (this.entities.length > 1) {
+          this.router.navigate(['/dashboard/dashboardCards'], {
+            queryParams: { display: 'hide' },
+          });
         }
       }
     });

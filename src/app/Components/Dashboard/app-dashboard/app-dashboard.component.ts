@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
@@ -81,8 +82,12 @@ export class AppDashboardComponent implements OnInit {
   activityDetails$: Observable<any>;
   activityDetails: any;
   activityDetailsSub: any;
-
-  constructor(private store: Store<AppState>) {
+  routerUrl = 0;
+  constructor(
+    private store: Store<AppState>,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.dashboardBloodAvailable$ = this.store.select(
       (state) => state.DashboardSlice.bloodAvailable
     );
@@ -95,8 +100,15 @@ export class AppDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe((param) => {
+      this.routerUrl = +param.get('id');
+    });
     this.bldAvailableSelectedVal = 'availableUnit';
-    this.store.dispatch(new DashboardActions.GetDashboardSummary());
+    if (this.routerUrl) {
+      this.store.dispatch(
+        new DashboardActions.GetDashboardSummary(this.routerUrl)
+      );
+    }
     this.dashboardBloodAvaialbeSub = this.dashboardBloodAvailable$.subscribe(
       (data) => {
         if (data) {
@@ -179,5 +191,11 @@ export class AppDashboardComponent implements OnInit {
 
   ngDestroy() {
     this.dashboardBloodAvaialbeSub.unsubscribe();
+  }
+
+  onViewAll() {
+    this.router.navigate(['/dashboard/bloodAvailability'], {
+      queryParams: { id: this.routerUrl },
+    });
   }
 }

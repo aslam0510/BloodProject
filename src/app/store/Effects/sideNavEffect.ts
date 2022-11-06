@@ -13,9 +13,10 @@ export class SideNavEffect {
   getUsersList$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_USERS_LIST),
+      map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_USERS_LIST'))
+          .get(api.getAPI('GET_USERS_LIST') + `/${payload}`)
           .pipe(
             map((data: any) => new SideNavAction.GetUsersListSuccess(data))
           );
@@ -96,7 +97,10 @@ export class SideNavEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_BLOOD_COMP_STATUS') + `?start=${payload}`)
+          .get(
+            api.getAPI('GET_BLOOD_COMP_STATUS') +
+              `/${payload.id}?start=${payload.date}`
+          )
           .pipe(
             map(
               (data: any) => new SideNavAction.GetBloodCompStatusSuccess(data)
@@ -109,9 +113,10 @@ export class SideNavEffect {
   getBloodCompList$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_BLOOD_COMP_LIST),
+      map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_BLOOD_COMP_LIST'))
+          .get(api.getAPI('GET_BLOOD_COMP_LIST') + `/${payload}`)
           .pipe(
             map((data: any) => new SideNavAction.GetBloodCompListSuccess(data))
           );
@@ -122,9 +127,10 @@ export class SideNavEffect {
   getBloodGroupList$ = createEffect(() => {
     return this.action$.pipe(
       ofType(SideNavAction.GET_BLOOD_GROUP_LIST),
+      map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .get(api.getAPI('GET_BLOOD_GROUP_LIST'))
+          .get(api.getAPI('GET_BLOOD_GROUP_LIST') + `/${payload}`)
           .pipe(
             map((data: any) => new SideNavAction.GetBloodGroupListSuccess(data))
           );
@@ -156,7 +162,8 @@ export class SideNavEffect {
       exhaustMap((payload) => {
         return this.http
           .get(
-            api.getAPI('GET_BLOOD_AVAILABILITY_STATUS') + `?start=${payload}`
+            api.getAPI('GET_BLOOD_AVAILABILITY_STATUS') +
+              `/${payload.id}?start=${payload.date}`
           )
           .pipe(
             map(
@@ -194,7 +201,7 @@ export class SideNavEffect {
         return this.http
           .get(
             api.getAPI('GET_BLOOD_REQUEST_LIST') +
-              `?page=1&size=100&${
+              `/${payload.id}?page=1&size=100&${
                 payload.priority
                   ? 'priority=' + payload.priority
                   : 'reqSts=' + payload.reqSts
@@ -262,7 +269,7 @@ export class SideNavEffect {
         return this.http
           .get(
             api.getAPI('GET_DONOR_REPO_LIST') +
-              `?page=${payload}&size=100&isDonorRepo=true`
+              `${payload.id}?page=${payload.size}&size=100&isDonorRepo=true`
           )
           .pipe(
             map((data: any) => new SideNavAction.GetDonorRepoListSuccess(data))
@@ -280,7 +287,9 @@ export class SideNavEffect {
         return this.http
           .get(
             api.getAPI('GET_DONOR_DONATION_LIST') +
-              `?${date && 'date=' + date}&isDonorRepo=false&page=1&size=100`
+              `${payload.id}?${
+                payload.date && 'date=' + payload.date
+              }&isDonorRepo=false&page=1&size=100`
           )
           .pipe(
             map(

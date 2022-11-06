@@ -87,7 +87,7 @@ export class GetEntityDetailsSuccess {
 
 export class GetEntityById {
   readonly type = GET_ENTITY_BYID;
-  constructor(public payload: string) {}
+  constructor(public payload: any) {}
 }
 
 export class GetEntityByIdSuccess {
@@ -150,6 +150,7 @@ export class UpdateUserDetailsSuccess {
 }
 export class GetDashboardSummary {
   readonly type = GET_DASHBOARD_SUMMARY;
+  constructor(public payload: any) {}
 }
 
 export class GetDashboardSummarySuccess {

@@ -40,7 +40,7 @@ export function dashboardReducer(
       return { ...state, createBloodReq: action.payload };
     }
     case dashboardActions.GET_USER_DETAILS_SUCCESS: {
-      return { ...state, userDetails: action.payload };
+      return { ...state, userDetails: action.payload, entititiesDetails: null };
     }
     case dashboardActions.GET_ACTIVITIES_BY_DATE_SUCCESS: {
       return { ...state, activityDetailsByDate: action.payload };

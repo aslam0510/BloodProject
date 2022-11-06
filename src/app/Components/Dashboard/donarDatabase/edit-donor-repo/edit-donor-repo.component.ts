@@ -25,6 +25,7 @@ export class EditDonorRepoComponent implements OnInit {
   isRepo: string;
   isEditBtn: boolean = true;
   actionSubcription: Subscription;
+  routerUrl = 0;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -45,13 +46,17 @@ export class EditDonorRepoComponent implements OnInit {
       case SideNavActions.DELETE_DONOR_BYID_SUCCESS:
         if (data.payload.code === 200) {
           this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
-          this.router.navigate(['/dashboard/donorDatabase']);
+          this.router.navigate(['/dashboard/donorDatabase'], {
+            queryParams: { id: this.routerUrl },
+          });
         }
         break;
       case SideNavActions.DELETE_DONATION_BYID_SUCCESS:
         if (data.payload.code === 200) {
           this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
-          this.router.navigate(['/dashboard/donorDatabase']);
+          this.router.navigate(['/dashboard/donorDatabase'], {
+            queryParams: { id: this.routerUrl },
+          });
         }
         break;
     }
@@ -59,6 +64,7 @@ export class EditDonorRepoComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.isRepo = params.get('isRepo');
+      this.routerUrl = +params.get('id');
     });
 
     this.donorRepoForm = new FormGroup({
@@ -215,11 +221,15 @@ export class EditDonorRepoComponent implements OnInit {
     } else {
       this.store.dispatch(new SideNavActions.UpdateDonationById(payload));
     }
-    this.router.navigate(['/dashboard/donorDatabase']);
+    this.router.navigate(['/dashboard/donorDatabase'], {
+      queryParams: { id: this.routerUrl },
+    });
   }
 
   navigate() {
-    this.router.navigate(['/dashboard/donorDatabase']);
+    this.router.navigate(['/dashboard/donorDatabase'], {
+      queryParams: { id: this.routerUrl },
+    });
   }
 
   onRepoDelete() {

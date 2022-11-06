@@ -1,6 +1,6 @@
 import { ForgetPassword } from './../../store/Actions/auth.action';
 import { MatDialog } from '@angular/material/dialog';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AddEntityComponent } from '../addEntity/addEntity.component';
 import { Observable, Subscription } from 'rxjs';
@@ -42,11 +42,13 @@ export class OrgSettingsComponent implements OnInit {
   showOrg = true;
   showEntity = false;
   currentRouter: any;
+  routerUrl = 0;
   constructor(
     private router: Router,
     private dialog: MatDialog,
     private store: Store<AppState>,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     this.organizationDetails$ = this.store.select(
       (state) => state.DashboardSlice.organizationDetails
@@ -74,6 +76,9 @@ export class OrgSettingsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe((param) => {
+      this.routerUrl = +param.get('id');
+    });
     this.editForm = new FormGroup({});
     this.organizationForm = new FormGroup({
       orgType: new FormControl(''),
@@ -218,7 +223,9 @@ export class OrgSettingsComponent implements OnInit {
   }
   //Adding new Entity
   onAddEntitty() {
-    this.router.navigate(['/addEntity']);
+    this.router.navigate(['/addEntity'], {
+      queryParams: { id: this.routerUrl },
+    });
     // const dialogRef = this.dialog.open(AddEntityComponent, {
     //   width: '770px',
     //   height: 'auto',
@@ -235,7 +242,12 @@ export class OrgSettingsComponent implements OnInit {
     this.showEntity = true;
     this.showOrg = false;
     this.cancel();
-    this.store.dispatch(new DashboardAction.GetEntityById(entity.id));
+    this.store.dispatch(
+      new DashboardAction.GetEntityById({
+        entId: entity.id,
+        id: this.routerUrl,
+      })
+    );
   }
 
   onOrgInfo(orgInfo?: any) {
@@ -308,7 +320,9 @@ export class OrgSettingsComponent implements OnInit {
       );
     }
     this.cancel();
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard'], {
+      queryParams: { id: this.routerUrl },
+    });
   }
 
   onDeleteFile(index, type) {

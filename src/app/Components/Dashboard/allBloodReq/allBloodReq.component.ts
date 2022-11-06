@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { FilterComponent } from './../../filter/filter.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as SideNavAction from '../../../store/Actions/sideNavAction';
 import { AppState } from 'src/app/app.state';
 
@@ -55,10 +55,12 @@ export class AllBloodReqComponent implements OnInit {
     comp: '',
     location: '',
   };
+  routerUrl = 0;
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private route: ActivatedRoute
   ) {
     this.bloodReqList$ = this.store.select(
       (state) => state.SidNavSlice.bloodReqList
@@ -74,16 +76,23 @@ export class AllBloodReqComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe((param) => {
+      this.routerUrl = +param.get('id');
+    });
     this.searchForm = new FormGroup({
       bldType: new FormControl(''),
       comp: new FormControl(''),
       location: new FormControl(''),
     });
-    const payload = {
-      priority: 1,
-      reqSts: '',
-    };
-    this.store.dispatch(new SideNavAction.GetBloodReqList(payload));
+
+    if (this.routerUrl) {
+      const payload = {
+        priority: 1,
+        reqSts: '',
+        id: this.routerUrl,
+      };
+      this.store.dispatch(new SideNavAction.GetBloodReqList(payload));
+    }
 
     this.bloodReqListSub = this.bloodReqList$.subscribe((data) => {
       if (data) {
@@ -178,16 +187,19 @@ export class AllBloodReqComponent implements OnInit {
       payload = {
         priority: '',
         reqSts: 1,
+        id: this.routerUrl,
       };
     } else if (event.tab.textLabel === 'Hight-Priority Request') {
       payload = {
         priority: 1,
         reqSts: '',
+        id: this.routerUrl,
       };
     } else if (event.tab.textLabel === 'Closed Blood Request') {
       payload = {
         priority: '',
         reqSts: 3,
+        id: this.routerUrl,
       };
     }
     this.store.dispatch(new SideNavAction.GetBloodReqList(payload));

@@ -1,5 +1,5 @@
 import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SendMessageComponent } from './../../../Dialogs/send-message/send-message.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -64,6 +64,7 @@ export class DonarDatabaseComponent implements OnInit {
   isSearch: boolean = false;
   searchForm: FormGroup;
   isRepo: boolean = true;
+  routerUrl = 0;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   // paging details
@@ -73,7 +74,8 @@ export class DonarDatabaseComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.donorRepos$ = this.store.select(
       (state) => state.SidNavSlice.donorRepoList
@@ -90,7 +92,15 @@ export class DonarDatabaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
+    this.route.queryParamMap.subscribe((param) => {
+      this.routerUrl = +param.get('id');
+    });
+    this.store.dispatch(
+      new SideNavActions.GetDonorRepoList({
+        size: 1,
+        id: this.routerUrl,
+      })
+    );
     // this.store.dispatch(new SideNavActions.GetDonorDonationList(''));
 
     this.donorReposSub = this.donorRepos$.subscribe((data) => {
@@ -177,11 +187,13 @@ export class DonarDatabaseComponent implements OnInit {
     if (day === 'today') {
       const payload = {
         date: today.format('MM-DD-YYYY'),
+        id: this.routerUrl,
       };
       this.store.dispatch(new SideNavActions.GetDonorDonationList(payload));
     } else if (day === 'yesterday') {
       const payload = {
         date: yesterday.format('MM-DD-YYYY'),
+        id: this.routerUrl,
       };
       this.store.dispatch(new SideNavActions.GetDonorDonationList(payload));
       // this.store.dispatch(
@@ -195,6 +207,7 @@ export class DonarDatabaseComponent implements OnInit {
 
     const payload = {
       date: moment(date.value).format('MM-DD-YYYY'),
+      id: this.routerUrl,
     };
     this.store.dispatch(new SideNavActions.GetDonorDonationList(payload));
   }
@@ -285,7 +298,12 @@ export class DonarDatabaseComponent implements OnInit {
       this.store.dispatch(new SideNavActions.SearchDonorParam(payload));
     } else {
       this.searchForm.reset();
-      this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
+      this.store.dispatch(
+        new SideNavActions.GetDonorRepoList({
+          size: 1,
+          id: this.routerUrl,
+        })
+      );
     }
   }
   getNext(event: PageEvent) {}
@@ -300,12 +318,22 @@ export class DonarDatabaseComponent implements OnInit {
     if (event.tab.textLabel === "Donor's Repository") {
       this.isRepo = true;
       this.filterData = [];
-      this.store.dispatch(new SideNavActions.GetDonorRepoList(1));
+      this.store.dispatch(
+        new SideNavActions.GetDonorRepoList({
+          size: 1,
+          id: this.routerUrl,
+        })
+      );
     }
     if (event.tab.textLabel === 'Donation History') {
       this.isRepo = false;
       this.filterData = [];
-      this.store.dispatch(new SideNavActions.GetDonorDonationList(''));
+      this.store.dispatch(
+        new SideNavActions.GetDonorDonationList({
+          date: '',
+          id: this.routerUrl,
+        })
+      );
     }
   }
 }

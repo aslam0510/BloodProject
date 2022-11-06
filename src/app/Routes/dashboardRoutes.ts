@@ -1,3 +1,4 @@
+import { DashboardCardsComponent } from './../Components/Dashboard/dashboard-cards/dashboard-cards.component';
 import { Routes } from '@angular/router';
 import { AddEntityComponent } from '../Components/addEntity/addEntity.component';
 import { BldReqViewComponent } from '../Components/bldReqView/bldReqView.component';
@@ -19,7 +20,11 @@ export const dashboardRoutes: Routes = [
     component: DashboardComponent,
     // canActivate: [AuthGuard],
     children: [
-      { path: '', component: AppDashboardComponent },
+      {
+        path: '',
+        component: AppDashboardComponent,
+        pathMatch: 'full',
+      },
       {
         path: 'bloodAvailability',
         component: BloodAvailabilityComponent,
@@ -59,6 +64,10 @@ export const dashboardRoutes: Routes = [
       {
         path: 'addEntity',
         component: AddEntityComponent,
+      },
+      {
+        path: 'dashboardCards',
+        component: DashboardCardsComponent,
       },
     ],
   },

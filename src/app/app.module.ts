@@ -1,3 +1,4 @@
+import { DashboardCardsComponent } from './Components/Dashboard/dashboard-cards/dashboard-cards.component';
 import { AddEntityComponent } from './Components/addEntity/addEntity.component';
 import { AddUserDailogComponent } from './Components/userManagement/addUserDailog/addUserDailog.component';
 import { UserManagementComponent } from './Components/userManagement/userManagement.component';
@@ -99,6 +100,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     SharedDialogComponent,
     AppErrorDialogComponent,
     EditDonorRepoComponent,
+    DashboardCardsComponent,
   ],
   imports: [
     BrowserModule,

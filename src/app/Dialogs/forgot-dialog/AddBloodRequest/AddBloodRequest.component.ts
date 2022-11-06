@@ -1,4 +1,5 @@
-import { Router } from '@angular/router';
+import { getOrgTypes } from './../../../store/Selectors/dashboardSelector';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -29,7 +30,12 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
   acceptOnlyPDF = '';
   organizationFiles = [];
   selectedBldCom = [];
-  constructor(private store: Store<AppState>, private router: Router) {
+  routerUrl = 0;
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.bloodCompList$ = this.store.select(
       (state) => state.SidNavSlice.bloodCompList
     );
@@ -39,7 +45,10 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.dispatch(new SideNavAction.GetBloodGroupList());
+    this.route.queryParamMap.subscribe((param) => {
+      this.routerUrl = +param.get('id');
+    });
+    this.store.dispatch(new SideNavAction.GetBloodGroupList(this.routerUrl));
 
     this.bloodReqForm = new FormGroup({
       priority: new FormControl(''),
@@ -100,11 +109,11 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
       this.bloodGroupcount = 0;
       this.showBloodGrupAddBtn = true;
       this.showBldGrpCountBtn = false;
-      this.store.dispatch(new SideNavAction.GetBloodCompList());
+      this.store.dispatch(new SideNavAction.GetBloodCompList(this.routerUrl));
     } else if (value.value == 3) {
       this.showBlodComp = true;
       this.showWholeBlood = true;
-      this.store.dispatch(new SideNavAction.GetBloodCompList());
+      this.store.dispatch(new SideNavAction.GetBloodCompList(this.routerUrl));
     }
   }
 
@@ -195,7 +204,9 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
       }
 
       this.store.dispatch(new DashboardActions.CreateBloodReq(formData));
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard'], {
+        queryParams: { id: this.routerUrl },
+      });
     }
   }
 
@@ -217,7 +228,9 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
     );
   }
   navigate() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard'], {
+      queryParams: { id: this.routerUrl },
+    });
   }
   ngOnDestroy() {}
 }
