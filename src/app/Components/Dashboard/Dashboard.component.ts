@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { AddBloodRequestComponent } from './../../Dialogs/forgot-dialog/AddBloodRequest/AddBloodRequest.component';
@@ -88,6 +88,9 @@ export class DashboardComponent implements OnInit {
   public barChartPlugins = [];
   today: any;
   showDate = '';
+  entities$: Observable<any>;
+  entities: any;
+  entitiesSub: Subscription;
   public barChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40, 30] },
   ];
@@ -105,9 +108,13 @@ export class DashboardComponent implements OnInit {
     this.activityDetails$ = this.store.select(
       (state) => state.DashboardSlice.activityDetailsByDate
     );
+    this.entities$ = this.store.select(
+      (state) => state.DashboardSlice.entititiesDetails
+    );
   }
 
   ngOnInit() {
+    this.store.dispatch(new DashboardActions.GetEntityDetails());
     this.route.queryParamMap.subscribe((param) => {
       this.showSideBar = param.get('display');
       this.routerUrl = +param.get('id');
@@ -122,9 +129,7 @@ export class DashboardComponent implements OnInit {
     );
     this.store.dispatch(new SideNavActions.GetBloodGroupList(this.routerUrl));
     this.store.dispatch(new SideNavActions.GetBloodCompList(this.routerUrl));
-    this.store.dispatch(
-      new DashboardActions.GetDashboardSummary(this.routerUrl)
-    );
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRouter = event.url;
@@ -135,12 +140,22 @@ export class DashboardComponent implements OnInit {
         this.activityDetails = data.data.details;
       }
     });
+    this.entitiesSub = this.entities$.subscribe((data) => {
+      if (data) {
+        this.entities = data.data.details;
+      }
+    });
   }
 
   onAddBloodReq() {
-    this.router.navigate(['/addBldRequest'], {
-      queryParams: { id: this.routerUrl },
-    });
+    if (this.showSideBar === 'hide') {
+      return false;
+    } else {
+      this.router.navigate(['/addBldRequest'], {
+        queryParams: { id: this.routerUrl },
+      });
+    }
+
     // const dailogRef = this.dialog.open(AddBloodRequestComponent, {
     //   width: '850px',
     //   height: 'auto',
@@ -153,18 +168,22 @@ export class DashboardComponent implements OnInit {
   }
 
   onBroadCaseMsg(event) {
-    const dialogConfig = new MatDialogConfig();
-    let targetAttr = event.target.getBoundingClientRect();
+    if (this.showSideBar === 'hide') {
+      return false;
+    } else {
+      const dialogConfig = new MatDialogConfig();
+      let targetAttr = event.target.getBoundingClientRect();
 
-    dialogConfig.height = 'auto';
-    dialogConfig.width = '850px';
-    dialogConfig.panelClass = 'custom-dialog-container';
-    dialogConfig.position = {
-      bottom: '10px',
-      right: '20px',
-    };
+      dialogConfig.height = 'auto';
+      dialogConfig.width = '850px';
+      dialogConfig.panelClass = 'custom-dialog-container';
+      dialogConfig.position = {
+        bottom: '10px',
+        right: '20px',
+      };
 
-    this.dialog.open(BroadcastMsgDialogComponent, dialogConfig);
+      this.dialog.open(BroadcastMsgDialogComponent, dialogConfig);
+    }
   }
 
   //remove date from blood component status
@@ -208,5 +227,12 @@ export class DashboardComponent implements OnInit {
         queryParams: { id: this.routerUrl },
       });
     }
+  }
+
+  onEntity(event) {
+    this.router.navigate([`dashboard`], {
+      queryParams: { id: event.value },
+    });
+    this.store.dispatch(new DashboardActions.GetDashboardSummary(event.value));
   }
 }

@@ -138,3 +138,8 @@ mat-card {
    cursor: default;
    color: #dee2e6;;
 }
+
+.entity{
+  width: 155px;
+  margin-right: 1rem;
+}

@@ -209,7 +209,11 @@ export class LoginComponent implements OnInit {
       if (data) {
         this.entities = data.data.details;
         if (this.entities.length === 1) {
-          this.router.navigate(['/dashboard/dashboardCards']);
+          this.router.navigate(['/dashboard'], {
+            queryParams: {
+              id: this.entities[0].id,
+            },
+          });
         } else if (this.entities.length > 1) {
           this.router.navigate(['/dashboard/dashboardCards'], {
             queryParams: { display: 'hide' },
