@@ -113,9 +113,9 @@ export class BldCompStDialogComponent implements OnInit {
         modUnits: this.updateBloodForm.value.newUnit,
         mode: this.mode,
         reqDate:
-          this.data.data.page === 'bloodComp'
-            ? this.data.bldAvlreqDate
-            : this.data.reqDate,
+          this.data.page === 'bloodComp'
+            ? this.data.reqDate
+            : this.data.bldAvlreqDate,
       };
       this.store.dispatch(
         new SideNavActions.UpdateBloodCompStatus({
