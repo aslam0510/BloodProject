@@ -244,7 +244,7 @@ export class OrgSettingsComponent implements OnInit {
     this.cancel();
     this.store.dispatch(
       new DashboardAction.GetEntityById({
-        entId: entity.id,
+        entId: entity._id,
         id: this.routerUrl,
       })
     );
