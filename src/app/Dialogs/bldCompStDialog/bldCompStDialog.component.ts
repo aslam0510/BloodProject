@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -111,8 +112,17 @@ export class BldCompStDialogComponent implements OnInit {
           : this.updateBloodForm.value.bloodComp,
         modUnits: this.updateBloodForm.value.newUnit,
         mode: this.mode,
+        reqDate:
+          this.data.data.page === 'bloodComp'
+            ? this.data.bldAvlreqDate
+            : this.data.reqDate,
       };
-      this.store.dispatch(new SideNavActions.UpdateBloodCompStatus(payload));
+      this.store.dispatch(
+        new SideNavActions.UpdateBloodCompStatus({
+          payload: payload,
+          id: this.data.routerUrl,
+        })
+      );
       this.dialogRef.close(this.data.day);
     }
     // this.snackBar.openFromComponent(NotificationDialogComponent, {

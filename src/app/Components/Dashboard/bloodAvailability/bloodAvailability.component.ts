@@ -41,6 +41,8 @@ export class BloodAvailabilityComponent implements OnInit {
   prbcComp: any;
   plasmaComp = [];
   routerUrl = 0;
+  reqDate = '';
+  bldAvlreqDate = '';
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
@@ -84,6 +86,8 @@ export class BloodAvailabilityComponent implements OnInit {
     this.bldAvailableSelectedVal = 'Today';
     this.bldCompSelectedVal = 'Today';
     const today = moment();
+    this.reqDate = today.format('MM-DD-YYYY');
+    this.bldAvlreqDate = today.format('MM-DD-YYYY');
     if (this.routerUrl) {
       this.store.dispatch(
         new SideNavAction.GetBloodCompStatus({
@@ -146,6 +150,8 @@ export class BloodAvailabilityComponent implements OnInit {
           bloodGrop: this.bloodGroupList,
           availableUnits: this.bloodCompStatus,
           day: this.bldCompSelectedVal,
+          reqDate: this.reqDate,
+          routerUrl: this.routerUrl,
         },
       });
 
@@ -185,6 +191,8 @@ export class BloodAvailabilityComponent implements OnInit {
           bloodType: this.bloodType[0],
           availableUnits: this.bloodAvailableStatus,
           day: this.bldAvailableSelectedVal,
+          routerUrl: this.routerUrl,
+          bldAvlreqDate: this.bldAvlreqDate,
         },
       });
 
@@ -256,6 +264,8 @@ export class BloodAvailabilityComponent implements OnInit {
     const today = moment();
     const yesterday = moment().add(-1, 'days');
     if (day === 'today') {
+      this.reqDate = today.format('MM-DD-YYYY');
+      this.bldAvlreqDate = today.format('MM-DD-YYYY');
       this.showOnlyYesterDay = false;
       this.store.dispatch(
         new SideNavAction.GetBloodAvailabilityStatus({
@@ -265,6 +275,8 @@ export class BloodAvailabilityComponent implements OnInit {
       );
     } else if (day === 'yesterday') {
       this.showOnlyYesterDay = true;
+      this.reqDate = yesterday.format('MM-DD-YYYY');
+      this.bldAvlreqDate = yesterday.format('MM-DD-YYYY');
       this.store.dispatch(
         new SideNavAction.GetBloodAvailabilityStatus({
           date: yesterday.format('MM-DD-YYYY'),
@@ -296,6 +308,8 @@ export class BloodAvailabilityComponent implements OnInit {
     this.calenderDate = date;
     this.showOnlyYesterDay = false;
     this.bloodAvailableDate = moment(date.value).format('MM-DD-YYYY');
+    this.reqDate = moment(date.value).format('MM-DD-YYYY');
+    this.bldAvlreqDate = moment(date.value).format('MM-DD-YYYY');
     this.store.dispatch(
       new SideNavAction.GetBloodAvailabilityStatus({
         date: moment(date.value).format('MM-DD-YYYY'),

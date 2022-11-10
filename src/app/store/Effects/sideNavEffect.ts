@@ -144,7 +144,10 @@ export class SideNavEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         return this.http
-          .put(api.getAPI('UPDATE_BLOOD_COMP_STATUS'), payload)
+          .put(
+            api.getAPI('UPDATE_BLOOD_COMP_STATUS') + `/${[payload.id]}`,
+            payload.payload
+          )
           .pipe(
             map(
               (data: any) =>
