@@ -2,7 +2,7 @@ mat-card{
   width: 300px;
   border-radius: 20px;
   display: inline-block;
-  margin-right: 1rem;
+  margin: 1rem;
   text-align: center;
   cursor: pointer;
 }

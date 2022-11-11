@@ -140,6 +140,22 @@ mat-card {
 }
 
 .entity{
-  width: 155px;
-  margin-right: 1rem;
+  width: 165px;
+  margin-right: 1.5rem;
+}
+
+.entities{
+  background-color: brown;
+    padding: 7px 14px;
+    border-radius: 25px;
+   
+}
+::ng-deep .mat-select-value-text {
+  color: white !important;
+}
+::ng-deep.mat-select-placeholder {
+  color: white !important;
+}
+::ng-deep .mat-select-arrow {
+  color: white !important;
 }

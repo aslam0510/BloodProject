@@ -194,14 +194,22 @@ export class DashboardComponent implements OnInit {
   }
 
   onOrgsetting() {
-    this.router.navigate(['/dashboard/orgSettings'], {
-      queryParams: { id: this.routerUrl },
-    });
+    if (this.showSideBar === 'hide') {
+      return false;
+    } else {
+      this.router.navigate(['/dashboard/orgSettings'], {
+        queryParams: { id: this.routerUrl },
+      });
+    }
   }
   onProfile() {
-    this.router.navigate(['/dashboard/profile'], {
-      queryParams: { id: this.routerUrl },
-    });
+    if (this.showSideBar === 'hide') {
+      return false;
+    } else {
+      this.router.navigate(['/dashboard/profile'], {
+        queryParams: { id: this.routerUrl },
+      });
+    }
   }
   onLogOut() {
     const payload = {

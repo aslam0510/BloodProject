@@ -42,11 +42,12 @@
           Add Blood Request
         </button>
       </div>
-      <div class="d-flex mt-3">
+      <div class="d-flex align-items-center mt-3">
         <mat-form-field appearance="none" class="entity">
           <mat-select
             placeholder="{{ 'Entities' }}"
             (selectionChange)="onEntity($event)"
+            class="entities"
           >
             <mat-option [value]="entity.id" *ngFor="let entity of entities">
               {{ entity.bldbnkName }}
@@ -142,12 +143,12 @@
         >
           <img src="/assets/Images/USERPROFILE.svg" alt="" />
         </button>
-        <mat-menu #beforeMenu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="onProfile()">
+        <mat-menu #beforeMenu="matMenu" xPosition="before" >
+          <button mat-menu-item (click)="onProfile()" [ngClass]="showSideBar === 'hide' ? 'hide' : ''">
             <mat-icon>person_outline</mat-icon>
             <span>Profile</span>
           </button>
-          <button mat-menu-item (click)="onOrgsetting()">
+          <button mat-menu-item (click)="onOrgsetting()" [ngClass]="showSideBar === 'hide' ? 'hide' : ''">
             <mat-icon>settings</mat-icon>
             <span>Organization Setting</span>
           </button>
