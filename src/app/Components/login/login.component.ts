@@ -215,7 +215,7 @@ export class LoginComponent implements OnInit {
             },
           });
         } else if (this.entities.length > 1) {
-          this.router.navigate(['/dashboard/dashboardCards'], {
+          this.router.navigate(['/dashboardCards'], {
             queryParams: { display: 'hide' },
           });
         }

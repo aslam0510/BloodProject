@@ -203,7 +203,12 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
         formData.append('docs', this.organizationFiles[i]);
       }
 
-      this.store.dispatch(new DashboardActions.CreateBloodReq(formData));
+      this.store.dispatch(
+        new DashboardActions.CreateBloodReq({
+          formData: formData,
+          id: this.routerUrl,
+        })
+      );
       this.router.navigate(['/dashboard'], {
         queryParams: { id: this.routerUrl },
       });

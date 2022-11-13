@@ -81,11 +81,9 @@ export class DashboardEffect {
       ofType(dashboardActions.GET_ENTITY_BYID),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
+        const id = payload ? `/${payload.id}` : '';
         return this.http
-          .get(
-            api.getAPI('GET_ENTITY_BYID') +
-              `/${payload.id}?entId=${payload.entId}`
-          )
+          .get(api.getAPI('GET_ENTITY_BYID') + `${id}?entId=${payload.entId}`)
           .pipe(map((data) => new dashboardActions.GetEntityByIdSuccess(data)));
       })
     );
@@ -122,7 +120,6 @@ export class DashboardEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         console.log(payload);
-
         return this.http
           .put(
             api.getAPI('UPDATE_ENTITY_INFO') + `?entId=${payload.entId}`,
@@ -140,8 +137,9 @@ export class DashboardEffect {
       ofType(dashboardActions.CREATE_BLOOD_REQUEST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
+        const id = payload ? `/${payload}` : '';
         return this.http
-          .post(api.getAPI('CREATE_BLOOD_REQUEST'), payload)
+          .post(api.getAPI('CREATE_BLOOD_REQUEST') + id, payload.formData)
           .pipe(
             map((data) => new dashboardActions.CreateBloodReqSuccess(data))
           );
@@ -182,8 +180,9 @@ export class DashboardEffect {
       ofType(dashboardActions.GET_DASHBOARD_SUMMARY),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
+        const id = payload ? `/${payload}` : '';
         return this.http
-          .get(api.getAPI('GET_DASHBOARD_SUMMARY') + `/${payload}`)
+          .get(api.getAPI('GET_DASHBOARD_SUMMARY') + id)
           .pipe(
             map((data) => new dashboardActions.GetDashboardSummarySuccess(data))
           );
@@ -196,11 +195,12 @@ export class DashboardEffect {
       ofType(dashboardActions.GET_ACTIVITIES_BY_DATE),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
+        const id = payload ? `/${payload.id}` : '';
         return this.http
           .get(
             payload
               ? api.getAPI('GET_ACTIVITIES_BY_DATE') +
-                  `/${payload.id}?start=${payload.date}`
+                  `${id}?start=${payload.date}`
               : api.getAPI('GET_ACTIVITIES_BY_DATE')
           )
           .pipe(

@@ -22,7 +22,11 @@ export function dashboardReducer(
       return { ...state, entititiesDetails: action.payload };
     }
     case dashboardActions.GET_ORGANIZATION_DETAILS_SUCCESS: {
-      return { ...state, organizationDetails: action.payload };
+      return {
+        ...state,
+        organizationDetails: action.payload,
+        entititiesDetails: null,
+      };
     }
     case dashboardActions.GET_ENTITY_CATEGORIES_SUCCESS: {
       return { ...state, entityCategories: action.payload };
@@ -52,6 +56,7 @@ export function dashboardReducer(
         bloodAvailable: data.bloodAvailable,
         bldRequestStatus: data.bldRequestStatus,
         activityDetails: data.activityDetails,
+        entititiesDetails: null,
       };
     }
     default:

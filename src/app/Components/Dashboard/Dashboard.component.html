@@ -49,10 +49,12 @@
             (selectionChange)="onEntity($event)"
             class="entities"
           >
-            <mat-option [value]="entity.id" *ngFor="let entity of entities">
+          <ng-container *ngFor="let entity of entities">
+            <mat-option [value]="entity.id"  *ngIf="entity.apsts !== 0 ">
               {{ entity.bldbnkName }}
               <mat-divider></mat-divider>
             </mat-option>
+            </ng-container>
           </mat-select>
         </mat-form-field>
         <button

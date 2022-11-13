@@ -65,10 +65,6 @@ export const dashboardRoutes: Routes = [
         path: 'addEntity',
         component: AddEntityComponent,
       },
-      {
-        path: 'dashboardCards',
-        component: DashboardCardsComponent,
-      },
     ],
   },
 ];

@@ -150,12 +150,11 @@ mat-card {
     border-radius: 25px;
    
 }
-::ng-deep .mat-select-value-text {
-  color: white !important;
-}
-::ng-deep.mat-select-placeholder {
+
+/* ::ng-deep.mat-select-placeholder {
   color: white !important;
 }
 ::ng-deep .mat-select-arrow {
   color: white !important;
-}
+}  */
+

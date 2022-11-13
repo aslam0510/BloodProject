@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddUserDailogComponent } from './addUserDailog/addUserDailog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -6,7 +6,7 @@ import { ActionsSubject, Store } from '@ngrx/store';
 import { AppState } from './../../app.state';
 import { Observable, Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
-
+import * as DashboardAction from '../../store/Actions/dashboardActions';
 import * as SideNavAction from '../../store/Actions/sideNavAction';
 import { MatTableDataSource } from '@angular/material/table';
 import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
@@ -37,6 +37,12 @@ export class UserManagementComponent implements OnInit {
     'doctor',
     'labTechnician',
   ];
+  organizationDetails$: Observable<any>;
+  organizationDetails: any;
+  organizationDetailsSub: Subscription;
+  entities$: Observable<any>;
+  entities: any;
+  entitiesSub: Subscription;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   userListDataSource: MatTableDataSource<any>;
   userPermissiondataSource = '';
@@ -54,12 +60,19 @@ export class UserManagementComponent implements OnInit {
     private store: Store<AppState>,
     private actionsSubj: ActionsSubject,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.usersList$ = this.store.select((state) => state.SidNavSlice.usersList);
+    this.entities$ = this.store.select(
+      (state) => state.DashboardSlice.entititiesDetails
+    );
     this.actionSubcription = this.actionsSubj.subscribe((data) => {
       this.handleActionSubscription(data);
     });
+    this.organizationDetails$ = this.store.select(
+      (state) => state.DashboardSlice.organizationDetails
+    );
   }
   handleActionSubscription(data: any) {
     switch (data.type) {
@@ -89,10 +102,12 @@ export class UserManagementComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.store.dispatch(new DashboardAction.GetEntityDetails());
+    this.store.dispatch(new DashboardAction.GetOrganizationDetails());
     this.route.queryParamMap.subscribe((param) => {
       this.routerUrl = +param.get('id');
     });
-    this.store.dispatch(new SideNavAction.GetUsersList(this.routerUrl));
+    this.store.dispatch(new SideNavAction.GetUsersList(''));
 
     this.userListSub = this.usersList$.subscribe((data) => {
       if (data) {
@@ -111,6 +126,19 @@ export class UserManagementComponent implements OnInit {
         };
       }
     });
+    this.entitiesSub = this.entities$.subscribe((data) => {
+      if (data) {
+        this.entities = data.data.details;
+      }
+    });
+    this.organizationDetailsSub = this.organizationDetails$.subscribe(
+      (data) => {
+        if (data) {
+          this.organizationDetails = data.data;
+          console.log(this.organizationDetails);
+        }
+      }
+    );
   }
 
   onAddUser() {
@@ -171,5 +199,13 @@ export class UserManagementComponent implements OnInit {
 
   ngOnDestory() {
     this.userListSub.unsubscribe();
+    this.entitiesSub.unsubscribe();
+  }
+  onEntity(event) {
+    // this.router.navigate([`dashboard`], {
+    //   queryParams: { id: event.value },
+    // });
+
+    this.store.dispatch(new SideNavAction.GetUsersList(event.value));
   }
 }

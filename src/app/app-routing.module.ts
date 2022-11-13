@@ -6,6 +6,7 @@ import { ResetPasswordComponent } from './Dialogs/resetPassword/resetPassword.co
 import { dashboardRoutes } from './Routes/dashboardRoutes';
 import { AddEntityComponent } from './Components/addEntity/addEntity.component';
 import { AddBloodRequestComponent } from './Dialogs/forgot-dialog/AddBloodRequest/AddBloodRequest.component';
+import { DashboardCardsComponent } from './Components/Dashboard/dashboard-cards/dashboard-cards.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -34,6 +35,10 @@ const routes: Routes = [
     path: 'addBldRequest',
     pathMatch: 'full',
     component: AddBloodRequestComponent,
+  },
+  {
+    path: 'dashboardCards',
+    component: DashboardCardsComponent,
   },
   ...dashboardRoutes,
 ];
