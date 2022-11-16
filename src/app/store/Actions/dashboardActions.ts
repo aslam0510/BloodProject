@@ -11,6 +11,7 @@ export const GET_ORGANIZATION_DETAILS_SUCCESS =
   'GET_ORGANIZATION_DETAILS_SUCCESS';
 export const GET_ENTITY_DETAILS = 'GET_ENTITY_DETAILS';
 export const GET_ENTITY_DETAILS_SUCCESS = 'GET_ENTITY_DETAILS_SUCCESS';
+export const CLEAR_ENTITITES = 'CLEAR_ENTITITES';
 export const GET_ENTITY_BYID = 'GET_ENTITY_BYID';
 export const GET_ENTITY_BYID_SUCCESS = 'GET_ENTITY_BYID_SUCCESS';
 export const GET_ENTITY_CATEGORIES = 'GET_ENTITY_CATEGORIES';
@@ -84,7 +85,9 @@ export class GetEntityDetailsSuccess {
   readonly type = GET_ENTITY_DETAILS_SUCCESS;
   constructor(public payload: any) {}
 }
-
+export class ClearEntities {
+  readonly type = CLEAR_ENTITITES;
+}
 export class GetEntityById {
   readonly type = GET_ENTITY_BYID;
   constructor(public payload: any) {}
@@ -197,4 +200,5 @@ export type Actions =
   | GetDashboardSummary
   | GetDashboardSummarySuccess
   | GetActivitiesByDate
-  | GetActivitiesByDateSuccess;
+  | GetActivitiesByDateSuccess
+  | ClearEntities;

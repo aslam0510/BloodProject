@@ -26,7 +26,6 @@ export class DashboardCardsComponent implements OnInit, OnDestroy {
     this.entititiesub = this.entities$.subscribe((data) => {
       if (data) {
         this.entities = data.data.details;
-        console.log(this.entities);
       }
     });
   }
@@ -36,7 +35,9 @@ export class DashboardCardsComponent implements OnInit, OnDestroy {
       queryParams: { display: 'show', id: entity.id },
     });
   }
+
   ngOnDestroy() {
     this.entititiesub.unsubscribe();
+    this.store.dispatch(new DashboardActions.ClearEntities());
   }
 }

@@ -82,7 +82,9 @@ export class LoginComponent implements OnInit {
     switch (data.type) {
       case AuthAction.LOGOUT_SUCCESS:
         if (data.payload.data.message) {
-          this.snackBar.open(data.payload.data.message, '', { duration: 2000 });
+          this.snackBar.open(data.payload.data?.message, '', {
+            duration: 2000,
+          });
           this.router.navigate(['/login']);
         }
         break;
@@ -106,6 +108,8 @@ export class LoginComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.store.dispatch(new DashboardActions.ClearEntities());
+    this.store.dispatch(new AuthAction.LogoutSuccess(''));
     this.loginForm = new FormGroup({
       userid: new FormControl('', Validators.required),
       pwd: new FormControl('', Validators.required),
@@ -215,7 +219,7 @@ export class LoginComponent implements OnInit {
             },
           });
         } else if (this.entities.length > 1) {
-          this.router.navigate(['/dashboardCards'], {
+          this.router.navigate(['/dashboard/dashboardCards'], {
             queryParams: { display: 'hide' },
           });
         }
@@ -229,7 +233,7 @@ export class LoginComponent implements OnInit {
     return Forge.util.encode64(pubPem.encrypt(pwd, 'RSA-OAEP'));
   }
 
-  loginProcess(domain) {
+  loginProcess(domain?) {
     if (!this.showOtp && !this.showPhnNumber) {
       const payload = {
         userId: this.loginForm.value.userid,
@@ -251,15 +255,18 @@ export class LoginComponent implements OnInit {
     }
   }
   //Submitting login form
-  onLoginForm() {
+  onLoginButton(type) {
     this.loginErrors = [];
-    if (this.loginForm.value.userid) {
-      this.store.dispatch(
-        new AuthAction.GetDomain({ userId: this.loginForm.value.userid })
-      );
+    if (type == 'login') {
+      if (this.loginForm.value.userid) {
+        this.store.dispatch(
+          new AuthAction.GetDomain({ userId: this.loginForm.value.userid })
+        );
+      }
+    } else {
+      this.loginProcess();
     }
   }
-
   //click on forgort password link
   onForgotPass() {
     this.dialog.open(ForgotDialogComponent, {
@@ -336,5 +343,10 @@ export class LoginComponent implements OnInit {
     this.loginSub.unsubscribe();
     this.showOtp = false;
     this.showPhnNumber = false;
+    this.verifyOTPSuccessSub.unsubscribe();
+    this.entitiesSub.unsubscribe();
+    this.userDetailSub.unsubscribe();
+    this.orgDetailsSub.unsubscribe();
+    this.domianSub.unsubscribe();
   }
 }

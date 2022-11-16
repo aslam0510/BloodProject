@@ -19,7 +19,12 @@ export function dashboardReducer(
       return { ...state, addNewEntity: data };
     }
     case dashboardActions.GET_ENTITY_DETAILS_SUCCESS: {
-      return { ...state, entititiesDetails: action.payload };
+      return {
+        ...state,
+        entititiesDetails: action.payload,
+        organizationDetails: null,
+        userDetails: null,
+      };
     }
     case dashboardActions.GET_ORGANIZATION_DETAILS_SUCCESS: {
       return {
@@ -49,6 +54,9 @@ export function dashboardReducer(
     case dashboardActions.GET_ACTIVITIES_BY_DATE_SUCCESS: {
       return { ...state, activityDetailsByDate: action.payload };
     }
+    case dashboardActions.CLEAR_ENTITITES: {
+      return { ...state, entititiesDetails: null };
+    }
     case dashboardActions.GET_DASHBOARD_SUMMARY_SUCCESS: {
       const data = action.payload.data;
       return {
@@ -56,7 +64,6 @@ export function dashboardReducer(
         bloodAvailable: data.bloodAvailable,
         bldRequestStatus: data.bldRequestStatus,
         activityDetails: data.activityDetails,
-        entititiesDetails: null,
       };
     }
     default:

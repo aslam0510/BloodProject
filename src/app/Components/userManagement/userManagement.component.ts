@@ -102,7 +102,7 @@ export class UserManagementComponent implements OnInit {
     }
   }
   ngOnInit() {
-    this.store.dispatch(new DashboardAction.GetEntityDetails());
+    this.store.dispatch(new DashboardAction.ClearEntities());
     this.store.dispatch(new DashboardAction.GetOrganizationDetails());
     this.route.queryParamMap.subscribe((param) => {
       this.routerUrl = +param.get('id');
@@ -135,7 +135,6 @@ export class UserManagementComponent implements OnInit {
       (data) => {
         if (data) {
           this.organizationDetails = data.data;
-          console.log(this.organizationDetails);
         }
       }
     );
@@ -202,6 +201,7 @@ export class UserManagementComponent implements OnInit {
     this.entitiesSub.unsubscribe();
   }
   onEntity(event) {
+    // this.store.dispatch(new DashboardAction.GetEntityDetails());
     // this.router.navigate([`dashboard`], {
     //   queryParams: { id: event.value },
     // });

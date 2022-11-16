@@ -71,7 +71,6 @@ export class BldReqViewComponent implements OnInit {
     this.bloodReqDetailSub = this.bloodReqDetail$.subscribe((response) => {
       if (response) {
         this.bloodReqDetail = response.data;
-        console.log(this.bloodReqDetail);
         this.setBldReqFormValues();
         this.bloodReqDetail?.requirements.forEach((x) => {
           this.requirementUnits.push({
@@ -144,8 +143,6 @@ export class BldReqViewComponent implements OnInit {
     this.requirementUnits[i].reservedUnits = Number(unit);
   }
   onIssueUnits(unit, i) {
-    console.log(unit);
-
     // console.log(
     //   this.requirementUnits[i].issuedUnits,
     //   this.requirementUnits[i].reservedUnits,
@@ -162,7 +159,6 @@ export class BldReqViewComponent implements OnInit {
         this.requirementUnits[i].requiredUnit - Number(unit);
     }
     this.requirementUnits[i].issuedUnits = Number(unit);
-    console.log(this.requirementUnits[i]);
   }
   cancel() {
     this.isEditBtn = true;
@@ -175,8 +171,6 @@ export class BldReqViewComponent implements OnInit {
     this.bldReqForm.enable();
   }
   save() {
-    console.log(this.requirementUnits);
-
     const payload = {
       bldReqId: this.bloodReqDetail.bldreqId,
       reqSts: this.bloodReqType,

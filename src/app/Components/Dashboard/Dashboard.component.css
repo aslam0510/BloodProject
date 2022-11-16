@@ -150,6 +150,11 @@ mat-card {
     border-radius: 25px;
    
 }
+.hidden{
+  top: 1rem;
+  right: 2rem;
+  position: absolute;
+}
 
 /* ::ng-deep.mat-select-placeholder {
   color: white !important;

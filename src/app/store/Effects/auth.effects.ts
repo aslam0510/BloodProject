@@ -1,13 +1,18 @@
+import { Router } from '@angular/router';
 import * as auth from './../Actions/auth.action';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, map, mergeMap } from 'rxjs/operators';
 import * as api from '../../app-apis';
-
+import { tap } from 'rxjs/operators';
 @Injectable()
 export class AuthEffect {
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  constructor(
+    private actions$: Actions,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   login$ = createEffect(() => {
     return this.actions$.pipe(
@@ -120,9 +125,10 @@ export class AuthEffect {
       ofType(auth.LOGOUT),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        return this.http
-          .post(api.getAPI('LOGOUT'), payload)
-          .pipe(map((data: any) => new auth.LogoutSuccess(data)));
+        return this.http.post(api.getAPI('LOGOUT'), payload).pipe(
+          tap(() => this.router.navigate(['/login'])),
+          map((data: any) => new auth.LogoutSuccess(data))
+        );
       })
     );
   });

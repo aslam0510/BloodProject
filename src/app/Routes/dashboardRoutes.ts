@@ -19,6 +19,7 @@ export const dashboardRoutes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     // canActivate: [AuthGuard],
+
     children: [
       {
         path: '',
@@ -28,42 +29,57 @@ export const dashboardRoutes: Routes = [
       {
         path: 'bloodAvailability',
         component: BloodAvailabilityComponent,
+        pathMatch: 'full',
       },
       {
         path: 'bloodRequest',
         component: AllBloodReqComponent,
+        pathMatch: 'full',
       },
       {
         path: 'editBloodRequest/:id',
         component: BldReqViewComponent,
+        pathMatch: 'full',
       },
       {
         path: 'donorDatabase',
         component: DonarDatabaseComponent,
+        pathMatch: 'full',
       },
       {
         path: 'editDonorRep/:id',
         component: EditDonorRepoComponent,
+        pathMatch: 'full',
       },
       {
         path: 'userManagement',
         component: UserManagementComponent,
+        pathMatch: 'full',
       },
       {
         path: 'allMessages',
         component: AllMessagesComponent,
+        pathMatch: 'full',
       },
       {
         path: 'profile',
         component: ProfileComponent,
+        pathMatch: 'full',
       },
       {
         path: 'orgSettings',
         component: OrgSettingsComponent,
+        pathMatch: 'full',
       },
       {
         path: 'addEntity',
         component: AddEntityComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'dashboardCards',
+        component: DashboardCardsComponent,
+        pathMatch: 'full',
       },
     ],
   },

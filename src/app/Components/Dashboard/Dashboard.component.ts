@@ -111,6 +111,8 @@ export class DashboardComponent implements OnInit {
     this.entities$ = this.store.select(
       (state) => state.DashboardSlice.entititiesDetails
     );
+
+    this.store.dispatch(new DashboardActions.ClearEntities());
   }
 
   ngOnInit() {
@@ -121,15 +123,16 @@ export class DashboardComponent implements OnInit {
     });
 
     this.today = moment();
-    this.store.dispatch(
-      new DashboardActions.GetActivitiesByDate({
-        date: this.today.format('MM-DD-YYYY'),
-        id: this.routerUrl,
-      })
-    );
-    this.store.dispatch(new SideNavActions.GetBloodGroupList(this.routerUrl));
-    this.store.dispatch(new SideNavActions.GetBloodCompList(this.routerUrl));
-
+    if (this.routerUrl) {
+      this.store.dispatch(
+        new DashboardActions.GetActivitiesByDate({
+          date: this.today.format('MM-DD-YYYY'),
+          id: this.routerUrl,
+        })
+      );
+      this.store.dispatch(new SideNavActions.GetBloodGroupList(this.routerUrl));
+      this.store.dispatch(new SideNavActions.GetBloodCompList(this.routerUrl));
+    }
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRouter = event.url;
@@ -216,10 +219,10 @@ export class DashboardComponent implements OnInit {
       refreshToken: localStorage.getItem('refreshToken'),
     };
     this.store.dispatch(new AuthActions.Logout(payload));
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    // localStorage.removeItem('accessToken');
+    // localStorage.removeItem('refreshToken');
     localStorage.removeItem('userName');
-    this.router.navigate(['/login']);
+    // this.router.navigate(['/login']);
   }
 
   orgValueChange(date) {

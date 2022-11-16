@@ -36,10 +36,7 @@ const routes: Routes = [
     pathMatch: 'full',
     component: AddBloodRequestComponent,
   },
-  {
-    path: 'dashboardCards',
-    component: DashboardCardsComponent,
-  },
+
   ...dashboardRoutes,
 ];
 

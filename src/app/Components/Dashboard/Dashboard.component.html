@@ -8,7 +8,7 @@
         height="100px"
       />
     </div>
-    <div class="menus">
+    <div class="menus" *ngIf="showSideBar !== 'hide'">
       <div
         *ngFor="let menu of sideMenus"
         class="d-flex align-items-center menuItem"
@@ -24,7 +24,7 @@
   </div>
   <div class="col-lg-9 col-md-6 headers m-0 p-0">
     <div class="header d-flex align-items-center justify-content-between">
-      <div>
+      <div [hidden]="showSideBar === 'hide'" >
         <button
           mat-raised-button
           class="headerbuton"
@@ -43,7 +43,7 @@
         </button>
       </div>
       <div class="d-flex align-items-center mt-3">
-        <mat-form-field appearance="none" class="entity">
+        <mat-form-field appearance="none" class="entity" *ngIf="showSideBar !== 'hide'">
           <mat-select
             placeholder="{{ 'Entities' }}"
             (selectionChange)="onEntity($event)"
@@ -57,7 +57,7 @@
             </ng-container>
           </mat-select>
         </mat-form-field>
-        <button
+        <button *ngIf="showSideBar !== 'hide'"
           mat-icon-button
           class="headerIcons"
           [matMenuTriggerFor]="notiMenu"
@@ -69,6 +69,7 @@
           xPosition="before"
           class="matmenu"
           (click)="$event.stopPropagation()"
+          *ngIf="showSideBar !== 'hide'"
         >
           <div class="d-flex justify-content-between align-items-center">
             <h3 class="noti m-0" (click)="$event.stopPropagation()">
@@ -136,8 +137,9 @@
             </div>
           </div>
         </mat-menu>
-        <div class="line"></div>
+        <div class="line" *ngIf="showSideBar !== 'hide'"></div>
         <button
+         [ngClass]="showSideBar === 'hide' ? 'hidden' : ''"
           mat-icon-button
           class="mb-2 headerIcons"
           [matMenuTriggerFor]="beforeMenu"
@@ -145,7 +147,7 @@
         >
           <img src="/assets/Images/USERPROFILE.svg" alt="" />
         </button>
-        <mat-menu #beforeMenu="matMenu" xPosition="before" >
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
           <button mat-menu-item (click)="onProfile()" [ngClass]="showSideBar === 'hide' ? 'hide' : ''">
             <mat-icon>person_outline</mat-icon>
             <span>Profile</span>
@@ -159,7 +161,7 @@
             <span>Logout</span>
           </button>
         </mat-menu>
-        <h3 class="pt-1">Welcome</h3>
+        <h3 class="pt-1" *ngIf="showSideBar !== 'hide'">Welcome</h3>
       </div>
     </div>
     <div class="mt-4 mx-2 px-2">
