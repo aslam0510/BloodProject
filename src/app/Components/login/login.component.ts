@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
   entities$: Observable<any>;
   entities: any;
   entitiesSub: Subscription;
+  isEntity = false;
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
@@ -67,14 +68,10 @@ export class LoginComponent implements OnInit {
     );
     this.domain$ = this.store.select((state) => state.AuthSlice.domain);
     this.userDetails$ = this.store.select(
-      (state) => state.DashboardSlice.userDetails
+      (state) => state.AuthSlice.userDetail
     );
-    this.orgDetails$ = this.store.select(
-      (state) => state.DashboardSlice.organizationDetails
-    );
-    this.entities$ = this.store.select(
-      (state) => state.DashboardSlice.entititiesDetails
-    );
+    this.orgDetails$ = this.store.select((state) => state.AuthSlice.orgDetails);
+    this.entities$ = this.store.select((state) => state.AuthSlice.entities);
     this.loginErrors = [];
     this.showVerify = true;
   }
@@ -108,6 +105,7 @@ export class LoginComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.store.dispatch(new AuthAction.ClearVerifyOtp());
     this.store.dispatch(new DashboardActions.ClearEntities());
     this.store.dispatch(new AuthAction.LogoutSuccess(''));
     this.loginForm = new FormGroup({
@@ -138,6 +136,7 @@ export class LoginComponent implements OnInit {
         ) {
           this.ref = this.loginSuccess.data.ref;
           this.showOtp = true;
+          this.isEntity = true;
           this.snackBar.open(this.loginSuccess.data.message, 'ok', {
             duration: 2500,
           });
@@ -181,7 +180,7 @@ export class LoginComponent implements OnInit {
             this.verfiyOTPSuccess.data.refreshToken
           );
           // this.router.navigate(['/dashboard']);
-          this.store.dispatch(new DashboardActions.GetUserDetails());
+          this.store.dispatch(new AuthAction.loginUserDetails());
         }
       }
     });
@@ -190,7 +189,7 @@ export class LoginComponent implements OnInit {
       if (data) {
         this.userDetail = data.data;
         if (this.userDetail.role === 'Organization Admin') {
-          this.store.dispatch(new DashboardActions.GetOrganizationDetails());
+          this.store.dispatch(new AuthAction.loginOrgDetails());
         } else if (this.userDetail.role === 'Entity Admin') {
           this.router.navigate(['/dashboard']);
         }
@@ -200,8 +199,9 @@ export class LoginComponent implements OnInit {
     this.orgDetailsSub = this.orgDetails$.subscribe((data) => {
       if (data) {
         this.orgDetails = data.data;
+        console.log(this.orgDetails);
         if (this.orgDetails.categoryName === 'Blood Bank') {
-          this.store.dispatch(new DashboardActions.GetEntityDetails());
+          this.store.dispatch(new AuthAction.LoginEntitiesDetails(''));
         } else {
           //add data
           this.router.navigate(['/dashboard']);
@@ -348,5 +348,7 @@ export class LoginComponent implements OnInit {
     this.userDetailSub.unsubscribe();
     this.orgDetailsSub.unsubscribe();
     this.domianSub.unsubscribe();
+    this.store.dispatch(new AuthAction.ClearVerifyOtp());
+    this.store.dispatch(new DashboardActions.ClearEntities());
   }
 }

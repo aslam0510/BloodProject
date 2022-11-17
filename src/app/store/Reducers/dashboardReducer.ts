@@ -64,6 +64,7 @@ export function dashboardReducer(
         bloodAvailable: data.bloodAvailable,
         bldRequestStatus: data.bldRequestStatus,
         activityDetails: data.activityDetails,
+        entititiesDetails: null,
       };
     }
     default:

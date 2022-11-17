@@ -154,8 +154,11 @@ mat-card {
   top: 1rem;
   right: 2rem;
   position: absolute;
+  display: flex;
 }
-
+.hiden{
+  display: flex;
+}
 /* ::ng-deep.mat-select-placeholder {
   color: white !important;
 }

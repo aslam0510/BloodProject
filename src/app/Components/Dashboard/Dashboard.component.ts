@@ -145,7 +145,7 @@ export class DashboardComponent implements OnInit {
     });
     this.entitiesSub = this.entities$.subscribe((data) => {
       if (data) {
-        this.entities = data.data.details;
+        this.entities = data.data.details.filter((x) => x.apsts !== 0);
       }
     });
   }
@@ -197,22 +197,14 @@ export class DashboardComponent implements OnInit {
   }
 
   onOrgsetting() {
-    if (this.showSideBar === 'hide') {
-      return false;
-    } else {
-      this.router.navigate(['/dashboard/orgSettings'], {
-        queryParams: { id: this.routerUrl },
-      });
-    }
+    this.router.navigate(['/dashboard/orgSettings'], {
+      queryParams: { id: this.routerUrl },
+    });
   }
   onProfile() {
-    if (this.showSideBar === 'hide') {
-      return false;
-    } else {
-      this.router.navigate(['/dashboard/profile'], {
-        queryParams: { id: this.routerUrl },
-      });
-    }
+    this.router.navigate(['/dashboard/profile'], {
+      queryParams: { id: this.routerUrl },
+    });
   }
   onLogOut() {
     const payload = {

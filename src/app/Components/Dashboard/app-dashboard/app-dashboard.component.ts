@@ -100,10 +100,13 @@ export class AppDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new DashboardActions.ClearEntities());
     this.route.queryParamMap.subscribe((param) => {
       this.routerUrl = +param.get('id');
     });
     this.bldAvailableSelectedVal = 'availableUnit';
+
+    this.store.dispatch(new DashboardActions.GetEntityDetails());
     if (this.routerUrl) {
       this.store.dispatch(
         new DashboardActions.GetDashboardSummary(this.routerUrl)

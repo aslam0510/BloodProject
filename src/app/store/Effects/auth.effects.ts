@@ -144,4 +144,38 @@ export class AuthEffect {
       })
     );
   });
+
+  LoginEntityDetails$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.LOGIN_ENTITIES),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_ENTITY_DETAILS'))
+          .pipe(map((data) => new auth.LoginEntitiesDetailsSuccess(data)));
+      })
+    );
+  });
+
+  LoginOrganizationDetails$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.LOGIN_ORG_DETAILS),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_ORANIZATION_DETAILS'))
+          .pipe(map((data) => new auth.loginOrgDetailsSuccess(data)));
+      })
+    );
+  });
+
+  loginUserDetails$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.LOGIN_USER_DETAILS),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .get(api.getAPI('GET_USER_DETAILS'))
+          .pipe(map((data) => new auth.loginUserDetailSuccess(data)));
+      })
+    );
+  });
 }
