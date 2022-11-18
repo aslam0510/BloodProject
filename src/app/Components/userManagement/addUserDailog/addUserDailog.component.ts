@@ -28,6 +28,7 @@ export class AddUserDailogComponent implements OnInit {
   entitySub: Subscription;
   editUserData: any;
   isEdit: boolean;
+  userRoles;
   constructor(
     private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -41,7 +42,6 @@ export class AddUserDailogComponent implements OnInit {
       (state) => state.DashboardSlice.entityById
     );
     this.editUserData = data.formData;
-    console.log(this.editUserData);
 
     this.isEdit = data.isEdit;
 
@@ -70,7 +70,12 @@ export class AddUserDailogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new DashboardAction.GetEntityDetails());
+    this.userRoles = localStorage.getItem('role');
+    if (this.userRoles === 'Organization Admin') {
+      this.store.dispatch(new DashboardAction.GetEntityDetails());
+    } else {
+      this.store.dispatch(new SideNavAction.GetUserRole(2));
+    }
     if (this.isEdit) {
       this.store.dispatch(
         new SideNavAction.GetUserRole(this.editUserData?.userType)
@@ -124,8 +129,7 @@ export class AddUserDailogComponent implements OnInit {
 
     this.entityForm = new FormGroup({
       entity: new FormControl(
-        this.editUserData?.userType === 3 ? this.editUserData.entName : '',
-        [Validators.required]
+        this.editUserData?.userType === 3 ? this.editUserData.entName : ''
       ),
       userName: new FormControl(
         this.editUserData?.userType === 3 ? this.editUserData.userName : '',
@@ -206,8 +210,8 @@ export class AddUserDailogComponent implements OnInit {
     role = this.userRole.filter((role) => role.name === entityFormValues.role);
 
     const payload = {
-      entName: this.entity.bldbnkName,
-      entId: this.entity.entId,
+      entName: this.entity?.bldbnkName,
+      entId: this.entity?.entId,
       userName: entityFormValues.userName,
       email: entityFormValues.email,
       contact: entityFormValues.contactNo,

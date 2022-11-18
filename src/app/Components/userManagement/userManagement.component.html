@@ -5,7 +5,7 @@
       <div class="my-3 px-3 d-flex justify-content-between align-items-center">
         <button mat-raised-button class="smallButton text-white" (click)="onAddUser()">Add New User</button>
         <div class="border  d-flex justify-content-around align-items-center">
-          <mat-form-field appearance="none" class="entity">
+          <mat-form-field appearance="none" class="entity" *ngIf="userRole === 'Organization Admin'">
             <mat-select placeholder="{{ 'Entities' }}" (selectionChange)="onEntity($event)" class="entities">
               <mat-option [value]="organizationDetails?.orgId">{{organizationDetails?.categoryName}}</mat-option>
                 <ng-container *ngFor="let entity of entities">

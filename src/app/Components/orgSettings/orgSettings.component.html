@@ -12,14 +12,14 @@
     <div>
       <h4 class="m-0 mt-3">All Entities</h4>
       <div class="datas">
-        <mat-list role="list" *ngFor="let entityDetail of entityDetails">
-          <mat-list-item role="listitem" class="matList mb-1" (click)="onEntityInfo(entityDetail)">
-            {{entityDetail?.bldbnkName}} {{entityDetail?.apsts == 1 ? 'Approved' : 'Pending'}}
+        <mat-list role="list" *ngFor="let entity of entities">
+          <mat-list-item role="listitem" class="matList mb-1" (click)="onEntityInfo(entity)">
+            {{entity?.bldbnkName}} {{entity?.apsts == 1 ? 'Approved' : 'Pending'}}
             <mat-icon>keyboard_arrow_right</mat-icon>
           </mat-list-item>
         </mat-list>
       </div>
-      <button mat-raised-button class="entityBtn outlineButtons btn-block" type="button" (click)="onAddEntitty()">
+      <button mat-raised-button class="entityBtn outlineButtons btn-block" type="button" (click)="onAddEntitty()" *ngIf="userRole === 'Organization Admin'">
         Add New Entity
       </button>
     </div>
@@ -31,7 +31,7 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="m-0">{{ showOrg ?'Organization Details' : 'Entity Details'}}</h3>
           <div>
-            <button mat-raised-button class="smallButtons d-block text-white" *ngIf="isEdit" (click)="onEdit()">Edit</button>
+            <button mat-raised-button class="smallButtons d-block text-white" *ngIf="isEdit && userRole=== 'Organization Admin' " (click)="onEdit()">Edit</button>
             <button mat-raised-button *ngIf="!isEdit" (click)="cancel()" class="outlineButtons">Cancel</button>
             <button mat-raised-button class="smallButtons saveBtn text-white" *ngIf="!isEdit" (click)="save()">Save</button>
           </div>

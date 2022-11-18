@@ -55,6 +55,7 @@ export class UserManagementComponent implements OnInit {
   pageSize = 100;
   pageSizeOptions: number[] = [10, 50, 100];
   routerUrl = 0;
+  userRole;
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
@@ -103,8 +104,11 @@ export class UserManagementComponent implements OnInit {
   }
   ngOnInit() {
     // this.store.dispatch(new DashboardAction.ClearEntities());
-    this.store.dispatch(new DashboardAction.GetOrganizationDetails());
-    this.store.dispatch(new DashboardAction.GetEntityDetails());
+    this.userRole = localStorage.getItem('role');
+    if (this.userRole === 'Organization Admin') {
+      this.store.dispatch(new DashboardAction.GetOrganizationDetails());
+      this.store.dispatch(new DashboardAction.GetEntityDetails());
+    }
     this.route.queryParamMap.subscribe((param) => {
       this.routerUrl = +param.get('id');
     });

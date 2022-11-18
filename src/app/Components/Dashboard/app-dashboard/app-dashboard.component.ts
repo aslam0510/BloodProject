@@ -83,6 +83,7 @@ export class AppDashboardComponent implements OnInit {
   activityDetails: any;
   activityDetailsSub: any;
   routerUrl = 0;
+
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -100,18 +101,17 @@ export class AppDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new DashboardActions.GetUserDetails());
     this.store.dispatch(new DashboardActions.ClearEntities());
     this.route.queryParamMap.subscribe((param) => {
       this.routerUrl = +param.get('id');
     });
     this.bldAvailableSelectedVal = 'availableUnit';
 
-    this.store.dispatch(new DashboardActions.GetEntityDetails());
-    if (this.routerUrl) {
-      this.store.dispatch(
-        new DashboardActions.GetDashboardSummary(this.routerUrl)
-      );
-    }
+    this.store.dispatch(
+      new DashboardActions.GetDashboardSummary(this.routerUrl)
+    );
+
     this.dashboardBloodAvaialbeSub = this.dashboardBloodAvailable$.subscribe(
       (data) => {
         if (data) {

@@ -5,14 +5,14 @@
   </div>
   <div style="margin-top: 1rem;">
     <mat-radio-group aria-label="Select an option" class="my-2" style="margin-top: 1rem;">
-      <mat-radio-button style="margin-right: 1rem;" checked="isOrg" *ngIf="editUserData?.userType === 2 || editUserData === null" (change)="radioChnage($event)" value="org">Organization
+      <mat-radio-button style="margin-right: 1rem;" checked="isOrg" *ngIf="(editUserData?.userType === 2 || editUserData === null) && userRoles === 'Organization Admin'" (change)="radioChnage($event)" value="org">Organization
       </mat-radio-button>
       <mat-radio-button [checked]="this.isEdit" *ngIf="editUserData?.userType === 3 || editUserData === null" (change)="radioChnage($event)" value="entity">Entity
       </mat-radio-button>
     </mat-radio-group>
   </div>
   <hr>
-  <form [formGroup]="orgForm" *ngIf="isOrg || editUserData?.userType === 2">
+  <form [formGroup]="orgForm" *ngIf="(isOrg || editUserData?.userType === 2) ">
     <div class="d-flex justify-content-between align-items-center">
       <p>
         <mat-form-field>
@@ -95,7 +95,7 @@
   </form>
   <form [formGroup]="entityForm" *ngIf="isEntity || editUserData?.userType === 3">
     <div mt-2 class="d-flex justify-content-between align-items-center">
-      <p>
+      <p *ngIf="userRoles === 'Organization Admin'">
         <mat-form-field class="ml-3">
           <mat-label>{{ "Select Entity" }}</mat-label>
           <mat-select placeholder="Select Entity" formControlName="entity">

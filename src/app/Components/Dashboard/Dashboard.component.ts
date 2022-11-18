@@ -99,6 +99,9 @@ export class DashboardComponent implements OnInit {
   activityDetailsSub: any;
   showSideBar = 'show';
   routerUrl = 0;
+  userDetails$: Observable<any>;
+  userDetails: any;
+  userDetailsSub: Subscription;
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -112,11 +115,24 @@ export class DashboardComponent implements OnInit {
       (state) => state.DashboardSlice.entititiesDetails
     );
 
+    this.userDetails$ = this.store.select(
+      (state) => state.DashboardSlice.userDetails
+    );
+
     this.store.dispatch(new DashboardActions.ClearEntities());
   }
 
   ngOnInit() {
-    this.store.dispatch(new DashboardActions.GetEntityDetails());
+    this.userDetailsSub = this.userDetails$.subscribe((response) => {
+      if (response) {
+        this.userDetails = response.data;
+        localStorage.setItem('role', this.userDetails.role);
+      }
+    });
+    if (this.userDetails?.role == 'Organization Admin') {
+      this.store.dispatch(new DashboardActions.GetEntityDetails());
+    }
+
     this.route.queryParamMap.subscribe((param) => {
       this.showSideBar = param.get('display');
       this.routerUrl = +param.get('id');

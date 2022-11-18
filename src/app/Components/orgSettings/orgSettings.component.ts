@@ -20,9 +20,9 @@ export class OrgSettingsComponent implements OnInit {
   organizationDetails$: Observable<any>;
   organizationDetails: any;
   organizationDetailsSub: Subscription;
-  entityDetails$: Observable<any>;
-  entityDetails: any;
-  entityDetailsSub: Subscription;
+  entities$: Observable<any>;
+  entities: any;
+  entitiesSub: Subscription;
   editForm: FormGroup;
   isEdit: boolean = true;
   orgEnityObject: any;
@@ -43,6 +43,11 @@ export class OrgSettingsComponent implements OnInit {
   showEntity = false;
   currentRouter: any;
   routerUrl = 0;
+  userRole;
+  entityDetails$: Observable<any>;
+  entityDetails: any;
+  entityDetailsSub: Subscription;
+
   constructor(
     private router: Router,
     private dialog: MatDialog,
@@ -53,7 +58,7 @@ export class OrgSettingsComponent implements OnInit {
     this.organizationDetails$ = this.store.select(
       (state) => state.DashboardSlice.organizationDetails
     );
-    this.entityDetails$ = this.store.select(
+    this.entities$ = this.store.select(
       (state) => state.DashboardSlice.entititiesDetails
     );
     this.entity$ = this.store.select(
@@ -65,8 +70,21 @@ export class OrgSettingsComponent implements OnInit {
     this.updateOrgInfo$ = this.store.select(
       (state) => state.DashboardSlice.updateOrgInfo
     );
+    this.entityDetails$ = this.store.select(
+      (state) => state.DashboardSlice.entityById
+    );
     this.store.dispatch(new DashboardAction.GetOrganizationDetails());
-    this.store.dispatch(new DashboardAction.GetEntityDetails());
+    this.userRole = localStorage.getItem('role');
+    if (this.userRole === 'Organization Admin') {
+      this.store.dispatch(new DashboardAction.GetEntityDetails());
+    } else {
+      this.store.dispatch(
+        new DashboardAction.GetEntityById({
+          entId: '',
+          id: '',
+        })
+      );
+    }
     this.isEdit = true;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -122,14 +140,21 @@ export class OrgSettingsComponent implements OnInit {
       apFacility: new FormControl(''),
       entId: new FormControl(''),
     });
-    this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
+
+    this.entitiesSub = this.entities$.subscribe((data) => {
       if (data) {
         if (data.code === 200) {
-          this.entityDetails = data.data.details;
+          this.entities = data.data.details;
         }
       }
     });
 
+    this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
+      if (data) {
+        this.entities = [data.data];
+        console.log(this.entities);
+      }
+    });
     this.organizationDetailsSub = this.organizationDetails$.subscribe(
       (data) => {
         if (data) {
@@ -365,5 +390,6 @@ export class OrgSettingsComponent implements OnInit {
     this.organizationDetailsSub.unsubscribe();
     this.entityDetailsSub.unsubscribe();
     this.updateOrgInfoSub.unsubscribe();
+    this.entityDetailsSub.unsubscribe();
   }
 }

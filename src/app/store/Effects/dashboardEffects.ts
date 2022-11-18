@@ -81,9 +81,10 @@ export class DashboardEffect {
       ofType(dashboardActions.GET_ENTITY_BYID),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        const id = payload ? `/${payload.id}` : '';
+        const id = payload.id ? `/${payload.id}` : '';
+        const entId = payload.entId ? `?entId=${payload.entId}` : '';
         return this.http
-          .get(api.getAPI('GET_ENTITY_BYID') + `${id}?entId=${payload.entId}`)
+          .get(api.getAPI('GET_ENTITY_BYID') + `${id}${entId}`)
           .pipe(map((data) => new dashboardActions.GetEntityByIdSuccess(data)));
       })
     );

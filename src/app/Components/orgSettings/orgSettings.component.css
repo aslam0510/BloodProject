@@ -67,7 +67,7 @@ mat-list-item {
 }
 .datas {
   height: 600px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .icon {
