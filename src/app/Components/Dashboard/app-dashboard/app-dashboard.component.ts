@@ -83,6 +83,7 @@ export class AppDashboardComponent implements OnInit {
   activityDetails: any;
   activityDetailsSub: any;
   routerUrl = 0;
+  userRole = '';
 
   constructor(
     private store: Store<AppState>,
@@ -106,8 +107,11 @@ export class AppDashboardComponent implements OnInit {
     this.route.queryParamMap.subscribe((param) => {
       this.routerUrl = +param.get('id');
     });
+    this.userRole = localStorage.getItem('role');
     this.bldAvailableSelectedVal = 'availableUnit';
-
+    if (this.userRole == 'Organization Admin') {
+      this.store.dispatch(new DashboardActions.GetEntityDetails());
+    }
     this.store.dispatch(
       new DashboardActions.GetDashboardSummary(this.routerUrl)
     );

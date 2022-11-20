@@ -43,6 +43,7 @@ export class BloodAvailabilityComponent implements OnInit {
   routerUrl = 0;
   reqDate = '';
   bldAvlreqDate = '';
+  userRole = '';
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
@@ -80,6 +81,7 @@ export class BloodAvailabilityComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.userRole = localStorage.getItem('role');
     this.route.queryParamMap.subscribe((param) => {
       this.routerUrl = +param.get('id');
     });
@@ -88,7 +90,7 @@ export class BloodAvailabilityComponent implements OnInit {
     const today = moment();
     this.reqDate = today.format('MM-DD-YYYY');
     this.bldAvlreqDate = today.format('MM-DD-YYYY');
-    if (this.routerUrl) {
+    if (this.routerUrl || this.userRole !== 'Organization Admin') {
       this.store.dispatch(
         new SideNavAction.GetBloodCompStatus({
           date: today.format('MM-DD-YYYY'),

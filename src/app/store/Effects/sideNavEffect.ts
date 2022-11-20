@@ -15,7 +15,7 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_USERS_LIST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        const id = payload ? `/${payload}` : '';
+        const id = payload.id ? `/${payload}` : '';
         return this.http
           .get(api.getAPI('GET_USERS_LIST') + id)
           .pipe(
@@ -97,7 +97,7 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_BLOOD_COMP_STATUS),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        const id = payload ? `/${payload.id}` : '';
+        const id = payload.id ? `/${payload.id}` : '';
         return this.http
           .get(
             api.getAPI('GET_BLOOD_COMP_STATUS') + `${id}?start=${payload.date}`
@@ -146,7 +146,7 @@ export class SideNavEffect {
       ofType(SideNavAction.UPDATE_BLOOD_COMP_STATUS),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        const id = payload ? `/${payload.id}` : '';
+        const id = payload.id ? `/${payload.id}` : '';
         return this.http
           .put(
             api.getAPI('UPDATE_BLOOD_COMP_STATUS') + `${id}`,
@@ -167,7 +167,7 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_BLOOD_AVAILABILITY_STATUS),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        const id = payload ? `/${payload.id}` : '';
+        const id = payload.id ? `/${payload.id}` : '';
         return this.http
           .get(
             api.getAPI('GET_BLOOD_AVAILABILITY_STATUS') +
@@ -205,7 +205,7 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_BLOOD_REQUEST_LIST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        const id = payload ? `/${payload.id}` : '';
+        const id = payload.id ? `/${payload.id}` : '';
         console.log(payload.priortiy, payload.reqSts);
         return this.http
           .get(
@@ -275,7 +275,7 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_DONOR_REPO_LIST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        const id = payload ? `${payload.id}` : '';
+        const id = payload.id ? `${payload.id}` : '';
         return this.http
           .get(
             api.getAPI('GET_DONOR_REPO_LIST') +
@@ -294,7 +294,7 @@ export class SideNavEffect {
       map((data: any) => data.payload),
       exhaustMap((payload) => {
         let date = payload.date;
-        const id = payload ? `${payload.id}` : '';
+        const id = payload.id ? `${payload.id}` : '';
         return this.http
           .get(
             api.getAPI('GET_DONOR_DONATION_LIST') +
@@ -330,8 +330,6 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_DONOR_DONATION_BYID),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload, 'donation');
-
         return this.http
           .get(api.getAPI('GET_DONOR_DONATION_BYID') + `?_id=${payload}`)
           .pipe(
@@ -397,8 +395,6 @@ export class SideNavEffect {
       ofType(SideNavAction.DELETE_DONOR_BYID),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload);
-
         return this.http
           .delete(api.getAPI('DELETE_DONOR_REPO_BYID') + `?_id=${payload}`)
           .pipe(
