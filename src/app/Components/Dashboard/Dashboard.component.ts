@@ -13,6 +13,7 @@ import * as DashboardActions from '../../store/Actions/dashboardActions';
 import * as AuthActions from '../../store/Actions/auth.action';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
+
 @Component({
   selector: 'app-Dashboard',
   templateUrl: './Dashboard.component.html',
@@ -235,7 +236,13 @@ export class DashboardComponent implements OnInit {
 
   orgValueChange(date) {
     this.showDate = date;
-    // this.store.dispatch(new DashboardActions.GetActivitiesByDate(date));
+
+    this.store.dispatch(
+      new DashboardActions.GetActivitiesByDate({
+        date: moment(date).format('MM-DD-YYYY'),
+        id: this.routerUrl,
+      })
+    );
   }
 
   onMenu(route) {
