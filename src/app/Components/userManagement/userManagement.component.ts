@@ -208,11 +208,6 @@ export class UserManagementComponent implements OnInit {
     this.store.dispatch(new DashboardAction.ClearEntities());
   }
   onEntity(event) {
-    // this.store.dispatch(new DashboardAction.GetEntityDetails());
-    // this.router.navigate([`dashboard`], {
-    //   queryParams: { id: event.value },
-    // });
-
     this.store.dispatch(new SideNavAction.GetUsersList(event.value));
   }
 }
