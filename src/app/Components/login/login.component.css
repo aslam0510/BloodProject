@@ -50,3 +50,11 @@ mat-card-subtitle {
   cursor: pointer;
   padding-right: 1rem;
 }
+.otpTimer{
+  margin-top: 1rem;
+  background-color: #ea0029;
+  padding: 5px 38px;
+  border-radius: 25px;
+  font-size: 13px;
+  color: white;
+}

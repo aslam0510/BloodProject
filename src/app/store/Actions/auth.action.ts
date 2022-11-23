@@ -25,6 +25,8 @@ export const LOGIN_ORG_DETAILS = 'LOGIN_ORG_DETAILS';
 export const LOGIN_ORG_DETAILS_SUCCESS = 'LOGIN_ORG_DETAILS_SUCCESS';
 export const LOGIN_USER_DETAILS = 'LOGIN_USER_DETAILS';
 export const LOGIN_USER_DETAILS_SUCCESS = 'LOGIN_USER_DETAILS_SUCCESS';
+export const RESEND_OTP = 'RESEND_OTP';
+export const RESEND_OTP_SUCCESS = 'RESEND_OTP_SUCCESS';
 export class GetLogin {
   readonly type = GET_LOGIN;
   constructor(public payload: any) {}
@@ -145,6 +147,15 @@ export class loginUserDetailSuccess {
   readonly type = LOGIN_USER_DETAILS_SUCCESS;
   constructor(public payload: any) {}
 }
+export class ResendOtp {
+  readonly type = RESEND_OTP;
+  constructor(public payload: any) {}
+}
+
+export class ResendOtpSuccess {
+  readonly type = RESEND_OTP_SUCCESS;
+  constructor(public payload: any) {}
+}
 export type Actions =
   | GetLogin
   | GetLoginSuccess
@@ -172,4 +183,6 @@ export type Actions =
   | loginOrgDetails
   | loginOrgDetailsSuccess
   | loginUserDetailSuccess
-  | loginUserDetails;
+  | loginUserDetails
+  | ResendOtp
+  | ResendOtpSuccess;

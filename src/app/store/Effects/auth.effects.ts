@@ -178,4 +178,16 @@ export class AuthEffect {
       })
     );
   });
+
+  Resend$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(auth.RESEND_OTP),
+      map((data: any) => data.payload),
+      exhaustMap((payload) => {
+        return this.http
+          .post(api.getAPI('RESEND_OTP'), payload)
+          .pipe(map((data) => new auth.GetLoginSuccess(data)));
+      })
+    );
+  });
 }

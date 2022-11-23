@@ -3,12 +3,18 @@ import * as DashboardActions from './../../store/Actions/dashboardActions';
 import { Store, ActionsSubject } from '@ngrx/store';
 import { ForgotDialogComponent } from './../../Dialogs/forgot-dialog/forgot-dialog.component';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Injectable,
+  OnInit,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AppState } from 'src/app/app.state';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, timer } from 'rxjs';
 import * as Forge from 'node-forge';
 import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
 import { OrgFormModel } from './../../models/orgFormModel';
@@ -17,6 +23,8 @@ import { helpers } from 'chart.js';
 import { SetPasswordDialogComponent } from './../../Dialogs/setPasswordDialog/setPasswordDialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { publicKey, privateKey } from 'src/app/config';
+import { TimerService } from 'src/app/services/timer.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -51,13 +59,17 @@ export class LoginComponent implements OnInit {
   entities: any;
   entitiesSub: Subscription;
   isEntity = false;
+  countDown: Subscription;
+  counter = 120;
+  tick = 1000;
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
     private router: Router,
     private store: Store<AppState>,
     private snackBar: MatSnackBar,
-    private actionsSubj: ActionsSubject
+    private actionsSubj: ActionsSubject,
+    private timerService: TimerService
   ) {
     this.actionSubcription = this.actionsSubj.subscribe((data) => {
       this.handleActionSubscription(data);
@@ -140,6 +152,18 @@ export class LoginComponent implements OnInit {
           this.snackBar.open(this.loginSuccess.data.message, 'ok', {
             duration: 2500,
           });
+          this.countDown = this.timerService
+            .getCounter(this.tick)
+            .subscribe((x) => {
+              if (x == 120) {
+                this.counter = x;
+                this.countDown.unsubscribe();
+              } else {
+                this.counter--;
+              }
+
+              console.log('counter', this.counter);
+            });
           this.loginErrors = [];
           // this.router.navigate(['/dashboard']);
         } else if (
@@ -339,6 +363,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  onResendOTP() {
+    this.store.dispatch(
+      new AuthAction.ResendOtp({ mob: localStorage.getItem('userName') })
+    );
+  }
+
   ngDestroy() {
     this.loginSub.unsubscribe();
     this.showOtp = false;
@@ -348,6 +378,7 @@ export class LoginComponent implements OnInit {
     this.userDetailSub.unsubscribe();
     this.orgDetailsSub.unsubscribe();
     this.domianSub.unsubscribe();
+    this.countDown.unsubscribe();
     this.store.dispatch(new AuthAction.ClearVerifyOtp());
     this.store.dispatch(new DashboardActions.ClearEntities());
   }

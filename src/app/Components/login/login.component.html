@@ -4,6 +4,7 @@
     <div>Enter OTP</div>
     <mat-hint class="hint">An OTP has been sent for verification on your registered Email ID</mat-hint>
   </mat-card-title>
+
   <mat-card-content>
     <div class="row">
       <mat-error *ngIf="loginErrors.length > 0" class="d-flex align-items-center justify-content-around">
@@ -26,10 +27,18 @@
         <mat-label>Phone Number</mat-label>
         <input matInput placeholder="Phone Number" formControlName="phnNumber">
       </mat-form-field>
-      <mat-form-field class="d-block" *ngIf="!showPhnNumber && showOtp" style="margin-top: 7.6rem; margin-bottom: 12rem">
+      <div *ngIf="!showPhnNumber && showOtp" style="margin-top: 7.6rem; margin-bottom: 12rem">
+      <mat-form-field class="d-block" >
         <mat-label>Enter OTP</mat-label>
         <input matInput placeholder="otp" formControlName="otp">
       </mat-form-field>
+      <div class="d-flex justify-content-end align-items-center">
+          <span class="otpTimer flex-end" *ngIf="counter !== 10 && showOtp">{{counter | formatTime }}</span>
+          <span (click)="onResendOTP()" *ngIf="counter === 10" class="forgotPass  otpTimer d-flex justify-content-end ">
+            Resend Otp
+          </span>
+      </div>
+      </div>
       <div class="d-flex align-items-center justify-content-end" *ngIf="!showOtp && !showPhnNumber">
         <h5 (click)="onForgotPass()" class="forgotPass  text-danger flex-end">
           Forgot password ?

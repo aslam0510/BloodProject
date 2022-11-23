@@ -176,6 +176,10 @@ const apis = {
     url: `/thirdpartyuser/getMyDomains`,
     port: appPort.port,
   },
+  RESEND_OTP: {
+    url: `/sendOTP`,
+    port: appPort.port,
+  },
 };
 
 export function getAPI(url_const) {

@@ -58,6 +58,8 @@ import { OrgSettingsComponent } from './Components/orgSettings/orgSettings.compo
 import { SharedDialogComponent } from './Dialogs/sharedDialog/sharedDialog.component';
 import { AppErrorDialogComponent } from './Dialogs/appErrorDialog/appErrorDialog.component';
 import { EditDonorRepoComponent } from './Components/Dashboard/donarDatabase/edit-donor-repo/edit-donor-repo.component';
+import { FormatTimePipe } from './Pipes/Timer.pipe';
+import { TimerService } from './services/timer.service';
 
 const httpServices = [AppInterceptor, HttpStatus];
 @NgModule({
@@ -101,6 +103,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     AppErrorDialogComponent,
     EditDonorRepoComponent,
     DashboardCardsComponent,
+    FormatTimePipe,
   ],
   imports: [
     BrowserModule,
@@ -111,7 +114,6 @@ const httpServices = [AppInterceptor, HttpStatus];
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    HttpClientModule,
     Ng5SliderModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot(AppEffects),
@@ -121,6 +123,7 @@ const httpServices = [AppInterceptor, HttpStatus];
     }),
   ],
   providers: [
+    TimerService,
     ...httpServices,
     {
       provide: HTTP_INTERCEPTORS,
