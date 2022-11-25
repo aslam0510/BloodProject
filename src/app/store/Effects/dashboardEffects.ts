@@ -138,7 +138,7 @@ export class DashboardEffect {
       ofType(dashboardActions.CREATE_BLOOD_REQUEST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        const id = payload ? `/${payload}` : '';
+        const id = payload.id ? `/${payload.id}` : '';
         return this.http
           .post(api.getAPI('CREATE_BLOOD_REQUEST') + id, payload.formData)
           .pipe(

@@ -15,7 +15,7 @@ export class SideNavEffect {
       ofType(SideNavAction.GET_USERS_LIST),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        const id = payload.id ? `/${payload}` : '';
+        const id = payload ? `?entId=${payload}` : '';
         return this.http
           .get(api.getAPI('GET_USERS_LIST') + id)
           .pipe(
@@ -300,7 +300,7 @@ export class SideNavEffect {
             api.getAPI('GET_DONOR_DONATION_LIST') +
               `${id}?${
                 payload.date && 'date=' + payload.date
-              }&isDonorRepo=false&page=1&size=100`
+              }&isDonorRepo=true&page=1&size=100`
           )
           .pipe(
             map(

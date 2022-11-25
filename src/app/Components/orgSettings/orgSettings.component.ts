@@ -75,6 +75,7 @@ export class OrgSettingsComponent implements OnInit {
     );
     this.store.dispatch(new DashboardAction.GetOrganizationDetails());
     this.userRole = localStorage.getItem('role');
+
     if (this.userRole === 'Organization Admin') {
       this.store.dispatch(new DashboardAction.GetEntityDetails());
     } else {
@@ -115,6 +116,8 @@ export class OrgSettingsComponent implements OnInit {
       district: new FormControl(''),
       state: new FormControl(''),
       pincode: new FormControl(''),
+      apFacility: new FormControl(''),
+      comFacility: new FormControl(''),
     });
     this.entityDetailForm = new FormGroup({
       orgType: new FormControl(''),
@@ -149,12 +152,14 @@ export class OrgSettingsComponent implements OnInit {
       }
     });
 
-    this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
-      if (data) {
-        this.entities = [data.data];
-        console.log(this.entities);
-      }
-    });
+    if (this.userRole !== 'Organization Admin') {
+      this.entityDetailsSub = this.entityDetails$.subscribe((data) => {
+        if (data) {
+          this.entities = [data.data];
+        }
+      });
+    }
+
     this.organizationDetailsSub = this.organizationDetails$.subscribe(
       (data) => {
         if (data) {
@@ -214,6 +219,8 @@ export class OrgSettingsComponent implements OnInit {
       district: formValue.district,
       state: formValue.state,
       pincode: formValue.pinCode,
+      apFacility: formValue.apFacility == true ? 'yes' : 'no',
+      comFacility: formValue.apFacility == true ? 'yes' : 'no',
     });
 
     this.organizationForm.disable();
@@ -240,8 +247,8 @@ export class OrgSettingsComponent implements OnInit {
       district: formValue.district,
       state: formValue.state,
       pincode: formValue.pinCode,
-      apFacility: formValue.apFacility,
-      comFacility: formValue.compFacility,
+      apFacility: formValue.apFacility == true ? 'yes' : 'no',
+      comFacility: formValue.apFacility == true ? 'yes' : 'no',
     });
     this.entityDocs = formValue.docs;
     this.entityDetailForm.disable();

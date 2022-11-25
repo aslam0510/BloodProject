@@ -56,6 +56,7 @@ export class UserManagementComponent implements OnInit {
   pageSizeOptions: number[] = [10, 50, 100];
   routerUrl = 0;
   userRole;
+  id: number = 0;
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
@@ -176,7 +177,9 @@ export class UserManagementComponent implements OnInit {
     dailogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.store.dispatch(new SideNavAction.DeleteUser(user.userId));
-        this.store.dispatch(new SideNavAction.GetUsersList(this.routerUrl));
+        this.store.dispatch(
+          new SideNavAction.GetUsersList(this.id ? this.id : this.routerUrl)
+        );
       }
     });
   }
@@ -204,10 +207,11 @@ export class UserManagementComponent implements OnInit {
   ngOnDestory() {
     this.userListSub.unsubscribe();
     this.entitiesSub.unsubscribe();
-
     this.store.dispatch(new DashboardAction.ClearEntities());
   }
+
   onEntity(event) {
+    this.id = event.value;
     this.store.dispatch(new SideNavAction.GetUsersList(event.value));
   }
 }
