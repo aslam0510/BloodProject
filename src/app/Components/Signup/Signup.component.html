@@ -42,50 +42,96 @@
                 <mat-label>{{ "Type of Entity" }}</mat-label>
                 <mat-select formControlName="typeOfEntity" placeholder="Type of Entity">
                   <mat-option [value]="category.categoryName" *ngFor="
-                                                let category of entityCategories;
-                                                let i = index
-                                              ">{{ category.categoryName }}
+                                let category of entityCategories;
+                                let i = index
+                              ">{{ category.categoryName }}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="checkError('typeOfEntity', 'required')">
+                  Type of Entity is required
+                </mat-error>
               </mat-form-field>
               <mat-form-field *ngIf="orgType == 'Blood Bank'">
                 <mat-label>Blood Bank Name</mat-label>
-                <input type="text" matInput placeholder="Company Name" formControlName="bldbnkName" />
+                <input type="text" matInput placeholder="Blood Bank Name" formControlName="bldbnkName" />
+                <mat-error *ngIf="checkError('bldbnkName', 'required')">
+                  Blood Bank Name is required
+                </mat-error>
+                <mat-error *ngIf="checkError('bldbnkName', 'maxlength')">
+                  Max 128 characters
+                </mat-error>
               </mat-form-field>
-
 
               <mat-form-field *ngIf="orgType == 'Blood Bank'">
                 <mat-label>Parent Hospital Name</mat-label>
                 <input type="text" matInput placeholder="Parent Hospital Name" formControlName="prnthsptlName" />
+                <mat-error *ngIf="checkError('bldbnkName', 'maxlength')">
+                  Max 128 characters
+                </mat-error>
               </mat-form-field>
               <mat-form-field *ngIf="orgType == 'Blood Bank'">
                 <mat-label>Category</mat-label>
                 <mat-select formControlName="catgry" placeholder="Category">
                   <mat-option [value]="cat" *ngFor="
-                                                                                      let cat of categories;
-                                                                                      let i = index
-                                                                                    ">{{ cat }}
+                  let cat of categories;
+                  let i = index
+                ">{{ cat }}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="checkError('catgry', 'maxlength')">
+                  Category is required
+                </mat-error>
               </mat-form-field>
-
-
+              <mat-form-field *ngIf="orgType == 'Blood Bank'">
+                <mat-label>Registering Authority</mat-label>
+                <input type="text" matInput placeholder="Registering Authority" formControlName="regAuthority" />
+                <mat-error *ngIf="checkError('regAuthority', 'required')">
+                  Registering Authority is required
+                </mat-error>
+                <mat-error *ngIf="checkError('regAuthority', 'maxlength')">
+                  Max 128 characters
+                </mat-error>
+              </mat-form-field>
               <mat-form-field *ngIf="orgType === 'Multiple Services'">
                 <mat-label>Company Name</mat-label>
                 <input type="text" matInput placeholder="Company Name" formControlName="compName" />
+                <mat-error *ngIf="checkError('compName', 'required')">
+                  Company Name is required
+                </mat-error>
+                <mat-error *ngIf="checkError('compName', 'maxlength')">
+                  Max 128 characters
+                </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Contact Number</mat-label>
                 <input matInput placeholder="Contact Number" formControlName="contact" />
+                <mat-error *ngIf="checkError('contact', 'pattern')">
+                  {{'Enter Valid Contact Number'}}
+                </mat-error>
+                <mat-error *ngIf="checkError('contact', 'required')">
+                  Contact Number is required
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field *ngIf="orgType == 'Blood Bank'">
                 <mat-label>License Number</mat-label>
                 <input type="text" matInput placeholder="License Number" formControlName="licnsNmbr" />
+                <mat-error *ngIf="checkError('licnsNmbr', 'pattern')">
+                  {{'Pattern should be numbers,characters,/_'}}
+                </mat-error>
+                <mat-error *ngIf="checkError('licnsNmbr', 'required')">
+                  License Number is required
+                </mat-error>
+                <mat-error *ngIf="checkError('licnsNmbr', 'maxlength')">
+                  max 25 characters
+                </mat-error>
               </mat-form-field>
               <mat-form-field *ngIf="orgType == 'Blood Bank'">
                 <mat-label>License Valid Till</mat-label>
-                <input matInput placeholder="License Valid Till" formControlName="licnsValid" />
+                <input matInput [min]="currentDate" [matDatepicker]="picker" placeholder="License Valid Till" formControlName="licnsValid">
+                <mat-hint>MM-DD-YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
               <mat-form-field *ngIf="orgType === 'Multiple Services'">
                 <mat-label>Registration Number</mat-label>
@@ -93,30 +139,51 @@
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Registration Year</mat-label>
-                <input matInput placeholder="Registration Year" formControlName="regYear" />
+                <input matInput [max]="currentDate" [matDatepicker]="picker" placeholder="Registration Year" formControlName="regYear">
+                <mat-hint>MM-DD-YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
 
               <mat-form-field>
                 <mat-label>Email Address</mat-label>
                 <input type="text" matInput placeholder="Email Address" formControlName="email" />
+                <mat-error *ngIf="checkError('email', 'pattern')">
+                  {{'Invalid Email'}}
+                </mat-error>
+                <mat-error *ngIf="checkError('email', 'required')">
+                  Email is required
+                </mat-error>
+                <mat-error *ngIf="checkError('email', 'maxlength')">
+                  max 64 characters
+                </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Website (Optional)</mat-label>
                 <input matInput placeholder="Website (Optional)" formControlName="web" />
+                <mat-error *ngIf="checkError('web', 'maxlength')">
+                  max 64 characters
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field>
                 <mat-label>Name Of Point Of Contact</mat-label>
                 <input type="text" matInput placeholder="Name Of Point Of Contact" formControlName="namePointCont" />
+                <mat-error *ngIf="checkError('namePointCont', 'maxlength')">
+                  max 128 characters
+                </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Designation Of Point Of Contact</mat-label>
                 <input matInput placeholder="Designation Of Point Of Contact" formControlName="designPointCont" />
+                <mat-error *ngIf="checkError('designPointCont', 'maxlength')">
+                  max 128 characters
+                </mat-error>
               </mat-form-field>
               <div *ngIf="orgType !== 'Multiple Services'" class="d-flex align-items-center" style="width: 520px;  ">
                 <div>
                   <p>Component Facility</p>
-                  <mat-radio-group class="radioTitle" formControlName="comFacility">
+                  <mat-radio-group class="radioTitle" formControlName="compFacility">
                     <mat-radio-button value="yes" class="radioButton">Yes</mat-radio-button>
                     <mat-radio-button value="no">No</mat-radio-button>
                   </mat-radio-group>
@@ -142,34 +209,66 @@
               <mat-form-field>
                 <mat-label>Addresss Line 1</mat-label>
                 <input type="text" matInput placeholder="Addresss Line 1" formControlName="addLine1" />
+                <mat-error *ngIf="checkError('addLine1', 'required')">
+                  Address is required
+                </mat-error>
+                <mat-error *ngIf="checkError('addLine1', 'maxlength')">
+                  max 128 characters
+                </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Address Line 2</mat-label>
                 <input matInput placeholder="Address Line 2" formControlName="addLine2" />
+                <mat-error *ngIf="checkError('addLine2', 'maxlength')">
+                  max 128 characters
+                </mat-error>
               </mat-form-field>
 
 
               <mat-form-field>
                 <mat-label>City</mat-label>
                 <input type="text" matInput placeholder="City" formControlName="city" />
+                <mat-error *ngIf="checkError('city', 'maxlength')">
+                  {{'Max 64 characters'}}
+                </mat-error>
+                <mat-error *ngIf="checkError('city', 'required')">
+                  Contact Number is required
+                </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <mat-label>District</mat-label>
                 <input matInput placeholder="District" formControlName="district" />
+                <mat-error *ngIf="checkError('district', 'required')">
+                  District is required
+                </mat-error>
+                <mat-error *ngIf="checkError('district', 'maxlength')">
+                  Max 64 characters
+                </mat-error>
               </mat-form-field>
-
 
               <mat-form-field>
                 <mat-label>State</mat-label>
-                <mat-select formControlName="State">
+                <mat-select formControlName="state">
                   <mat-option [value]="state" *ngFor="let state of states; let i = index">{{ state }}
                   </mat-option>
+                  <mat-error *ngIf="checkError('state', 'required')">
+                    District is required
+                  </mat-error>
                 </mat-select>
 
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Pincode</mat-label>
                 <input matInput placeholder="Pincode" formControlName="pinCode" />
+                <mat-error *ngIf="checkError('pinCode', 'required')">
+                  Pincode is required
+                </mat-error>
+                <mat-error *ngIf="checkError('pinCode', 'maxlength')">
+                  Max 6 digits
+                </mat-error>
+                <mat-error *ngIf="checkError('pinCode', 'pattern')">
+                  Invalid Pincode only Numbers accepted
+                </mat-error>
               </mat-form-field>
 
             </div>
@@ -208,7 +307,7 @@
               </div>
               <div class="d-flex justify-content-end mt-3">
                 <button mat-button type="button" (click)="previousStep()" style="margin-right: 1rem;" mat-raised-button class="outlineButtons">Previous</button>
-                <button mat-raised-button class="smallButtons" [disabled]="!organizationForm.valid && organizationFiles.length <= 0" (click)="onSubmit()" type="submit">
+                <button mat-raised-button class="smallButtons" [disabled]="!organizationForm.valid" (click)="onSubmit()" type="submit">
                   Submit
                 </button>
               </div>

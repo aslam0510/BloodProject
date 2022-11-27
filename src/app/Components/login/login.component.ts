@@ -6,6 +6,7 @@ import { AuthService } from './../../services/auth.service';
 import {
   Component,
   Injectable,
+  OnDestroy,
   OnInit,
   Pipe,
   PipeTransform,
@@ -30,7 +31,7 @@ import { TimerService } from 'src/app/services/timer.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginSuccess$: Observable<any>;
   loginSub: Subscription;
   loginSuccess: any;
@@ -161,7 +162,6 @@ export class LoginComponent implements OnInit {
               } else {
                 this.counter--;
               }
-
               console.log('counter', this.counter);
             });
           this.loginErrors = [];
@@ -369,7 +369,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  ngDestroy() {
+  ngOnDestroy() {
     this.loginSub.unsubscribe();
     this.showOtp = false;
     this.showPhnNumber = false;

@@ -1,3 +1,4 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
@@ -87,6 +88,7 @@ export class DashboardComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
+  entityForm: FormGroup;
   today: any;
   showDate = '';
   entities$: Observable<any>;
@@ -124,6 +126,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.entityForm = new FormGroup({
+      entities: new FormControl(''),
+    });
     this.userDetailsSub = this.userDetails$.subscribe((response) => {
       if (response) {
         this.userDetails = response.data;
@@ -137,6 +142,7 @@ export class DashboardComponent implements OnInit {
     this.route.queryParamMap.subscribe((param) => {
       this.showSideBar = param.get('display');
       this.routerUrl = +param.get('id');
+      this.entityForm.get('entities').setValue(this.routerUrl);
     });
 
     this.today = moment();

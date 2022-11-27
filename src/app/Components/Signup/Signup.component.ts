@@ -26,6 +26,8 @@ import { OrgFormField, OrgFormModel } from './../../models/orgFormModel';
 import { MatDialog } from '@angular/material/dialog';
 import { AppDialogComponent } from './../../Dialogs/appDialog/appDialog.component';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Moment } from 'moment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-Signup',
@@ -56,6 +58,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   entityCategories: any;
   isEditable = false;
   entityCategoriesSub: Subscription;
+  currentDate;
   states = [
     'Arunachal Pradesh',
     'Assam',
@@ -129,6 +132,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.currentDate = new Date();
     this.categoryDetailsSub = this.categoryDetails$.subscribe((data) => {
       if (data) {
         this.categoryDetails = data.data.fields;
@@ -143,25 +147,45 @@ export class SignupComponent implements OnInit, OnDestroy {
         )[0].values;
       }
     });
+
     // ORGANIZATION FORM
     this.organizationForm = new FormGroup({
       categoryName: new FormControl('', [Validators.required]),
       catgry: new FormControl('', [Validators.required]),
-      prnthsptlName: new FormControl('', [Validators.required]),
-      bldbnkName: new FormControl('', [Validators.required]),
-      compName: new FormControl('', [Validators.required]),
-      typeOfEntity: new FormControl('', [Validators.required]),
-      regNumber: new FormControl('', [Validators.required]),
-      addLine1: new FormControl('', [Validators.required]),
+      prnthsptlName: new FormControl('', [Validators.maxLength(128)]),
+      bldbnkName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(128),
+      ]),
+      regAuthority: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(128),
+      ]),
+      addLine1: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(128),
+      ]),
       licnsValid: new FormControl('', [Validators.required]),
-      licnsNmbr: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
+      licnsNmbr: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9]+/_'),
+        Validators.maxLength(25),
+      ]),
+      city: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(64),
+      ]),
       state: new FormControl('', [Validators.required]),
-      pinCode: new FormControl('', [Validators.required]),
+      pinCode: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(6),
+        Validators.pattern('^[0-9]*$'),
+      ]),
       regYear: new FormControl('', [Validators.required]),
-      district: new FormControl('', [Validators.required]),
-      addLine2: new FormControl(''),
+      district: new FormControl('', [Validators.maxLength(64)]),
+      addLine2: new FormControl('', [Validators.maxLength(128)]),
       email: new FormControl('', [
+        Validators.maxLength(64),
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
       ]),
@@ -169,12 +193,12 @@ export class SignupComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
       ]),
-      namePointCont: new FormControl(''),
-      designPointCont: new FormControl(''),
-      web: new FormControl('', [Validators.required]),
+      namePointCont: new FormControl('', [Validators.maxLength(128)]),
+      designPointCont: new FormControl('', [Validators.maxLength(128)]),
+      web: new FormControl('', [Validators.maxLength(64)]),
       compFacility: new FormControl('', [Validators.required]),
       apFacility: new FormControl('', [Validators.required]),
-      googleMapCrd: new FormControl('', [Validators.required]),
+      googleMapCrd: new FormControl(''),
     });
 
     this.orgCateogoriesSub = this.orgCategories$.subscribe((data) => {
@@ -222,6 +246,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       return Validators.required;
     }
   }
+
   addNewEntity() {
     if (!this.organizationForm.valid) {
       let entity = this.NewEntity;
@@ -287,11 +312,19 @@ export class SignupComponent implements OnInit, OnDestroy {
   //SUBMITING THE FORM
   onSubmit() {
     const formValues = this.organizationForm.value;
-
     let formData = new FormData();
+
     Object.keys(this.organizationForm.controls).forEach((key) => {
       if (key !== 'docs' && key !== 'organizationType') {
         formData.append(key, formValues[key]);
+      }
+      if (key === 'licnsValid') {
+        const date = moment(formValues.licnsValid).format('MM-DD-YYYY');
+        formData.append(key, date);
+      }
+      if (key === 'regYear') {
+        const date = moment(formValues.regYear).format('MM-DD-YYYY');
+        formData.append(key, date);
       }
     });
     for (var i = 0; i < this.organizationFiles.length; i++) {
@@ -321,6 +354,23 @@ export class SignupComponent implements OnInit, OnDestroy {
   onOrgTypSelect(category) {
     this.callAPi = false;
     this.orgType = category;
+
+    if (category == 'Blood Bank') {
+    } else if (category == 'Multiple Services') {
+      this.organizationForm.addControl(
+        'typeOfEntity',
+        new FormControl('', [Validators.required])
+      );
+      this.organizationForm.addControl(
+        'compName',
+        new FormControl('', [Validators.required, Validators.maxLength(128)])
+      );
+      this.organizationForm.addControl(
+        'regNumber',
+        new FormControl('', [Validators.required])
+      );
+    }
+
     if (category) {
       this.store.dispatch(new AuthAction.GetCategory(category));
     }
@@ -341,4 +391,13 @@ export class SignupComponent implements OnInit, OnDestroy {
   navigate() {
     this.router.navigate(['/dashboard']);
   }
+
+  public checkError = (controlName: string, errorName: string) => {
+    return this.organizationForm.controls[controlName].hasError(errorName);
+  };
+
+  // myDateFilter = (m: Moment | null): boolean => {
+  //   const year = (m || moment()).year();
+  //   return year >= this.currentYear - 1;
+  // };
 }

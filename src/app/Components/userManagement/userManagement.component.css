@@ -49,6 +49,14 @@ th {
   border-radius: 20px;
   height: 32px;
 }
+
+.entity{
+    border: 1px solid lightgray;
+      border-radius: 20px;
+      height: 32px;
+padding-bottom: 5px;
+  margin-right: 1rem;
+}
 tr:nth-child(even) {
   background-color: #fafafa !important;
 }

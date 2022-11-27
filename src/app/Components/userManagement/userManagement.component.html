@@ -4,19 +4,22 @@
     <mat-tab label="User Management">
       <div class="my-3 px-3 d-flex justify-content-between align-items-center">
         <button mat-raised-button class="smallButton text-white" (click)="onAddUser()">Add New User</button>
-        <div class="border  d-flex justify-content-around align-items-center">
-          <mat-form-field appearance="none" class="entity" *ngIf="userRole === 'Organization Admin'">
-            <mat-select placeholder="{{ 'Entities' }}" (selectionChange)="onEntity($event)" class="entities">
+        <div class="flex-grow-1"></div>
+        <div class="entity ">
+          <mat-form-field appearance="none" *ngIf="userRole === 'Organization Admin'">
+            <mat-select placeholder="{{ 'Entities' }}" class="field " (selectionChange)="onEntity($event)" class="entities">
               <mat-option [value]="organizationDetails?.orgId">{{organizationDetails?.categoryName}}</mat-option>
-                <ng-container *ngFor="let entity of entities">
-                  <mat-option [value]="entity.id" *ngIf="entity.apsts !== 0 ">
-                    {{ entity.bldbnkName }}
-                    <mat-divider></mat-divider>
-                  </mat-option>
-                </ng-container>
+              <ng-container *ngFor="let entity of entities">
+                <mat-option [value]="entity.id" *ngIf="entity.apsts !== 0 ">
+                  {{ entity.bldbnkName }}
+                  <mat-divider></mat-divider>
+                </mat-option>
+              </ng-container>
             </mat-select>
           </mat-form-field>
-          <mat-icon style="padding-left: 0.5rem;">search</mat-icon>
+        </div>
+        <div class="border ml-1 d-flex justify-content-around align-items-center">
+          <mat-icon style="padding-left: 0.5rem; ">search</mat-icon>
           <mat-form-field appearance="none" class="field ">
             <input type="text" class="pt-1 pl-2" matInput placeholder="Search User" (keyup)="filterData($event)" />
           </mat-form-field>

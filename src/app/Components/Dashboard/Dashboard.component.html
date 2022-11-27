@@ -1,22 +1,11 @@
 <div class="row page">
   <div class="col-lg-3 sidenavs col-md-6">
     <div class="logo">
-      <img
-        src="/assets/Images/logo.svg"
-        alt="JioLogo"
-        width="140px"
-        height="100px"
-      />
+      <img src="/assets/Images/logo.svg" alt="JioLogo" width="140px" height="100px" />
     </div>
     <div class="menus" *ngIf="showSideBar !== 'hide'">
-      <div
-        *ngFor="let menu of sideMenus"
-        class="d-flex align-items-center menuItem"
-        routerLinkActive="active-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-        [ngClass]="showSideBar === 'hide' ? 'hide' : ''"
-        (click)="onMenu(menu.route)"
-      >
+      <div *ngFor="let menu of sideMenus" class="d-flex align-items-center menuItem" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+        [ngClass]="showSideBar === 'hide' ? 'hide' : ''" (click)="onMenu(menu.route)">
         <img [src]="menu.icon" alt="" width="30px" style="margin-right: 1rem" />
         <h5 class="menu m-0">{{ menu.menu }}</h5>
       </div>
@@ -24,110 +13,60 @@
   </div>
   <div class="col-lg-9 col-md-6 headers m-0 p-0">
     <div class="header d-flex align-items-center justify-content-between">
-      <div [hidden]="showSideBar === 'hide'" >
-        <button
-          mat-raised-button
-          class="headerbuton"
-          (click)="onBroadCaseMsg($event)"
-          [ngClass]="showSideBar === 'hide' ? 'hide' : ''"
-        >
+      <div [hidden]="showSideBar === 'hide'">
+        <button mat-raised-button class="headerbuton" (click)="onBroadCaseMsg($event)" [ngClass]="showSideBar === 'hide' ? 'hide' : ''">
           Broadcast Message
         </button>
-        <button
-          mat-raised-button
-          class="headerbuton"
-          (click)="onAddBloodReq()"
-          [ngClass]="showSideBar === 'hide' ? 'hide' : ''"
-        >
+        <button mat-raised-button class="headerbuton" (click)="onAddBloodReq()" [ngClass]="showSideBar === 'hide' ? 'hide' : ''">
           Add Blood Request
         </button>
       </div>
       <div class="d-flex align-items-center mt-3">
-        <mat-form-field appearance="none" class="entity" *ngIf="showSideBar !== 'hide' && userDetails?.role == 'Organization Admin'">
-          <mat-select
-            placeholder="{{ 'Entities' }}"
-            (selectionChange)="onEntity($event)"
-            class="entities"
-          >
-          <ng-container *ngFor="let entity of entities">
-            <mat-option [value]="entity.id"  *ngIf="entity.apsts !== 0 ">
-              {{ entity.bldbnkName }}
-              <mat-divider></mat-divider>
-            </mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
-        <button *ngIf="showSideBar !== 'hide'"
-          mat-icon-button
-          class="headerIcons"
-          [matMenuTriggerFor]="notiMenu"
-        >
+        <form [formGroup]="entityForm">
+          <mat-form-field appearance="none" class="entity" *ngIf="showSideBar !== 'hide' && userDetails?.role == 'Organization Admin'">
+            <mat-select placeholder="{{ 'Entities' }}" (selectionChange)="onEntity($event)" class="entities" formControlName="entities">
+              <ng-container *ngFor="let entity of entities">
+                <mat-option [value]="entity.id" *ngIf="entity.apsts !== 0 ">
+                  {{ entity.bldbnkName }}
+                  <mat-divider></mat-divider>
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        <button *ngIf="showSideBar !== 'hide'" mat-icon-button class="headerIcons" [matMenuTriggerFor]="notiMenu">
           <img src="/assets/Images/NOTIFICATION.svg" alt="" />
         </button>
-        <mat-menu
-          #notiMenu="matMenu"
-          xPosition="before"
-          class="matmenu"
-          (click)="$event.stopPropagation()   "     >
+        <mat-menu #notiMenu="matMenu" xPosition="before" class="matmenu" (click)="$event.stopPropagation()   ">
           <div class="d-flex justify-content-between align-items-center">
             <h3 class="noti m-0" (click)="$event.stopPropagation()">
               Notification
             </h3>
 
-            <mat-form-field
-              class="date"
-              class="matForm"
-              appearance="none"
-              *ngIf="!showDate"
-            >
-              <input
-                #dates
-                matInput
-                [matDatepicker]="datepicker"
-                (dateChange)="orgValueChange(dates.value)"
-                style="margin-right: 2rem"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="datepicker"
-              ></mat-datepicker-toggle>
+            <mat-form-field class="date" class="matForm" appearance="none" *ngIf="!showDate">
+              <input #dates matInput [matDatepicker]="datepicker" (dateChange)="orgValueChange(dates.value)" style="margin-right: 2rem" />
+              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
               <mat-datepicker #datepicker> </mat-datepicker>
             </mat-form-field>
-            <div
-              *ngIf="showDate"
-              class="d-flex align-items-center justify-content-around"
-            >
+            <div *ngIf="showDate" class="d-flex align-items-center justify-content-around">
               <p>{{ showDate }}</p>
-              <mat-icon
-                (click)="onRemoveBloodComDate($event)"
-                style="
+              <mat-icon (click)="onRemoveBloodComDate($event)" style="
                   cursor: pointer;
                   margin-left: 0.5rem;
                   margin-bottom: 0.5rem;
-                "
-                >close</mat-icon
-              >
+                ">close</mat-icon>
             </div>
           </div>
 
           <mat-divider></mat-divider>
           <div style="max-height: 300px; overflow-y: auto">
             <!-- <h3 *ngIf="activityDetails.length ==0" style="font-weight: bold; text-align: center;">No Data Available</h3> -->
-            <div
-              class="py-2 d-flex justify-content-between align-items-center borders"
-              *ngFor="let activity of activityDetails"
-            >
-              <img
-                src="/assets/Images/noti.svg"
-                alt=""
-                height="35px"
-                width="45px"
-                style="
+            <div class="py-2 d-flex justify-content-between align-items-center borders" *ngFor="let activity of activityDetails">
+              <img src="/assets/Images/noti.svg" alt="" height="35px" width="45px" style="
                   background-color: #fbd1d8;
                   padding: 5px;
                   border-radius: 5px;
-                "
-              />
+                " />
               <div class="flex">
                 <p class="m-0">{{ activity?.activity }}</p>
                 <span class="m-0">{{ activity?.crtdt | date }}</span>
@@ -137,30 +76,24 @@
         </mat-menu>
         <div class="line" *ngIf="showSideBar !== 'hide'"></div>
         <div [ngClass]="showSideBar === 'hide' && routerUrl == 0 ? 'hidden' : 'hiden'">
-        <button
-         
-          mat-icon-button
-          class="mb-2 headerIcons"
-          [matMenuTriggerFor]="beforeMenu"
-          aria-label="Example icon-button with a menu"
-        >
-          <img src="/assets/Images/USERPROFILE.svg" alt="" />
-        </button>
-        <mat-menu #beforeMenu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="onProfile()" >
-            <mat-icon>person_outline</mat-icon>
-            <span>Profile</span>
+          <button mat-icon-button class="mb-2 headerIcons" [matMenuTriggerFor]="beforeMenu" aria-label="Example icon-button with a menu">
+            <img src="/assets/Images/USERPROFILE.svg" alt="" />
           </button>
-          <button mat-menu-item (click)="onOrgsetting()" >
-            <mat-icon>settings</mat-icon>
-            <span>Organization Setting</span>
-          </button>
-          <button mat-menu-item (click)="onLogOut()">
-            <mat-icon>power_settings_new</mat-icon>
-            <span>Logout</span>
-          </button>
-        </mat-menu>
-        <h3 class="pt-1">Welcome</h3>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="onProfile()">
+              <mat-icon>person_outline</mat-icon>
+              <span>Profile</span>
+            </button>
+            <button mat-menu-item (click)="onOrgsetting()">
+              <mat-icon>settings</mat-icon>
+              <span>Organization Setting</span>
+            </button>
+            <button mat-menu-item (click)="onLogOut()">
+              <mat-icon>power_settings_new</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+          <h3 class="pt-1">Welcome</h3>
         </div>
       </div>
     </div>

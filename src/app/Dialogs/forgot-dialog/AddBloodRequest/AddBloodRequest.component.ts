@@ -8,6 +8,7 @@ import * as SideNavAction from '../../../store/Actions/sideNavAction';
 import * as DashboardActions from '../../../store/Actions/dashboardActions';
 import { Observable, Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as moment from 'moment';
 @Component({
   selector: 'app-AddBloodRequest',
   templateUrl: './AddBloodRequest.component.html',
@@ -188,14 +189,22 @@ export class AddBloodRequestComponent implements OnInit, OnDestroy {
         if (key === 'priority') {
           const val = formValues.priority ? 1 : 2;
           formData.append(key, val.toString());
+        } else if (key === 'reqDate') {
+          const date = moment(formValues.reqDate).format('MM-DD-YYYY');
+          formData.append(key, date);
         } else {
           formData.append(key, formValues[key]);
         }
       });
+
       formData.append('bldReqType', bldReqType);
-      bloodComp.forEach((bldCom) => {
-        formData.append('bldComponent', bldCom);
-      });
+      console.log(bloodComp);
+      if (bloodComp.length > 1) {
+        formData.append('bldComponent', JSON.stringify(bloodComp));
+      } else if (bloodComp.length == 1) {
+        formData.append('bldComponent', bloodComp.toString());
+      }
+
       reqUnits.forEach((unit) => {
         formData.append('requiredUnit', unit);
       });
