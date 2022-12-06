@@ -395,8 +395,5 @@ export class OrgSettingsComponent implements OnInit {
     this.entitySub.unsubscribe();
     this.updateOrgInfoSub.unsubscribe();
     this.organizationDetailsSub.unsubscribe();
-    this.entityDetailsSub.unsubscribe();
-    this.updateOrgInfoSub.unsubscribe();
-    this.entityDetailsSub.unsubscribe();
   }
 }
