@@ -34,7 +34,7 @@ export class DashboardCardsComponent implements OnInit, OnDestroy {
   }
 
   onEntity(entity) {
-    this.router.navigate(['/dashboard'], {
+    this.router.navigate(['/dashboard/allMessages'], {
       queryParams: { display: 'show', id: entity.id },
     });
   }

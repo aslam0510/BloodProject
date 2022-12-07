@@ -352,7 +352,7 @@ export class OrgSettingsComponent implements OnInit {
       );
     }
     this.cancel();
-    this.router.navigate(['/dashboard'], {
+    this.router.navigate(['/dashboard/allMessages'], {
       queryParams: { id: this.routerUrl },
     });
   }
@@ -373,6 +373,7 @@ export class OrgSettingsComponent implements OnInit {
           this.entityDocs.push(event.target.files[i]);
         } else {
           this.orgUploadDocuments.push(event.target.files[i]);
+          console.log(this.orgUploadDocuments);
         }
       } else {
         this.acceptOnlyPDF = 'Accept only PDF File';

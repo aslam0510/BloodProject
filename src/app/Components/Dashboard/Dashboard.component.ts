@@ -23,21 +23,21 @@ import * as moment from 'moment';
 export class DashboardComponent implements OnInit {
   currentRouter = '';
   sideMenus = [
-    {
-      menu: 'Dashboard',
-      icon: '/assets/Images/dashboardactive.svg',
-      route: '/dashboard',
-    },
-    {
-      menu: 'Blood Availability',
-      icon: '/assets/Images/Bloodavailability.svg',
-      route: '/dashboard/bloodAvailability',
-    },
-    {
-      menu: 'Blood Request',
-      icon: '/assets/Images/Bloodrequest.svg',
-      route: '/dashboard/bloodRequest',
-    },
+    // {
+    //   menu: 'Dashboard',
+    //   icon: '/assets/Images/dashboardactive.svg',
+    //   route: '/dashboard',
+    // },
+    // {
+    //   menu: 'Blood Availability',
+    //   icon: '/assets/Images/Bloodavailability.svg',
+    //   route: '/dashboard/bloodAvailability',
+    // },
+    // {
+    //   menu: 'Blood Request',
+    //   icon: '/assets/Images/Bloodrequest.svg',
+    //   route: '/dashboard/bloodRequest',
+    // },
     {
       menu: 'Messages',
       icon: '/assets/Images/Allmessages.svg',

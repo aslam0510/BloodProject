@@ -52,7 +52,7 @@ export class SetPasswordDialogComponent implements OnInit {
             duration: 3000,
           });
           this.dialogRef.close();
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/allMessages']);
         } else {
           this.snackBar.open(this.setPasswordSuccess.msg, 'ok', {
             duration: 3000,

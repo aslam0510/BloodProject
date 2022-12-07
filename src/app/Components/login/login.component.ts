@@ -215,7 +215,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (this.userDetail.role === 'Organization Admin') {
           this.store.dispatch(new AuthAction.loginOrgDetails());
         } else if (this.userDetail.role === 'Entity Admin') {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/allMessages']);
         }
       }
     });
@@ -228,7 +228,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.store.dispatch(new AuthAction.LoginEntitiesDetails(''));
         } else {
           //add data
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/allMessages']);
         }
       }
     });
@@ -237,7 +237,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (data) {
         this.entities = data.data.details;
         if (this.entities.length === 1) {
-          this.router.navigate(['/dashboard'], {
+          this.router.navigate(['/dashboard/allMessages'], {
             queryParams: {
               id: this.entities[0].id,
             },
@@ -373,13 +373,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginSub.unsubscribe();
     this.showOtp = false;
     this.showPhnNumber = false;
-    this.verifyOTPSuccessSub.unsubscribe();
-    this.entitiesSub.unsubscribe();
-    this.userDetailSub.unsubscribe();
-    this.orgDetailsSub.unsubscribe();
-    this.domianSub.unsubscribe();
-    this.countDown.unsubscribe();
-    this.store.dispatch(new AuthAction.ClearVerifyOtp());
-    this.store.dispatch(new DashboardActions.ClearEntities());
+    // this.verifyOTPSuccessSub.unsubscribe();
+    // this.entitiesSub.unsubscribe();
+    // this.userDetailSub.unsubscribe();
+    // this.orgDetailsSub.unsubscribe();
+    // this.domianSub.unsubscribe();
+    // this.countDown.unsubscribe();
+    // this.store.dispatch(new AuthAction.ClearVerifyOtp());
+    // this.store.dispatch(new DashboardActions.ClearEntities());
   }
 }

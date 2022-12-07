@@ -252,7 +252,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     localStorage.removeItem('orgForm');
   }
   navigate() {
-    this.router.navigate(['/dashboard'], {
+    this.router.navigate(['/dashboard/allMessages'], {
       queryParams: { id: this.routerUrl },
     });
   }
