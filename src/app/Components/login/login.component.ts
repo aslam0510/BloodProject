@@ -212,6 +212,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.userDetailSub = this.userDetails$.subscribe((data) => {
       if (data) {
         this.userDetail = data.data;
+        localStorage.setItem('userRole', this.userDetail.role);
         if (this.userDetail.role === 'Organization Admin') {
           this.store.dispatch(new AuthAction.loginOrgDetails());
         } else if (this.userDetail.role === 'Entity Admin') {
@@ -246,6 +247,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate(['/dashboard/dashboardCards'], {
             queryParams: { display: 'hide' },
           });
+          this.countDown.unsubscribe();
         }
       }
     });
@@ -378,7 +380,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     // this.userDetailSub.unsubscribe();
     // this.orgDetailsSub.unsubscribe();
     // this.domianSub.unsubscribe();
-    // this.countDown.unsubscribe();
+    this.countDown.unsubscribe();
     // this.store.dispatch(new AuthAction.ClearVerifyOtp());
     // this.store.dispatch(new DashboardActions.ClearEntities());
   }

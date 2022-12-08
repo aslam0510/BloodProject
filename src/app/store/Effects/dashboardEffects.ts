@@ -120,12 +120,9 @@ export class DashboardEffect {
       ofType(dashboardActions.UPDATE_ENTITY_INFO),
       map((data: any) => data.payload),
       exhaustMap((payload) => {
-        console.log(payload);
+        const id = payload.id ? `/${payload.id}` : '';
         return this.http
-          .put(
-            api.getAPI('UPDATE_ENTITY_INFO') + `?entId=${payload.entId}`,
-            payload
-          )
+          .put(api.getAPI('UPDATE_ENTITY_INFO') + id, payload.formData)
           .pipe(
             map((data) => new dashboardActions.UpdateEntityInfoSuccess(data))
           );

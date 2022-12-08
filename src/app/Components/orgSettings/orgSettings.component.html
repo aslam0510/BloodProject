@@ -14,7 +14,7 @@
       <div class="datas">
         <mat-list role="list" *ngFor="let entity of entities">
           <mat-list-item role="listitem" class="matList mb-1" (click)="onEntityInfo(entity)">
-            {{entity?.bldbnkName}} {{entity?.apsts == 1 ? 'Approved' : 'Pending'}}
+            {{entity?.bldbnkName}} {{userRole === 'Organization Admin' ? (entity?.apsts == 1 ? 'Approved' : 'Pending') : ''}}
             <mat-icon>keyboard_arrow_right</mat-icon>
           </mat-list-item>
         </mat-list>
@@ -80,23 +80,23 @@
                   <input type="text" matInput formControlName="desgContact" placeholder="Designation of point of Contact" />
                 </mat-form-field>
               </div>
-                <div class="d-flex justify-content-center align-items-center " style="width: 480px; margin-left: 1rem;">
-                  <div style="margin-right: 10rem;">
-                    <p>Component Facility</p>
-                    <mat-radio-group class="'radioTitle" formControlName="comFacility">
-                      <mat-radio-button value="yes" style="margin-right: 1rem;" class="radioButton">Yes</mat-radio-button>
-                      <mat-radio-button value="no">No</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                  <div>
-                    <p>Arphersis Facility</p>
-                    <mat-radio-group class="'radioTitle" formControlName="apFacility">
-                      <mat-radio-button value="yes" style="margin-right: 1rem;" class="radioButton">Yes</mat-radio-button>
-                      <mat-radio-button value="no">No</mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                
+              <div class="d-flex justify-content-center align-items-center " style="width: 480px; margin-left: 1rem;">
+                <div style="margin-right: 10rem;">
+                  <p>Component Facility</p>
+                  <mat-radio-group class="'radioTitle" formControlName="comFacility">
+                    <mat-radio-button value="yes" style="margin-right: 1rem;" class="radioButton">Yes</mat-radio-button>
+                    <mat-radio-button value="no">No</mat-radio-button>
+                  </mat-radio-group>
                 </div>
+                <div>
+                  <p>Arphersis Facility</p>
+                  <mat-radio-group class="'radioTitle" formControlName="apFacility">
+                    <mat-radio-button value="yes" style="margin-right: 1rem;" class="radioButton">Yes</mat-radio-button>
+                    <mat-radio-button value="no">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+              </div>
             </div>
           </div>
           <div class="mt-4">
@@ -141,8 +141,8 @@
               <mat-hint style="font-size: 10px;">Please upload in PDF format only and the size should be less than 2 </mat-hint>
             </div>
             <div class="mt-4">
-              <ng-container *ngFor="let file of orgUploadDocuments; let i = index">
-                <div class="files d-flex my-2 align-items-center" *ngIf="orgUploadDocuments.length > 0">
+              <ng-container *ngIf="orgUploadDocuments.length > 0">
+                <div class="files d-flex my-2 align-items-center" *ngFor="let file of orgUploadDocuments; let i = index">
                   <mat-icon class="icon pl-2 pr-4" color="accent">
                     insert_drive_file</mat-icon>
                   <div class="d-flex flex-column flex-grow-1">

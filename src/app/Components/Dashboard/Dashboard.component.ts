@@ -105,6 +105,7 @@ export class DashboardComponent implements OnInit {
   userDetails$: Observable<any>;
   userDetails: any;
   userDetailsSub: Subscription;
+  userRole = '';
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -126,6 +127,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userRole = localStorage.getItem('userRole');
+
     this.entityForm = new FormGroup({
       entities: new FormControl(''),
     });
@@ -135,7 +138,7 @@ export class DashboardComponent implements OnInit {
         localStorage.setItem('role', this.userDetails.role);
       }
     });
-    if (this.userDetails?.role == 'Organization Admin') {
+    if (localStorage.getItem('userRole') == 'Organization Admin') {
       this.store.dispatch(new DashboardActions.GetEntityDetails());
     }
 

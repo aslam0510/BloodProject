@@ -339,16 +339,40 @@ export class OrgSettingsComponent implements OnInit {
 
   save() {
     if (this.showOrg) {
+      let formData = new FormData();
       const orgFormValues = this.organizationForm.value;
-      this.store.dispatch(new DashboardAction.UpdateOrgInfo(orgFormValues));
+      Object.keys(this.organizationForm.controls).forEach((key) => {
+        if (key !== 'docs') {
+          formData.append(key, orgFormValues[key]);
+        }
+      });
+      for (var i = 0; i < this.orgUploadDocuments.length; i++) {
+        formData.append('docs', this.orgUploadDocuments[i]);
+      }
+      this.store.dispatch(new DashboardAction.UpdateOrgInfo(formData));
     }
     if (this.showEntity) {
+      let formData = new FormData();
       this.editForm.enable();
       const entityFormValue = this.entityDetailForm.value;
-      entityFormValue['docs'] = this.entityDocs;
-      entityFormValue['entId'] = this.entity.entId;
+      Object.keys(this.entityDetailForm.controls).forEach((key) => {
+        if (key !== 'docs') {
+          formData.append(key, entityFormValue[key]);
+        }
+      });
+      for (var i = 0; i < this.entityDocs.length; i++) {
+        formData.append('docs', this.entityDocs[i]);
+      }
+      // entityFormValue['docs'] = this.entityDocs;
+      // entityFormValue['entId'] = this.entity.entId;
       this.store.dispatch(
-        new DashboardAction.UpdateEntityInfo(entityFormValue)
+        new DashboardAction.UpdateEntityInfo({
+          id:
+            localStorage.getItem('userRole') === 'Organization Admin'
+              ? this.entity.entId
+              : '',
+          payload: formData,
+        })
       );
     }
     this.cancel();
@@ -361,19 +385,27 @@ export class OrgSettingsComponent implements OnInit {
     if (type === 'entity') {
       this.entityDocs = this.entityDocs.filter((x, i) => i !== index);
     } else {
-      this.orgUploadDocuments = this.entityDocs.filter((x, i) => i !== index);
+      this.orgUploadDocuments = this.orgUploadDocuments.filter(
+        (x, i) => i !== index
+      );
     }
   }
 
   onOrgFileUpload(event, type) {
+    let orgArray = [];
+    let entityArray = [];
     this.acceptOnlyPDF = '';
     for (var i = 0; i < event.target.files.length; i++) {
       if (event.target.files[i].type == 'application/pdf') {
         if (type === 'entity') {
-          this.entityDocs.push(event.target.files[i]);
+          const array = [];
+          array.push(event.target.files[i]);
+          this.entityDocs = this.entityDocs.concat(array);
         } else {
-          this.orgUploadDocuments.push(event.target.files[i]);
-          console.log(this.orgUploadDocuments);
+          console.log(event.target.files[i]);
+          const array = [];
+          array.push(event.target.files[i]);
+          this.orgUploadDocuments = this.orgUploadDocuments.concat(array);
         }
       } else {
         this.acceptOnlyPDF = 'Accept only PDF File';
