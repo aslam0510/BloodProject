@@ -159,6 +159,10 @@ mat-card {
 .hiden{
   display: flex;
 }
+
+.entities ::ng-deep.mat-select-value{
+  color: white !important;
+}
 /* ::ng-deep.mat-select-placeholder {
   color: white !important;
 }

@@ -19,6 +19,7 @@ export class AllBloodReqComponent implements OnInit {
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = [
     'Patient Name',
+    'Blood Request Id',
     'Blood Group',
     'Requirements',
     'Location',
